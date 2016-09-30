@@ -1,6 +1,12 @@
 package fr.cdiEnterprise.model;
 
-
+/**
+ * Cette classe représente une fiche entreprise qui sera renseignée par un utilisateur.
+ * 
+ * @author Anaïs
+ * @version 30-09-2016
+ *
+ */
 public class Company {
 
 	private String companyName;
@@ -9,7 +15,7 @@ public class Company {
 	private String city;
 	private int department;
 	private String region;
-	private String domaine;
+	private String sector;
 	private String webSite;
 	private Contact contact;
 
@@ -28,7 +34,7 @@ public class Company {
 	 * @param city
 	 * @param department
 	 * @param region
-	 * @param domaine
+	 * @param sector
 	 * @param webSite
 	 * @param contact
 	 */
@@ -41,7 +47,7 @@ public class Company {
 		this.city = city;
 		this.department = department;
 		this.region = region;
-		this.domaine = domaine;
+		this.sector = domaine;
 		this.webSite = webSite;
 		this.contact = contact;
 	}
@@ -140,7 +146,7 @@ public class Company {
 	 * @return the domaine
 	 */
 	private String getDomaine() {
-		return domaine;
+		return sector;
 	}
 
 	/**
@@ -148,7 +154,7 @@ public class Company {
 	 *            the domaine to set
 	 */
 	private void setDomaine(String domaine) {
-		this.domaine = domaine;
+		this.sector = domaine;
 	}
 
 	/**
@@ -189,7 +195,7 @@ public class Company {
 	@Override
 	public String toString() {
 		return "Entreprise [companyName=" + companyName + ", adress=" + adress + ", postalCode=" + postalCode
-				+ ", city=" + city + ", department=" + department + ", region=" + region + ", domaine=" + domaine
+				+ ", city=" + city + ", department=" + department + ", region=" + region + ", domaine=" + sector
 				+ ", webSite=" + webSite + ", contact=" + contact + "]";
 	}
 

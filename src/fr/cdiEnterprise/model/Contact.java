@@ -1,5 +1,13 @@
 package fr.cdiEnterprise.model;
 
+/**
+* Cette classe représente un contact qui sera renseigné par un utilisateur et affiché dans la fiche entreprise.
+* 
+* @author Anaïs
+* @version 30-09-2016
+*
+*/
+
 public class Contact {
 
 	private String lastName;
