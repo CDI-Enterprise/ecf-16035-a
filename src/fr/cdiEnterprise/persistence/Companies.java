@@ -10,7 +10,7 @@ import fr.cdiEnterprise.model.Company;
  * @version 30-09-2016
  *
  */
-public class Companies {
+public class Companies  {
 	
 	private Company company;
 	private ArrayList<Company> listeCompanies;
