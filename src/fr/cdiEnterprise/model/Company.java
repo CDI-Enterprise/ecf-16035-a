@@ -1,5 +1,6 @@
 package fr.cdiEnterprise.model;
 
+
 public class Company {
 
 	private String companyName;
@@ -12,144 +13,189 @@ public class Company {
 	private String webSite;
 	private Contact contact;
 
-
-
-
-	//Constructeur par défaut
 	/**
 	 * Constructeur par défaut, ne prend pas de paramètres
 	 */
-	public Company(){
-
+	public Company() {
 	}
-			
-	//		//Constructeur
-	//		/**
-	//		 * Constructeur avec les attributs
-	//		 * @param id
-	//		 * @param civilite
-	//		 * @param nom
-	//		 * @param prenom
-	//		 * @param eMail
-	//		 * @param telFixe
-	//		 * @param telPortable
-	//		 * @param login
-	//		 * @param inscription
-	//		 */
-	//		public User(int id, String civilite, String nom, String prenom, String eMail, String telFixe, String telPortable, 
-	//			 String login, Date inscription){
-	//		 this.setId(id); 
-	//		 this.setCivilite (civilite); 
-	//		 this.setNom(nom);
-	//		 this.setPrenom(prenom); 
-	//		 this.setEMail(eMail); 
-	//		 this.setTelFixe(telFixe);
-	//		 this.setTelPortable(telPortable);
-	//		 this.setLogin(login);
-	//		 this.setPw(pw);
-	//		 this.setInscription(inscription);
-	//	 }
-	//
-	//
-	//		
-	//		//Constructeur pour copie
-	//		/**
-	//		 * Constructeur par copie de données
-	//		 * @param user
-	//		 */
-	//		public User (User user){
-	//			this.id=user.id; 
-	//			this.civilite=user.civilite; 
-	//			this.nom=user.nom;
-	//			this.prenom=user.prenom; 
-	//			this.eMail=user.eMail; 
-	//			this.telFixe= user.telFixe;
-	//			this.telPortable=user.telPortable;
-	//			this.login=user.login;
-	//			this.pw=user.pw;
-	//			this.inscription=user.inscription;
-	//		}
-	//		
-	//		// set ==> Ecriture
-	//		
-	//		
 
+	/**
+	 * Constructeur avec attributs
+	 * 
+	 * @param companyName
+	 * @param adress
+	 * @param postalCode
+	 * @param city
+	 * @param department
+	 * @param region
+	 * @param domaine
+	 * @param webSite
+	 * @param contact
+	 */
+	public Company(String companyName, String adress, String postalCode, String city, int department, String region,
+			String domaine, String webSite, Contact contact) {
+
+		this.companyName = companyName;
+		this.adress = adress;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.department = department;
+		this.region = region;
+		this.domaine = domaine;
+		this.webSite = webSite;
+		this.contact = contact;
+	}
+
+	/**
+	 * @return the companyName
+	 */
 	private String getCompanyName() {
 		return companyName;
 	}
 
+	/**
+	 * @param companyName
+	 *            the companyName to set
+	 */
 	private void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
 
+	/**
+	 * @return the adress
+	 */
 	private String getAdress() {
 		return adress;
 	}
 
+	/**
+	 * @param adress
+	 *            the adress to set
+	 */
 	private void setAdress(String adress) {
 		this.adress = adress;
 	}
 
+	/**
+	 * @return the postalCode
+	 */
 	private String getPostalCode() {
 		return postalCode;
 	}
 
+	/**
+	 * @param postalCode
+	 *            the postalCode to set
+	 */
 	private void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
 
+	/**
+	 * @return the city
+	 */
 	private String getCity() {
 		return city;
 	}
 
+	/**
+	 * @param city
+	 *            the city to set
+	 */
 	private void setCity(String city) {
 		this.city = city;
 	}
 
+	/**
+	 * @return the department
+	 */
 	private int getDepartment() {
 		return department;
 	}
 
+	/**
+	 * @param department
+	 *            the department to set
+	 */
 	private void setDepartment(int department) {
 		this.department = department;
 	}
 
+	/**
+	 * @return the region
+	 */
 	private String getRegion() {
 		return region;
 	}
 
+	/**
+	 * @param region
+	 *            the region to set
+	 */
 	private void setRegion(String region) {
 		this.region = region;
 	}
 
+	/**
+	 * @return the domaine
+	 */
 	private String getDomaine() {
 		return domaine;
 	}
 
+	/**
+	 * @param domaine
+	 *            the domaine to set
+	 */
 	private void setDomaine(String domaine) {
 		this.domaine = domaine;
 	}
 
+	/**
+	 * @return the webSite
+	 */
 	private String getWebSite() {
 		return webSite;
 	}
 
+	/**
+	 * @param webSite
+	 *            the webSite to set
+	 */
 	private void setWebSite(String webSite) {
 		this.webSite = webSite;
 	}
 
+	/**
+	 * @return the contact
+	 */
 	private Contact getContact() {
 		return contact;
 	}
 
+	/**
+	 * @param contact
+	 *            the contact to set
+	 */
 	private void setContact(Contact contact) {
 		this.contact = contact;
 	}
 
-	//Fonction finalize
-	@Override //Cette méthode est déjà définie quelque part
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Entreprise [companyName=" + companyName + ", adress=" + adress + ", postalCode=" + postalCode
+				+ ", city=" + city + ", department=" + department + ", region=" + region + ", domaine=" + domaine
+				+ ", webSite=" + webSite + ", contact=" + contact + "]";
+	}
+
+	@Override
 	public void finalize() {
 		System.gc();
-		System.out.println ("Game Over, try again");
+		System.out.println("Game Over, try again");
 	}
 }
