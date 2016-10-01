@@ -23,7 +23,7 @@ public class TestUser {
 		FormerTrainee formerTrainee1 = new FormerTrainee("email2@boite.fr", "Pseudo2", "motpasse2", "ancien", "St-Jé", "Muller D",
 				"Nom2", "Prénom2", 16035, null,
 				"Java", "Swing", "blabla.com", "Mon profil LI",
-				"2015", "Développeur Java", null, null);
+				"Développeur Java", null, null);
 		System.out.println(formerTrainee1.toString());
 		
 		Trainer trainer1 = new Trainer("email@boite.fr", "Pseudo1", "motpasse", "formateur", "St-J");

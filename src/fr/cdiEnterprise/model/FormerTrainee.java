@@ -13,13 +13,10 @@ package fr.cdiEnterprise.model;
 public class FormerTrainee extends Trainee {
 
 	/* Object attributes */
-	//Compulsory first log-in information
-	private String diplomaYear;								// Year of completion for the CDI state diploma, none possible
-
-	//Compulsory profile (public/protected) information (approacheCompany from super-class compulsory here
+	//Compulsory profile (public/protected) information (approacheCompany from super-class compulsory here)
 	private String currentProfession;						// Actual occupation, job-seeker possible
-	private Company currentCompany;							// Actual company where former trainee works
-	private Company formerCompany;							// List of former companies where former trainee worked
+	private Company currentCompany;							// Actual company where former trainee works, none possible
+	private Company formerCompany;							// Former companies where former trainee worked, none possible
 	
 	
 	/* Constructors */
@@ -39,10 +36,7 @@ public class FormerTrainee extends Trainee {
 	 * @param status
 	 * @param afpa
 	 * @param trainer
-	 * 
-	 * Compulsory parameters (log-in informations)
-	 * @param diplomaYear
-	 * 
+	 *  
 	 * Compulsory parameters from super class (profile creation)
 	 * @param surname
 	 * @param givenName
@@ -64,10 +58,9 @@ public class FormerTrainee extends Trainee {
 	public FormerTrainee(String email, String alias, String password, String status, String afpa, String trainer,
 			String surname, String givenName, int sessionCode, Company approachedCompany,
 			String programmingLanguage, String graphicAPI, String webSite, String linkedIn,
-			String diplomaYear, String currentProfession, Company currentCompany, Company formerCompany) {
+			String currentProfession, Company currentCompany, Company formerCompany) {
 		super(email, alias, password, status, afpa, trainer, surname, givenName, sessionCode, approachedCompany,
 				programmingLanguage, graphicAPI, webSite, linkedIn);
-		this.diplomaYear = diplomaYear;
 		this.currentProfession = currentProfession;
 		this.currentCompany = currentCompany;
 		this.formerCompany = formerCompany;
@@ -96,20 +89,6 @@ public class FormerTrainee extends Trainee {
 
 	
 	/* Object - Getter & setter */
-	/**
-	 * @return the diplomaYear
-	 */
-	public String getDiplomaYear() {
-		return diplomaYear;
-	}
-
-	/**
-	 * @param diplomaYear the diplomaYear to set
-	 */
-	public void setDiplomaYear(String diplomaYear) {
-		this.diplomaYear = diplomaYear;
-	}
-
 	/**
 	 * @return the currentProfession
 	 */
