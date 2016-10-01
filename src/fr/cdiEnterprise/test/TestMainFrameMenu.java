@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-=======
-/**
- * 
- */
->>>>>>> branch 'master' of https://github.com/CDI-Enterprise/ecf-16035-a.git
 package fr.cdiEnterprise.test;
 
 import fr.cdiEnterprise.view.MainFrame;
