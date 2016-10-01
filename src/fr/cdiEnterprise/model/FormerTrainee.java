@@ -1,0 +1,155 @@
+package fr.cdiEnterprise.model;
+
+/**
+ * Class for FormerTrainee creation.
+ * Last update: 20161001
+ * 
+ * @see User, Trainee
+ * @version 0.1
+ * @author Claire
+ *
+ */
+
+public class FormerTrainee extends Trainee {
+
+	/* Object attributes */
+	//Compulsory first log-in information
+	private String diplomaYear;								// Year of completion for the CDI state diploma, none possible
+
+	//Compulsory profile (public/protected) information (approacheCompany from super-class compulsory here
+	private String currentProfession;						// Actual occupation, job-seeker possible
+	private Company currentCompany;							// Actual company where former trainee works
+	private Company formerCompany;							// List of former companies where former trainee worked
+	
+	
+	/* Constructors */
+	/**
+	 * Default constructor
+	 */
+	public FormerTrainee() {
+		super();
+	}
+
+	/**
+	 * Constructs a former trainee with compulsory first log-in and profile informations
+	 * Compulsory parameters from super class (log-in informations)
+	 * @param email
+	 * @param alias
+	 * @param password
+	 * @param status
+	 * @param afpa
+	 * @param trainer
+	 * 
+	 * Compulsory parameters (log-in informations)
+	 * @param diplomaYear
+	 * 
+	 * Compulsory parameters from super class (profile creation)
+	 * @param surname
+	 * @param givenName
+	 * @param sessionCode
+	 * @param programmingLanguage
+	 * @param approachedCompany
+	 * 
+	 * Compulsory parameters (profile creation)
+	 * @param currentProfession
+	 * @param currentCompany
+	 * @param formerCompany
+	 * 
+	 * Optional parameters from super class (profile creation)
+	 * @param graphicAPI;
+	 * @param webSite;
+	 * @param linkedIn;
+	 * 
+	 */
+	public FormerTrainee(String email, String alias, String password, String status, String afpa, String trainer,
+			String surname, String givenName, int sessionCode, Company approachedCompany,
+			String programmingLanguage, String graphicAPI, String webSite, String linkedIn,
+			String diplomaYear, String currentProfession, Company currentCompany, Company formerCompany) {
+		super(email, alias, password, status, afpa, trainer, surname, givenName, sessionCode, approachedCompany,
+				programmingLanguage, graphicAPI, webSite, linkedIn);
+		this.diplomaYear = diplomaYear;
+		this.currentProfession = currentProfession;
+		this.currentCompany = currentCompany;
+		this.formerCompany = formerCompany;
+	}
+
+	
+	/* Object methods */
+	//TODO create input control
+
+	/**
+	 * @return String 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		String newLine = System.getProperty("line.separator");
+		
+		return
+				super.toString()
+				+ newLine
+				+ newLine + "INFORMATIONS ANCIEN STAGIAIRE"
+				+ newLine + "Profession actuelle : " + currentProfession
+				+ newLine + "Entreprise actuelle : " + currentCompany
+				+ newLine + "Ancienne(s) entreprise(s) : " + formerCompany;
+	}
+
+	
+	/* Object - Getter & setter */
+	/**
+	 * @return the diplomaYear
+	 */
+	public String getDiplomaYear() {
+		return diplomaYear;
+	}
+
+	/**
+	 * @param diplomaYear the diplomaYear to set
+	 */
+	public void setDiplomaYear(String diplomaYear) {
+		this.diplomaYear = diplomaYear;
+	}
+
+	/**
+	 * @return the currentProfession
+	 */
+	public String getCurrentProfession() {
+		return currentProfession;
+	}
+
+	/**
+	 * @param currentProfession the currentProfession to set
+	 */
+	public void setCurrentProfession(String currentProfession) {
+		this.currentProfession = currentProfession;
+	}
+
+	/**
+	 * @return the currentCompany
+	 */
+	public Company getCurrentCompany() {
+		return currentCompany;
+	}
+
+	/**
+	 * @param currentCompany the currentCompany to set
+	 */
+	public void setCurrentCompany(Company currentCompany) {
+		this.currentCompany = currentCompany;
+	}
+
+	/**
+	 * @return the formerCompany
+	 */
+	public Company getFormerCompany() {
+		return formerCompany;
+	}
+
+	/**
+	 * @param formerCompany the formerCompany to set
+	 */
+	public void setFormerCompany(Company formerCompany) {
+		this.formerCompany = formerCompany;
+	}
+	
+}

@@ -12,6 +12,7 @@ package fr.cdiEnterprise.model;
 
 public class Trainee extends User {
 
+	/* Object attributes */
 	//Compulsory first log-in information
 	private String trainer;									// AFPA trainer's name
 
@@ -36,8 +37,8 @@ public class Trainee extends User {
 	}
 
 	/**
-	 * Constructs a trainee with compulsory first log-in and profile informations
-	 * Parameters from super class (log-in informations)
+	 * Constructs a trainee with compulsory first log-in, compulsory and optional profile informations
+	 * Compulsory parameters from super class (log-in informations)
 	 * @param email
 	 * @param alias
 	 * @param password
