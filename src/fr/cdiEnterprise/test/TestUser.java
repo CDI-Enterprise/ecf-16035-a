@@ -18,7 +18,9 @@ public class TestUser {
 //		User userTest = new User("email@boite.org", "Pseudo", "MdP", "Stagiaire", "St-Jérôme");
 //		System.out.println(userTest.toString());
 		
-		Trainee trainee1 = new Trainee("email@boite.fr", "Pseudo1", "motpasse", "stagiaire", "St-J", "Muller");
+		Trainee trainee1 = new Trainee("email@boite.fr", "Pseudo1", "motpasse", "stagiaire", "St-J", "Muller",
+				"Nom1", "Prénom1", 16035, null,
+				"Java", "Swing", "blabla.com", "Mon profil LI");
 		System.out.println(trainee1.toString());
 	}
 

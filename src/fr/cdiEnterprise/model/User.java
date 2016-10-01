@@ -65,13 +65,18 @@ public abstract class User {
 	 */
 	@Override
 	public String toString() {
-		return "Utilisateur " + id + "\n"
-				+ "Date d'inscription : " + inscriptionDate + "\n"
-				+ "Mail : " + email + "\n"
-				+ "Pseudo : " + alias + "\n"
-				+ "Mot de passe : " + password + "\n"
-				+ "Statut : " + status + "\n"
-				+ "AFPA : " + afpa;
+		String newLine = System.getProperty("line.separator");
+	
+		return "INFORMATIONS AUTO-GENEREES"
+				+ newLine + "Utilisateur " + id
+				+ newLine + "Date d'inscription : " + inscriptionDate
+				+ newLine
+				+ newLine + "INFORMATIONS OBLIGATOIRES POUR L'INSCRIPTION"
+				+ newLine + "Mail : " + email
+				+ newLine + "Pseudo : " + alias
+				+ newLine + "Mot de passe : " + password
+				+ newLine + "Statut : " + status
+				+ newLine + "AFPA : " + afpa;
 	}
 
 
