@@ -1,5 +1,6 @@
 package fr.cdiEnterprise.test;
 
+import fr.cdiEnterprise.model.Trainee;
 import fr.cdiEnterprise.model.User;
 
 /**
@@ -16,6 +17,9 @@ public class TestUser {
 		//Remove abstract from User class for test
 //		User userTest = new User("email@boite.org", "Pseudo", "MdP", "Stagiaire", "St-Jérôme");
 //		System.out.println(userTest.toString());
+		
+		Trainee trainee1 = new Trainee("email@boite.fr", "Pseudo1", "motpasse", "stagiaire", "St-J", "Muller");
+		System.out.println(trainee1.toString());
 	}
 
 }

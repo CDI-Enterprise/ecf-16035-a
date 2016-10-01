@@ -65,9 +65,13 @@ public abstract class User {
 	 */
 	@Override
 	public String toString() {
-		return "User [userId=" + id + ", userInscriptionDate=" + inscriptionDate + ", userEmail=" + email
-				+ ", userAlias=" + alias + ", userPassword=" + password + ", userStatus=" + status
-				+ ", userAfpa=" + afpa + "]";
+		return "Utilisateur " + id + "\n"
+				+ "Date d'inscription : " + inscriptionDate + "\n"
+				+ "Mail : " + email + "\n"
+				+ "Pseudo : " + alias + "\n"
+				+ "Mot de passe : " + password + "\n"
+				+ "Statut : " + status + "\n"
+				+ "AFPA : " + afpa;
 	}
 
 
@@ -143,13 +147,6 @@ public abstract class User {
 	}
 
 	/**
-	 * @return the totalId
-	 */
-	public static int getTotalId() {
-		return totalId;
-	}
-
-	/**
 	 * @return the id
 	 */
 	public int getId() {
@@ -161,6 +158,14 @@ public abstract class User {
 	 */
 	public Date getInscriptionDate() {
 		return inscriptionDate;
+	}
+
+	/* Class - Getter & setter */	
+	/**
+	 * @return the totalId
+	 */
+	public static int getTotalId() {
+		return totalId;
 	}
 
 }
