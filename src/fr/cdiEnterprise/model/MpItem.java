@@ -1,0 +1,112 @@
+package fr.cdiEnterprise.model;
+
+import java.time.LocalDateTime;
+
+/**
+ * This class is going to represent a private message.
+ * during the construction, all the fields have to be provided.
+ * 
+ * the id number will be unique for all new message created for the sender.
+ * body will just be a simple text that we might limit to 1500 caracters.
+ * the timeStamp is going to use the new java API 8.
+ * 
+ * @author Nicolas Tarral
+ * @version 30-09-2016
+ *
+ */
+public class mpItem {
+	
+	private String id;
+	private String sender;
+	private String receiver;
+	private String object;
+	private String body;
+	private LocalDateTime  timeStamp;
+	private boolean draftEmail;
+	
+	
+
+	/**
+	 * complete constructor.
+	 * 
+	 * @param thread this is a unique number identifying a new message
+	 * @param sender is the user name that will be sending the message
+	 * @param receiver is the user name that will be receiving the message
+	 * @param object is the object for the email
+	 * @param body the body represent the message, should be limited to 1500 caracters.
+	 * @param timeStamp is the time when message has been sent.
+	 */
+	public mpItem(String sender, String receiver, String object, String body, LocalDateTime timeStamp) {
+		super();
+		
+		this.sender = sender;
+		this.receiver = receiver;
+		this.object = object;
+		this.body = body;
+		this.timeStamp = timeStamp;
+	}
+
+	public String getSender() {
+		return sender;
+	}
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
+	public String getReceiver() {
+		return receiver;
+	}
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
+	public String getObject() {
+		return object;
+	}
+	public void setObject(String object) {
+		this.object = object;
+	}
+	public String getBody() {
+		return body;
+	}
+	public void setBody(String body) {
+		this.body = body;
+	}
+	
+	public boolean isDraftEmail() {
+		return draftEmail;
+	}
+	public void setDraftEmail(boolean draftEmail) {
+		this.draftEmail = draftEmail;
+	}
+	
+	/**
+	 * Will help to get the time the message has been sent out.
+	 * @return the time stamp in LocalDateTime
+	 */
+	public LocalDateTime getTimeStamp() {
+		return timeStamp;
+	}
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	/**
+	 * Set the time when the message was sent out.
+	 * @param timeStamp is LocalDateTime type
+	 */
+	public void setTimeStamp(LocalDateTime timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
+	@Override
+	public String toString() {
+		return "mpItem [id=" + id + ", sender=" + sender + ", receiver=" + receiver + ", object=" + object + ", body="
+				+ body + ", timeStamp=" + timeStamp + ", draftEmail=" + draftEmail + "]";
+	}
+	
+
+	
+
+}
