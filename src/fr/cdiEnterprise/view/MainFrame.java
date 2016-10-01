@@ -6,10 +6,11 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 
 /**
  * MainFrame for the CDI Enterprise program with a JMenuBar.
- * Last update: 20160930
+ * Last update: 20161001
  * @version 1.0
  * @author Claire
  *
@@ -29,8 +30,12 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		
 		/* Window properties */
-		this.setTitle("CDI Enterprise - Recherche de stages et suivi des stagiaires");		
-		this.setResizable(true);
+		//Icon for MainFrame
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconMainFrame.png")));
+	    //Title for MainFrame
+		this.setTitle("CDI Enterprise - Recherche de stages et suivi des stagiaires");
+		//Is it resizable?
+		this.setResizable(false);
 		//Pop where the OS window usually does
 		this.setLocationByPlatform(true);
 		//MMC Close properties
