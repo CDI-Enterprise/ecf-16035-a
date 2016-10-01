@@ -2,7 +2,7 @@ package fr.cdiEnterprise.test;
 
 import fr.cdiEnterprise.model.FormerTrainee;
 import fr.cdiEnterprise.model.Trainee;
-import fr.cdiEnterprise.model.User;
+import fr.cdiEnterprise.model.Trainer;
 
 /**
  * @author Claire
@@ -15,10 +15,6 @@ public class TestUser {
 	 */
 	public static void main(String[] args) {
 		
-		//Remove abstract from User class for test
-//		User userTest = new User("email@boite.org", "Pseudo", "MdP", "Stagiaire", "St-Jérôme");
-//		System.out.println(userTest.toString());
-		
 		Trainee trainee1 = new Trainee("email@boite.fr", "Pseudo1", "motpasse", "stagiaire", "St-J", "Muller",
 				"Nom1", "Prénom1", 16035, null,
 				"Java", "Swing", "blabla.com", "Mon profil LI");
@@ -29,6 +25,9 @@ public class TestUser {
 				"Java", "Swing", "blabla.com", "Mon profil LI",
 				"2015", "Développeur Java", null, null);
 		System.out.println(formerTrainee1.toString());
+		
+		Trainer trainer1 = new Trainer("email@boite.fr", "Pseudo1", "motpasse", "formateur", "St-J");
+		System.out.println(trainer1.toString());
 		
 	}
 

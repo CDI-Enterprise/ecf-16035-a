@@ -4,8 +4,8 @@ package fr.cdiEnterprise.model;
  * Class for Trainee creation.
  * Last update: 20161001
  * 
- * @see User
- * @version 0.1
+ * @see fr.cdiEnterprise.model.User
+ * @version 1.0
  * @author Claire
  *
  */
