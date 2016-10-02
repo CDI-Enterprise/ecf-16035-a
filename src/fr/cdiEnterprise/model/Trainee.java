@@ -19,7 +19,7 @@ public class Trainee extends User {
 	//Compulsory profile (public/protected) information
 	private String surname;									// Trainee's surname, protected profile only
 	private String givenName;								// Trainee's given name, protected profile only
-	private int sessionCode;								// AFPA code for training session
+	private String sessionCode;								// AFPA code for training session
 	private String programmingLanguage;						// Known programming language, one compulsory
 
 	//Optional profile information
@@ -61,7 +61,7 @@ public class Trainee extends User {
 	 * @param linkedIn;
 	 */
 	public Trainee(String email, String alias, String password, String status, String afpa, String trainer,
-			String surname, String givenName, int sessionCode, Company approachedCompany,
+			String surname, String givenName, String sessionCode, Company approachedCompany,
 			String programmingLanguage, String graphicAPI, String webSite, String linkedIn) {
 		super(email, alias, password, status, afpa);
 		this.trainer = trainer;
@@ -150,14 +150,14 @@ public class Trainee extends User {
 	/**
 	 * @return the sessionCode
 	 */
-	public int getSessionCode() {
+	public String getSessionCode() {
 		return sessionCode;
 	}
 
 	/**
 	 * @param sessionCode the sessionCode to set
 	 */
-	public void setSessionCode(int sessionCode) {
+	public void setSessionCode(String sessionCode) {
 		this.sessionCode = sessionCode;
 	}
 

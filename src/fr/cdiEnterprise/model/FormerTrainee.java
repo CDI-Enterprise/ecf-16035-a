@@ -56,7 +56,7 @@ public class FormerTrainee extends Trainee {
 	 * 
 	 */
 	public FormerTrainee(String email, String alias, String password, String status, String afpa, String trainer,
-			String surname, String givenName, int sessionCode, Company approachedCompany,
+			String surname, String givenName, String sessionCode, Company approachedCompany,
 			String programmingLanguage, String graphicAPI, String webSite, String linkedIn,
 			String currentProfession, Company currentCompany, Company formerCompany) {
 		super(email, alias, password, status, afpa, trainer, surname, givenName, sessionCode, approachedCompany,
