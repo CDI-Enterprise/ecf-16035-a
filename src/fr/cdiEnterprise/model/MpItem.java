@@ -9,12 +9,14 @@ import java.time.LocalDateTime;
  * the id number will be unique for all new message created for the sender.
  * body will just be a simple text that we might limit to 1500 caracters.
  * the timeStamp is going to use the new java API 8.
+ * boolean will represent in which queue the message will be sent too
+ * for draft it need to be put to true.
  * 
  * @author Nicolas Tarral
  * @version 30-09-2016
  *
  */
-public class mpItem {
+public class MpItem {
 	
 	private String id;
 	private String sender;
@@ -36,7 +38,7 @@ public class mpItem {
 	 * @param body the body represent the message, should be limited to 1500 caracters.
 	 * @param timeStamp is the time when message has been sent.
 	 */
-	public mpItem(String sender, String receiver, String object, String body, LocalDateTime timeStamp) {
+	public MpItem(String sender, String receiver, String object, String body, LocalDateTime timeStamp) {
 		super();
 		
 		this.sender = sender;
