@@ -50,12 +50,6 @@ public class Menu extends JMenuBar {
 	JMenuItem subCompanyDelete = new JMenuItem("Suppimer une fiche");
 	JMenuItem subCompanyList = new JMenuItem("Afficher toutes les les fiches entreprises");
 
-	// /* SUB SUB */
-	// //subFileNew : item
-	// JMenuItem subNewUser = new JMenuItem(USER, 'U');
-	// JMenuItem subNewBook = new JMenuItem(BOOK, 'B');
-	// JMenuItem subNewLoan = new JMenuItem(LOAN, 'L');
-
 	public Menu() {
 		// PROFILE
 		this.add(menuProfile);

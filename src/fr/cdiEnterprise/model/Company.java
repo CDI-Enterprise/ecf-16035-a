@@ -55,7 +55,7 @@ public class Company {
 	/**
 	 * @return the companyName
 	 */
-	private String getCompanyName() {
+	public String getCompanyName() {
 		return companyName;
 	}
 
@@ -63,14 +63,14 @@ public class Company {
 	 * @param companyName
 	 *            the companyName to set
 	 */
-	private void setCompanyName(String companyName) {
+	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
 
 	/**
 	 * @return the adress
 	 */
-	private String getAdress() {
+	public String getAdress() {
 		return adress;
 	}
 
@@ -78,14 +78,14 @@ public class Company {
 	 * @param adress
 	 *            the adress to set
 	 */
-	private void setAdress(String adress) {
+	public void setAdress(String adress) {
 		this.adress = adress;
 	}
 
 	/**
 	 * @return the postalCode
 	 */
-	private String getPostalCode() {
+	public String getPostalCode() {
 		return postalCode;
 	}
 
@@ -93,14 +93,14 @@ public class Company {
 	 * @param postalCode
 	 *            the postalCode to set
 	 */
-	private void setPostalCode(String postalCode) {
+	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
 
 	/**
 	 * @return the city
 	 */
-	private String getCity() {
+	public String getCity() {
 		return city;
 	}
 
@@ -108,14 +108,14 @@ public class Company {
 	 * @param city
 	 *            the city to set
 	 */
-	private void setCity(String city) {
+	public void setCity(String city) {
 		this.city = city;
 	}
 
 	/**
 	 * @return the department
 	 */
-	private int getDepartment() {
+	public int getDepartment() {
 		return department;
 	}
 
@@ -123,14 +123,14 @@ public class Company {
 	 * @param department
 	 *            the department to set
 	 */
-	private void setDepartment(int department) {
+	public void setDepartment(int department) {
 		this.department = department;
 	}
 
 	/**
 	 * @return the region
 	 */
-	private String getRegion() {
+	public String getRegion() {
 		return region;
 	}
 
@@ -138,14 +138,14 @@ public class Company {
 	 * @param region
 	 *            the region to set
 	 */
-	private void setRegion(String region) {
+	public void setRegion(String region) {
 		this.region = region;
 	}
 
 	/**
 	 * @return the domaine
 	 */
-	private String getDomaine() {
+	public String getDomaine() {
 		return sector;
 	}
 
@@ -153,14 +153,14 @@ public class Company {
 	 * @param domaine
 	 *            the domaine to set
 	 */
-	private void setDomaine(String domaine) {
+	public void setDomaine(String domaine) {
 		this.sector = domaine;
 	}
 
 	/**
 	 * @return the webSite
 	 */
-	private String getWebSite() {
+	public String getWebSite() {
 		return webSite;
 	}
 
@@ -168,14 +168,14 @@ public class Company {
 	 * @param webSite
 	 *            the webSite to set
 	 */
-	private void setWebSite(String webSite) {
+	public void setWebSite(String webSite) {
 		this.webSite = webSite;
 	}
 
 	/**
 	 * @return the contact
 	 */
-	private Contact getContact() {
+	public Contact getContact() {
 		return contact;
 	}
 
@@ -183,7 +183,7 @@ public class Company {
 	 * @param contact
 	 *            the contact to set
 	 */
-	private void setContact(Contact contact) {
+	public void setContact(Contact contact) {
 		this.contact = contact;
 	}
 

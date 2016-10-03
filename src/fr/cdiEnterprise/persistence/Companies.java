@@ -23,28 +23,28 @@ public class Companies  {
 	/**
 	 * @return the company
 	 */
-	private Company getCompany() {
+	public Company getCompany() {
 		return company;
 	}
 
 	/**
 	 * @param company the company to set
 	 */
-	private void setCompany(Company company) {
+	public void setCompany(Company company) {
 		this.company = company;
 	}
 
 	/**
 	 * @return the listeCompanies
 	 */
-	private ArrayList<Company> getListeCompanies() {
+	public ArrayList<Company> getListeCompanies() {
 		return listeCompanies;
 	}
 
 	/**
 	 * @param listeCompanies the listeCompanies to set
 	 */
-	private void setListeCompanies(ArrayList<Company> listeCompanies) {
+	public void setListeCompanies(ArrayList<Company> listeCompanies) {
 		this.listeCompanies = listeCompanies;
 	}
 

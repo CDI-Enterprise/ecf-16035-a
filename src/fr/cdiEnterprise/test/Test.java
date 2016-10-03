@@ -11,8 +11,11 @@ public class Test {
 
 	Company afpa = new Company("AFPA", "53Bd Laveran","13013", "MARSEILLE", 13, "PACA", "Formation", "Afpa.fr", new Contact("M", "D", "04","oi"));
 	
+	System.out.println(afpa);
+	
 	Companies liste = new Companies();
 	
+	System.out.println(liste);
 
 }
 }
