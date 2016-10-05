@@ -2,10 +2,8 @@ package fr.cdiEnterprise.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -34,6 +32,16 @@ public class ProfileCreationFrame extends MainFrame {
 	//TODO lists JComboBox
 	String [] company = {"Aucune", "9e compagnie", "Cie", "Comme Pagny", "Autre..."};
 	
+	//Panel border layout
+	JPanel panNorth = new JPanel();
+	JPanel panCenter = new JPanel();
+	
+	//Labels
+	JLabel lblFieldInfo = new JLabel("Les champs marqués d'étoiles sont obligatoires pour : "
+			+ "* tous les utilisateurs / "
+			+ "** les statuts Stagiaire et Ancien / "
+			+ "*** le statut Ancien");
+	
 	/**
 	 * 
 	 */
@@ -43,23 +51,16 @@ public class ProfileCreationFrame extends MainFrame {
 		this.setTitle("CDI Enterprise - Création de profil");
 		
 		/* Header */
-		JPanel panNorth = new JPanel();
 		panMain.add(panNorth, BorderLayout.NORTH);
 		panNorth.setLayout(new FlowLayout());
 		//Main information on compulsory fields
-		JLabel lblFieldInfo = new JLabel("Les champs marqués d'étoiles sont obligatoires pour : "
-				+ "* tous les utilisateurs / "
-				+ "** les statuts Stagiaire et Ancien / "
-				+ "*** le statut Ancien");
 		lblFieldInfo.setFont(new Font(getName(), Font.BOLD, 14));
 		panNorth.add(lblFieldInfo);
 		panNorth.setBorder(BorderFactory.createLineBorder(Color.RED));	
-		
-	
+			
 		
 		/* Body */
 		//Main center panel with four horizontal parts
-		JPanel panCenter = new JPanel();
 		panMain.add(panCenter, BorderLayout.CENTER);
 		panCenter.setLayout(new MigLayout());
 	
@@ -114,7 +115,7 @@ public class ProfileCreationFrame extends MainFrame {
 		//List of approached companies
 		panCenterPublic.add(new JLabel("Entreprise(s) démarchée(s)*** : "));
 		JComboBox<String> approachedCie = new JComboBox<String> ();
-		for (int i = 0; i<company.length; i++) {
+		for (int i = 0; i < company.length; i++) {
 			approachedCie.addItem(company[i]);
 		}
 		approachedCie.setMaximumRowCount(5);
@@ -127,7 +128,7 @@ public class ProfileCreationFrame extends MainFrame {
 		//Current company
 		panCenterPublic.add(new JLabel("Entreprise actuelle*** : "));
 		JComboBox<String> currentCie = new JComboBox<String> ();
-		for (int i = 0; i<company.length; i++) {
+		for (int i = 0; i < company.length; i++) {
 			currentCie.addItem(company[i]);
 		}
 		currentCie.setMaximumRowCount(5);
@@ -168,7 +169,7 @@ public class ProfileCreationFrame extends MainFrame {
 		panCenterOptional.add(new JLabel("Autre(s) langage(s) : "), "w 200!");
 		String [] progLanguage = {"C", "PHP"};
 		JComboBox<String> cboProgLanguage = new JComboBox<String> ();
-		for (int i = 0; i<progLanguage.length; i++) {
+		for (int i = 0; i < progLanguage.length; i++) {
 			cboProgLanguage.addItem(progLanguage[i]);
 		}
 		cboProgLanguage.setMaximumRowCount(2);
@@ -178,7 +179,7 @@ public class ProfileCreationFrame extends MainFrame {
 		panCenterOptional.add(new JLabel("API graphique : "), "w 200!");
 		String [] graphicApi = {"AWT", "JFace", "Swing", "SWT"};
 		JComboBox<String> cboGraphicApi = new JComboBox<String> ();
-		for (int i = 0; i<graphicApi.length; i++) {
+		for (int i = 0; i < graphicApi.length; i++) {
 			cboGraphicApi.addItem(graphicApi[i]);
 		}
 		cboGraphicApi.setMaximumRowCount(4);
