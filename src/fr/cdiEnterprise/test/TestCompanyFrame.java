@@ -18,14 +18,14 @@ public class TestCompanyFrame {
 		CompanyFrameCreate mainFrame = new CompanyFrameCreate();
 		mainFrame.setVisible(true);
 
-		CompanyFrameModif mainFrame2 = new CompanyFrameModif();
-		mainFrame2.setVisible(true);
-
-		CompanyFrameDelet mainFrame3 = new CompanyFrameDelet();
-		mainFrame3.setVisible(true);
-
-		CompanyFrameAllCompanies mainFrame4 = new CompanyFrameAllCompanies();
-		mainFrame4.setVisible(true);
+//		CompanyFrameModif mainFrame2 = new CompanyFrameModif();
+//		mainFrame2.setVisible(true);
+//
+//		CompanyFrameDelet mainFrame3 = new CompanyFrameDelet();
+//		mainFrame3.setVisible(true);
+//
+//		CompanyFrameAllCompanies mainFrame4 = new CompanyFrameAllCompanies();
+//		mainFrame4.setVisible(true);
 
 	}
 
