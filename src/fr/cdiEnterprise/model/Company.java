@@ -1,14 +1,17 @@
 package fr.cdiEnterprise.model;
 
 /**
- * Cette classe représente une fiche entreprise qui sera renseignée par un utilisateur.
+ * Cette classe représente une fiche entreprise qui sera renseignée par un
+ * utilisateur.
  * 
  * @author Anaïs
- * @version 30-09-2016
+ * @version 07-10-2016
  *
  */
 public class Company {
 
+	private static int id;
+	private int idEnterprise;
 	private String companyName;
 	private String adress;
 	private String postalCode;
@@ -16,6 +19,7 @@ public class Company {
 	private int department;
 	private String region;
 	private String sector;
+	private String languages;
 	private String webSite;
 	private Contact contact;
 
@@ -35,22 +39,29 @@ public class Company {
 	 * @param department
 	 * @param region
 	 * @param sector
+	 * @param languages
 	 * @param webSite
 	 * @param contact
 	 */
 	public Company(String companyName, String adress, String postalCode, String city, int department, String region,
-			String domaine, String webSite, Contact contact) {
-
+			String sector, String languages, String webSite, Contact contact) {
+		id++;
 		this.companyName = companyName;
 		this.adress = adress;
 		this.postalCode = postalCode;
 		this.city = city;
 		this.department = department;
 		this.region = region;
-		this.sector = domaine;
+		this.sector = sector;
+		this.languages = languages;
 		this.webSite = webSite;
 		this.contact = contact;
+		this.idEnterprise = id;
 	}
+
+	/**
+	 * Ensemble des getters de la clase Company
+	 */
 
 	/**
 	 * @return the companyName
@@ -60,18 +71,85 @@ public class Company {
 	}
 
 	/**
+	 * @return the adress
+	 */
+	public String getAdress() {
+		return adress;
+	}
+
+	/**
+	 * @return the postalCode
+	 */
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	/**
+	 * @return the city
+	 */
+	public String getCity() {
+		return city;
+	}
+
+	/**
+	 * @return the department
+	 */
+	public int getDepartment() {
+		return department;
+	}
+
+	/**
+	 * @return the region
+	 */
+	public String getRegion() {
+		return region;
+	}
+
+	/**
+	 * @return the sector
+	 */
+	public String getSector() {
+		return sector;
+	}
+
+	/**
+	 * @return the languages
+	 */
+	public String getLanguages() {
+		return languages;
+	}
+
+	/**
+	 * @return the webSite
+	 */
+	public String getWebSite() {
+		return webSite;
+	}
+
+	/**
+	 * @return the contact
+	 */
+	public Contact getContact() {
+		return contact;
+	}
+
+	/**
+	 * @return the idEnterprise
+	 */
+	public int getIdEnterprise() {
+		return idEnterprise;
+	}
+
+	/**
+	 * Ensemble des setteurs de la clase Company
+	 */
+
+	/**
 	 * @param companyName
 	 *            the companyName to set
 	 */
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
-	}
-
-	/**
-	 * @return the adress
-	 */
-	public String getAdress() {
-		return adress;
 	}
 
 	/**
@@ -83,25 +161,11 @@ public class Company {
 	}
 
 	/**
-	 * @return the postalCode
-	 */
-	public String getPostalCode() {
-		return postalCode;
-	}
-
-	/**
 	 * @param postalCode
 	 *            the postalCode to set
 	 */
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
-	}
-
-	/**
-	 * @return the city
-	 */
-	public String getCity() {
-		return city;
 	}
 
 	/**
@@ -113,25 +177,11 @@ public class Company {
 	}
 
 	/**
-	 * @return the department
-	 */
-	public int getDepartment() {
-		return department;
-	}
-
-	/**
 	 * @param department
 	 *            the department to set
 	 */
 	public void setDepartment(int department) {
 		this.department = department;
-	}
-
-	/**
-	 * @return the region
-	 */
-	public String getRegion() {
-		return region;
 	}
 
 	/**
@@ -143,25 +193,19 @@ public class Company {
 	}
 
 	/**
-	 * @return the domaine
+	 * @param sector
+	 *            the sector to set
 	 */
-	public String getDomaine() {
-		return sector;
+	public void setSector(String sector) {
+		this.sector = sector;
 	}
 
 	/**
-	 * @param domaine
-	 *            the domaine to set
+	 * @param languages
+	 *            the languages to set
 	 */
-	public void setDomaine(String domaine) {
-		this.sector = domaine;
-	}
-
-	/**
-	 * @return the webSite
-	 */
-	public String getWebSite() {
-		return webSite;
+	public void setLanguages(String languages) {
+		this.languages = languages;
 	}
 
 	/**
@@ -173,18 +217,19 @@ public class Company {
 	}
 
 	/**
-	 * @return the contact
-	 */
-	public Contact getContact() {
-		return contact;
-	}
-
-	/**
 	 * @param contact
 	 *            the contact to set
 	 */
 	public void setContact(Contact contact) {
 		this.contact = contact;
+	}
+
+	/**
+	 * @param idEnterprise
+	 *            the idEnterprise to set
+	 */
+	public void setIdEnterprise(int idEnterprise) {
+		this.idEnterprise = idEnterprise;
 	}
 
 	/*
