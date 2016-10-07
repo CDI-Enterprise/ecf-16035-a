@@ -6,56 +6,52 @@ import javax.swing.JMenuItem;
 
 /**
  * Main menu for the CDI Enterprise program, visible on every frame.
- * Last update: 20160930
- * @version 1.0
- * @author Claire
- *
+ * Last update: 20161003
+ * @version 0.2
+ * @author Claire, Anaïs
  */
-
-//J'ai modifié un peu ta classe Claire pour ma partie mais je ne sais pas si je dois incrémenter la version et tout ;)
 
 public class Menu extends JMenuBar {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	/* MAIN */
+	/* Attributes */
 	// Main menu creation
-	JMenu menuProfile = new JMenu("Profil");
-	JMenu menuEnterprise = new JMenu("Entreprise");
-	JMenu menuSearch = new JMenu("Recherche");
-	JMenu menuBookmark = new JMenu("Favoris");
-	JMenu menuMessaging = new JMenu("Messagerie");
-	JMenu menuHelp = new JMenu("Aide");
-	JMenu menuQuit = new JMenu("Déconnexion");
-
-	// /* SUB */
-	// //menuFile : sub menu and item
-	// JMenu subFileNew = new JMenu("Créer...");
-	// JMenuItem subFileSave = new JMenuItem("Enregistrer", 'S');
-	// JMenuItem subFileQuit = new JMenuItem("Quitter", 'Q');
+	private JMenu menuProfile = new JMenu("Profil");
+	private JMenu menuEnterprise = new JMenu("Entreprise");
+	private JMenu menuSearch = new JMenu("Recherche");
+	private JMenu menuBookmark = new JMenu("Favoris");
+	private JMenu menuMessaging = new JMenu("Messagerie");
+	private JMenu menuHelp = new JMenu("Aide");
+	private JMenu menuQuit = new JMenu("Déconnexion");
 
 	// menuHelp : sub item
-	JMenuItem subHelpDoc = new JMenuItem("Documentation");
-	JMenuItem subHelpShortcut = new JMenuItem("Raccourcis clavier");
-	JMenuItem subHelpUpdate = new JMenuItem("Vérifier les mises à jours");
-	JMenuItem subHelpAbout = new JMenuItem("A propos");
-
+	private JMenuItem subHelpDoc = new JMenuItem("Documentation");
+	private JMenuItem subHelpShortcut = new JMenuItem("Raccourcis clavier");
+	private JMenuItem subHelpUpdate = new JMenuItem("Vérifier les mises à jours");
+	private JMenuItem subHelpAbout = new JMenuItem("A propos");
 
 	// menuEntreprise : sub item
-	JMenuItem subCompanyCreate = new JMenuItem("Créer une nouvelle fiche");
-	JMenuItem subCompanyModify = new JMenuItem("Modifier une fiche");
-	JMenuItem subCompanyDelete = new JMenuItem("Suppimer une fiche");
-	JMenuItem subCompanyList = new JMenuItem("Afficher toutes les les fiches entreprises");
+	private JMenuItem subCompanyCreate = new JMenuItem("Créer une nouvelle fiche");
+	private JMenuItem subCompanyUpdate = new JMenuItem("Modifier une fiche");
+	private JMenuItem subCompanyDelete = new JMenuItem("Suppimer une fiche");
+	private JMenuItem subCompanyRead = new JMenuItem("Afficher toutes les les fiches entreprises");
 
+	
+	/**
+	 * Constructor 
+	 */
 	public Menu() {
 		// PROFILE
 		this.add(menuProfile);
 
 		// ENTERPRISE
 		this.add(menuEnterprise);
+		//Sub menu for Enterprise
+		menuEnterprise.add(subCompanyCreate);
+		menuEnterprise.add(subCompanyUpdate);
+		menuEnterprise.add(subCompanyDelete);
+		menuEnterprise.add(subCompanyRead);
 
 		// SEARCH
 		this.add(menuSearch);
@@ -73,18 +69,13 @@ public class Menu extends JMenuBar {
 		menuHelp.add(subHelpShortcut);
 		menuHelp.add(subHelpUpdate);
 		menuHelp.add(subHelpAbout);
-
-		//Sub menu for Entreprise
-		menuEnterprise.add(subCompanyCreate);
-		menuEnterprise.add(subCompanyModify);
-		menuEnterprise.add(subCompanyDelete);
-		menuEnterprise.add(subCompanyList);
 		
 		// QUIT
 		this.add(menuQuit);
 
 		// Menu shortcut
-		menuProfile.setMnemonic('P'); // Use of char obsolete? TODO shortcuts
+		menuProfile.setMnemonic('P'); 		// Use of char obsolete? TODO shortcuts
 		menuEnterprise.setMnemonic('E');
+		
 	}
 }

@@ -16,34 +16,36 @@ import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 
 /**
+ * Frame for a user's profile creation.
+ * Last update: 20161003
+ * @version 0.2
  * @author Claire
- *
  */
 public class ProfileCreationFrame extends MainFrame {
 
-	/**
-	 * Frame for a user's profile creation.
-	 * Last update: 20161002
-	 * @version 1.0
-	 * @author Claire
-	 */
 	private static final long serialVersionUID = 1L;
 	
+	/* Attributes */
 	//TODO lists JComboBox
 	String [] company = {"Aucune", "9e compagnie", "Cie", "Comme Pagny", "Autre..."};
 	
-	//Panel border layout
-	JPanel panNorth = new JPanel();
-	JPanel panCenter = new JPanel();
+	//Panel in panMain's BorderLayout
+	private JPanel panNorth = new JPanel();
+	private JPanel panCenter = new JPanel();
+	
+	//Panel in panCenter's MigLayout
+	private JPanel panCenterRegister = new JPanel();
 	
 	//Labels
-	JLabel lblFieldInfo = new JLabel("Les champs marqués d'étoiles sont obligatoires pour : "
+	private JLabel lblFieldInfo = new JLabel("Les champs marqués d'étoiles sont obligatoires pour : "
 			+ "* tous les utilisateurs / "
 			+ "** les statuts Stagiaire et Ancien / "
 			+ "*** le statut Ancien");
 	
+	private JLabel lblAlias = new JLabel("Nom d'utilisateur* : ");
+	
 	/**
-	 * 
+	 * Constructor
 	 */
 	public ProfileCreationFrame() {
 		super();
@@ -66,13 +68,11 @@ public class ProfileCreationFrame extends MainFrame {
 	
 		
 		//FIRST horizontal part: first log-in informations
-		JPanel panCenterRegister = new JPanel();
 		panCenter.add(panCenterRegister, "wrap, w 1425!");
 		panCenterRegister.setLayout(new MigLayout());
 		panCenterRegister.setBorder(BorderFactory.createTitledBorder("ENREGISTREMENT"));
 		
 		//User alias
-		JLabel lblAlias = new JLabel("Nom d'utilisateur* : ");
 		panCenterRegister.add(lblAlias, "w 200!");
 		panCenterRegister.add(new JTextField(20));
 		panCenterRegister.add(new JLabel("<html><body><i>Maximum 20 caractères</i></body></html>"), "gapleft20, wrap");

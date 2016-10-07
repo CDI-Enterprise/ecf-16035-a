@@ -1,4 +1,4 @@
-package fr.cdiEnterprise.persistence;
+package fr.cdiEnterprise.service;
 
 import java.util.ArrayList;
 import fr.cdiEnterprise.model.Company;

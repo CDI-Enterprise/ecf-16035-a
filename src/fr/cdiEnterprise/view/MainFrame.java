@@ -26,6 +26,7 @@ public class MainFrame extends JFrame {
 	JPanel panMain = (JPanel)this.getContentPane();
 	
 	/**
+	 * MainFrame constructor.
 	 * Constructs a Main Frame of 1440*900 non resizable
 	 * With a personalized icon for system menu and main title
 	 * With a white background in the main panel
