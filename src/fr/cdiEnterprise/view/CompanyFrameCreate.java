@@ -26,11 +26,11 @@ public class CompanyFrameCreate extends MainFrame {
 		super();
 		this.setTitle("CDI Enterprise - Création d'une fiche entreprise");
 
-		panMain.setLayout(new BorderLayout());
+		mainPan.setLayout(new BorderLayout());
 		
 		/* Header */
 		JPanel panNorth = new JPanel();
-		panMain.add(panNorth, BorderLayout.NORTH);
+		mainPan.add(panNorth, BorderLayout.NORTH);
 		panNorth.setLayout(new FlowLayout());
 		//Main information on compulsory fields
 		JLabel lblFieldInfo = new JLabel("Les champs marqués d'étoiles sont obligatoires");

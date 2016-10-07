@@ -53,7 +53,7 @@ public class ProfileCreationFrame extends MainFrame {
 		this.setTitle("CDI Enterprise - Création de profil");
 		
 		/* Header */
-		panMain.add(panNorth, BorderLayout.NORTH);
+		mainPan.add(panNorth, BorderLayout.NORTH);
 		panNorth.setLayout(new FlowLayout());
 		//Main information on compulsory fields
 		lblFieldInfo.setFont(new Font(getName(), Font.BOLD, 14));
@@ -63,7 +63,7 @@ public class ProfileCreationFrame extends MainFrame {
 		
 		/* Body */
 		//Main center panel with four horizontal parts
-		panMain.add(panCenter, BorderLayout.CENTER);
+		mainPan.add(panCenter, BorderLayout.CENTER);
 		panCenter.setLayout(new MigLayout());
 	
 		
@@ -196,7 +196,7 @@ public class ProfileCreationFrame extends MainFrame {
 		
 		//Footer with two buttons
 		JPanel panSouth = new JPanel();
-		panMain.add(panSouth, BorderLayout.SOUTH);
+		mainPan.add(panSouth, BorderLayout.SOUTH);
 		panSouth.setLayout(new FlowLayout());
 		panSouth.add(new JButton("Annuler"));
 		panSouth.add(new JButton("S'enregistrer"));
