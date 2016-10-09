@@ -3,9 +3,11 @@ package fr.cdiEnterprise.test;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import fr.cdiEnterprise.model.MpItem;
+import fr.cdiEnterprise.dao.Server;
+import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.service.MpClient;
-import fr.cdiEnterprise.service.MpServer;
+
+
 
 
 
@@ -31,7 +33,7 @@ public class TestMessage {
 
 	public static void main(String[] args) {
 		
-		MpServer newServer = new MpServer();
+		Server newServer = new Server();
 		ArrayList<String> clients = new ArrayList<String>();
 		
 		//TODO Poster message vers un utilisateur.
@@ -110,14 +112,14 @@ public class TestMessage {
 			nicolas.getMessages(true);
 			nicolas.display(true);
 			
-			ArrayList<MpItem>  nickitms = nicolas.getMessages(true);
+			ArrayList<Item>  nickitms = nicolas.getMessages(true);
 			System.out.println("size of draft is : " + nickitms.size());
 			//System.out.println(nickitms.toString());
 			//simule la selection du message dans une liste et renvoie de l'identifiant de l'email selectionné
 			//exemple ici 5.
 			
 			
-			MpItem myItm = getMessage("nicolas", "5", nickitms);
+			Item myItm = getMessage("nicolas", "5", nickitms);
 			System.out.println("checking draft message " +myItm.toString());
 			
 			
@@ -132,7 +134,7 @@ public class TestMessage {
 			// le message sera remis.
 			
 			nicolas.editDraft(nicolas.popMessage("5", true),  "olivier", "test[edited]", "Ce message a ete modifier...");
-			ArrayList<MpItem> items =  nicolas.getMessages( true);
+			ArrayList<Item> items =  nicolas.getMessages( true);
 			//System.out.println("size of draft is "+ items.size());
 			for(int i = 0; i <items.size(); i++ ) {
 				System.out.println("---"+items.get(i).getSender());
@@ -146,7 +148,7 @@ public class TestMessage {
 			
 			System.out.println("\n**** sending drafted message to the final user ****\n");
 			
-			MpItem draftMessage = nicolas.popMessage(identity, true);
+			Item draftMessage = nicolas.popMessage(identity, true);
 			//System.out.println("get message from draft queue..." + draftMessage.getBody());
 			nicolas.sendEmail(draftMessage, true);
 			
@@ -158,7 +160,7 @@ public class TestMessage {
 		
 		System.out.println("\n**** checking olivier Mailbox ****\n");
 		
-		ArrayList<MpItem> olivierItems = olivier.getMessages(false);
+		ArrayList<Item> olivierItems = olivier.getMessages(false);
 		System.out.println(olivierItems.size());
 		olivier.display(false);
 		
@@ -173,7 +175,7 @@ public class TestMessage {
 		System.out.println("\n**** olivier reply to nicolas ****\n");
 		
 		// reply email to nicolas
-		MpItem oneItem = olivierItems.get(0);
+		Item oneItem = olivierItems.get(0);
 		oneItem.setObject("test[reply]");
 		oneItem.setBody("Message reçu...\n\n" + oneItem.getBody());
 		System.out.println("Reply to that email " + oneItem.toString());
@@ -199,7 +201,7 @@ public class TestMessage {
 
 	}
 	
-	private static MpItem getMessage(String usr,String id , ArrayList<MpItem> allItems) {
+	private static Item getMessage(String usr,String id , ArrayList<Item> allItems) {
 		
 		for(int i = 0; i <allItems.size(); i++ ) {
 			if(allItems.get(i).getId().equals(id)) {
