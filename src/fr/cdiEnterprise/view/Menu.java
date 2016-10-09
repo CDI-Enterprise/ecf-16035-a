@@ -35,7 +35,7 @@ public class Menu extends JMenuBar {
 	private JMenuItem subCompanyCreate = new JMenuItem("Créer une nouvelle fiche");
 	private JMenuItem subCompanyUpdate = new JMenuItem("Modifier une fiche");
 	private JMenuItem subCompanyDelete = new JMenuItem("Suppimer une fiche");
-	private JMenuItem subCompanyRead = new JMenuItem("Afficher toutes les les fiches entreprises");
+	private JMenuItem subCompanyRead = new JMenuItem("Afficher toutes les fiches Entreprise");
 
 	
 	/**

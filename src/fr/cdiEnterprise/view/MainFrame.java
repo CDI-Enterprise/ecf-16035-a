@@ -29,7 +29,7 @@ public class MainFrame extends JFrame {
 	protected static JPanel mainPan;
 	private static JPanel homePan;
 
-	private static PanelUser panelUser;
+//	private static PanelUser panelUser;
 
 	/**
 	 * MainFrame constructor.
@@ -58,7 +58,7 @@ public class MainFrame extends JFrame {
 
 		// Main frame properties
 		// Icon for MainFrame
-		this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconMainFrame.png")));
+		//this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconMainFrame.png")));
 		// Title for MainFrame
 		this.setTitle("CDI Enterprise - Recherche de stages et suivi des stagiaires");
 		// Is it resizable?
@@ -81,10 +81,13 @@ public class MainFrame extends JFrame {
 		homePan.setLayout(new FlowLayout());
 		mainPan.add(homePan);
 
-		// Panel for user CRUD
-		panelUser = new PanelUser();
-		panelUser.setBackground(Color.WHITE); 
-
+//		// Panel for user CRUD
+//		panelUser = new PanelUser();
+//		panelUser.setBackground(Color.WHITE); 
+		
+		//Panel CreatCompany
+		CompanyCreationPanel panelCreatCompany = new CompanyCreationPanel();
+		mainPan.add(panelCreatCompany);
 	}
 
 }
