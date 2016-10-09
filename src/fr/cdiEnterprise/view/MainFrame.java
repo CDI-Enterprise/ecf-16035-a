@@ -83,8 +83,16 @@ public class MainFrame extends JFrame {
 
 		// Panel for user CRUD
 		panelUser = new PanelUser();
-		panelUser.setBackground(Color.WHITE); 
+//		panelUser.setBackground(Color.WHITE); 
 
 	}
 
+	public static JPanel getMainPan() {
+		return mainPan;
+	}
+
+	public static JPanel getPanelUser() {
+		return panelUser;
+	}
+	
 }
