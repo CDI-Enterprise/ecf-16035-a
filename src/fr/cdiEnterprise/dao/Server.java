@@ -1,15 +1,16 @@
-package fr.cdiEnterprise.service;
+package fr.cdiEnterprise.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-
+import java.util.Map;
+import java.util.Map.Entry;
 
 
 
 import java.util.Set;
 
-import fr.cdiEnterprise.model.MpItem;
+import fr.cdiEnterprise.model.Item;
 
 /**
  * This is the class server, which is actually a message container. message are
@@ -19,15 +20,15 @@ import fr.cdiEnterprise.model.MpItem;
  * @version : 2016-01-10
  *
  */
-public class MpServer {
+public  class Server {
 
-	private HashMap<String, ArrayList<MpItem>> items;
-	private HashMap<String, ArrayList<MpItem>> itemsDraft;
+	static HashMap<String, ArrayList<Item>> items = new HashMap<String, ArrayList<Item>>();
+	static HashMap<String, ArrayList<Item>> itemsDraft = new HashMap<String, ArrayList<Item>>();
 
-	public MpServer() {
-		items = new HashMap<String, ArrayList<MpItem>>();
-		itemsDraft = new HashMap<String, ArrayList<MpItem>>();
-
+	public Server() {
+		items = new HashMap<String, ArrayList<Item>>();
+ 		itemsDraft = new HashMap<String, ArrayList<Item>>();
+         
 	}
 
 	/**
@@ -35,9 +36,9 @@ public class MpServer {
 	 * @param item message to be delivered
 	 * @return boolean which tell if the message has been properly delivered.
 	 */
-	public boolean post(MpItem item) {
+	public static boolean post(Item item) {
 
-		ArrayList<MpItem> mess = new ArrayList<MpItem>();
+		ArrayList<Item> mess = new ArrayList<Item>();
 
 		if (item != null) {
 
@@ -56,9 +57,9 @@ public class MpServer {
 	 * @param the item that was created by the sender and need to be stored in the draft folder.
 	 * @return indicate if operation successfully happened
 	 */
-	public boolean postDraft(MpItem item) {
+	public static boolean postDraft(Item item) {
 
-		ArrayList<MpItem> mess = new ArrayList<MpItem>();
+		ArrayList<Item> mess = new ArrayList<Item>();
 
 		if (item != null) {
 			mess.add(item);
@@ -78,9 +79,9 @@ public class MpServer {
 	 * @param draft will tell if the message to look for is a draft or a message
 	 * @return an Arraylist of message.
 	 */
-	public ArrayList<MpItem> getAllItems(String rcv, boolean draft) {
+	public static ArrayList<Item> getAllItems(String rcv, boolean draft) {
 
-		ArrayList<MpItem> allMyItems = new ArrayList<MpItem>();
+		ArrayList<Item> allMyItems = new ArrayList<Item>();
 		
 		if(draft) {
 			Set<String> fromDraft = itemsDraft.keySet();
@@ -139,13 +140,13 @@ public class MpServer {
 	 * @param draft tell if the message to be removed is draft.
 	 * @return a boolean telling that the message has been removed from the list.
 	 */
-	public boolean removeMessage(String usr, String identifier, boolean draft) {
+	public static boolean removeMessage(String usr, String identifier, boolean draft) {
 		boolean removed = false;
 
 			if(draft) {
-				ArrayList<MpItem> allUsrItems = itemsDraft.get(usr);
+				ArrayList<Item> allUsrItems = itemsDraft.get(usr);
 				for(int i = 0; i < allUsrItems.size();i++) {
-				//MpItem current = null;
+				Item current = null;
 				if(allUsrItems.get(i).getId().equals(identifier)) {
 					
 					allUsrItems.remove(i);
@@ -154,9 +155,9 @@ public class MpServer {
 				}
 				}
 			}else {
-				ArrayList<MpItem> allUsrItems = items.get(usr);
+				ArrayList<Item> allUsrItems = items.get(usr);
 				for(int i = 0; i < allUsrItems.size();i++) {
-				//MpItem current = null;
+				Item current = null;
 				if(allUsrItems.get(i).getId().equals(identifier)) {
 					
 					allUsrItems.remove(i);
@@ -180,16 +181,16 @@ public class MpServer {
 	 * @param draft tell if the message to be removed is draft.
 	 * @return a boolean telling that the message has been removed from the list.
 	 */
-	public MpItem popMessage(String usr, String identifier, boolean draft) {
+	public static Item popMessage(String usr, String identifier, boolean draft) {
 		
-		MpItem current = null;
+		Item current = null;
 		
 		//System.out.println(allUsrItems.size());
 		
 		
 		
 			if(draft) {
-				ArrayList<MpItem> allUsrItems = itemsDraft.get(usr);
+				ArrayList<Item> allUsrItems = itemsDraft.get(usr);
 				for(int i = 0; i < allUsrItems.size();i++) {
 				if(allUsrItems.get(i).getId().equals(identifier)) {
 					current = allUsrItems.get(i);
@@ -199,7 +200,7 @@ public class MpServer {
 				}
 				}
 			}else {
-				ArrayList<MpItem> allUsrItems = items.get(usr);
+				ArrayList<Item> allUsrItems = items.get(usr);
 				for(int i = 0; i < allUsrItems.size();i++) {
 				if(allUsrItems.get(i).getId().equals(identifier)) {
 					current = allUsrItems.get(i);

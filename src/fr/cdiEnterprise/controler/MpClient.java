@@ -1,10 +1,15 @@
-package fr.cdiEnterprise.service;
+package fr.cdiEnterprise.controler;
+
+
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import fr.cdiEnterprise.model.MpItem;
+import fr.cdiEnterprise.dao.Server;
+import fr.cdiEnterprise.model.Item;
+
+
 
 
 
@@ -27,16 +32,16 @@ public class MpClient {
 	
 	private static int ID_NUMBER = 0;
 
-	private MpServer server;
+	private Server server;
 	private String box;
-	private ArrayList<MpItem> myMessages;
-//	private ArrayList<MpItem> myDraft;
+	private ArrayList<Item> myMessages;
+	private ArrayList<Item> myDraft;
 	
-	public MpClient(MpServer server, String usr) {
+	public MpClient(Server server, String usr) {
 		box = usr;
 		this.server = server;
-		this.myMessages = new  ArrayList<MpItem>();
-//		this.myDraft = new  ArrayList<MpItem>();
+		this.myMessages = new  ArrayList<Item>();
+		this.myDraft = new  ArrayList<Item>();
 
 	}
 	
@@ -56,13 +61,14 @@ public class MpClient {
 		ID_NUMBER = ID_NUMBER + 1;
 		LocalDateTime timeStamp = LocalDateTime.now();
 		idNumber = ID_NUMBER + "";
-		MpItem itm = new MpItem(from, to, obj, bdy, timeStamp);
-		//System.out.println(idNumber);
+		Item itm = new Item(from, to, obj, bdy, timeStamp);
+		System.out.println("Taille du Message : "+bdy.length());
 		itm.setId(idNumber);
 		if(server.post(itm)) {
 			
 			return true;
 		}
+		// TODO function to generate new thread
 		
 		
 		return false;
@@ -74,11 +80,11 @@ public class MpClient {
 	 * @param draft
 	 * @return
 	 */
-	public boolean sendEmail(MpItem item, boolean draft) {
+	public boolean sendEmail(Item item, boolean draft) {
 
 		LocalDateTime timeStamp = LocalDateTime.now();
 	
-		MpItem itm = new MpItem(item.getSender(), item.getReceiver(), item.getObject(), item.getBody(),  timeStamp);
+		Item itm = new Item(item.getSender(), item.getReceiver(), item.getObject(), item.getBody(),  timeStamp);
 		
 		itm.setId(item.getId());
 		if(draft) {
@@ -97,6 +103,7 @@ public class MpClient {
 				item.setReceiver(snd);
 				item.setSender(rcv);
 				
+				
 				server.post(item);
 				return true;
 			}else {
@@ -114,13 +121,20 @@ public class MpClient {
 	 * @param item
 	 * @return return true if properly drafted.
 	 */
-	public boolean editDraft(MpItem toEdit, String to, String obj, String bdy) {	
-
-		MpItem itm = new MpItem(toEdit.getSender(), to, obj, bdy, null);
+	public boolean editDraft(Item toEdit, String to, String obj, String bdy) {	
 		
+		
+		String idNumber = null;
+		
+		
+		ID_NUMBER = ID_NUMBER + 1;
+		LocalDateTime timeStamp = LocalDateTime.now();
+		idNumber = ID_NUMBER + "";
+		Item itm = new Item(toEdit.getSender(), to, obj, bdy, null);
+		//System.out.println(idNumber);
 		itm.setId(toEdit.getId());
 		itm.setDraftEmail(true);
-		if(server.postDraft(itm)) {
+		if(server.postDraft(itm)) {  
 			
 			return true;
 		}
@@ -141,9 +155,9 @@ public class MpClient {
 		
 		
 		ID_NUMBER = ID_NUMBER + 1;
-		
+		LocalDateTime timeStamp = LocalDateTime.now();
 		idNumber = ID_NUMBER + "";
-		MpItem itm = new MpItem(from, to, obj, bdy, null);
+		Item itm = new Item(from, to, obj, bdy, null);
 		//System.out.println("the id number for " + idNumber);
 		itm.setId(idNumber);
 		itm.setDraftEmail(true);
@@ -160,7 +174,7 @@ public class MpClient {
 	 * @param draft true will indicate to return the draft email
 	 * @return an arrayList of items
 	 */
-	public ArrayList<MpItem> getMessages(boolean draft) {
+	public ArrayList<Item> getMessages(boolean draft) {
 
 		
 		myMessages = server.getAllItems(this.box, draft);
@@ -188,14 +202,19 @@ public class MpClient {
 	 * @param draft
 	 * @return an item representing the message.
 	 */
-	public MpItem popMessage(String identifier, boolean draft) {
-		MpItem message = server.popMessage(this.box, identifier, draft);
+	public Item popMessage(String identifier, boolean draft) {
+		Item message = server.popMessage(this.box, identifier, draft);
 		if(message != null) {
 			//System.out.println("Message has been popped..." + message.toString());
 		}
 		return message;
 	}
 	
+	
+	public int numberOfMessages(boolean draft) {
+		myMessages = server.getAllItems(this.box, draft);
+		return myMessages.size();
+	}
 	
 	/**
 	 * will display the mailbox or the draft box.
@@ -212,7 +231,7 @@ public class MpClient {
 		
 		System.out.printf("--- %s message(s) dans votre boite ---\n",myMessages.size());
 		System.out.printf("--- Liste des messages ---\n",box);
-		for(MpItem current : myMessages) {
+		for(Item current : myMessages) {
 			System.out.println("message From : "+current.getSender());
 			System.out.println("message To : "+current.getReceiver());
 			if(current.getTimeStamp() != null) {
