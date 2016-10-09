@@ -1,5 +1,7 @@
 package fr.cdiEnterprise.model;
 
+import fr.cdiEnterprise.service.Languages;
+
 /**
  * Cette classe représente une fiche entreprise qui sera renseignée par un
  * utilisateur.
@@ -16,10 +18,10 @@ public class Company {
 	private String adress;
 	private String postalCode;
 	private String city;
-	private int department;
-	private String region;
+	private Department department;
+	private Region region;
 	private String sector;
-	private String languages;
+	private Languages languages;
 	private String webSite;
 	private Contact contact;
 
@@ -43,8 +45,8 @@ public class Company {
 	 * @param webSite
 	 * @param contact
 	 */
-	public Company(String companyName, String adress, String postalCode, String city, int department, String region,
-			String sector, String languages, String webSite, Contact contact) {
+	public Company(String companyName, String adress, String postalCode, String city, Department department, Region region,
+			String sector, Languages languages, String webSite, Contact contact) {
 		id++;
 		this.companyName = companyName;
 		this.adress = adress;
@@ -94,14 +96,14 @@ public class Company {
 	/**
 	 * @return the department
 	 */
-	public int getDepartment() {
+	public Department getDepartment() {
 		return department;
 	}
 
 	/**
 	 * @return the region
 	 */
-	public String getRegion() {
+	public Region getRegion() {
 		return region;
 	}
 
@@ -115,8 +117,8 @@ public class Company {
 	/**
 	 * @return the languages
 	 */
-	public String getLanguages() {
-		return languages;
+	public Languages getLanguages() {
+		return getLanguages();
 	}
 
 	/**
@@ -180,7 +182,7 @@ public class Company {
 	 * @param department
 	 *            the department to set
 	 */
-	public void setDepartment(int department) {
+	public void setDepartment(Department department) {
 		this.department = department;
 	}
 
@@ -188,7 +190,7 @@ public class Company {
 	 * @param region
 	 *            the region to set
 	 */
-	public void setRegion(String region) {
+	public void setRegion(Region region) {
 		this.region = region;
 	}
 
@@ -204,7 +206,7 @@ public class Company {
 	 * @param languages
 	 *            the languages to set
 	 */
-	public void setLanguages(String languages) {
+	public void setLanguages(Languages languages) {
 		this.languages = languages;
 	}
 

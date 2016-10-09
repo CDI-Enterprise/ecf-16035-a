@@ -15,7 +15,7 @@ import java.util.Map.Entry;
  * MainFrame for the CDI Enterprise program with a JMenuBar.
  * Last update: 20161007
  * @version 1.0
- * @author Claire
+ * @author Claire, Anaïs
  *
  */
 
@@ -41,7 +41,7 @@ public class MainFrame extends JFrame {
 	 */
 	public MainFrame() {
 
-		// Algorithm from stackoverflow, set the font by default
+		// Algorithm from stackoverflow.com, set the font by default
 		for (Entry<Object, Object> entry : javax.swing.UIManager.getDefaults().entrySet()) {
 			Object key = entry.getKey();
 			Object value = javax.swing.UIManager.get(key);
@@ -75,16 +75,20 @@ public class MainFrame extends JFrame {
 		// Main menu @see fr.cdiEnterprise.view.Menu
 		this.setJMenuBar(new Menu());
 
-		// Home panel for welcoming screen (to build?)
+		// TODO Home panel for welcoming screen
 		homePan = new JPanel();
 		homePan.setBackground(Color.DARK_GRAY);
 		homePan.setLayout(new FlowLayout());
 		mainPan.add(homePan);
 
+		
 		// Panel for user CRUD
 		panelUser = new PanelUser();
-//		panelUser.setBackground(Color.WHITE); 
-
+		
+		// Panel CreatCompany
+		CompanyCreationPanel panelCreatCompany = new CompanyCreationPanel();
+		mainPan.add(panelCreatCompany);
+		
 	}
 
 	public static JPanel getMainPan() {
