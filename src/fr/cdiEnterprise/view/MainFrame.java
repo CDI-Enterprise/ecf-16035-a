@@ -30,7 +30,8 @@ public class MainFrame extends JFrame {
 	private static JPanel homePan;
 
 	private static PanelUser panelUser;
-
+	private static CompanyCreationPanel panelCreatCompany;
+	
 	/**
 	 * MainFrame constructor.
 	 * Constructs a Main Frame with a default panel of 1440*900 non resizable
@@ -86,8 +87,7 @@ public class MainFrame extends JFrame {
 		panelUser = new PanelUser();
 		
 		// Panel CreatCompany
-//		CompanyCreationPanel panelCreatCompany = new CompanyCreationPanel();
-//		mainPan.add(panelCreatCompany);
+		panelCreatCompany = new CompanyCreationPanel();
 		
 	}
 
@@ -98,5 +98,10 @@ public class MainFrame extends JFrame {
 	public static JPanel getPanelUser() {
 		return panelUser;
 	}
+
+	public static CompanyCreationPanel getPanelCreatCompany() {
+		return panelCreatCompany;
+	}
+	
 	
 }

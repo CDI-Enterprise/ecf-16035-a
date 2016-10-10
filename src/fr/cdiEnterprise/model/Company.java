@@ -21,6 +21,7 @@ public class Company {
 	private Department department;
 	private Region region;
 	private String sector;
+	private String size;
 	private Languages languages;
 	private String webSite;
 	private Contact contact;
@@ -46,7 +47,7 @@ public class Company {
 	 * @param contact
 	 */
 	public Company(String companyName, String adress, String postalCode, String city, Department department, Region region,
-			String sector, Languages languages, String webSite, Contact contact) {
+			String sector, String size, Languages languages, String webSite, Contact contact) {
 		id++;
 		this.companyName = companyName;
 		this.adress = adress;
@@ -55,6 +56,7 @@ public class Company {
 		this.department = department;
 		this.region = region;
 		this.sector = sector;
+		this.size = size;
 		this.languages = languages;
 		this.webSite = webSite;
 		this.contact = contact;
@@ -113,6 +115,10 @@ public class Company {
 	public String getSector() {
 		return sector;
 	}
+	
+	public String getSize() {
+		return size;
+	}
 
 	/**
 	 * @return the languages
@@ -145,6 +151,13 @@ public class Company {
 	/**
 	 * Ensemble des setteurs de la clase Company
 	 */
+
+	/**
+	 * @param size the size to set
+	 */
+	public void setSize(String size) {
+		this.size = size;
+	}
 
 	/**
 	 * @param companyName
@@ -242,7 +255,7 @@ public class Company {
 	@Override
 	public String toString() {
 		return "Entreprise [companyName=" + companyName + ", adress=" + adress + ", postalCode=" + postalCode
-				+ ", city=" + city + ", department=" + department + ", region=" + region + ", domaine=" + sector
+				+ ", city=" + city + ", department=" + department + ", region=" + region + ", domaine=" + sector + ", size= " + size 
 				+ ", webSite=" + webSite + ", contact=" + contact + "]";
 	}
 

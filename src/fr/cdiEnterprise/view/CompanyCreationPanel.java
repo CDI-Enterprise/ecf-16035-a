@@ -9,16 +9,14 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
-import javax.swing.JButton;
+//import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 
 import fr.cdiEnterprise.dao.Datas;
@@ -38,7 +36,7 @@ public class CompanyCreationPanel extends JPanel {
 	private Border border;
 	private JPanel panNorth;
 	private JPanel panCenter;
-	private JPanel panSouth;
+//	private JPanel panSouth;
 	private JLabel lblTitle;
 	private JLabel lblCompanyName;
 	private JTextField txtCompanyName;
@@ -52,14 +50,17 @@ public class CompanyCreationPanel extends JPanel {
 	private JLabel lblCompanyRegion;
 	private JComboBox<String> cboCompanyRegion;
 	private JLabel lblSelcRegion;
+//	private JLabel lblSize;
+//	private JLabel lblSector;
 	private JLabel lblLanguages;
 	private DefaultListModel<Language> dlmLanguages;
 	private JList<Language> lstLanguages;
 	private JScrollPane languages;
 	private JLabel lblSelcLanguages;
+//	private JLabel lblwebSite;
 	private JLabel lblProjets;
 	private JTextArea txtProjets;
-	
+//	private JLabel lblContact;
 	
 	private JLabel lblFieldInfo;
 	
@@ -71,7 +72,7 @@ public class CompanyCreationPanel extends JPanel {
 		
 		panNorth = new JPanel();
 		panCenter = new JPanel();
-		panSouth = new JPanel();
+//		panSouth = new JPanel();
 		
 		panneau.add(panNorth, BorderLayout.NORTH);
 		panneau.add(panCenter, BorderLayout.CENTER);
