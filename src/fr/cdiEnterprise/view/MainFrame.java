@@ -86,8 +86,8 @@ public class MainFrame extends JFrame {
 		panelUser = new PanelUser();
 		
 		// Panel CreatCompany
-		CompanyCreationPanel panelCreatCompany = new CompanyCreationPanel();
-		mainPan.add(panelCreatCompany);
+//		CompanyCreationPanel panelCreatCompany = new CompanyCreationPanel();
+//		mainPan.add(panelCreatCompany);
 		
 	}
 
