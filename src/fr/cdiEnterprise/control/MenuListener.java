@@ -38,7 +38,13 @@ public class MenuListener implements ActionListener {
 			MainFrame.getMainPan().repaint();
 			MainFrame.getMainPan().revalidate();
 		}
-
+		
+		if(e.getSource() == menu.getSubCompanyCreate()){
+			MainFrame.getMainPan().removeAll();
+			MainFrame.getMainPan().add(MainFrame.getPanelCreatCompany());
+			MainFrame.getMainPan().repaint();
+			MainFrame.getMainPan().revalidate();
+		}
 	}
 
 }

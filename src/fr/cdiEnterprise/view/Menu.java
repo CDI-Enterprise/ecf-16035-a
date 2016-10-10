@@ -100,6 +100,7 @@ public class Menu extends JMenuBar {
 		//LISTENER
 		MenuListener listener = new MenuListener(this);
 		menuProfile.addActionListener(listener);
+		subCompanyCreate.addActionListener(listener);
 
 	}
 
@@ -110,4 +111,11 @@ public class Menu extends JMenuBar {
 		return menuProfile;
 	}
 
-}
+	/**
+	 * @return the subCompanyCreate
+	 */
+	public JMenuItem getSubCompanyCreate() {
+		return subCompanyCreate;
+	}
+
+	}
