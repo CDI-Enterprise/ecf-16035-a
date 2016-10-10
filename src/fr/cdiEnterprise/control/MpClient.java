@@ -1,4 +1,4 @@
-package fr.cdiEnterprise.controler;
+package fr.cdiEnterprise.control;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
