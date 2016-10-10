@@ -1,7 +1,7 @@
 package fr.cdiEnterprise.test;
 
 import fr.cdiEnterprise.view.CompanyFrameAllCompanies;
-import fr.cdiEnterprise.view.CompanyFrameCreate;
+import fr.cdiEnterprise.view.CompanyCreationPanel;
 import fr.cdiEnterprise.view.CompanyFrameDelet;
 import fr.cdiEnterprise.view.CompanyFrameModif;
 
@@ -15,7 +15,7 @@ public class TestCompanyFrame {
 		// Window mainWindow = new Window();
 		// mainWindow.setVisible(true);
 
-		CompanyFrameCreate mainFrame = new CompanyFrameCreate();
+		CompanyCreationPanel mainFrame = new CompanyCreationPanel();
 		mainFrame.setVisible(true);
 
 //		CompanyFrameModif mainFrame2 = new CompanyFrameModif();

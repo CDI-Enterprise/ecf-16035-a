@@ -2,49 +2,232 @@ package fr.cdiEnterprise.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.Border;
 
+import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.model.Department;
+import fr.cdiEnterprise.model.Language;
+import fr.cdiEnterprise.model.Region;
 import net.miginfocom.swing.MigLayout;
 
-public class CompanyFrameCreate extends MainFrame {
+public class CompanyCreationPanel extends JPanel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public CompanyFrameCreate() {
-		super();
-		this.setTitle("CDI Enterprise - Création d'une fiche entreprise");
 
-		panMain.setLayout(new BorderLayout());
+	private Border border;
+	private JPanel panNorth;
+	private JPanel panCenter;
+	private JPanel panSouth;
+	private JLabel lblTitle;
+	private JLabel lblCompanyName;
+	private JTextField txtCompanyName;
+	private JLabel lblCompanyAdress;
+	private JTextField txtCompanyAdress;
+	private JLabel lblCompanyCity;
+	private JTextField txtCompanyCity;
+	private JLabel lblCompanyDepartment;
+	private JComboBox<String> cboCompanyDepartment;
+	private JLabel lblSelcDepartment;
+	private JLabel lblCompanyRegion;
+	private JComboBox<String> cboCompanyRegion;
+	private JLabel lblSelcRegion;
+	private JLabel lblLanguages;
+	private DefaultListModel<Language> dlmLanguages;
+	private JList<Language> lstLanguages;
+	private JScrollPane languages;
+	private JLabel lblSelcLanguages;
+	private JLabel lblProjets;
+	private JTextArea txtProjets;
+	
+	
+	private JLabel lblFieldInfo;
+	
+	
+	public CompanyCreationPanel() {
 		
+		Container panneau = this;
+		panneau.setLayout(new BorderLayout(5,5));
+		
+		panNorth = new JPanel();
+		panCenter = new JPanel();
+		panSouth = new JPanel();
+		
+		panneau.add(panNorth, BorderLayout.NORTH);
+		panneau.add(panCenter, BorderLayout.CENTER);
+
+		 border = BorderFactory.createLineBorder(Color.GRAY);
+		 
 		/* Header */
-		JPanel panNorth = new JPanel();
-		panMain.add(panNorth, BorderLayout.NORTH);
 		panNorth.setLayout(new FlowLayout());
+		lblTitle = new JLabel("Création d'une fiche entreprise");
+		lblTitle.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		lblTitle.setVisible(true);
 		//Main information on compulsory fields
-		JLabel lblFieldInfo = new JLabel("Les champs marqués d'étoiles sont obligatoires");
+		lblFieldInfo = new JLabel("Les champs marqués d'étoiles sont obligatoires");
 		lblFieldInfo.setFont(new Font(getName(), Font.BOLD, 14));
-		panNorth.add(lblFieldInfo);
+
 		panNorth.setBorder(BorderFactory.createLineBorder(Color.RED));	
 		
-//		/* Body */
-//		//Main center panel with four horizontal parts
-//		JPanel panCenter = new JPanel();
-//		panMain.add(panCenter, BorderLayout.CENTER);
-//		panCenter.setLayout(new MigLayout());
-//	
-//		
+		panNorth.add(lblTitle);
+		/* Body */
+
+		this.add(panCenter, BorderLayout.CENTER);
+		panCenter.setLayout(new MigLayout());
+	
+		lblCompanyName = new JLabel();
+		lblCompanyName.setText("Nom de l'entreprise");
+		
+		txtCompanyName = new JTextField();
+		txtCompanyName.setColumns(30);
+		txtCompanyName.setBorder(border);
+
+		lblCompanyAdress = new JLabel();
+		lblCompanyAdress.setText("Adresse (rue et numéro)");
+
+		txtCompanyAdress = new JTextField();
+		txtCompanyAdress.setColumns(30);
+		txtCompanyAdress.setBorder(border);
+
+		lblCompanyCity = new JLabel();
+		lblCompanyCity.setText("Ville");
+
+		txtCompanyCity = new JTextField();
+		txtCompanyCity.setColumns(30);
+		txtCompanyCity.setBorder(border);
+
+		lblCompanyDepartment = new JLabel();
+		lblCompanyDepartment.setText("Departement");
+
+		cboCompanyDepartment = new JComboBox<String>();
+		
+		for (Department department : Datas.getListeDepartments()) {
+			cboCompanyDepartment.addItem(department.toString());
+		}
+		
+		cboCompanyDepartment.setEditable(true);
+		cboCompanyDepartment.setMaximumRowCount(5);
+		
+		lblSelcDepartment = new JLabel();
+
+		lblCompanyRegion = new JLabel();
+		lblCompanyRegion.setText("Région");
+		
+		cboCompanyRegion = new JComboBox<String>();
+		for (Region region : Datas.getListeRegions()) {
+			cboCompanyRegion.addItem(region.getRegionName());
+		}
+		cboCompanyRegion.setEditable(true);
+		cboCompanyRegion.setMaximumRowCount(5);
+		
+		lblSelcRegion = new JLabel();
+		
+		
+		lblLanguages = new JLabel ("Langages principalement utilisés");
+		
+		
+		/**
+		 * Il faut une JList pour stocker les langages avec la possibilité de pouvoir en créer en renseignant la fiche entreprise
+		 * 
+		 */		
+		dlmLanguages = new DefaultListModel<Language>();
+		lstLanguages = new JList<Language>(dlmLanguages);
+//		for (Language language : Datas.getListeLanguages()) {
+//		dlmLanguages.addElement(language);
+//		}
+		languages = new JScrollPane(lstLanguages, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		languages.setPreferredSize(new Dimension(300, 70));
+		
+		lblSelcLanguages = new JLabel();
+
+		lblProjets = new JLabel("Principaux projets de l'entreprise");
+		txtProjets= new JTextArea();
+		txtProjets.setEditable(true);
+		txtProjets.setColumns(30);
+		txtProjets.setRows(3);
+		txtProjets.setBorder(border);
+		
+		
+		
+//		dateEdit = new JDateChooser();
+//
+
+		panCenter.add(lblCompanyName);
+		panCenter.add(txtCompanyName, "wrap");
+		panCenter.add(lblCompanyAdress);
+		panCenter.add(txtCompanyAdress, "wrap 20");
+		panCenter.add(lblCompanyCity);
+		panCenter.add(txtCompanyCity, "wrap 30");
+		panCenter.add(lblCompanyDepartment);
+		panCenter.add(cboCompanyDepartment);
+		panCenter.add(lblSelcDepartment, "wrap 20");
+		panCenter.add(lblCompanyRegion);
+		panCenter.add(cboCompanyRegion);
+		panCenter.add(lblSelcRegion, "wrap 20");
+		panCenter.add(lblLanguages);
+		panCenter.add(languages);
+		panCenter.add(lblSelcLanguages, "wrap 20");
+		panCenter.add(lblProjets);
+		panCenter.add(txtProjets, "wrap");
+		
+		
+		
+		
+		panCenter.add(lblFieldInfo);
+//		btnOk = new JButton("OK");
+//		btnAnnul = new JButton("Annuler");
+//		btnDelete = new JButton("Supprimer");
+//		btnModif = new JButton("Modifier");
+//		btnOkDate = new JButton("Ok");
+//
+//		commande = new JPanel();
+//		commande.setBorder(border);
+//		commande.add(btnOk);
+//		commande.add(btnAnnul);
+//		commande.add(btnModif);
+//		commande.add(btnDelete);
+//
+
+//
+//		clic = new AppListeners(this);
+//		btnOk.addActionListener(clic);
+//
+//		btnDelete.addActionListener(clic);
+//		// btnModif.addActionListener(clic);
+//
+//		cboEditeur.addActionListener(clic);
+//		cboThemes.addActionListener(clic);
+//		// cboAuteur.addActionListener(clic);
+//		btnCreaAuteur.addActionListener(clic);
+//		btnCreaEditeur.addActionListener(clic);
+//		btnCreaTheme.addActionListener(clic);
+//		btnOkDate.addActionListener(clic);
+//		lstLivres.addListSelectionListener(clic);
+//		lstAuteurs.addListSelectionListener(clic);
+
+	}
+		
 //		//FIRST horizontal part: first log-in informations
 //		JPanel panCenterRegister = new JPanel();
 //		panCenter.add(panCenterRegister, "wrap, w 1425!");
@@ -183,4 +366,3 @@ public class CompanyFrameCreate extends MainFrame {
 		
 	}
 
-}

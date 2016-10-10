@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  * @version 30-09-2016
  *
  */
-public class MpItem {
+public class Item {
 	
 	private String id;
 	private String sender;
@@ -38,7 +38,7 @@ public class MpItem {
 	 * @param body the body represent the message, should be limited to 1500 caracters.
 	 * @param timeStamp is the time when message has been sent.
 	 */
-	public MpItem(String sender, String receiver, String object, String body, LocalDateTime timeStamp) {
+	public Item(String sender, String receiver, String object, String body, LocalDateTime timeStamp) {
 		super();
 		
 		this.sender = sender;

@@ -36,6 +36,14 @@ public abstract class User {
 	 */
 	public User(){	
 	}
+	
+	// Constructor test
+	public User(String alias, String email) {
+		totalId++;
+		this.id = totalId;
+		this.alias = alias;
+		this.email = email;
+	}
 
 	/**
 	 * Constructs a user with compulsory first log-in informations
@@ -59,25 +67,36 @@ public abstract class User {
 	/* Object methods */
 	//TODO create input control
 
-	/**
-	 * @return String 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		String newLine = System.getProperty("line.separator");
-	
-		return "INFORMATIONS AUTO-GENEREES"
-				+ newLine + "Utilisateur " + id
-				+ newLine + "Date d'inscription : " + inscriptionDate
-				+ newLine
-				+ newLine + "INFORMATIONS OBLIGATOIRES POUR L'INSCRIPTION"
-				+ newLine + "Mail : " + email
-				+ newLine + "Pseudo : " + alias
-				+ newLine + "Mot de passe : " + password
-				+ newLine + "Statut : " + status
-				+ newLine + "AFPA : " + afpa;
+		return "User [id=" + id + ", inscriptionDate=" + inscriptionDate + ", email=" + email + ", alias=" + alias
+				+ ", password=" + password + ", status=" + status + ", afpa=" + afpa + "]";
 	}
+	
+	
+//	/**
+//	 * @return String 
+//	 * @see java.lang.Object#toString()
+//	 */
+//	@Override
+//	public String toString() {
+//		String newLine = System.getProperty("line.separator");
+//	
+//		return "INFORMATIONS AUTO-GENEREES"
+//				+ newLine + "Utilisateur " + id
+//				+ newLine + "Date d'inscription : " + inscriptionDate
+//				+ newLine
+//				+ newLine + "INFORMATIONS OBLIGATOIRES POUR L'INSCRIPTION"
+//				+ newLine + "Mail : " + email
+//				+ newLine + "Pseudo : " + alias
+//				+ newLine + "Mot de passe : " + password
+//				+ newLine + "Statut : " + status
+//				+ newLine + "AFPA : " + afpa;
+//		
+//	}
 
 
 	/* Object - Getter & setter */	
