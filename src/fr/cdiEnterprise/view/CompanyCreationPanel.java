@@ -9,6 +9,7 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 //import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -36,7 +37,7 @@ public class CompanyCreationPanel extends JPanel {
 	private Border border;
 	private JPanel panNorth;
 	private JPanel panCenter;
-//	private JPanel panSouth;
+	private JPanel panSouth;
 	private JLabel lblTitle;
 	private JLabel lblCompanyName;
 	private JTextField txtCompanyName;
@@ -63,7 +64,9 @@ public class CompanyCreationPanel extends JPanel {
 //	private JLabel lblContact;
 	
 	private JLabel lblFieldInfo;
-	
+	private JButton btnCreate;
+	private JButton btnCancel;
+	private JButton btnFavoris;
 	
 	public CompanyCreationPanel() {
 		
@@ -72,10 +75,11 @@ public class CompanyCreationPanel extends JPanel {
 		
 		panNorth = new JPanel();
 		panCenter = new JPanel();
-//		panSouth = new JPanel();
+		panSouth = new JPanel();
 		
 		panneau.add(panNorth, BorderLayout.NORTH);
 		panneau.add(panCenter, BorderLayout.CENTER);
+		panneau.add(panSouth, BorderLayout.SOUTH);
 
 		 border = BorderFactory.createLineBorder(Color.GRAY);
 		 
@@ -169,7 +173,9 @@ public class CompanyCreationPanel extends JPanel {
 		txtProjets.setRows(3);
 		txtProjets.setBorder(border);
 		
-		
+		btnCreate = new JButton("Enregistrer");
+		btnCancel = new JButton("Annuler");
+		btnFavoris = new JButton("Ajouter aux favoris");
 		
 //		dateEdit = new JDateChooser();
 //
@@ -196,11 +202,10 @@ public class CompanyCreationPanel extends JPanel {
 		
 		
 		panCenter.add(lblFieldInfo);
-//		btnOk = new JButton("OK");
-//		btnAnnul = new JButton("Annuler");
-//		btnDelete = new JButton("Supprimer");
-//		btnModif = new JButton("Modifier");
-//		btnOkDate = new JButton("Ok");
+		
+		panSouth.add(btnCreate);
+		panSouth.add(btnCancel);
+		panSouth.add(btnFavoris);
 //
 //		commande = new JPanel();
 //		commande.setBorder(border);
