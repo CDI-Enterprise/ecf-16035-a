@@ -1,6 +1,8 @@
-package fr.cdiEnterprise.model;
+package fr.cdiEnterprise.service;
 
 import java.util.ArrayList;
+
+import fr.cdiEnterprise.model.Language;
 
 public class Languages extends ArrayList<Language> {
 

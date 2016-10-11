@@ -70,22 +70,31 @@ public class FormerTrainee extends Trainee {
 	/* Object methods */
 	//TODO create input control
 
-	/**
-	 * @return String 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		String newLine = System.getProperty("line.separator");
-		
-		return
-				super.toString()
-				+ newLine
-				+ newLine + "INFORMATIONS ANCIEN STAGIAIRE"
-				+ newLine + "Profession actuelle : " + currentProfession
-				+ newLine + "Entreprise actuelle : " + currentCompany
-				+ newLine + "Ancienne(s) entreprise(s) : " + formerCompany;
+		return super.toString() + "FormerTrainee [currentProfession=" + currentProfession + ", currentCompany=" + currentCompany
+				+ ", formerCompany=" + formerCompany + "]";
 	}
+	
+//	/**
+//	 * @return String 
+//	 * @see java.lang.Object#toString()
+//	 */
+//	@Override
+//	public String toString() {
+//		String newLine = System.getProperty("line.separator");
+//		
+//		return
+//				super.toString()
+//				+ newLine
+//				+ newLine + "INFORMATIONS ANCIEN STAGIAIRE"
+//				+ newLine + "Profession actuelle : " + currentProfession
+//				+ newLine + "Entreprise actuelle : " + currentCompany
+//				+ newLine + "Ancienne(s) entreprise(s) : " + formerCompany;
+//	}
 
 	
 	/* Object - Getter & setter */

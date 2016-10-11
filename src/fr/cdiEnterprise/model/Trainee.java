@@ -35,6 +35,11 @@ public class Trainee extends User {
 	public Trainee(){
 		super();
 	}
+	
+	// Constructor test
+	public Trainee(String alias, String email) {
+		super(alias, email);
+	}
 
 	/**
 	 * Constructs a trainee with compulsory first log-in, compulsory and optional profile informations
@@ -79,29 +84,39 @@ public class Trainee extends User {
 	/* Object methods */
 	//TODO create input control
 
-	/**
-	 * @return String 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		String newLine = System.getProperty("line.separator");
-		
-		return super.toString()
-			+ newLine + "Formateur : " + trainer
-			+ newLine
-			+ newLine + "INFORMATIONS OBLIGATOIRES POUR CREATION DE PROFIL PUBLIC/RESTREINT"
-			+ newLine + "Nom (restreint)  : " + surname
-			+ newLine + "Prénom (restreint) : " + givenName
-			+ newLine + "Session : " + sessionCode
-			+ newLine + "Langage(s) : " + programmingLanguage
-			+ newLine
-			+ newLine + "INFORMATIONS PUBLIQUES FACULTATIVES"
-			+ newLine + "Entreprise(s) démarchée(s) : " + approachedCompany
-			+ newLine + "API(s) graphique : " + graphicAPI
-			+ newLine + "Site Internet : " + webSite
-			+ newLine + "LinkedIn : " + linkedIn;
+		return super.toString() + "Trainee [trainer=" + trainer + ", surname=" + surname + ", givenName=" + givenName + ", sessionCode="
+				+ sessionCode + ", programmingLanguage=" + programmingLanguage + ", graphicAPI=" + graphicAPI
+				+ ", approachedCompany=" + approachedCompany + ", webSite=" + webSite + ", linkedIn=" + linkedIn + "]";
 	}
+	
+//	/**
+//	 * @return String 
+//	 * @see java.lang.Object#toString()
+//	 */
+//	@Override
+//	public String toString() {
+//		String newLine = System.getProperty("line.separator");
+//		
+//		return super.toString()
+//			+ newLine + "Formateur : " + trainer
+//			+ newLine
+//			+ newLine + "INFORMATIONS OBLIGATOIRES POUR CREATION DE PROFIL PUBLIC/RESTREINT"
+//			+ newLine + "Nom (restreint)  : " + surname
+//			+ newLine + "Prénom (restreint) : " + givenName
+//			+ newLine + "Session : " + sessionCode
+//			+ newLine + "Langage(s) : " + programmingLanguage
+//			+ newLine
+//			+ newLine + "INFORMATIONS PUBLIQUES FACULTATIVES"
+//			+ newLine + "Entreprise(s) démarchée(s) : " + approachedCompany
+//			+ newLine + "API(s) graphique : " + graphicAPI
+//			+ newLine + "Site Internet : " + webSite
+//			+ newLine + "LinkedIn : " + linkedIn;
+//	}
 
 	
 	/* Object - Getter & setter */

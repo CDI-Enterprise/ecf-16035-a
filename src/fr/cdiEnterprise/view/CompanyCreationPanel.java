@@ -10,15 +10,14 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+//import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 
 import fr.cdiEnterprise.dao.Datas;
@@ -52,17 +51,22 @@ public class CompanyCreationPanel extends JPanel {
 	private JLabel lblCompanyRegion;
 	private JComboBox<String> cboCompanyRegion;
 	private JLabel lblSelcRegion;
+//	private JLabel lblSize;
+//	private JLabel lblSector;
 	private JLabel lblLanguages;
 	private DefaultListModel<Language> dlmLanguages;
 	private JList<Language> lstLanguages;
 	private JScrollPane languages;
 	private JLabel lblSelcLanguages;
+//	private JLabel lblwebSite;
 	private JLabel lblProjets;
 	private JTextArea txtProjets;
-	
+//	private JLabel lblContact;
 	
 	private JLabel lblFieldInfo;
-	
+	private JButton btnCreate;
+	private JButton btnCancel;
+	private JButton btnFavoris;
 	
 	public CompanyCreationPanel() {
 		
@@ -75,6 +79,7 @@ public class CompanyCreationPanel extends JPanel {
 		
 		panneau.add(panNorth, BorderLayout.NORTH);
 		panneau.add(panCenter, BorderLayout.CENTER);
+		panneau.add(panSouth, BorderLayout.SOUTH);
 
 		 border = BorderFactory.createLineBorder(Color.GRAY);
 		 
@@ -168,7 +173,9 @@ public class CompanyCreationPanel extends JPanel {
 		txtProjets.setRows(3);
 		txtProjets.setBorder(border);
 		
-		
+		btnCreate = new JButton("Enregistrer");
+		btnCancel = new JButton("Annuler");
+		btnFavoris = new JButton("Ajouter aux favoris");
 		
 //		dateEdit = new JDateChooser();
 //
@@ -195,11 +202,10 @@ public class CompanyCreationPanel extends JPanel {
 		
 		
 		panCenter.add(lblFieldInfo);
-//		btnOk = new JButton("OK");
-//		btnAnnul = new JButton("Annuler");
-//		btnDelete = new JButton("Supprimer");
-//		btnModif = new JButton("Modifier");
-//		btnOkDate = new JButton("Ok");
+		
+		panSouth.add(btnCreate);
+		panSouth.add(btnCancel);
+		panSouth.add(btnFavoris);
 //
 //		commande = new JPanel();
 //		commande.setBorder(border);
