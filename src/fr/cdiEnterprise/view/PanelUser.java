@@ -316,9 +316,15 @@ public class PanelUser extends JPanel {
 		
 		mdlListUsers = new DefaultListModel<User>();
 		lstUsers = new JList<User>(mdlListUsers);
-		for (User user : Datas.getUsersList()) {
-			mdlListUsers.addElement(user);
+		if(Datas.getUsersList() != null) {
+			for (User user : Datas.getUsersList()) {
+				if(user != null) {
+					mdlListUsers.addElement(user);
+				}
+				
+			}
 		}
+
 
 		panListUsers = new JScrollPane(lstUsers);
 		centerPan.add(panListUsers);

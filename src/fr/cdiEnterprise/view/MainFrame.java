@@ -31,6 +31,7 @@ public class MainFrame extends JFrame {
 
 	private static PanelUser panelUser;
 	private static CompanyCreationPanel panelCreatCompany;
+	private static JPanel panelMessaging;
 	
 	/**
 	 * MainFrame constructor.
@@ -89,6 +90,8 @@ public class MainFrame extends JFrame {
 		// Panel CreatCompany
 		panelCreatCompany = new CompanyCreationPanel();
 		
+		panelMessaging = new MessagingMainPanel();
+		
 	}
 
 	public static JPanel getMainPan() {
@@ -101,6 +104,14 @@ public class MainFrame extends JFrame {
 
 	public static CompanyCreationPanel getPanelCreatCompany() {
 		return panelCreatCompany;
+	}
+
+	/**
+	 * This method will provide the main messaging panel.  
+	 * @return an object JPanel representing the main messaging.
+	 */
+	public static JPanel getPanelMessaging() {
+		return panelMessaging;
 	}
 	
 	
