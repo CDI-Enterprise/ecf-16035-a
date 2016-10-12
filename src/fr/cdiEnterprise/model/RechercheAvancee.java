@@ -10,33 +10,28 @@ import java.util.List;
  *  @author olivier
  *  @version 02-10-2016
  */
-
 public class RechercheAvancee implements Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	protected String comPagnyName;
-	protected String adress;
-	protected String postalCode;
-	protected String city;
-	protected Integer department;
-	protected String sector;
-	protected String webSite;
-	protected Contact contact;
-	protected List<Company> listCompanies=new ArrayList<Company>();
-
-
+	
+	private int id;
+	private String comPagnyName;
+	private String adress;
+	private String postalCode;
+	private String city;
+	private Integer department;
+	private String sector;
+	private String webSite;
+	private Contact contact;
+	private List<Company> listCompanies=new ArrayList<Company>();
+	private static int compt;
 	/**
 	 * Default constructor
 	 */
-
 	public RechercheAvancee() {
 	}
-
 	/**
 	 * Constructor whith parameters
+	 * @param id
 	 * @param comPagnyName
 	 * @param adress
 	 * @param postalCode
@@ -45,10 +40,12 @@ public class RechercheAvancee implements Serializable{
 	 * @param sector
 	 * @param webSite
 	 * @param contact
+	 * @param listCompanies
 	 */
-	public RechercheAvancee(String comPagnyName, String adress,
-			String postalCode, String city, Integer department, String sector,
-			String webSite, Contact contact) {
+	public RechercheAvancee(int id, String comPagnyName, String adress, String postalCode, String city,
+			Integer department, String sector, String webSite, Contact contact, List<Company> listCompanies) {
+		super();
+		this.id = id;
 		this.comPagnyName = comPagnyName;
 		this.adress = adress;
 		this.postalCode = postalCode;
@@ -57,164 +54,162 @@ public class RechercheAvancee implements Serializable{
 		this.sector = sector;
 		this.webSite = webSite;
 		this.contact = contact;
+		this.listCompanies = listCompanies;
 	}
 	/**
-	 * 
-	 * @return name of compagny
+	 * @param id avec incrementation automatique
+	 * @param comPagnyName
+	 * @param adress
+	 * @param postalCode
+	 * @param city
+	 * @param department
+	 * @param sector
+	 * @param webSite
+	 * @param contact
+	 * @param listCompanies
+	 */
+	public RechercheAvancee(String comPagnyName, String adress, String postalCode, String city,
+			Integer department, String sector, String webSite, Contact contact, List<Company> listCompanies) {
+		super();
+		this.id = ++compt;
+		this.comPagnyName = comPagnyName;
+		this.adress = adress;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.department = department;
+		this.sector = sector;
+		this.webSite = webSite;
+		this.contact = contact;
+		this.listCompanies = listCompanies;
+	}
+	// Creation des assesseurs
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+	/**
+	 * @return the comPagnyName
 	 */
 	public String getComPagnyName() {
 		return comPagnyName;
 	}
-
 	/**
-	 * Updates name of compagny
-	 * @param comPagnyName
+	 * @param comPagnyName the comPagnyName to set
 	 */
 	public void setComPagnyName(String comPagnyName) {
 		this.comPagnyName = comPagnyName;
 	}
-
 	/**
-	 * 
-	 * @return adress of compagny
+	 * @return the adress
 	 */
 	public String getAdress() {
 		return adress;
 	}
-
 	/**
-	 * Updates adress of compagny
-	 * @param adress
+	 * @param adress the adress to set
 	 */
 	public void setAdress(String adress) {
 		this.adress = adress;
 	}
-
 	/**
-	 * 
-	 * @return code Zip of compagny
+	 * @return the postalCode
 	 */
 	public String getPostalCode() {
 		return postalCode;
 	}
-
 	/**
-	 * Updates code Zip of compagny
-	 * @param postalCode
+	 * @param postalCode the postalCode to set
 	 */
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
-
 	/**
-	 * 
-	 * @return the city of compgny
+	 * @return the city
 	 */
 	public String getCity() {
 		return city;
 	}
-
 	/**
-	 * Updates city of compagny
-	 * @param city
+	 * @param city the city to set
 	 */
 	public void setCity(String city) {
 		this.city = city;
 	}
-
 	/**
-	 * 
-	 * @return department of compagny
+	 * @return the department
 	 */
 	public Integer getDepartment() {
 		return department;
 	}
-
 	/**
-	 * Updates departement of compagny
-	 * @param department
+	 * @param department the department to set
 	 */
 	public void setDepartment(Integer department) {
 		this.department = department;
 	}
-
 	/**
-	 * 
-	 * @return sector of compagny
+	 * @return the sector
 	 */
 	public String getSector() {
 		return sector;
 	}
-
 	/**
-	 * Updatres sector of compagny
-	 * @param sector
+	 * @param sector the sector to set
 	 */
 	public void setSector(String sector) {
 		this.sector = sector;
 	}
-
 	/**
-	 * 
-	 * @return wevsite of compagny
+	 * @return the webSite
 	 */
 	public String getWebSite() {
 		return webSite;
 	}
-
 	/**
-	 * 
-	 * @param webSite
+	 * @param webSite the webSite to set
 	 */
 	public void setWebSite(String webSite) {
 		this.webSite = webSite;
 	}
-
 	/**
-	 * 
-	 * @return a contact of compagny
+	 * @return the contact
 	 */
 	public Contact getContact() {
 		return contact;
 	}
-
 	/**
-	 * Updates the contact of compagny
-	 * @param contact
+	 * @param contact the contact to set
 	 */
 	public void setContact(Contact contact) {
 		this.contact = contact;
 	}
-	
 	/**
-	 * 
-	 * @return the list of companies
+	 * @return the listCompanies
 	 */
 	public List<Company> getListCompanies() {
 		return listCompanies;
 	}
-
 	/**
-	 * Upadates list of companies	
-	 * @param listCompanies
+	 * @param listCompanies the listCompanies to set
 	 */
 	public void setListCompanies(List<Company> listCompanies) {
 		this.listCompanies = listCompanies;
 	}
-
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return "RechercheAvancee [comPagnyName=" + comPagnyName + ", adress="
-				+ adress + ", postalCode=" + postalCode + ", city=" + city
-				+ ", department=" + department + ", sector=" + sector
-				+ ", webSite=" + webSite + ", contact=" + contact
-				+ ", getComPagnyName()=" + getComPagnyName() + ", getAdress()="
-				+ getAdress() + ", getPostalCode()=" + getPostalCode()
-				+ ", getCity()=" + getCity() + ", getDepartment()="
-				+ getDepartment() + ", getSector()=" + getSector()
-				+ ", getWebSite()=" + getWebSite() + ", getContact()="
-				+ getContact() + "]";
+		return "RechercheAvancee [id=" + id + ", comPagnyName=" + comPagnyName + ", adress=" + adress + ", postalCode="
+				+ postalCode + ", city=" + city + ", department=" + department + ", sector=" + sector + ", webSite="
+				+ webSite + ", contact=" + contact + ", listCompanies=" + listCompanies + "]";
 	}
-
-
 }
