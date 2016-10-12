@@ -14,7 +14,8 @@ import fr.cdiEnterprise.model.Item;
 
 /**
  * This is the class server, which is actually a message container. message are
- * stored in a hashmap and keys are identified by thread #
+ * stored in a hashmap and keys are identified by receiver.
+ * a second map will be used to store the sender's draft email.
  * 
  * @author Nicolas Tarral
  * @version : 2016-01-10
