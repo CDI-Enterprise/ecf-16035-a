@@ -31,7 +31,8 @@ public class Menu extends JMenuBar {
 	private JMenuItem subCompanyUpdate;
 	private JMenuItem subCompanyDelete;
 	private JMenuItem subCompanyRead;
-
+	private JMenuItem subMessageDisplay;
+	
 	// menuHelp : sub item
 	private JMenuItem subHelpDoc;
 	private JMenuItem subHelpShortcut;
@@ -49,13 +50,13 @@ public class Menu extends JMenuBar {
 		menuProfile = new JMenuItem("Profil");
 		this.add(menuProfile);
 		// Shortcut for Profile
-		menuProfile.setMnemonic('P');
+		//menuProfile.setMnemonic('P');
 
 		// COMPANY
 		menuCompany = new JMenu("Entreprise");
 		this.add(menuCompany);
 		// Shortcut for Company
-		menuCompany.setMnemonic('E');
+		//menuCompany.setMnemonic('E');
 		// Sub menu for Enterprise
 		subCompanyCreate = new JMenuItem("Créer une nouvelle fiche");
 		menuCompany.add(subCompanyCreate);
@@ -76,6 +77,8 @@ public class Menu extends JMenuBar {
 
 		// MESSAGING
 		menuMessaging = new JMenu("Messagerie");
+		subMessageDisplay = new JMenuItem("Affichage");
+		menuMessaging.add(subMessageDisplay);
 		this.add(menuMessaging);
 
 		// HELP
@@ -100,6 +103,7 @@ public class Menu extends JMenuBar {
 		//LISTENER
 		MenuListener listener = new MenuListener(this);
 		menuProfile.addActionListener(listener);
+		subMessageDisplay.addActionListener(listener);
 		subCompanyCreate.addActionListener(listener);
 
 	}
@@ -110,12 +114,18 @@ public class Menu extends JMenuBar {
 	public JMenuItem getMenuProfile() {
 		return menuProfile;
 	}
+	
+
 
 	/**
 	 * @return the subCompanyCreate
 	 */
 	public JMenuItem getSubCompanyCreate() {
 		return subCompanyCreate;
+	}
+
+	public JMenuItem getSubMessageDisplay() {
+		return subMessageDisplay;
 	}
 
 	}
