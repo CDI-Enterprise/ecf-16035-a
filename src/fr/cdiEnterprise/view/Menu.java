@@ -10,7 +10,7 @@ import fr.cdiEnterprise.control.MenuListener;
  * Main menu for the CDI Enterprise program, visible on every frame.
  * Last update: 20161007 * 
  * @version 0.2
- * @author Claire, Anaïs
+ * @author Claire, Anaï¿½s
  */
 
 public class Menu extends JMenuBar {
@@ -58,7 +58,7 @@ public class Menu extends JMenuBar {
 		// Shortcut for Company
 		//menuCompany.setMnemonic('E');
 		// Sub menu for Enterprise
-		subCompanyCreate = new JMenuItem("Créer une nouvelle fiche");
+		subCompanyCreate = new JMenuItem("CrÃ©er une nouvelle fiche");
 		menuCompany.add(subCompanyCreate);
 		subCompanyUpdate = new JMenuItem("Modifier une fiche");
 		menuCompany.add(subCompanyUpdate);
@@ -90,13 +90,13 @@ public class Menu extends JMenuBar {
 		menuHelp.add(subHelpDoc);
 		subHelpShortcut = new JMenuItem("Raccourcis clavier");
 		menuHelp.add(subHelpShortcut);
-		subHelpUpdate = new JMenuItem("Vérifier les mises à jours");
+		subHelpUpdate = new JMenuItem("VÃ©rifier les mises Ã  jours");
 		menuHelp.add(subHelpUpdate);
 		subHelpAbout = new JMenuItem("A propos");
 		menuHelp.add(subHelpAbout);
 
 		// QUIT
-		menuQuit = new JMenu("Déconnexion");
+		menuQuit = new JMenu("DÃ©connexion");
 		this.add(menuQuit);
 
 
@@ -105,6 +105,7 @@ public class Menu extends JMenuBar {
 		menuProfile.addActionListener(listener);
 		subMessageDisplay.addActionListener(listener);
 		subCompanyCreate.addActionListener(listener);
+		menuBookmark.addActionListener(listener);
 
 	}
 
@@ -115,13 +116,18 @@ public class Menu extends JMenuBar {
 		return menuProfile;
 	}
 	
-
-
 	/**
 	 * @return the subCompanyCreate
 	 */
 	public JMenuItem getSubCompanyCreate() {
 		return subCompanyCreate;
+	}
+
+	/**
+	 * @return the menuBookmark
+	 */
+	public JMenu getMenuBookmark() {
+		return menuBookmark;
 	}
 
 	public JMenuItem getSubMessageDisplay() {
