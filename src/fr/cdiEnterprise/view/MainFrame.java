@@ -105,6 +105,10 @@ public class MainFrame extends JFrame {
 	public static CompanyCreationPanel getPanelCreatCompany() {
 		return panelCreatCompany;
 	}
+	
+	
+	
+	
 
 	/**
 	 * This method will provide the main messaging panel.  
@@ -114,5 +118,16 @@ public class MainFrame extends JFrame {
 		return panelMessaging;
 	}
 	
-	
+	/**
+	 * 
+	 * @param panel
+	 */
+	public static void SwithPanel(JPanel panel) {
+		
+		System.out.println("in the mainframe " + panel.getName());
+		mainPan.removeAll();
+		mainPan.add(panel);
+		mainPan.validate();
+		mainPan.repaint();
+	}
 }
