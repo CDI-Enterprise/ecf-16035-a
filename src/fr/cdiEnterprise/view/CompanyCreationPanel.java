@@ -105,7 +105,7 @@ public class CompanyCreationPanel extends JPanel {
 		lblFieldInfo = new JLabel("Les champs marqués d'étoiles sont obligatoires");
 		lblFieldInfo.setFont(new Font(getName(), Font.BOLD, 14));
 
-		panNorth.setBorder(BorderFactory.createLineBorder(Color.RED));	
+		panNorth.setBorder(BorderFactory.createLineBorder(Color.GRAY));	
 		panNorth.add(lblTitle);
 		
 		/* Body */
