@@ -63,11 +63,11 @@ public class Menu extends JMenuBar {
 		// Shortcut for Company
 		//menuCompany.setMnemonic('E');
 		// Sub menu for Enterprise
-		subCompanyCreate = new JMenuItem("CrÃ©er une nouvelle fiche");
+		subCompanyCreate = new JMenuItem("Créer une nouvelle fiche");
 		menuCompany.add(subCompanyCreate);
 		subCompanyUpdateDelete = new JMenuItem("Modifier / Supprimer une fiche");
 		menuCompany.add(subCompanyUpdateDelete);
-		subCompanyRead = new JMenuItem("Afficher toutes les les fiches entreprises");
+		subCompanyRead = new JMenuItem("Afficher toutes les fiches entreprises");
 		menuCompany.add(subCompanyRead);
 
 		// SEARCH
@@ -93,13 +93,13 @@ public class Menu extends JMenuBar {
 		menuHelp.add(subHelpDoc);
 		subHelpShortcut = new JMenuItem("Raccourcis clavier");
 		menuHelp.add(subHelpShortcut);
-		subHelpUpdate = new JMenuItem("VÃ©rifier les mises Ã  jours");
+		subHelpUpdate = new JMenuItem("Vérifier les mises à  jours");
 		menuHelp.add(subHelpUpdate);
 		subHelpAbout = new JMenuItem("A propos");
 		menuHelp.add(subHelpAbout);
 
 		// QUIT
-		menuQuit = new JMenu("DÃ©connexion");
+		menuQuit = new JMenu("Déconnexion");
 		this.add(menuQuit);
 
 
