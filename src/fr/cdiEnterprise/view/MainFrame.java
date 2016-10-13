@@ -72,7 +72,7 @@ public class MainFrame extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		// Main content properties
-		mainPan.setPreferredSize(new Dimension (1440,900));
+		mainPan.setPreferredSize(new Dimension (1280,800));
 		mainPan.setLayout(new BorderLayout(20,20));
 
 		// Main menu @see fr.cdiEnterprise.view.Menu
