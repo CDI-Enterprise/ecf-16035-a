@@ -46,7 +46,8 @@ public class MessagingNewPanel extends JPanel {
 	private JTextArea  txtMessage;
 	
 	private Users usersList;
-	
+
+
 	
 	public MessagingNewPanel() {
 		
