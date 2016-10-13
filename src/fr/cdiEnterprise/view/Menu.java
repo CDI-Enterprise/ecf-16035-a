@@ -100,7 +100,7 @@ public class Menu extends JMenuBar {
 
 		//LISTENER
 		MainMenuListener listener = new MainMenuListener(this);
-		menuProfile.addActionListener(listener);
+		menuProfile.addMenuListener(listener);
 		subMessageDisplay.addActionListener(listener);
 		subCompanyCreate.addActionListener(listener);
 
