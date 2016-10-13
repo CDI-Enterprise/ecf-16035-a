@@ -15,7 +15,7 @@ import java.util.Map.Entry;
  * MainFrame for the CDI Enterprise program with a JMenuBar.
  * Last update: 20161007
  * @version 1.0
- * @author Claire, Anaïs
+ * @author Claire, Anaï¿½s
  *
  */
 
@@ -33,6 +33,7 @@ public class MainFrame extends JFrame {
 	private static CompanyCreationPanel panelCreatCompany;
 	private static CompanyDeletUpdatPanel panelUpdateDeleteCompany;
 	private static JPanel panelMessaging;
+	private static BookMarkPanel panelBookMark;
 	
 	/**
 	 * MainFrame constructor.
@@ -72,7 +73,7 @@ public class MainFrame extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		// Main content properties
-		mainPan.setPreferredSize(new Dimension (1440,900));
+		mainPan.setPreferredSize(new Dimension (1280,800));
 		mainPan.setLayout(new BorderLayout(20,20));
 
 		// Main menu @see fr.cdiEnterprise.view.Menu
@@ -93,6 +94,9 @@ public class MainFrame extends JFrame {
 		panelUpdateDeleteCompany = new CompanyDeletUpdatPanel();
 		panelMessaging = new MessagingMainPanel();
 		
+		//Panel for BookMark
+		panelBookMark = new BookMarkPanel();
+		
 	}
 
 	public static JPanel getMainPan() {
@@ -105,6 +109,14 @@ public class MainFrame extends JFrame {
 
 	public static CompanyCreationPanel getPanelCreatCompany() {
 		return panelCreatCompany;
+	}
+	
+
+	/**This method will provide the main BookMark Panel
+	 * @return the panelBookMark
+	 */
+	public static BookMarkPanel getPanelBookMark() {
+		return panelBookMark;
 	}
 
 	public static CompanyDeletUpdatPanel getPanelDeletUpdatCompany(){
@@ -119,4 +131,16 @@ public class MainFrame extends JFrame {
 	}
 	
 	
+	/**
+	 * 
+	 * @param panel
+	 */
+	public static void SwithPanel(JPanel panel) {
+		
+		System.out.println("in the mainframe " + panel.getName());
+		mainPan.removeAll();
+		mainPan.add(panel);
+		mainPan.validate();
+		mainPan.repaint();
+	}
 }
