@@ -4,7 +4,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-import fr.cdiEnterprise.control.MenuListener;
+import fr.cdiEnterprise.control.MainMenuListener;
 
 
 /**
@@ -99,7 +99,7 @@ public class Menu extends JMenuBar {
 
 
 		//LISTENER
-		MenuListener listener = new MenuListener(this);
+		MainMenuListener listener = new MainMenuListener(this);
 		menuProfile.addActionListener(listener);
 		subMessageDisplay.addActionListener(listener);
 		subCompanyCreate.addActionListener(listener);
