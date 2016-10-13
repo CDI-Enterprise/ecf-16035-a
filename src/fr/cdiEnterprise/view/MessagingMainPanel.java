@@ -27,6 +27,8 @@ public class MessagingMainPanel extends JPanel {
 	private JButton btnDraft;
 	private JButton btnDisplay;
 	
+	private String nombreMessage;
+	
 	
 	
 	/**
@@ -54,7 +56,8 @@ public class MessagingMainPanel extends JPanel {
 		
 		JLabel lblTitle = new JLabel("- Messagerie -");
 		JLabel lblMess = new JLabel("Nombre de Message(s) :");
-		JLabel lblNombre = new JLabel("20");
+		
+		JLabel lblNombre = new JLabel(listModele.size()+"");
 		
 		btnNew = new JButton("Nouveau");
 		btnDraft = new JButton("Brouillon");

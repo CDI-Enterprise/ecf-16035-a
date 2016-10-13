@@ -5,6 +5,8 @@ package fr.cdiEnterprise.control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
@@ -26,16 +28,18 @@ import fr.cdiEnterprise.view.PanelUser;
  * @author Nicolas Tarral
  *
  */
-public class MessageListener implements ActionListener {
+public class MessageListener implements ActionListener, KeyListener {
 
 	// Given attribute
 	private static MessagingMainPanel panelMain;
 	private MessagingNewPanel panelNew;
 	private JPanel panel;
+	private static final int MESSAGE_MAX_SIZE = 850;
 	// Attribute to create-update a user
 	private User user;
 	private String alias;
 	private String email;
+	private int nbCaracters;
 	
 	
 	/**
@@ -78,5 +82,28 @@ public class MessageListener implements ActionListener {
 		
 		}
 	
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+		int nb = 0;
+		System.out.println("lettre tapée : " +e.getKeyChar());
+		nb ++;
+		nbCaracters += nb;
+		System.out.println("nombre de lettre tapées " + nbCaracters);
+		panelNew.getLblCounter().setText((MESSAGE_MAX_SIZE - nbCaracters)+"");
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}	
 }

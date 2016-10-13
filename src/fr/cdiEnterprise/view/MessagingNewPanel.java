@@ -37,6 +37,8 @@ public class MessagingNewPanel extends JPanel {
 	private JLabel receiver;
 	private JLabel object;
 	private JLabel Message;
+	private JLabel letterCount;
+	private JLabel lblCounter;
 	
 	private JComboBox cboReceiver;
 	private JTextField txtReceiver;
@@ -72,6 +74,8 @@ public class MessagingNewPanel extends JPanel {
 		receiver = new JLabel("Destinataire");
 		object = new JLabel("Objet");
 		Message = new JLabel("Texte");
+		letterCount = new JLabel("compteur");
+		lblCounter =   new JLabel();
 		
 
 
@@ -79,8 +83,9 @@ public class MessagingNewPanel extends JPanel {
 		cboReceiver.setEditable(true);
 		cboReceiver.setMaximumRowCount(3);
 		//txtReceiver = new JTextField();
-		txtObject = new JTextField();
-		txtMessage = new JTextArea();
+		txtObject = new JTextField(20);
+		txtMessage = new JTextArea(10, 50);
+	
 		
 		if(usersList != null) {
 			for(User current : usersList) {
@@ -105,6 +110,10 @@ public class MessagingNewPanel extends JPanel {
 		
 		panCenter.add(Message, "w 200!");
 		panCenter.add(txtMessage, "wrap");
+
+		panCenter.add(letterCount, "w 200!");
+		panCenter.add(lblCounter, "wrap");
+		
 		
 		panCenter.add(btnEnv, "w 200!");
 		panCenter.add(btnDraft, "w 200!");
@@ -115,9 +124,23 @@ public class MessagingNewPanel extends JPanel {
 		btnDraft.addActionListener(listener);
 		btnReturn.addActionListener(listener);
 		
+		txtMessage.addKeyListener(listener);
 		
 		
 		
+		
+	}
+
+
+
+	public JLabel getLblCounter() {
+		return lblCounter;
+	}
+
+
+
+	public void setLblCounter(JLabel lblCounter) {
+		this.lblCounter = lblCounter;
 	}
 
 
