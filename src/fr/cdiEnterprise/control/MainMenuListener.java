@@ -88,7 +88,7 @@ public class MainMenuListener implements ActionListener, MenuListener {
 		
 		if(e.getSource() == menu.getMenuProfile()) {
 			MainFrame.getMainPan().removeAll();
-			MainFrame.getMainPan().add(MainFrame.getPanelUser());
+			MainFrame.getMainPan().add(MainFrame.getScrollUser());
 			MainFrame.getMainPan().repaint();
 			MainFrame.getMainPan().revalidate();
 	

@@ -2,6 +2,7 @@ package fr.cdiEnterprise.view;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -30,6 +31,7 @@ public class MainFrame extends JFrame {
 	private static JPanel homePan;
 
 	private static PanelUser panelUser;
+	private static JScrollPane scrollUser;
 	private static CompanyCreationPanel panelCreatCompany;
 	private static CompanyDeletUpdatPanel panelUpdateDeleteCompany;
 	private static JPanel panelMessaging;
@@ -66,7 +68,7 @@ public class MainFrame extends JFrame {
 		// Title for MainFrame
 		this.setTitle("CDI Enterprise - Recherche de stages et suivi des stagiaires");
 		// Is it resizable?
-		this.setResizable(false);
+		this.setResizable(true);
 		// Set the opening location
 		this.setLocationByPlatform(true);
 		// MMC Close properties
@@ -88,6 +90,7 @@ public class MainFrame extends JFrame {
 		
 		// Panel for user CRUD
 		panelUser = new PanelUser();
+		scrollUser = new JScrollPane(panelUser);
 		
 		// Panel CreatCompany
 		panelCreatCompany = new CompanyCreationPanel();
@@ -99,12 +102,20 @@ public class MainFrame extends JFrame {
 		
 	}
 
+	/**
+	 * Display the welcome panel
+	 * @return mainPan
+	 */
 	public static JPanel getMainPan() {
 		return mainPan;
 	}
 
-	public static JPanel getPanelUser() {
-		return panelUser;
+	/**
+	 * 
+	 * @return
+	 */
+	public static JScrollPane getScrollUser() {
+		return scrollUser;
 	}
 
 	public static CompanyCreationPanel getPanelCreatCompany() {
