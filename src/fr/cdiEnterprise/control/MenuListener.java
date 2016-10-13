@@ -47,8 +47,14 @@ public class MenuListener implements ActionListener {
 			MainFrame.getMainPan().revalidate();
 		}
 		
+		if(e.getSource() == menu.getSubCompanyUpdateDelete()){
+			MainFrame.getMainPan().removeAll();
+			MainFrame.getMainPan().add(MainFrame.getPanelDeletUpdatCompany());
+			MainFrame.getMainPan().repaint();
+			MainFrame.getMainPan().revalidate();
+		}
+		
 		if(e.getSource() == menu.getSubMessageDisplay()){
-			
 			MainFrame.getMainPan().removeAll();
 			MainFrame.getMainPan().add(MainFrame.getPanelMessaging());
 			MainFrame.getMainPan().validate();
