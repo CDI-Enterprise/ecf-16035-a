@@ -31,6 +31,7 @@ public class MainFrame extends JFrame {
 
 	private static PanelUser panelUser;
 	private static CompanyCreationPanel panelCreatCompany;
+	private static CompanyDeletUpdatPanel panelUpdateDeleteCompany;
 	private static JPanel panelMessaging;
 	private static BookMarkPanel panelBookMark;
 	
@@ -90,7 +91,7 @@ public class MainFrame extends JFrame {
 		
 		// Panel CreatCompany
 		panelCreatCompany = new CompanyCreationPanel();
-		
+		panelUpdateDeleteCompany = new CompanyDeletUpdatPanel();
 		panelMessaging = new MessagingMainPanel();
 		
 		//Panel for BookMark
@@ -118,6 +119,9 @@ public class MainFrame extends JFrame {
 		return panelBookMark;
 	}
 
+	public static CompanyDeletUpdatPanel getPanelDeletUpdatCompany(){
+		return panelUpdateDeleteCompany;
+	}
 	/**
 	 * This method will provide the main messaging panel.  
 	 * @return an object JPanel representing the main messaging.

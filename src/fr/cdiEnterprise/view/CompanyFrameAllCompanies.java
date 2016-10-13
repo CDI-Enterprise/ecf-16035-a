@@ -1,6 +1,11 @@
 package fr.cdiEnterprise.view;
 
-public class CompanyFrameAllCompanies extends MainFrame {
+import java.awt.BorderLayout;
+import java.awt.Container;
+
+import javax.swing.JPanel;
+
+public class CompanyFrameAllCompanies extends JPanel {
 
 	/**
 	 * 
@@ -8,9 +13,11 @@ public class CompanyFrameAllCompanies extends MainFrame {
 	private static final long serialVersionUID = 1L;
 
 	public CompanyFrameAllCompanies() {
-		super();
-		this.setTitle("CDI Enterprise - Liste des entreprises");
+		
+		Container panneau = this;
+		panneau.setLayout(new BorderLayout(5,5));
 
+		
 	}
 
 }

@@ -17,14 +17,14 @@ import fr.cdiEnterprise.view.MainFrame;
  *
  */
 // TODO is this the best listener for a JMenuBar?
-public class MainMenuListener implements ActionListener {
+public class MenuListener implements ActionListener {
 
 	private Menu menu;
 
 	/**
 	 * @param menu
 	 */
-	public MainMenuListener(Menu menu) {
+	public MenuListener(Menu menu) {
 		this.menu = menu;
 	}
 
@@ -46,8 +46,14 @@ public class MainMenuListener implements ActionListener {
 			MainFrame.getMainPan().revalidate();
 		}
 		
+		if(e.getSource() == menu.getSubCompanyUpdateDelete()){
+			MainFrame.getMainPan().removeAll();
+			MainFrame.getMainPan().add(MainFrame.getPanelDeletUpdatCompany());
+			MainFrame.getMainPan().repaint();
+			MainFrame.getMainPan().revalidate();
+		}
+		
 		if(e.getSource() == menu.getSubMessageDisplay()){
-			
 			MainFrame.getMainPan().removeAll();
 			MainFrame.getMainPan().add(MainFrame.getPanelMessaging());
 			MainFrame.getMainPan().validate();
