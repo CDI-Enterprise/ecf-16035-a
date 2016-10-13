@@ -5,6 +5,11 @@ package fr.cdiEnterprise.control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Enumeration;
+
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
 
 import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.model.Trainee;
@@ -24,8 +29,11 @@ public class PanelUserListeners implements ActionListener {
 	private PanelUser panelUser;
 	// Attribute to create-update a user
 	private User user;
+	private String status;
 	private String alias;
 	private String email;
+	private String afpa;
+	private String trainer;
 	
 	
 	/**
@@ -41,13 +49,24 @@ public class PanelUserListeners implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		ButtonGroup statusGrp = panelUser.getStatusGrp();
+		Enumeration<AbstractButton> enumOpt = statusGrp.getElements();
+		
+		while (enumOpt.hasMoreElements()) {
+			JRadioButton optListener = (JRadioButton) enumOpt.nextElement();
+			if (optListener.isSelected()) {
+				status = optListener.getText();
+			}
+		}
+		
 		alias = panelUser.getTxtAlias().getText();
 		email = panelUser.getTxtMail().getText();
-		System.out.println(alias + email);
+		afpa = panelUser.getTxtAfpa().getText();
+		trainer = panelUser.getTxtTrainer().getText();
 		
 		if(e.getSource() == panelUser.getCmdCreate()) {
 			
-			user = new Trainee(alias, email);
+			user = new Trainee(status, alias, email, afpa, trainer);
 			System.out.println(user);
 			
 			Datas.getUsersList().add(user);

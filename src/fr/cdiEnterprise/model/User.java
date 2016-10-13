@@ -23,10 +23,10 @@ public abstract class User {
 	private Date inscriptionDate;							// Date of first log-in for user
 
 	//Compulsory first log-in information
+	private String status;									// Three possible choices: Trainee, FormerTrainee, Trainer
 	private String email;									// User's email (can be use for log-in)
 	private String alias;									// User's nickname for log-in
 	private String password;								// User's password (minimum 8 characters)
-	private String status;									// Three possible choices: Trainee, FormerTrainee, Trainer
 	private String afpa;									// Name of the AFPA the user go/went to or work for
 
 
@@ -38,11 +38,13 @@ public abstract class User {
 	}
 	
 	// Constructor test
-	public User(String alias, String email) {
+	public User(String status, String alias, String email, String afpa) {
 		totalId++;
 		this.id = totalId;
+		this.status = status;
 		this.alias = alias;
 		this.email = email;
+		this.afpa = afpa;
 	}
 
 	/**
