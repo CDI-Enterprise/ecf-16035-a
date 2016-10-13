@@ -4,7 +4,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-import fr.cdiEnterprise.control.MenuListener;
+import fr.cdiEnterprise.control.MainMenuListener;
 
 /**
  * Main menu for the CDI Enterprise program, visible on every frame.
@@ -18,7 +18,7 @@ public class Menu extends JMenuBar {
 	private static final long serialVersionUID = 1L;
 
 	// Main menu creation
-	private JMenuItem menuProfile;
+	private JMenu menuProfile;
 	private JMenu menuCompany;
 	private JMenu menuSearch;
 	private JMenu menuBookmark;
@@ -47,7 +47,7 @@ public class Menu extends JMenuBar {
 		// TODO shortcuts - use of char obsolete?
 		// TODO check why menuItems don't stay next to each other
 		// PROFILE
-		menuProfile = new JMenuItem("Profil");
+		menuProfile = new JMenu("Profil");
 		this.add(menuProfile);
 		// Shortcut for Profile
 		//menuProfile.setMnemonic('P');
@@ -101,7 +101,7 @@ public class Menu extends JMenuBar {
 
 
 		//LISTENER
-		MenuListener listener = new MenuListener(this);
+		MainMenuListener listener = new MainMenuListener(this);
 		menuProfile.addActionListener(listener);
 		subMessageDisplay.addActionListener(listener);
 		subCompanyCreate.addActionListener(listener);

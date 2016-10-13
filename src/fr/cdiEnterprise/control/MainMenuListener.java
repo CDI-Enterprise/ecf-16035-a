@@ -17,14 +17,14 @@ import fr.cdiEnterprise.view.MainFrame;
  *
  */
 // TODO is this the best listener for a JMenuBar?
-public class MenuListener implements ActionListener {
+public class MainMenuListener implements ActionListener {
 
 	private Menu menu;
 
 	/**
 	 * @param menu
 	 */
-	public MenuListener(Menu menu) {
+	public MainMenuListener(Menu menu) {
 		this.menu = menu;
 	}
 
