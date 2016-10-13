@@ -41,31 +41,17 @@ public class UsersListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		// TODO pt-virgule ?
-		if(e.getSource() == panelUser.getTxtAlias()); {
+		if(e.getSource() == panelUser.getCmdCreate()) {
 			
 			alias = panelUser.getTxtAlias().getText();
-			System.out.println(alias);
-		
-		}
-		
-		// TODO pas de lst sur variable?
-		if(e.getSource() == panelUser.getTxtMail()); {
-			
 			email = panelUser.getTxtMail().getText();
-			
-		}
-		
-		
-		
-		if(e.getSource() == panelUser.getCmdCreate()) {
+			System.out.println(alias + email);
 			
 			user = new Trainee(alias, email);
 			System.out.println(user);
 			
 			Datas.getUsersList().add(user);
 			panelUser.getMdlListUsers().addElement(user);
-			
 			
 		}
 		

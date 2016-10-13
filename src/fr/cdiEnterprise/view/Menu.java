@@ -28,8 +28,7 @@ public class Menu extends JMenuBar {
 
 	// menuEntreprise : sub item
 	private JMenuItem subCompanyCreate;
-	private JMenuItem subCompanyUpdate;
-	private JMenuItem subCompanyDelete;
+	private JMenuItem subCompanyUpdateDelete;
 	private JMenuItem subCompanyRead;
 	private JMenuItem subMessageDisplay;
 	
@@ -60,10 +59,8 @@ public class Menu extends JMenuBar {
 		// Sub menu for Enterprise
 		subCompanyCreate = new JMenuItem("Créer une nouvelle fiche");
 		menuCompany.add(subCompanyCreate);
-		subCompanyUpdate = new JMenuItem("Modifier une fiche");
-		menuCompany.add(subCompanyUpdate);
-		subCompanyDelete = new JMenuItem("Suppimer une fiche");
-		menuCompany.add(subCompanyDelete);
+		subCompanyUpdateDelete = new JMenuItem("Modifier / Supprimer une fiche");
+		menuCompany.add(subCompanyUpdateDelete);
 		subCompanyRead = new JMenuItem("Afficher toutes les les fiches entreprises");
 		menuCompany.add(subCompanyRead);
 
@@ -105,7 +102,10 @@ public class Menu extends JMenuBar {
 		menuProfile.addActionListener(listener);
 		subMessageDisplay.addActionListener(listener);
 		subCompanyCreate.addActionListener(listener);
+
+		subCompanyUpdateDelete.addActionListener(listener);
 		menuBookmark.addActionListener(listener);
+
 
 	}
 
@@ -121,6 +121,10 @@ public class Menu extends JMenuBar {
 	 */
 	public JMenuItem getSubCompanyCreate() {
 		return subCompanyCreate;
+	}
+	
+	public JMenuItem getSubCompanyUpdateDelete(){
+		return subCompanyUpdateDelete;
 	}
 
 	/**

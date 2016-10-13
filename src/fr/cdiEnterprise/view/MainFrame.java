@@ -31,6 +31,7 @@ public class MainFrame extends JFrame {
 
 	private static PanelUser panelUser;
 	private static CompanyCreationPanel panelCreatCompany;
+	private static CompanyDeletUpdatPanel panelUpdateDeleteCompany;
 	private static JPanel panelMessaging;
 	private static BookMarkPanel panelBookMark;
 	
@@ -72,7 +73,7 @@ public class MainFrame extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		// Main content properties
-		mainPan.setPreferredSize(new Dimension (1440,900));
+		mainPan.setPreferredSize(new Dimension (1280,800));
 		mainPan.setLayout(new BorderLayout(20,20));
 
 		// Main menu @see fr.cdiEnterprise.view.Menu
@@ -90,7 +91,7 @@ public class MainFrame extends JFrame {
 		
 		// Panel CreatCompany
 		panelCreatCompany = new CompanyCreationPanel();
-		
+		panelUpdateDeleteCompany = new CompanyDeletUpdatPanel();
 		panelMessaging = new MessagingMainPanel();
 		
 		//Panel for BookMark
@@ -118,6 +119,9 @@ public class MainFrame extends JFrame {
 		return panelBookMark;
 	}
 
+	public static CompanyDeletUpdatPanel getPanelDeletUpdatCompany(){
+		return panelUpdateDeleteCompany;
+	}
 	/**
 	 * This method will provide the main messaging panel.  
 	 * @return an object JPanel representing the main messaging.

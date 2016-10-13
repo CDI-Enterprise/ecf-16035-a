@@ -2,7 +2,7 @@ package fr.cdiEnterprise.test;
 
 import fr.cdiEnterprise.view.CompanyFrameAllCompanies;
 import fr.cdiEnterprise.view.CompanyCreationPanel;
-import fr.cdiEnterprise.view.CompanyFrameDelet;
+import fr.cdiEnterprise.view.CompanyDeletUpdatPanel;
 import fr.cdiEnterprise.view.CompanyFrameModif;
 
 public class TestCompanyFrame {
