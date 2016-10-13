@@ -86,6 +86,14 @@ public class MainMenuListener implements ActionListener, MenuListener {
 	@Override
 	public void menuSelected(MenuEvent e) {
 		
+		if(e.getSource() == menu.getMenuHome()) {
+			MainFrame.getMainPan().removeAll();
+			MainFrame.getMainPan().add(MainFrame.getHomePan());
+			MainFrame.getMainPan().repaint();
+			MainFrame.getMainPan().revalidate();
+	
+		}
+		
 		if(e.getSource() == menu.getMenuProfile()) {
 			MainFrame.getMainPan().removeAll();
 			MainFrame.getMainPan().add(MainFrame.getScrollUser());

@@ -19,6 +19,7 @@ public class Menu extends JMenuBar {
 	private static final long serialVersionUID = 1L;
 
 	// Main menu creation
+	private JMenu menuHome;
 	private JMenu menuProfile;
 	private JMenu menuCompany;
 	private JMenu menuSearch;
@@ -45,7 +46,11 @@ public class Menu extends JMenuBar {
 	public Menu() {
 
 		// TODO shortcuts - use of char obsolete?
-		// TODO check why menuItems don't stay next to each other
+		
+		// HOME
+		menuHome = new JMenu("Accueil");
+		this.add(menuHome);
+		
 		// PROFILE
 		menuProfile = new JMenu("Profil");
 		this.add(menuProfile);
@@ -100,6 +105,7 @@ public class Menu extends JMenuBar {
 
 		//LISTENER
 		MainMenuListener listener = new MainMenuListener(this);
+		menuHome.addMenuListener(listener);
 		menuProfile.addMenuListener(listener);
 		subMessageDisplay.addActionListener(listener);
 		subCompanyCreate.addActionListener(listener);
@@ -108,6 +114,14 @@ public class Menu extends JMenuBar {
 		menuBookmark.addActionListener(listener);
 
 
+	}
+
+	
+	/**
+	 * @return the menuHome
+	 */
+	public JMenu getMenuHome() {
+		return menuHome;
 	}
 
 	/**
