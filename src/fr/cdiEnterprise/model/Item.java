@@ -104,8 +104,7 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return "mpItem [id=" + id + ", sender=" + sender + ", receiver=" + receiver + ", object=" + object + ", body="
-				+ body + ", timeStamp=" + timeStamp + ", draftEmail=" + draftEmail + "]";
+		return "mpItem [id=" + id + ", sender=" + sender + ", receiver=" + receiver + ", object=" + object + ", timeStamp=" + timeStamp + ", draftEmail=" + draftEmail + "]";
 	}
 	
 

@@ -19,9 +19,10 @@ import java.util.Properties;
 public class ReadProperties {
 	static final String FILENAME = "MonIdentite.properties";
 
+	public  ReadProperties() {
+	}
 
-
-	public ReadProperties() {
+	public static String getMyAlias() {
 		Properties properties = new Properties();
 		try {
 			FileInputStream in = new FileInputStream(FILENAME);
@@ -37,5 +38,6 @@ public class ReadProperties {
 		System.out.println("-- using getProperty() --");
 		System.out.println("Font=" + properties.getProperty("Font"));
 		System.out.println("Alias=" + properties.getProperty("alias"));
+		return properties.getProperty("alias");
 	}
 }

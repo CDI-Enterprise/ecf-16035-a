@@ -2,7 +2,7 @@
  * 
  */
 package fr.cdiEnterprise.dao;
-import fr.cdiEnterprise.controler.MpClient;
+import fr.cdiEnterprise.control.MpClient;
 import fr.cdiEnterprise.model.Department;
 import fr.cdiEnterprise.model.Language;
 import fr.cdiEnterprise.model.Region;
@@ -129,6 +129,10 @@ public class Datas {
 	public static Languages getListeLanguages() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public static Clients getClientBox() {
+		return clientBox;
 	}
 
 }
