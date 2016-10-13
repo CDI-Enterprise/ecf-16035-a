@@ -11,7 +11,7 @@ import fr.cdiEnterprise.control.MainMenuListener;
  * Main menu for the CDI Enterprise program, visible on every frame.
  * Last update: 20161007 * 
  * @version 0.2
- * @author Claire, Anais
+ * @author Claire, Anais, Nicolas, Ismael
  */
 
 public class Menu extends JMenuBar {
@@ -19,7 +19,6 @@ public class Menu extends JMenuBar {
 	private static final long serialVersionUID = 1L;
 
 	// Main menu creation
-	private JMenu menuHome;
 	private JMenu menuProfile;
 	private JMenu menuCompany;
 	private JMenu menuSearch;
@@ -28,6 +27,9 @@ public class Menu extends JMenuBar {
 	private JMenu menuHelp;
 	private JMenu menuQuit;
 
+	// menuProfile : sub item
+	private JMenuItem subProfileCrud;
+	
 	// menuEntreprise : sub item
 	private JMenuItem subCompanyCreate;
 	private JMenuItem subCompanyUpdateDelete;
@@ -47,15 +49,11 @@ public class Menu extends JMenuBar {
 
 		// TODO shortcuts - use of char obsolete?
 		
-		// HOME
-		menuHome = new JMenu("Accueil");
-		this.add(menuHome);
-		
-		// PROFILE
+		// PROFILE TODO MenuListener
 		menuProfile = new JMenu("Profil");
 		this.add(menuProfile);
-		// Shortcut for Profile
-		//menuProfile.setMnemonic('P');
+		subProfileCrud = new JMenuItem("Gérer les profils");
+		menuProfile.add(subProfileCrud);
 
 		// COMPANY
 		menuCompany = new JMenu("Entreprise");
@@ -67,7 +65,7 @@ public class Menu extends JMenuBar {
 		menuCompany.add(subCompanyCreate);
 		subCompanyUpdateDelete = new JMenuItem("Modifier / Supprimer une fiche");
 		menuCompany.add(subCompanyUpdateDelete);
-		subCompanyRead = new JMenuItem("Afficher toutes les les fiches entreprises");
+		subCompanyRead = new JMenuItem("Afficher toutes les fiches entreprises");
 		menuCompany.add(subCompanyRead);
 
 		// SEARCH
@@ -93,7 +91,7 @@ public class Menu extends JMenuBar {
 		menuHelp.add(subHelpDoc);
 		subHelpShortcut = new JMenuItem("Raccourcis clavier");
 		menuHelp.add(subHelpShortcut);
-		subHelpUpdate = new JMenuItem("Vérifier les mises Ã  jours");
+		subHelpUpdate = new JMenuItem("Vérifier les mises à  jours");
 		menuHelp.add(subHelpUpdate);
 		subHelpAbout = new JMenuItem("A propos");
 		menuHelp.add(subHelpAbout);
@@ -105,30 +103,23 @@ public class Menu extends JMenuBar {
 
 		//LISTENER
 		MainMenuListener listener = new MainMenuListener(this);
-		menuHome.addMenuListener(listener);
-		menuProfile.addMenuListener(listener);
+		subProfileCrud.addActionListener(listener);
+		
 		subMessageDisplay.addActionListener(listener);
 		subCompanyCreate.addActionListener(listener);
-
 		subCompanyUpdateDelete.addActionListener(listener);
+		
 		menuBookmark.addActionListener(listener);
 
 
 	}
 
-	
-	/**
-	 * @return the menuHome
-	 */
-	public JMenu getMenuHome() {
-		return menuHome;
-	}
 
 	/**
 	 * @return the menuProfile
 	 */
-	public JMenuItem getMenuProfile() {
-		return menuProfile;
+	public JMenuItem getSubProfileCrud() {
+		return subProfileCrud;
 	}
 	
 	/**

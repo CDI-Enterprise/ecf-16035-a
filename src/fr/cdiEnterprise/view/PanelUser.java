@@ -16,7 +16,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import fr.cdiEnterprise.control.UsersListener;
+import fr.cdiEnterprise.control.PanelUserListeners;
 import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.model.User;
 import net.miginfocom.swing.MigLayout;
@@ -139,14 +139,16 @@ public class PanelUser extends JPanel {
 		// WEST - For create / update with four horizontal parts
 		westPan = new JPanel();
 		westPan.setLayout(new MigLayout());
-		westPan.setBorder(BorderFactory.createTitledBorder("Créer / modifier un utilisateur"));
+//		westPan.setBorder(BorderFactory.createTitledBorder("Créer / modifier un utilisateur"));
 		this.add(westPan, BorderLayout.WEST);
+		JLabel lblRegisterPan = new JLabel("Créer / modifier un utilisateur");
+		westPan.add(lblRegisterPan, "wrap");
 
 		// FIRST horizontal part: first log-in informations
 		registerPan = new JPanel();	
 		registerPan.setLayout(new MigLayout());
 		registerPan.setBorder(BorderFactory.createTitledBorder("ENREGISTREMENT"));
-		westPan.add(registerPan, "wrap, w 500!");
+		westPan.add(registerPan, "wrap, w 475!");
 
 		// User status TODO one status possible (listener)
 		lblStatus = new JLabel("Statut* : ");
@@ -193,7 +195,7 @@ public class PanelUser extends JPanel {
 		publicPan = new JPanel();
 		publicPan.setLayout(new MigLayout());
 		publicPan.setBorder(BorderFactory.createTitledBorder("PROFIL PUBLIC"));
-		westPan.add(publicPan, "wrap, w 500!");
+		westPan.add(publicPan, "wrap, w 475!");
 
 		// Code of training session, usually 5 numbers
 		lblSession = new JLabel("Numéro de session** : ");
@@ -251,7 +253,7 @@ public class PanelUser extends JPanel {
 		protectedPan = new JPanel();
 		protectedPan.setLayout(new MigLayout());
 		protectedPan.setBorder(BorderFactory.createTitledBorder("PROFIL RESTREINT"));
-		westPan.add(protectedPan, "wrap, w 500!");
+		westPan.add(protectedPan, "wrap, w 475!");
 
 		// Trainee surname for trainer (monitoring)
 		lblSurname = new JLabel("Nom** : ");
@@ -269,7 +271,7 @@ public class PanelUser extends JPanel {
 		optionalPan = new JPanel();
 		optionalPan.setLayout(new MigLayout());
 		optionalPan.setBorder(BorderFactory.createTitledBorder("VISIBLE PUBLIQUEMENT SI RENSEIGNÉ"));
-		westPan.add(optionalPan, "w 500!");
+		westPan.add(optionalPan, "w 475!");
 
 		// Other known programming languages
 		lblInfoLang = new JLabel("Autre(s) langage(s) : ");
@@ -345,9 +347,7 @@ public class PanelUser extends JPanel {
 		
 		
 		// LISTENERS
-		UsersListener listener = new UsersListener(this);
-//		txtAlias.addActionListener(listener);
-		
+		PanelUserListeners listener = new PanelUserListeners(this);
 		cmdCreate.addActionListener(listener);
 
 	}

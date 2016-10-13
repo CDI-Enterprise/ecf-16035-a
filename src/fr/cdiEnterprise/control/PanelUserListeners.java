@@ -18,7 +18,7 @@ import fr.cdiEnterprise.view.PanelUser;
  * @author Claire
  *
  */
-public class UsersListener implements ActionListener {
+public class PanelUserListeners implements ActionListener {
 
 	// Given attribute
 	private PanelUser panelUser;
@@ -31,7 +31,7 @@ public class UsersListener implements ActionListener {
 	/**
 	 * Constructs a listener taking a panel for attribute
 	 */
-	public UsersListener(PanelUser panelUser) {
+	public PanelUserListeners(PanelUser panelUser) {
 
 		this.panelUser = panelUser;
 		
@@ -41,11 +41,11 @@ public class UsersListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		alias = panelUser.getTxtAlias().getText();
+		email = panelUser.getTxtMail().getText();
+		System.out.println(alias + email);
+		
 		if(e.getSource() == panelUser.getCmdCreate()) {
-			
-			alias = panelUser.getTxtAlias().getText();
-			email = panelUser.getTxtMail().getText();
-			System.out.println(alias + email);
 			
 			user = new Trainee(alias, email);
 			System.out.println(user);

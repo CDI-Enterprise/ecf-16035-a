@@ -65,6 +65,7 @@ public class CompanyCreationPanel extends JPanel {
 	private JList<Language> lstLanguages;
 	private JScrollPane languages;
 	private JLabel lblSelcLanguages;
+	private JButton btnLanguageCreate;
 	private JLabel lblWebSite;
 	private JTextField txtWebSite;
 	private JLabel lblProjets;
@@ -175,6 +176,7 @@ public class CompanyCreationPanel extends JPanel {
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		languages.setPreferredSize(new Dimension(300, 70));
 		lblSelcLanguages = new JLabel();
+		btnLanguageCreate = new JButton("Ajouter un nouveau langage");
 
 		lblProjets = new JLabel("Principaux projets de l'entreprise");
 		txtProjets= new JTextArea();
@@ -227,6 +229,7 @@ public class CompanyCreationPanel extends JPanel {
 		panCompany.add(txtSector, "wrap 20");
 		panCompany.add(lblLanguages);
 		panCompany.add(languages);
+		panCompany.add(btnLanguageCreate);
 		panCompany.add(lblSelcLanguages, "wrap 20");
 		panCompany.add(lblProjets);
 		panCompany.add(txtProjets, "wrap 20");
