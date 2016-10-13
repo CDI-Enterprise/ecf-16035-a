@@ -139,7 +139,6 @@ public class PanelUser extends JPanel {
 		northPan.setBorder(BorderFactory.createLineBorder(Color.RED));
 
 		
-		// TODO left margin
 		// WEST - For create / update with four horizontal parts
 		westPan = new JPanel();
 		westPan.setLayout(new MigLayout());
@@ -361,6 +360,9 @@ public class PanelUser extends JPanel {
 		// LISTENERS
 		PanelUserListeners listener = new PanelUserListeners(this);
 		cmdCreate.addActionListener(listener);
+		cmdDelete.addActionListener(listener);
+		
+		lstUsers.addMouseListener(listener);
 
 	}
 
@@ -408,11 +410,24 @@ public class PanelUser extends JPanel {
 	}
 
 	/**
+	 * @return the lstUsers
+	 */
+	public JList<User> getLstUsers() {
+		return lstUsers;
+	}
+
+	/**
 	 * @return the cmdCreate
 	 */
 	public JButton getCmdCreate() {
 		return cmdCreate;
 	}
 
+	/**
+	 * @return the cmdDelete
+	 */
+	public JButton getCmdDelete() {
+		return cmdDelete;
+	}
 
 }

@@ -3,8 +3,10 @@
  */
 package fr.cdiEnterprise.dao;
 import fr.cdiEnterprise.model.Department;
+import fr.cdiEnterprise.model.Language;
 import fr.cdiEnterprise.model.Region;
 import fr.cdiEnterprise.model.Trainee;
+import fr.cdiEnterprise.model.Trainer;
 import fr.cdiEnterprise.service.Companies;
 import fr.cdiEnterprise.service.Departments;
 import fr.cdiEnterprise.service.Languages;
@@ -17,12 +19,14 @@ import fr.cdiEnterprise.service.Users;
  */
 public class Datas {
 
+	private static Languages progLangList;
+	
 	private static Users usersList;
 
 	private static Departments listeDepartments = new Departments();
 	private static Regions listeRegions = new Regions();
 	private static Companies listeCompanies = new Companies();
-	private static Languages listeLanguagesCompany = new Languages();
+
 
 	/**
 	 * 
@@ -33,10 +37,27 @@ public class Datas {
 
 	public static void init(){
 
+		// Non exhaustive DB programming language
+		progLangList = new Languages();
+		progLangList.add(new Language("C"));
+		progLangList.add(new Language("C++"));
+		progLangList.add(new Language("Delphi"));
+		progLangList.add(new Language("JavaScript"));
+		progLangList.add(new Language("Perl"));
+		progLangList.add(new Language("PHP"));
+		progLangList.add(new Language("Python"));
+		progLangList.add(new Language("R"));
+		progLangList.add(new Language("Ruby"));
+		progLangList.add(new Language("Visual Basic"));
+		
 		// Test list trainee
 		usersList = new Users();
-		usersList.add(new Trainee("email@boite.fr", "Pseudo1", "mdp", "Stagiaire", "Saint-Jérôme", "D. Muller", "Nom1", "Prénom1",
-				"16035", null, "Java", "Swing", "site.fr", "LI"));
+		usersList.add(new Trainer("01-01-2010 08:00", "Formateur", "Domi", "domim@afpa.fr", "Saint-Jérôme"));
+		usersList.add(new Trainee("29-08-2016 08:00", "Stagiaire", "Klaroo", "klaroo@mail.fr", "Saint-Jérôme", "D. Muller"));
+		usersList.add(new Trainee("29-08-2016 08:00", "Stagiaire", "Cookie", "cookie@mail.fr", "Saint-Jérôme", "D. Muller"));
+		usersList.add(new Trainee("29-08-2016 08:00", "Stagiaire", "Omy", "omy@mail.fr", "Saint-Jérôme", "D. Muller"));
+		usersList.add(new Trainee("29-08-2016 08:00", "Stagiaire", "Oracle", "oracle@mail.fr", "Saint-Jérôme", "D. Muller"));
+		usersList.add(new Trainee("29-08-2016 08:00", "Stagiaire", "Dark Swan", "darkswan@mail.fr", "Saint-Jérôme", "D. Muller"));
 
 		
 		// remplir les thèmes de la biblio
@@ -51,10 +72,15 @@ public class Datas {
 			listeRegions.add(new Region(Region.REGIONS[i]));	
 		}
 	}
+	
 
-	Languages allLunguages = new Languages();
-
-
+	/**
+	 * @return the usersList
+	 */
+	public static Users getUsersList() {
+		return usersList;
+	}
+	
 	public static Departments getListeDepartments() {
 		return listeDepartments;
 	}
@@ -82,14 +108,6 @@ public class Datas {
 	public static Languages getListeLanguages() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-
-	/**
-	 * @return the usersList
-	 */
-	public static Users getUsersList() {
-		return usersList;
 	}
 
 }
