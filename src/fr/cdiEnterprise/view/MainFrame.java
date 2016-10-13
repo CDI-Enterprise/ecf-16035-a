@@ -109,6 +109,13 @@ public class MainFrame extends JFrame {
 	public static JPanel getMainPan() {
 		return mainPan;
 	}
+	
+	/**
+	 * @return the homePan
+	 */
+	public static JPanel getHomePan() {
+		return homePan;
+	}
 
 	/**
 	 * 
