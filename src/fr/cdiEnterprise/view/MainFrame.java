@@ -15,7 +15,7 @@ import java.util.Map.Entry;
  * MainFrame for the CDI Enterprise program with a JMenuBar.
  * Last update: 20161007
  * @version 1.0
- * @author Claire, Anaïs
+ * @author Claire, Anaï¿½s
  *
  */
 
@@ -32,6 +32,7 @@ public class MainFrame extends JFrame {
 	private static PanelUser panelUser;
 	private static CompanyCreationPanel panelCreatCompany;
 	private static JPanel panelMessaging;
+	private static BookMarkPanel panelBookMark;
 	
 	/**
 	 * MainFrame constructor.
@@ -92,6 +93,9 @@ public class MainFrame extends JFrame {
 		
 		panelMessaging = new MessagingMainPanel();
 		
+		//Panel for BookMark
+		panelBookMark = new BookMarkPanel();
+		
 	}
 
 	public static JPanel getMainPan() {
@@ -105,6 +109,14 @@ public class MainFrame extends JFrame {
 	public static CompanyCreationPanel getPanelCreatCompany() {
 		return panelCreatCompany;
 	}
+	
+
+	/**This method will provide the main BookMark Panel
+	 * @return the panelBookMark
+	 */
+	public static BookMarkPanel getPanelBookMark() {
+		return panelBookMark;
+	}
 
 	/**
 	 * This method will provide the main messaging panel.  
@@ -115,4 +127,16 @@ public class MainFrame extends JFrame {
 	}
 	
 	
+	/**
+	 * 
+	 * @param panel
+	 */
+	public static void SwithPanel(JPanel panel) {
+		
+		System.out.println("in the mainframe " + panel.getName());
+		mainPan.removeAll();
+		mainPan.add(panel);
+		mainPan.validate();
+		mainPan.repaint();
+	}
 }

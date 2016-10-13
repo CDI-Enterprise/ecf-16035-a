@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
+import fr.cdiEnterprise.control.MessageListener;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -22,11 +23,20 @@ import net.miginfocom.swing.MigLayout;
  */
 public class MessagingMainPanel extends JPanel {
 	
+	private JButton btnNew;
+	private JButton btnDraft;
+	private JButton btnDisplay;
+	
+	
+	
 	/**
 	 * Default constructor 
 	 */
 	public MessagingMainPanel() {
 		
+		
+		
+		MessageListener listener = new MessageListener((JPanel) this);
 		
 		DefaultListModel<String> listModele = new DefaultListModel<>();
 		for(int i =0; i< 15; i++) {
@@ -46,9 +56,9 @@ public class MessagingMainPanel extends JPanel {
 		JLabel lblMess = new JLabel("Nombre de Message(s) :");
 		JLabel lblNombre = new JLabel("20");
 		
-		JButton newMessage = new JButton("Nouveau");
-		JButton draft = new JButton("Brouillon");
-		JButton display = new JButton("Refersh");
+		btnNew = new JButton("Nouveau");
+		btnDraft = new JButton("Brouillon");
+		btnDisplay = new JButton("Refersh");
 		
 		JList<String> list = new JList<String>(listModele);
 		
@@ -56,13 +66,29 @@ public class MessagingMainPanel extends JPanel {
 		panNorth.add(lblTitle);
 		panCenter.setLayout(new MigLayout());
 		
-		panCenter.add(newMessage, "w 200!");
-		panCenter.add(draft, "w 200!");
-		panCenter.add(display, "wrap");
+		panCenter.add(btnNew, "w 200!");
+		panCenter.add(btnDraft, "w 200!");
+		panCenter.add(btnDisplay, "wrap");
 		panCenter.add(lblMess, "w 200!");
 		panCenter.add(lblNombre, "wrap");
 		
 		panCenter.add(list, "wrap");
+		
+		btnNew.addActionListener(listener);
+		btnDraft.addActionListener(listener);
+		btnDisplay.addActionListener(listener);
+	}
+
+	public JButton getBtnNew() {
+		return btnNew;
+	}
+
+	public JButton getBtnDraft() {
+		return btnDraft;
+	}
+
+	public JButton getBtnDisplay() {
+		return btnDisplay;
 	}
 
 }

@@ -33,7 +33,6 @@ public class MenuListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if(e.getSource() == menu.getMenuProfile()) {
-			System.out.println("Message display selected");
 			MainFrame.getMainPan().removeAll();
 			MainFrame.getMainPan().add(MainFrame.getPanelUser());
 			MainFrame.getMainPan().repaint();
@@ -54,6 +53,13 @@ public class MenuListener implements ActionListener {
 			MainFrame.getMainPan().validate();
 			MainFrame.getMainPan().repaint();
 			
+		}
+		if(e.getSource() == menu.getMenuBookmark())
+		{
+			MainFrame.getMainPan().removeAll();
+			MainFrame.getMainPan().add(MainFrame.getPanelBookMark());
+			MainFrame.getMainPan().validate();
+			MainFrame.getMainPan().repaint();
 		}
 		
 	}
