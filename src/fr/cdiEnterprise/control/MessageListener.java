@@ -73,7 +73,19 @@ public class MessageListener implements ActionListener, KeyListener {
 			System.out.println("switch to panel : new message");
 			MainFrame.SwithPanel(panelNew);
 		
-		}if(e.getSource() ==  panelNew.getBtnReturn()) {
+		}if(e.getSource() ==  panelNew.getBtnEnv()) {
+			
+			//panelNew = new MessagingNewPanel();
+		
+			
+			
+			System.out.println("switch to panel : main message");
+			MainFrame.SwithPanel(panelMain);
+		
+		}
+		
+		
+		if(e.getSource() ==  panelNew.getBtnReturn()) {
 			
 			//panelNew = new MessagingNewPanel();
 			

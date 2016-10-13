@@ -2,9 +2,12 @@
  * 
  */
 package fr.cdiEnterprise.dao;
+import fr.cdiEnterprise.controler.MpClient;
 import fr.cdiEnterprise.model.Department;
 import fr.cdiEnterprise.model.Region;
 import fr.cdiEnterprise.model.Trainee;
+import fr.cdiEnterprise.model.User;
+import fr.cdiEnterprise.service.Clients;
 import fr.cdiEnterprise.service.Companies;
 import fr.cdiEnterprise.service.Departments;
 import fr.cdiEnterprise.service.Languages;
@@ -18,6 +21,8 @@ import fr.cdiEnterprise.service.Users;
 public class Datas {
 
 	private static Users usersList;
+	private static Server exchange;
+	private static Clients clientBox;
 
 	private static Departments listeDepartments = new Departments();
 	private static Regions listeRegions = new Regions();
@@ -32,13 +37,27 @@ public class Datas {
 	}
 
 	public static void init(){
+		
+		// Test du server de messagerie
+		exchange = new Server();
+		clientBox = new Clients();
 
 		// Test list trainee
 		usersList = new Users();
+		
 		usersList.add(new Trainee("email@boite.fr", "Pseudo1", "mdp", "Stagiaire", "Saint-Jérôme", "D. Muller", "Nom1", "Prénom1",
 				"16035", null, "Java", "Swing", "site.fr", "LI"));
-
+		for(User current : usersList) {
+			MpClient client = new MpClient(exchange, current.getAlias());
+			clientBox.add(client);
+		}
 		
+		usersList.add(new Trainee("nicolas@tarral.net", "ntarral", "mdp", "Stagiaire", "Saint-Jérôme", "D. Muller", "tarral", "nicolas",
+				"16035", null, "Java", "Swing", "tarral.net", "LI"));
+		
+		
+		usersList.add(new Trainee("pierre@benoit.net", "pbenoit", "mdp", "Stagiaire", "Saint-Jérôme", "D. Muller", "benoit", "pierre",
+				"16035", null, "Java", "Swing", "benoit.net", "LI"));
 		// remplir les thèmes de la biblio
 
 		Departments allStaticDepartment = new Departments();
