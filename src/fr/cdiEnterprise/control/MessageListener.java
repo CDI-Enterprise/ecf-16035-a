@@ -17,9 +17,12 @@ import fr.cdiEnterprise.view.MessagingNewPanel;
 import fr.cdiEnterprise.view.PanelUser;
 
 /**
- * Listeners for users CRUD
- * Last update: 20161009
- * @version 12-10-2016
+ * Class for the actionListner dedicated to the Messaging part.
+ * This class is able to identify if the user ask to create a new messa, znd return back to the 
+ * message list.
+ * 
+ * 
+ * @version 13-10-2016
  * @author Nicolas Tarral
  *
  */
@@ -56,7 +59,7 @@ public class MessageListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		// TODO pt-virgule ?
+		
 		
 		
 		if(e.getSource() ==  panelMain.getBtnNew()) {
@@ -66,9 +69,14 @@ public class MessageListener implements ActionListener {
 			System.out.println("switch to panel : new message");
 			MainFrame.SwithPanel(panelNew);
 		
-		}
+		}if(e.getSource() ==  panelNew.getBtnReturn()) {
+			
+			//panelNew = new MessagingNewPanel();
+			
+			System.out.println("switch to panel : main message");
+			MainFrame.SwithPanel(panelMain);
 		
 		}
 	
-	
+	}	
 }
