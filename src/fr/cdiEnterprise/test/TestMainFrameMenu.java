@@ -1,5 +1,6 @@
 package fr.cdiEnterprise.test;
 
+import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.view.MainFrame;
 
 /**
@@ -15,7 +16,6 @@ public static void main(String[] args) {
 		
 //		Window mainWindow = new Window();
 //		mainWindow.setVisible(true);
-		
 		MainFrame mainFrame = new MainFrame();
 		mainFrame.setVisible(true);
 		mainFrame.setResizable(true);

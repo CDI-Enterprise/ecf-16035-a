@@ -19,8 +19,8 @@ import fr.cdiEnterprise.model.Item;
  * to put message in the draft folder, use the following method draft(String from, String to, String obj, String bdy).
  * at that point we put the draft variable to true in the message.
  * to edit and send a message you will have to follow those steps :
- * Pop the message from the server(draft folder of your user), by calling popMessage method the, use the sendEmail method
- * as soon as the message is send out to the final user, the timestamp is setup, the draft boolean will be put on false.
+ * Pop the message from the server(draft folder of your user), by calling popMessage method then, use the sendEmail method.
+ * As soon as the message is send out to the final user, the timestamp is setup, the draft boolean will be put on false.
  * 
  * @author Nicolas Tarral
  * @version 01-10-2016

@@ -16,6 +16,7 @@ public class TestCompanyFrame {
 		// mainWindow.setVisible(true);
 
 		CompanyCreationPanel mainFrame = new CompanyCreationPanel();
+		
 		mainFrame.setVisible(true);
 
 //		CompanyFrameModif mainFrame2 = new CompanyFrameModif();
