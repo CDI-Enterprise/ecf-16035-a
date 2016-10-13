@@ -90,6 +90,7 @@ public class MainFrame extends JFrame {
 		
 		// Panel for user CRUD
 		panelUser = new PanelUser();
+		panelUser.setPreferredSize(new Dimension (1280,800));
 		scrollUser = new JScrollPane(panelUser);
 		
 		// Panel CreatCompany
