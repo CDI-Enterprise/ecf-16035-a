@@ -17,6 +17,7 @@ import fr.cdiEnterprise.control.MessageListener;
 import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.model.User;
 import fr.cdiEnterprise.service.Users;
+import fr.cdiEnterprise.util.ReadProperties;
 import javafx.scene.control.ComboBox;
 import net.miginfocom.swing.MigLayout;
 
@@ -34,6 +35,7 @@ public class MessagingNewPanel extends JPanel {
 	private JButton btnDraft;
 	private JButton btnReturn;
 	
+	private String from;
 	private JLabel receiver;
 	private JLabel object;
 	private JLabel Message;
@@ -55,6 +57,7 @@ public class MessagingNewPanel extends JPanel {
 		MessageListener listener = new MessageListener((JPanel) this);
 		
 		usersList = Datas.getUsersList();
+		from = ReadProperties.getMyAlias();
 		
 		
 		JPanel panMess = new JPanel();
@@ -160,6 +163,30 @@ public class MessagingNewPanel extends JPanel {
 
 	public JButton getBtnReturn() {
 		return btnReturn;
+	}
+
+
+
+	public String getFrom() {
+		return from;
+	}
+
+
+
+	public JComboBox getCboReceiver() {
+		return cboReceiver;
+	}
+
+
+
+	public JTextField getTxtObject() {
+		return txtObject;
+	}
+
+
+
+	public JTextArea getTxtMessage() {
+		return txtMessage;
 	}
 
 

@@ -2,11 +2,15 @@
  * 
  */
 package fr.cdiEnterprise.dao;
+import fr.cdiEnterprise.control.MpClient;
 import fr.cdiEnterprise.model.Department;
 import fr.cdiEnterprise.model.Language;
 import fr.cdiEnterprise.model.Region;
 import fr.cdiEnterprise.model.Trainee;
+import fr.cdiEnterprise.model.User;
+import fr.cdiEnterprise.service.Clients;
 import fr.cdiEnterprise.model.Trainer;
+
 import fr.cdiEnterprise.service.Companies;
 import fr.cdiEnterprise.service.Departments;
 import fr.cdiEnterprise.service.Languages;
@@ -22,6 +26,8 @@ public class Datas {
 	private static Languages progLangList;
 	
 	private static Users usersList;
+	private static Server exchange;
+	private static Clients clientBox;
 
 	private static Departments listeDepartments = new Departments();
 	private static Regions listeRegions = new Regions();
@@ -36,6 +42,10 @@ public class Datas {
 	}
 
 	public static void init(){
+		
+		// Test du server de messagerie
+		exchange = new Server();
+		clientBox = new Clients();
 
 		// Non exhaustive DB programming language
 		progLangList = new Languages();
@@ -59,7 +69,14 @@ public class Datas {
 		usersList.add(new Trainee("29-08-2016 08:00", "Stagiaire", "Oracle", "oracle@mail.fr", "Saint-Jérôme", "D. Muller"));
 		usersList.add(new Trainee("29-08-2016 08:00", "Stagiaire", "Dark Swan", "darkswan@mail.fr", "Saint-Jérôme", "D. Muller"));
 
+		// Creation des boite de Messagerie
 		
+		for(User current : usersList) {
+			MpClient client = new MpClient(exchange, current.getAlias());
+			clientBox.add(client);
+		}
+		
+
 		// remplir les thèmes de la biblio
 
 		Departments allStaticDepartment = new Departments();
@@ -108,6 +125,10 @@ public class Datas {
 	public static Languages getListeLanguages() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public static Clients getClientBox() {
+		return clientBox;
 	}
 
 }
