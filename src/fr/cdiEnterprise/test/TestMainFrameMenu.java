@@ -1,8 +1,6 @@
 package fr.cdiEnterprise.test;
 
-import fr.cdiEnterprise.control.MpClient;
 import fr.cdiEnterprise.dao.Datas;
-import fr.cdiEnterprise.dao.Server;
 import fr.cdiEnterprise.view.MainFrame;
 
 /**
