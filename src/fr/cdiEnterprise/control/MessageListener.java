@@ -96,6 +96,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			
 		
 		}
+		// ENOIE MESSAGE
 		if(e.getSource() ==  panelNew.getBtnEnv()) {
 			
 			//panelNew = new MessagingNewPanel();

@@ -9,13 +9,17 @@ import javax.swing.table.TableModel;
 
 import fr.cdiEnterprise.service.Items;
 
-public class VstTableItemModel2<Item> extends AbstractTableModel {
+public class SpecialTableItemModel<Item> extends AbstractTableModel {
 
-    private Items users;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Items users;
     private String[] columnIdentifiers;
     private String[] columnNames = {"Sender","Objet", "Date Envoie"};
     
-    public VstTableItemModel2(Items users) {
+    public SpecialTableItemModel(Items users) {
 
         this.users = users;
 
@@ -93,6 +97,22 @@ public class VstTableItemModel2<Item> extends AbstractTableModel {
 	public void addTableModelListener(TableModel tableModel) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+
+
+
+	public Items getUsers() {
+		return users;
+	}
+
+
+
+
+
+	public void setUsers(Items users) {
+		this.users = users;
 	}
 
 

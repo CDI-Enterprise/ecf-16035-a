@@ -49,7 +49,7 @@ public class MessagingMainPanel extends JPanel {
 	
 	private String nombreMessage;
 	private Items allItems;
-	private VstTableItemModel2 tiModel;
+	private SpecialTableItemModel tiModel;
 	private DefaultTableModel tableModele;
 	private JScrollPane scrollPane;
 	private JTable table;
@@ -116,7 +116,7 @@ public class MessagingMainPanel extends JPanel {
 		JLabel lblTitle = new JLabel("- Messagerie -");
 		JLabel lblMess = new JLabel("Nombre de Message(s) :");
 		
-		tiModel = new VstTableItemModel2(userItems);
+		tiModel = new SpecialTableItemModel(userItems);
 		
 		tableModele =  new DefaultTableModel(tableauMsg, new String[] {
 				"Sender", "Objet", "Date Reception"
@@ -184,7 +184,7 @@ public class MessagingMainPanel extends JPanel {
 		btnDisplay.addActionListener(listener);
 	}
 
-	public VstTableItemModel2 getTiModel() {
+	public SpecialTableItemModel getTiModel() {
 		return tiModel;
 	}
 
@@ -205,11 +205,15 @@ public class MessagingMainPanel extends JPanel {
 		// rapatrier tous les messages.
 		
 		allItems = cli.getMessages(false);
-		userItems =(Items) allItems;
+		
+		
 		if(allItems.isEmpty()) {
 			System.out.println("--- il n'y a pas de message ---");
 			tableauMsg = new String[allItems.size()][3];
+			userItems = new Items();
 		}else {
+			userItems = allItems;
+			tiModel.setUsers(userItems);
 			tableauMsg = new String[allItems.size()][3];
 			// recupere tous les messages d'un utilisateur de l'app.
 			tableauMsg = allClients.getMsgTableFormat(ReadProperties.getMyAlias(), false);
