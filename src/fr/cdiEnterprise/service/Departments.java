@@ -11,7 +11,7 @@ public class Departments extends ArrayList<Department> {
 	public Department getDepartment(String name) {
 
 		Department departmentFound = null;
-
+		
 		for (Department department : this) {
 			if (department.getDepartmentName().equals(name)) {
 				departmentFound = department;
@@ -19,5 +19,4 @@ public class Departments extends ArrayList<Department> {
 		}
 		return departmentFound;
 	}
-
 }

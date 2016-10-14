@@ -17,6 +17,7 @@ import fr.cdiEnterprise.service.Languages;
 import fr.cdiEnterprise.service.Regions;
 import fr.cdiEnterprise.service.Users;
 
+
 /**
  * @author Claire, Anaïs
  *
@@ -32,8 +33,7 @@ public class Datas {
 	private static Regions regionsList = new Regions();
 	private static Companies companiesList = new Companies();
 	private static Languages languagesCompanyList = new Languages();
-	private static Departments listeDepartments = new Departments();
-
+	
 	/**
 	 * 
 	 */
@@ -68,7 +68,6 @@ public class Datas {
 		
 // HEAD
 		// List Department
-		//Departments allDepartments = new Departments();
 
 		usersList = new Users();
 		usersList.add(new Trainer("01-01-2010 08:00", "Formateur", "Domi", "domim@afpa.fr", "Saint-Jérôme"));
@@ -85,8 +84,6 @@ public class Datas {
 			clientBox.add(client);
 		}
 		
-
-		// remplir les thèmes de la biblio
 
 		//Departments allStaticDepartment = new Departments();
 		for(int i = 0; i < Department.DEPARTMENTS.length; i++) {
@@ -114,29 +111,21 @@ public class Datas {
 		return usersList;
 	}
 	
-	public static Departments getListeDepartments() {
-		return listeDepartments;
+	public static Department getDepartment(String nomDepartment) {
+		return departmentsList.getDepartment(nomDepartment);
 	}
 
-	public static void setDepartmentsList(Departments listeDepartments) {
-		Datas.departmentsList = listeDepartments;
-	}
 
 	public static Regions getRegionsList() {
 		return regionsList;
 	}
 
-	public static void setRegionsList(Regions listeRegions) {
-		Datas.regionsList = listeRegions;
-	}
 
 	public static Companies getCompaniesList() {
 		return companiesList;
 	}
 
-	public static void setCompaniesList(Companies listeCompanies) {
-		Datas.companiesList = listeCompanies;
-	}
+
 
 	public static Languages getLanguagesCompanyList() {
 		return languagesCompanyList;
@@ -144,6 +133,10 @@ public class Datas {
 
 	public static Clients getClientBox() {
 		return clientBox;
+	}
+
+	public static Region getRegion(String nomRegion) {
+		return regionsList.getRegion(nomRegion);
 	}
 
 }
