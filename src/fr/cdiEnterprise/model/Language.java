@@ -1,21 +1,28 @@
 package fr.cdiEnterprise.model;
 
 /**
- * Cette classe représente un langage informatique
+ * Cette classe représente un langage de programmation informatique.
  * 
  * @author Anaïs
- * @version 07-10-2016
+ * @version 13-10-2016
  *
  */
 
 public class Language {
 
+	private static int languageId;								// Auto-generated language's id
+	private int id;
 	private String languageName;
-
-	public Language(String nameL) {
-
-		this.languageName = nameL;
-	}
+	public static final String[] LANGUAGES = { "JAVA", "PhP", "CSS", "C#", "C++", "Ruby" };
+	
+	/**
+	 * Default constructor
+	 */
+	public Language(String languageName) {
+		languageId++;
+		this.id = languageId;
+		this.languageName = languageName;
+		}
 
 	public String getLanguageName() {
 		return languageName;
@@ -25,8 +32,13 @@ public class Language {
 		this.languageName = languageName;
 	}
 
+	/**
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return "Language [languageName=" + languageName + "]";
+		return  languageName ;
+
 	}
+	
 }

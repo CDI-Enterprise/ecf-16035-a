@@ -9,7 +9,7 @@ public class Department {
 	
 	public static final String[] DEPARTMENTS = { "Ain", "Aisne", "Allier", "Alpes de Hautes-Provence", "Hautes-Alpes", 
 			"Alpes-Maritimes", "Ardèche", "Ardennes", "Ariège", "Aube", "Aude", "Aveyron", " Bouches-du-Rhône", "Calvados",
-			"Cantal", "Charente", "Charente-Maritime", "Cher", "Corrèze", "Corse-du-Sud", "Haute-Corse", "Côte-d'Or", 
+			"Cantal", "Charente", "Charente-Maritime", "Cher", "Corrèze", "Corse-du-Sud-Haute-Corse", "Côte-d'Or", 
 			"Côtes d'Armor", "Creuse", "Dordogne", "Doubs", "Drôme", "Eure", "Eure-et-Loir", "Finistère", "Gard"," Haute-Garonne",
 			"Gers", "Gironde", "Hérault", "Ille-et-Vilaine", "Indre", "Indre-et-Loire", "Isère", "Jura", "Landes", "Loir-et-Cher",
 			"Loire", "Haute-Loire", "Loire-Atlantique", "Loiret", "Lot", "Lot-et-Garonne", "Lozère", "Maine-et-Loire", "Manche",

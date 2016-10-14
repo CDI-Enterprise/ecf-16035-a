@@ -7,12 +7,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.time.LocalDateTime;
 
 import javax.swing.JPanel;
 
 import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.model.Trainee;
 import fr.cdiEnterprise.model.User;
+import fr.cdiEnterprise.service.Clients;
+import fr.cdiEnterprise.util.ReadProperties;
 import fr.cdiEnterprise.view.MainFrame;
 import fr.cdiEnterprise.view.MessagingMainPanel;
 import fr.cdiEnterprise.view.MessagingNewPanel;
@@ -73,7 +77,38 @@ public class MessageListener implements ActionListener, KeyListener {
 			System.out.println("switch to panel : new message");
 			MainFrame.SwithPanel(panelNew);
 		
-		}if(e.getSource() ==  panelNew.getBtnReturn()) {
+		}if(e.getSource() ==  panelMain.getBtnDisplay()) {
+			
+			
+			
+			System.out.println("switch to panel : new message");
+			
+		
+		}
+		if(e.getSource() ==  panelNew.getBtnEnv()) {
+			
+			//panelNew = new MessagingNewPanel();
+			System.out.println("envoie from " + panelNew.getFrom());
+			String receiver = (String) panelNew.getCboReceiver().getItemAt(panelNew.getCboReceiver().getSelectedIndex());
+			System.out.println("envoie to " + receiver);
+			System.out.println("envoie objet " + panelNew.getTxtObject().getText());
+			System.out.println("envoie message " + panelNew.getTxtMessage().getText());
+			Clients clients = Datas.getClientBox();
+			MpClient cli = clients.getClient(ReadProperties.getMyAlias());
+			cli.newEmail(cli.getBox(), receiver, panelNew.getTxtObject().getText(),panelNew.getTxtMessage().getText());
+			System.out.println("Message send out...");
+			panelMain.refresh();
+			
+			
+			
+			
+			System.out.println("switch to panel : main message");
+			MainFrame.SwithPanel(panelMain);
+		
+		}
+		
+		
+		if(e.getSource() ==  panelNew.getBtnReturn()) {
 			
 			//panelNew = new MessagingNewPanel();
 			

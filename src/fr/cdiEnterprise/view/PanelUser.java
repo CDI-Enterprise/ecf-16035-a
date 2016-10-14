@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,8 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
-import fr.cdiEnterprise.control.UsersListener;
+import fr.cdiEnterprise.control.PanelUserListeners;
 import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.model.User;
 import net.miginfocom.swing.MigLayout;
@@ -56,17 +58,18 @@ public class PanelUser extends JPanel {
 	private JLabel lblAlias;
 	private JLabel lblInfoAlias;
 	private JLabel lblMail;
-	private JLabel lblInfoMail;
+//	private JLabel lblInfoMail;
 	private JLabel lblAfpa;
-	private JLabel lblFormer;
+	private JLabel lblTrainer;
 	// Others components
+	private ButtonGroup statusGrp;
 	private JRadioButton optTrainee;
 	private JRadioButton optFormerTrainee;
 	private JRadioButton optTrainer;
 	private JTextField txtAlias;
 	private JTextField txtMail;
 	private JTextField txtAfpa;
-	private JTextField txtFormer;
+	private JTextField txtTrainer;
 
 	// Second panel for public profile informations
 	private JPanel publicPan;
@@ -104,6 +107,7 @@ public class PanelUser extends JPanel {
 	private JTextField txtLinkedIn;
 	
 	// CENTER
+	private JPanel listUsersPan;
 	private DefaultListModel<User> mdlListUsers;
 	private JList<User> lstUsers;
 	private JScrollPane panListUsers;
@@ -118,7 +122,7 @@ public class PanelUser extends JPanel {
 	public PanelUser() {
 
 		// Main layout for book creation panel
-		this.setLayout(new BorderLayout(20, 20));
+		this.setLayout(new BorderLayout(10, 20));
 
 		
 		// NORTH - main information on compulsory fields
@@ -135,36 +139,40 @@ public class PanelUser extends JPanel {
 		northPan.setBorder(BorderFactory.createLineBorder(Color.RED));
 
 		
-		// TODO left margin
 		// WEST - For create / update with four horizontal parts
 		westPan = new JPanel();
 		westPan.setLayout(new MigLayout());
-		westPan.setBorder(BorderFactory.createTitledBorder("Créer / modifier un utilisateur"));
+		westPan.setBorder(new EmptyBorder(0, 5,0, 0));
 		this.add(westPan, BorderLayout.WEST);
 
 		// FIRST horizontal part: first log-in informations
 		registerPan = new JPanel();	
 		registerPan.setLayout(new MigLayout());
 		registerPan.setBorder(BorderFactory.createTitledBorder("ENREGISTREMENT"));
-		westPan.add(registerPan, "wrap, w 500!");
+		westPan.add(registerPan, "wrap, w 475!");
 
-		// User status TODO one status possible (listener)
+		// User status
 		lblStatus = new JLabel("Statut* : ");
 		registerPan.add(lblStatus, "w 200!");
 		optTrainee = new JRadioButton("Stagiaire");
 		optFormerTrainee = new JRadioButton("Ancien");
 		optTrainer = new JRadioButton("Formateur");
+		// RadioButton group creation
+		statusGrp = new ButtonGroup();
+		statusGrp.add(optTrainee);
+		statusGrp.add(optFormerTrainee);
+		statusGrp.add(optTrainer);
+		
 		registerPan.add(optTrainee, "split 3");
 		registerPan.add(optFormerTrainee);
 		registerPan.add(optTrainer, "wrap");
 
 		// User alias
-		// TODO attribute for font, grey color
 		lblAlias = new JLabel("Pseudo* : ");
 		registerPan.add(lblAlias);
 		txtAlias = new JTextField(20);
 		registerPan.add(txtAlias, "wrap");
-		lblInfoAlias = new JLabel("Maximum 20 caractères");
+		lblInfoAlias = new JLabel("<html><font color = #808080>Maximum 20 caractères</font></html>");
 		lblInfoAlias.setFont(new Font(getName(), Font.ITALIC, 13));
 		registerPan.add(lblInfoAlias, "wrap, cell 1 2 1 1");
 
@@ -173,9 +181,9 @@ public class PanelUser extends JPanel {
 		registerPan.add(lblMail);
 		txtMail = new JTextField(20);
 		registerPan.add(txtMail, "wrap");
-		lblInfoMail = new JLabel("Ne sera pas rendu public");
-		lblInfoMail.setFont(new Font(getName(), Font.ITALIC, 13));
-		registerPan.add(lblInfoMail, "wrap, cell 1 4 1 1");
+//		lblInfoMail = new JLabel("<html><font color = #808080 >Ne sera pas rendu public</font></html>");
+//		lblInfoMail.setFont(new Font(getName(), Font.ITALIC, 13));
+//		registerPan.add(lblInfoMail, "wrap, cell 1 4 1 1");
 
 		// Name of AFPA where the user did his training
 		lblAfpa = new JLabel("AFPA* : ");
@@ -184,16 +192,16 @@ public class PanelUser extends JPanel {
 		registerPan.add(txtAfpa, "wrap");
 
 		// User trainer
-		lblFormer = new JLabel("Nom du formateur** : ");
-		registerPan.add(lblFormer);
-		txtFormer = new JTextField(20);
-		registerPan.add(txtFormer);
+		lblTrainer = new JLabel("Nom du formateur** : ");
+		registerPan.add(lblTrainer);
+		txtTrainer = new JTextField(20);
+		registerPan.add(txtTrainer);
 
 		// SECOND horizontal part: public profile informations
 		publicPan = new JPanel();
 		publicPan.setLayout(new MigLayout());
 		publicPan.setBorder(BorderFactory.createTitledBorder("PROFIL PUBLIC"));
-		westPan.add(publicPan, "wrap, w 500!");
+		westPan.add(publicPan, "wrap, w 475!");
 
 		// Code of training session, usually 5 numbers
 		lblSession = new JLabel("Numéro de session** : ");
@@ -251,7 +259,7 @@ public class PanelUser extends JPanel {
 		protectedPan = new JPanel();
 		protectedPan.setLayout(new MigLayout());
 		protectedPan.setBorder(BorderFactory.createTitledBorder("PROFIL RESTREINT"));
-		westPan.add(protectedPan, "wrap, w 500!");
+		westPan.add(protectedPan, "wrap, w 475!");
 
 		// Trainee surname for trainer (monitoring)
 		lblSurname = new JLabel("Nom** : ");
@@ -269,7 +277,7 @@ public class PanelUser extends JPanel {
 		optionalPan = new JPanel();
 		optionalPan.setLayout(new MigLayout());
 		optionalPan.setBorder(BorderFactory.createTitledBorder("VISIBLE PUBLIQUEMENT SI RENSEIGNÉ"));
-		westPan.add(optionalPan, "w 500!");
+		westPan.add(optionalPan, "w 475!");
 
 		// Other known programming languages
 		lblInfoLang = new JLabel("Autre(s) langage(s) : ");
@@ -311,8 +319,14 @@ public class PanelUser extends JPanel {
 		// CENTER - for list of users
 		centerPan = new JPanel();
 		centerPan.setLayout(new MigLayout());
-		centerPan.setBorder(BorderFactory.createTitledBorder("Liste des utilisateurs"));
+		centerPan.setBorder(new EmptyBorder(0, 0, 0, 5));
+		
 		this.add(centerPan, BorderLayout.CENTER);
+		
+		listUsersPan = new JPanel();
+		listUsersPan.setLayout(new MigLayout());
+		listUsersPan.setBorder(BorderFactory.createTitledBorder("Liste des utilisateurs"));
+		centerPan.add(listUsersPan);
 		
 		mdlListUsers = new DefaultListModel<User>();
 		lstUsers = new JList<User>(mdlListUsers);
@@ -325,9 +339,8 @@ public class PanelUser extends JPanel {
 			}
 		}
 
-
 		panListUsers = new JScrollPane(lstUsers);
-		centerPan.add(panListUsers);
+		listUsersPan.add(panListUsers);
 		
 		
 		// SOUTH - Footer for JButton
@@ -345,11 +358,61 @@ public class PanelUser extends JPanel {
 		
 		
 		// LISTENERS
-		UsersListener listener = new UsersListener(this);
-//		txtAlias.addActionListener(listener);
-		
+		PanelUserListeners listener = new PanelUserListeners(this);
 		cmdCreate.addActionListener(listener);
+		cmdDelete.addActionListener(listener);
+		
+		lstUsers.addMouseListener(listener);
 
+	}
+
+	/**
+	 * @return the statusGrp
+	 */
+	public ButtonGroup getStatusGrp() {
+		return statusGrp;
+	}
+
+	/**
+	 * @return the optTrainee
+	 */
+	public JRadioButton getOptTrainee() {
+		return optTrainee;
+	}
+
+	/**
+	 * @param optTrainee the optTrainee to set
+	 */
+	public void setOptTrainee(JRadioButton optTrainee) {
+		this.optTrainee = optTrainee;
+	}
+
+	/**
+	 * @return the optFormerTrainee
+	 */
+	public JRadioButton getOptFormerTrainee() {
+		return optFormerTrainee;
+	}
+
+	/**
+	 * @param optFormerTrainee the optFormerTrainee to set
+	 */
+	public void setOptFormerTrainee(JRadioButton optFormerTrainee) {
+		this.optFormerTrainee = optFormerTrainee;
+	}
+
+	/**
+	 * @return the optTrainer
+	 */
+	public JRadioButton getOptTrainer() {
+		return optTrainer;
+	}
+
+	/**
+	 * @param optTrainer the optTrainer to set
+	 */
+	public void setOptTrainer(JRadioButton optTrainer) {
+		this.optTrainer = optTrainer;
 	}
 
 	/**
@@ -365,6 +428,21 @@ public class PanelUser extends JPanel {
 	public JTextField getTxtMail() {
 		return txtMail;
 	}
+	
+
+	/**
+	 * @return the txtAfpa
+	 */
+	public JTextField getTxtAfpa() {
+		return txtAfpa;
+	}
+
+	/**
+	 * @return the txtTrainer
+	 */
+	public JTextField getTxtTrainer() {
+		return txtTrainer;
+	}
 
 	/**
 	 * @return the mdlListUsers
@@ -374,11 +452,24 @@ public class PanelUser extends JPanel {
 	}
 
 	/**
+	 * @return the lstUsers
+	 */
+	public JList<User> getLstUsers() {
+		return lstUsers;
+	}
+
+	/**
 	 * @return the cmdCreate
 	 */
 	public JButton getCmdCreate() {
 		return cmdCreate;
 	}
 
+	/**
+	 * @return the cmdDelete
+	 */
+	public JButton getCmdDelete() {
+		return cmdDelete;
+	}
 
 }

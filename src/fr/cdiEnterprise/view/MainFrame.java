@@ -3,6 +3,7 @@ package fr.cdiEnterprise.view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -33,6 +34,8 @@ public class MainFrame extends JFrame {
 	private static PanelUser panelUser;
 	private static JScrollPane scrollUser;
 	private static CompanyCreationPanel panelCreatCompany;
+	private static JScrollPane scrollCreateCompany;
+	private static JScrollPane scrollUpdateDeleteCompany;
 	private static CompanyDeletUpdatPanel panelUpdateDeleteCompany;
 	private static JPanel panelMessaging;
 	private static BookMarkPanel panelBookMark;
@@ -77,7 +80,7 @@ public class MainFrame extends JFrame {
 
 		// Main content properties
 		mainPan.setPreferredSize(new Dimension (1280,800));
-		mainPan.setLayout(new BorderLayout(20,20));
+		mainPan.setLayout(new BorderLayout());
 
 		// Main menu @see fr.cdiEnterprise.view.Menu
 		this.setJMenuBar(new Menu());
@@ -91,11 +94,14 @@ public class MainFrame extends JFrame {
 		
 		// Panel for user CRUD
 		panelUser = new PanelUser();
+		panelUser.setPreferredSize(new Dimension (1260,800));
 		scrollUser = new JScrollPane(panelUser);
 		
 		// Panel CreatCompany
 		panelCreatCompany = new CompanyCreationPanel();
+		scrollCreateCompany = new JScrollPane(panelCreatCompany);
 		panelUpdateDeleteCompany = new CompanyDeletUpdatPanel();
+		scrollUpdateDeleteCompany = new JScrollPane(panelUpdateDeleteCompany);
 		panelMessaging = new MessagingMainPanel();
 		
 		//Panel for BookMark
@@ -129,11 +135,19 @@ public class MainFrame extends JFrame {
 		return scrollUser;
 	}
 
+
 	public static CompanyCreationPanel getPanelCreatCompany() 
 	{
 		return panelCreatCompany;
 	}
-	
+
+	/**
+	 * @return the scrollCreateCompany
+	 */
+	public static JScrollPane getScrollCreateCompany() {
+		return scrollCreateCompany;
+
+	}
 
 	/**This method will provide the main BookMark Panel
 	 * @return the panelBookMark
@@ -143,6 +157,7 @@ public class MainFrame extends JFrame {
 	{
 		return panelBookMark;
 	}
+
 
 	/**
 	 * @return the scrollBookMark
@@ -155,8 +170,14 @@ public class MainFrame extends JFrame {
 
 	
 	
-	public static CompanyDeletUpdatPanel getPanelDeletUpdatCompany(){
+	public static CompanyDeletUpdatPanel getPanelDeletUpdatCompany()
+	{
 		return panelUpdateDeleteCompany;
+	}
+	public static JScrollPane getScrollUpdateDeleteCompany()
+	{
+		return scrollUpdateDeleteCompany;
+
 	}
 	/**
 	 * This method will provide the main messaging panel.  

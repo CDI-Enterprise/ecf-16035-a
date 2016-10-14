@@ -29,15 +29,16 @@ import fr.cdiEnterprise.model.Item;
 public class MpClient {
 	
 	private static int ID_NUMBER = 0;
+	  
 
 	private Server server;
 	private String box;
 	private ArrayList<Item> myMessages;
 	private ArrayList<Item> myDraft;
 	
-	public MpClient(Server server, String usr) {
+	public MpClient(Server s, String usr) {
 		box = usr;
-		this.server = server;
+		this.server = s;
 		this.myMessages = new  ArrayList<Item>();
 		this.myDraft = new  ArrayList<Item>();
 
@@ -242,6 +243,10 @@ public class MpClient {
 			System.out.println("Message : "+current.getBody());
 			System.out.println("Message ID: "+current.getId());
 		}
+	}
+
+	public String getBox() {
+		return box;
 	}
 	
 	

@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -61,7 +62,10 @@ public class CompanyCreationPanel extends JPanel {
 	private JComboBox<String> cboCompanyRegion;
 	private JLabel lblSelcRegion;
 	private JLabel lblSize;
-	private JTextField txtSize;
+	private JRadioButton optMicroEnt;
+	private JRadioButton optPME;
+	private JRadioButton optETI;
+	private JRadioButton optGrdEnt;
 	private JLabel lblSector;
 	private JTextField txtSector;
 	private JLabel lblLanguages;
@@ -93,6 +97,7 @@ public class CompanyCreationPanel extends JPanel {
 		Container panneau = this;
 		panneau.setLayout(new BorderLayout(5,5));
 		
+		
 		border = BorderFactory.createLineBorder(Color.GRAY);
 		panNorth = new JPanel();
 		panWest = new JPanel();
@@ -103,7 +108,7 @@ public class CompanyCreationPanel extends JPanel {
 		panneau.add(panWest,BorderLayout.WEST);
 		panneau.add(panCenter, BorderLayout.CENTER);
 		panneau.add(panSouth, BorderLayout.SOUTH);
-
+		
 		 
 		/* Header */
 		panNorth.setLayout(new FlowLayout());
@@ -147,7 +152,7 @@ public class CompanyCreationPanel extends JPanel {
 		lblCompanyDepartment = new JLabel("Departement *");
 		cboCompanyDepartment = new JComboBox<String>();
 		
-		for (Department department : Datas.getListeDepartments()) {
+		for (Department department : Datas.getDepartmentsList()) {
 			cboCompanyDepartment.addItem(department.toString());
 		}
 		cboCompanyDepartment.setEditable(true);
@@ -157,7 +162,7 @@ public class CompanyCreationPanel extends JPanel {
 
 		lblCompanyRegion = new JLabel("Région *");
 		cboCompanyRegion = new JComboBox<String>();
-		for (Region region : Datas.getListeRegions()) {
+		for (Region region : Datas.getRegionsList()) {
 			cboCompanyRegion.addItem(region.getRegionName());
 		}
 		cboCompanyRegion.setEditable(true);
@@ -165,8 +170,10 @@ public class CompanyCreationPanel extends JPanel {
 		
 		lblSelcRegion = new JLabel();
 		lblSize= new JLabel("Taille entreprise");
-		txtSize = new JTextField();
-		txtSize.setColumns(20);
+		optMicroEnt = new JRadioButton("Microentreprise (<10)");
+		optPME = new JRadioButton("PME (<250)");
+		optETI = new JRadioButton("ETI (>250 et <5000)"); 
+		optGrdEnt= new JRadioButton("Grande Entreprise");
 		
 		lblSector = new JLabel("Secteur");
 		txtSector = new JTextField();
@@ -176,12 +183,12 @@ public class CompanyCreationPanel extends JPanel {
 		lblLanguages = new JLabel ("Langages principalement utilisés *");	
 		dlmLanguages = new DefaultListModel<Language>();
 		lstLanguages = new JList<Language>(dlmLanguages);
-//		for (Language language : Datas.getListeLanguages()) {
-//		dlmLanguages.addElement(language);
-//		}
+		for (Language language : Datas.getLanguagesCompanyList()) {
+		dlmLanguages.addElement(language);
+		}
 		languages = new JScrollPane(lstLanguages, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		languages.setPreferredSize(new Dimension(300, 70));
+		languages.setPreferredSize(new Dimension(150, 60));
 		lblSelcLanguages = new JLabel();
 		btnLanguageCreate = new JButton("Ajouter un nouveau langage");
 
@@ -231,7 +238,10 @@ public class CompanyCreationPanel extends JPanel {
 		panCompany.add(cboCompanyRegion);
 		panCompany.add(lblSelcRegion, "wrap 20");
 		panCompany.add(lblSize);
-		panCompany.add(txtSize, "wrap 20");
+		panCompany.add(optMicroEnt);
+		panCompany.add(optPME);
+		panCompany.add(optETI);
+		panCompany.add(optGrdEnt, "wrap 20");
 		panCompany.add(lblSector);
 		panCompany.add(txtSector, "wrap 20");
 		panCompany.add(lblLanguages);
