@@ -76,22 +76,25 @@ public class MessagingMainPanel extends JPanel {
 		
 		fillModel();
 		
-		if(tableauMsg.length != 0) {
-			System.out.println("Nb emails :"+tableauMsg[0][1]);
-			//tableauMsg = new String[2][3];
-			tableauMsg[1][0] ="toto";
-			tableauMsg[1][1] = "test1Bis"; 
-			tableauMsg[1][2] = "13-10-2016";
-			tableModele = new DefaultTableModel(tableauMsg,new String[] {"Sender", "Objet", "Date reception"
-				});
-		}else {
-			tableauMsg = new String[1][3];
-			tableauMsg[0][0] ="nico";
-			tableauMsg[0][1] = "test1"; 
-			tableauMsg[0][2] = "12-10-2016";
-			tableModele = new DefaultTableModel(tableauMsg,new String[] {"Sender", "Objet", "Date reception"
-			});
-		}
+		
+		
+		
+//		if(tableauMsg.length != 0) {
+//			System.out.println("Nb emails :"+tableauMsg[0][1]);
+//			//tableauMsg = new String[2][3];
+//			tableauMsg[1][0] ="toto";
+//			tableauMsg[1][1] = "test1Bis"; 
+//			tableauMsg[1][2] = "13-10-2016";
+//			tableModele = new DefaultTableModel(tableauMsg,new String[] {"Sender", "Objet", "Date reception"
+//				});
+//		}else {
+//			tableauMsg = new String[1][3];
+//			tableauMsg[0][0] ="nico";
+//			tableauMsg[0][1] = "test1"; 
+//			tableauMsg[0][2] = "12-10-2016";
+//			tableModele = new DefaultTableModel(tableauMsg,new String[] {"Sender", "Objet", "Date reception"
+//			});
+//		}
 
 		
 		
@@ -107,6 +110,12 @@ public class MessagingMainPanel extends JPanel {
 		
 		JLabel lblTitle = new JLabel("- Messagerie -");
 		JLabel lblMess = new JLabel("Nombre de Message(s) :");
+		
+		
+		
+		tableModele =  new DefaultTableModel(tableauMsg, new String[] {
+				"Sender", "Objet", "Date Reception"
+			});
 		
 		JLabel lblNombre = new JLabel(tableModele.getRowCount()+"");
 		
@@ -129,7 +138,8 @@ public class MessagingMainPanel extends JPanel {
 		scrollPane = new JScrollPane();
 		panMess.add(scrollPane, BorderLayout.CENTER);
 		
-		table = new JTable(tableModele);
+		table = new JTable();
+		table.setModel(tableModele);
 		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		
 		table.setFillsViewportHeight(true);
@@ -192,6 +202,11 @@ public class MessagingMainPanel extends JPanel {
 			// recupere tous les messages d'un utilisateur de l'app.
 			tableauMsg = allClients.getMsgTableFormat(ReadProperties.getMyAlias(), false);
 			
+			
+			tableModele =  new DefaultTableModel(tableauMsg, new String[] {
+					"Sender", "Objet", "Date Reception"
+				});
+			table.setModel(tableModele);
 		}
 		//
 		
@@ -203,6 +218,19 @@ public class MessagingMainPanel extends JPanel {
 		
 
 		
+	}
+
+	/**
+	 * 
+	 */
+	private void readTableauModele(String[][] tableauMsg) {
+		System.out.println("--- Verification du tableau ---");
+		for(int i =0; i < tableauMsg.length; i++ ) {
+			for(int j =0; j < 3; j++ ) {
+				System.out.println(tableauMsg[i][j]);
+			}
+		}
+		System.out.println("--- fin ---");
 	}
 
 	public JButton getBtnNew() {
