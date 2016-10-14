@@ -105,9 +105,14 @@ public class BookMarkPanel extends JPanel
 						}
 				}
 		panListCompany = new JScrollPane(lstBookMarkCompany);						//Add scrollpane to jlist
-		jListBookMarkPan.add(panListCompany);										//Add to panel
+		jListBookMarkPan.add(panListCompany);										//Add to panel in windows
 
+		
+		//Center
+		
+		centerPan = new JPanel();
 
+		
 	}
 
 
