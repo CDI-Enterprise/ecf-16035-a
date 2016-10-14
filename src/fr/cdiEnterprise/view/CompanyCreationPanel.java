@@ -2,10 +2,13 @@ package fr.cdiEnterprise.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -21,8 +24,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
-
 import fr.cdiEnterprise.control.PanelCreateComListener;
+import fr.cdiEnterprise.control.BookMarkListener;
 import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Department;
@@ -90,6 +93,10 @@ public class CompanyCreationPanel extends JPanel {
 	private JButton btnFavoris;
 	private PanelCreateComListener clic;
 	protected static DefaultListModel<Company> dlmCompanies;
+
+
+
+	private Component BookMarkPanel;
 	
 	public CompanyCreationPanel() {
 		
@@ -283,9 +290,37 @@ public class CompanyCreationPanel extends JPanel {
 		panSouth.add(btnCancel);
 		panSouth.add(btnFavoris);
 
+
 		clic = new PanelCreateComListener(this);
 		btnCreate.addActionListener(clic);
 		cboCompanyDepartment.addActionListener(clic);
+
+		
+		//listeners
+		//BookMarkListener btnFavoris = new BookMarkListener(null);
+
+		//btnFavoris.addActionListener((ActionListener) this);
+//				
+//				
+//				// TODO Ajout dans favoris 
+
+		
+//
+//		clic = new AppListeners(this);
+//		btnOk.addActionListener(clic);
+//
+//		btnDelete.addActionListener(clic);
+//		// btnModif.addActionListener(clic);
+//
+//		cboEditeur.addActionListener(clic);
+//		cboThemes.addActionListener(clic);
+//		// cboAuteur.addActionListener(clic);
+//		btnCreaAuteur.addActionListener(clic);
+//		btnCreaEditeur.addActionListener(clic);
+//		btnCreaTheme.addActionListener(clic);
+//		btnOkDate.addActionListener(clic);
+//		lstLivres.addListSelectionListener(clic);
+//		lstAuteurs.addListSelectionListener(clic);
 
 	}
 

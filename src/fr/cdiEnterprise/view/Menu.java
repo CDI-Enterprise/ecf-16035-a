@@ -1,8 +1,13 @@
 package fr.cdiEnterprise.view;
 
 import javax.swing.JMenuBar;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 
 import fr.cdiEnterprise.control.MainMenuListener;
 
@@ -35,6 +40,10 @@ public class Menu extends JMenuBar {
 	private JMenuItem subCompanyUpdateDelete;
 	private JMenuItem subCompanyRead;
 	private JMenuItem subMessageDisplay;
+	
+	
+	//menuBokkMark : sub item
+	private JMenuItem subBookMarkRead;
 	
 	// menuHelp : sub item
 	private JMenuItem subHelpDoc;
@@ -75,11 +84,15 @@ public class Menu extends JMenuBar {
 		// BOOKMARK
 		menuBookmark = new JMenu("Favoris");
 		this.add(menuBookmark);
+		subBookMarkRead = new JMenuItem("Mes Favoris");
+		menuBookmark.add(subBookMarkRead);
 
 		// MESSAGING
 		menuMessaging = new JMenu("Messagerie");
 		subMessageDisplay = new JMenuItem("Affichage");
 		menuMessaging.add(subMessageDisplay);
+		subMessageDisplay.setMnemonic(KeyEvent.VK_M);
+		subMessageDisplay.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.CTRL_MASK));
 		this.add(menuMessaging);
 
 		// HELP
@@ -109,7 +122,7 @@ public class Menu extends JMenuBar {
 		subCompanyCreate.addActionListener(listener);
 		subCompanyUpdateDelete.addActionListener(listener);
 		
-		menuBookmark.addActionListener(listener);
+		subBookMarkRead.addActionListener(listener);
 
 
 	}
@@ -134,11 +147,12 @@ public class Menu extends JMenuBar {
 	}
 
 	/**
-	 * @return the menuBookmark
+	 * @return the subBookMarkRead
 	 */
-	public JMenu getMenuBookmark() {
-		return menuBookmark;
+	public JMenuItem getSubBookMarkRead() {
+		return subBookMarkRead;
 	}
+
 
 	public JMenuItem getSubMessageDisplay() {
 		return subMessageDisplay;

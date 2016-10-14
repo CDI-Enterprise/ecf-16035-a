@@ -374,6 +374,48 @@ public class PanelUser extends JPanel {
 	}
 
 	/**
+	 * @return the optTrainee
+	 */
+	public JRadioButton getOptTrainee() {
+		return optTrainee;
+	}
+
+	/**
+	 * @param optTrainee the optTrainee to set
+	 */
+	public void setOptTrainee(JRadioButton optTrainee) {
+		this.optTrainee = optTrainee;
+	}
+
+	/**
+	 * @return the optFormerTrainee
+	 */
+	public JRadioButton getOptFormerTrainee() {
+		return optFormerTrainee;
+	}
+
+	/**
+	 * @param optFormerTrainee the optFormerTrainee to set
+	 */
+	public void setOptFormerTrainee(JRadioButton optFormerTrainee) {
+		this.optFormerTrainee = optFormerTrainee;
+	}
+
+	/**
+	 * @return the optTrainer
+	 */
+	public JRadioButton getOptTrainer() {
+		return optTrainer;
+	}
+
+	/**
+	 * @param optTrainer the optTrainer to set
+	 */
+	public void setOptTrainer(JRadioButton optTrainer) {
+		this.optTrainer = optTrainer;
+	}
+
+	/**
 	 * @return the txtAlias
 	 */
 	public JTextField getTxtAlias() {
