@@ -3,6 +3,7 @@
  */
 package fr.cdiEnterprise.dao;
 import fr.cdiEnterprise.model.Department;
+import fr.cdiEnterprise.model.Language;
 import fr.cdiEnterprise.model.Region;
 import fr.cdiEnterprise.model.Trainee;
 import fr.cdiEnterprise.service.Companies;
@@ -19,10 +20,10 @@ public class Datas {
 
 	private static Users usersList;
 
-	private static Departments listeDepartments = new Departments();
-	private static Regions listeRegions = new Regions();
-	private static Companies listeCompanies = new Companies();
-	private static Languages listeLanguagesCompany = new Languages();
+	private static Departments departmentsList = new Departments();
+	private static Regions regionsList = new Regions();
+	private static Companies companiesList = new Companies();
+	private static Languages languagesCompanyList = new Languages();
 
 	/**
 	 * 
@@ -37,51 +38,50 @@ public class Datas {
 		usersList = new Users();
 		usersList.add(new Trainee("email@boite.fr", "Pseudo1", "mdp", "Stagiaire", "Saint-Jérôme", "D. Muller", "Nom1", "Prénom1",
 				"16035", null, "Java", "Swing", "site.fr", "LI"));
-
 		
-		// remplir les thèmes de la biblio
-
-		Departments allStaticDepartment = new Departments();
+		// List Department
+		//Departments allDepartments = new Departments();
 		for(int i = 0; i < Department.DEPARTMENTS.length; i++) {
-			listeDepartments.add(new Department(Department.DEPARTMENTS[i]));
+			departmentsList.add(new Department(Department.DEPARTMENTS[i]));
 		}	
 
-		Regions allRegions = new Regions();
+		//Regions allRegions = new Regions();
 		for(int i = 0; i < Region.REGIONS.length; i++) {
-			listeRegions.add(new Region(Region.REGIONS[i]));	
+			regionsList.add(new Region(Region.REGIONS[i]));	
 		}
+
+	//Languages allLunguages = new Languages();
+	for (int i =0; i< Language.LANGUAGES.length; i++){
+		languagesCompanyList.add(new Language(Language.LANGUAGES[i]));
 	}
 
-	Languages allLunguages = new Languages();
-
-
-	public static Departments getListeDepartments() {
-		return listeDepartments;
+	}
+	public static Departments getDepartmentsList() {
+		return departmentsList;
 	}
 
-	public static void setListeDepartments(Departments listeDepartments) {
-		Datas.listeDepartments = listeDepartments;
+	public static void setDepartmentsList(Departments listeDepartments) {
+		Datas.departmentsList = listeDepartments;
 	}
 
-	public static Regions getListeRegions() {
-		return listeRegions;
+	public static Regions getRegionsList() {
+		return regionsList;
 	}
 
-	public static void setListeRegions(Regions listeRegions) {
-		Datas.listeRegions = listeRegions;
+	public static void setRegionsList(Regions listeRegions) {
+		Datas.regionsList = listeRegions;
 	}
 
-	public static Companies getListeCompanies() {
-		return listeCompanies;
+	public static Companies getCompaniesList() {
+		return companiesList;
 	}
 
-	public static void setListeCompanies(Companies listeCompanies) {
-		Datas.listeCompanies = listeCompanies;
+	public static void setCompaniesList(Companies listeCompanies) {
+		Datas.companiesList = listeCompanies;
 	}
 
-	public static Languages getListeLanguages() {
-		// TODO Auto-generated method stub
-		return null;
+	public static Languages getLanguagesCompanyList() {
+		return languagesCompanyList;
 	}
 
 

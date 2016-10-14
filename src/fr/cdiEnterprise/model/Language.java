@@ -11,7 +11,9 @@ package fr.cdiEnterprise.model;
 public class Language {
 
 	private String languageName;
-
+	public static final String[] LANGUAGES = { "JAVA", "PhP", "CSS", "C#", "C++" };
+	
+	
 	public Language(String nameL) {
 
 		this.languageName = nameL;
@@ -27,6 +29,6 @@ public class Language {
 
 	@Override
 	public String toString() {
-		return "Language [languageName=" + languageName + "]";
+		return  languageName ;
 	}
 }

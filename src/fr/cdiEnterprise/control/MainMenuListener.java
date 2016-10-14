@@ -38,14 +38,14 @@ public class MainMenuListener implements ActionListener, MenuListener {
 		
 		if(e.getSource() == menu.getSubCompanyCreate()){
 			MainFrame.getMainPan().removeAll();
-			MainFrame.getMainPan().add(MainFrame.getPanelCreatCompany());
+			MainFrame.getMainPan().add(MainFrame.getScrollCreateCompany());
 			MainFrame.getMainPan().repaint();
 			MainFrame.getMainPan().revalidate();
 		}
 		
 		if(e.getSource() == menu.getSubCompanyUpdateDelete()){
 			MainFrame.getMainPan().removeAll();
-			MainFrame.getMainPan().add(MainFrame.getPanelDeletUpdatCompany());
+			MainFrame.getMainPan().add(MainFrame.getScrollUpdateDeleteCompany());
 			MainFrame.getMainPan().repaint();
 			MainFrame.getMainPan().revalidate();
 		}
