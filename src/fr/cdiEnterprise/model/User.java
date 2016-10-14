@@ -1,12 +1,9 @@
 package fr.cdiEnterprise.model;
 
-import sun.util.calendar.LocalGregorianCalendar.Date;		// TODO check package
-
 /**
  * Abstract base class for all User creation: Trainee, FormerTrainee, Trainer.
- * Last update: 20161001
  * 
- * @version 1.0
+ * @version 13-10-2016
  * @author Claire
  *
  */
@@ -14,19 +11,19 @@ import sun.util.calendar.LocalGregorianCalendar.Date;		// TODO check package
 public abstract class User {
 
 	/* Class attributes */
-	private static int totalId = 0;							// Auto-generate total user's number since the beginning
+	private static int totalId = 0;							// Auto-generated total user's number since the beginning
 
 	/* Object attributes */
 	//Auto-generated
 	private int id;											// Id number for user
 	// TODO auto-generated date
-	private Date inscriptionDate;							// Date of first log-in for user
+	private String inscriptionDate;							// Date of first log-in for user
 
 	//Compulsory first log-in information
+	private String status;									// Three possible choices: Trainee, FormerTrainee, Trainer
 	private String email;									// User's email (can be use for log-in)
 	private String alias;									// User's nickname for log-in
 	private String password;								// User's password (minimum 8 characters)
-	private String status;									// Three possible choices: Trainee, FormerTrainee, Trainer
 	private String afpa;									// Name of the AFPA the user go/went to or work for
 
 
@@ -38,65 +35,47 @@ public abstract class User {
 	}
 	
 	// Constructor test
-	public User(String alias, String email) {
+	public User(String inscriptionDate, String status, String alias, String email, String afpa) {
 		totalId++;
 		this.id = totalId;
-		this.alias = alias;
-		this.email = email;
-	}
-
-	/**
-	 * Constructs a user with compulsory first log-in informations
-	 * @param email
-	 * @param alias
-	 * @param password
-	 * @param status
-	 * @param afpa
-	 */
-	public User(String email, String alias, String password, String status, String afpa) {
-		totalId++;
-		this.id = totalId;
-		this.email = email;
-		this.alias = alias;
-		this.password = password;
+		this.inscriptionDate = inscriptionDate;
 		this.status = status;
+		this.alias = alias;
+		this.email = email;
 		this.afpa = afpa;
 	}
+
+//	/**
+//	 * Constructs a user with compulsory first log-in informations
+//	 * @param email
+//	 * @param alias
+//	 * @param password
+//	 * @param status
+//	 * @param afpa
+//	 */
+//	public User(String email, String alias, String password, String status, String afpa) {
+//		totalId++;
+//		this.id = totalId;
+//		this.email = email;
+//		this.alias = alias;
+//		this.password = password;
+//		this.status = status;
+//		this.afpa = afpa;
+//	}
 
 
 	/* Object methods */
 	//TODO create input control
 
-	/* (non-Javadoc)
+	/**
+	 * Basic user description
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", inscriptionDate=" + inscriptionDate + ", email=" + email + ", alias=" + alias
-				+ ", password=" + password + ", status=" + status + ", afpa=" + afpa + "]";
+		return "User [id=" + id + ", inscriptionDate=" + inscriptionDate + ", status=" + status + ", alias=" + alias
+				+ ", email=" + email + ", afpa=" + afpa + "]";
 	}
-	
-	
-//	/**
-//	 * @return String 
-//	 * @see java.lang.Object#toString()
-//	 */
-//	@Override
-//	public String toString() {
-//		String newLine = System.getProperty("line.separator");
-//	
-//		return "INFORMATIONS AUTO-GENEREES"
-//				+ newLine + "Utilisateur " + id
-//				+ newLine + "Date d'inscription : " + inscriptionDate
-//				+ newLine
-//				+ newLine + "INFORMATIONS OBLIGATOIRES POUR L'INSCRIPTION"
-//				+ newLine + "Mail : " + email
-//				+ newLine + "Pseudo : " + alias
-//				+ newLine + "Mot de passe : " + password
-//				+ newLine + "Statut : " + status
-//				+ newLine + "AFPA : " + afpa;
-//		
-//	}
 
 
 	/* Object - Getter & setter */	
@@ -180,7 +159,7 @@ public abstract class User {
 	/**
 	 * @return the inscriptionDate
 	 */
-	public Date getInscriptionDate() {
+	public String getInscriptionDate() {
 		return inscriptionDate;
 	}
 

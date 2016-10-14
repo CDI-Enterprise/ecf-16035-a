@@ -45,6 +45,7 @@ public  class Server {
 
 			mess.add(item);
 			items.put(item.getReceiver(), mess);
+			System.out.println("Message posted in "+ item.getReceiver());
 			return true;
 
 		}
@@ -107,6 +108,7 @@ public  class Server {
 				}
 			}
 		} else {
+				System.out.println("itzem from server" +allMyItems.size());
 				Set<String> fromSet = items.keySet();
 				Iterator<String> fromSetIterator = fromSet.iterator();
 				while (fromSetIterator.hasNext()) {

@@ -2,17 +2,15 @@ package fr.cdiEnterprise.model;
 
 /**
  * Class for FormerTrainee creation.
- * Last update: 20161001
  * 
  * @see fr.cdiEnterprise.model.User, fr.cdiEnterprise.model.Trainee
- * @version 1.0
+ * @version 13-10-2016
  * @author Claire
  *
  */
 
 public class FormerTrainee extends Trainee {
 
-	/* Object attributes */
 	//Compulsory profile (public/protected) information (approacheCompany from super-class compulsory here)
 	private String currentProfession;						// Actual occupation, job-seeker possible
 	private Company currentCompany;							// Actual company where former trainee works, none possible
@@ -27,44 +25,44 @@ public class FormerTrainee extends Trainee {
 		super();
 	}
 
-	/**
-	 * Constructs a former trainee with compulsory first log-in and profile informations
-	 * Compulsory parameters from super class (log-in informations)
-	 * @param email
-	 * @param alias
-	 * @param password
-	 * @param status
-	 * @param afpa
-	 * @param trainer
-	 *  
-	 * Compulsory parameters from super class (profile creation)
-	 * @param surname
-	 * @param givenName
-	 * @param sessionCode
-	 * @param programmingLanguage
-	 * @param approachedCompany
-	 * 
-	 * Compulsory parameters (profile creation)
-	 * @param currentProfession
-	 * @param currentCompany
-	 * @param formerCompany
-	 * 
-	 * Optional parameters from super class (profile creation)
-	 * @param graphicAPI;
-	 * @param webSite;
-	 * @param linkedIn;
-	 * 
-	 */
-	public FormerTrainee(String email, String alias, String password, String status, String afpa, String trainer,
-			String surname, String givenName, String sessionCode, Company approachedCompany,
-			String programmingLanguage, String graphicAPI, String webSite, String linkedIn,
-			String currentProfession, Company currentCompany, Company formerCompany) {
-		super(email, alias, password, status, afpa, trainer, surname, givenName, sessionCode, approachedCompany,
-				programmingLanguage, graphicAPI, webSite, linkedIn);
-		this.currentProfession = currentProfession;
-		this.currentCompany = currentCompany;
-		this.formerCompany = formerCompany;
-	}
+//	/**
+//	 * Constructs a former trainee with compulsory first log-in and profile informations
+//	 * Compulsory parameters from super class (log-in informations)
+//	 * @param email
+//	 * @param alias
+//	 * @param password
+//	 * @param status
+//	 * @param afpa
+//	 * @param trainer
+//	 *  
+//	 * Compulsory parameters from super class (profile creation)
+//	 * @param surname
+//	 * @param givenName
+//	 * @param sessionCode
+//	 * @param programmingLanguage
+//	 * @param approachedCompany
+//	 * 
+//	 * Compulsory parameters (profile creation)
+//	 * @param currentProfession
+//	 * @param currentCompany
+//	 * @param formerCompany
+//	 * 
+//	 * Optional parameters from super class (profile creation)
+//	 * @param graphicAPI;
+//	 * @param webSite;
+//	 * @param linkedIn;
+//	 * 
+//	 */
+//	public FormerTrainee(String email, String alias, String password, String status, String afpa, String trainer,
+//			String surname, String givenName, String sessionCode, Company approachedCompany,
+//			String programmingLanguage, String graphicAPI, String webSite, String linkedIn,
+//			String currentProfession, Company currentCompany, Company formerCompany) {
+//		super(email, alias, password, status, afpa, trainer, surname, givenName, sessionCode, approachedCompany,
+//				programmingLanguage, graphicAPI, webSite, linkedIn);
+//		this.currentProfession = currentProfession;
+//		this.currentCompany = currentCompany;
+//		this.formerCompany = formerCompany;
+//	}
 
 	
 	/* Object methods */

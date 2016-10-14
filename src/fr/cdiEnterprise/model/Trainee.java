@@ -2,17 +2,15 @@ package fr.cdiEnterprise.model;
 
 /**
  * Class for Trainee creation.
- * Last update: 20161001
  * 
  * @see fr.cdiEnterprise.model.User
- * @version 1.0
+ * @version 13-10-2016
  * @author Claire
- *
+ * 
  */
 
 public class Trainee extends User {
 
-	/* Object attributes */
 	//Compulsory first log-in information
 	private String trainer;									// AFPA trainer's name
 
@@ -28,6 +26,7 @@ public class Trainee extends User {
 	private String webSite;									// Website's trainee
 	private String linkedIn;								// LinkedIn address profile
 
+	
 	/* Constructors */
 	/**
 	 * Default constructor
@@ -37,87 +36,63 @@ public class Trainee extends User {
 	}
 	
 	// Constructor test
-	public Trainee(String alias, String email) {
-		super(alias, email);
+	public Trainee(String inscriptionDate, String status, String alias, String email, String afpa, String trainer) {
+		super(inscriptionDate, status, alias, email, afpa);
+		this.trainer = trainer;
 	}
 
-	/**
-	 * Constructs a trainee with compulsory first log-in, compulsory and optional profile informations
-	 * Compulsory parameters from super class (log-in informations)
-	 * @param email
-	 * @param alias
-	 * @param password
-	 * @param status
-	 * @param afpa
-	 * 
-	 * Compulsory parameters (log-in informations)
-	 * @param trainer
-	 * 
-	 * Compulsory parameters (profile creation)
-	 * @param surname
-	 * @param givenName
-	 * @param sessionCode
-	 * @param programmingLanguage
-	 * 
-	 * Optional parameters (profile creation)
-	 * @param approachedCompany
-	 * @param graphicAPI;
-	 * @param webSite;
-	 * @param linkedIn;
-	 */
-	public Trainee(String email, String alias, String password, String status, String afpa, String trainer,
-			String surname, String givenName, String sessionCode, Company approachedCompany,
-			String programmingLanguage, String graphicAPI, String webSite, String linkedIn) {
-		super(email, alias, password, status, afpa);
-		this.trainer = trainer;
-		this.surname = surname;
-		this.givenName = givenName;
-		this.sessionCode = sessionCode;
-		this.approachedCompany = approachedCompany;
-		this.programmingLanguage = programmingLanguage;
-		this.graphicAPI = graphicAPI;
-		this.webSite = webSite;
-		this.linkedIn = linkedIn;
-	}
-	
+//	/**
+//	 * Constructs a trainee with compulsory first log-in, compulsory and optional profile informations
+//	 * Compulsory parameters from super class (log-in informations)
+//	 * @param email
+//	 * @param alias
+//	 * @param password
+//	 * @param status
+//	 * @param afpa
+//	 * 
+//	 * Compulsory parameters (log-in informations)
+//	 * @param trainer
+//	 * 
+//	 * Compulsory parameters (profile creation)
+//	 * @param surname
+//	 * @param givenName
+//	 * @param sessionCode
+//	 * @param programmingLanguage
+//	 * 
+//	 * Optional parameters (profile creation)
+//	 * @param approachedCompany
+//	 * @param graphicAPI;
+//	 * @param webSite;
+//	 * @param linkedIn;
+//	 */
+//	public Trainee(String email, String alias, String password, String status, String afpa, String trainer,
+//			String surname, String givenName, String sessionCode, Company approachedCompany,
+//			String programmingLanguage, String graphicAPI, String webSite, String linkedIn) {
+//		super(email, alias, password, status, afpa);
+//		this.trainer = trainer;
+//		this.surname = surname;
+//		this.givenName = givenName;
+//		this.sessionCode = sessionCode;
+//		this.approachedCompany = approachedCompany;
+//		this.programmingLanguage = programmingLanguage;
+//		this.graphicAPI = graphicAPI;
+//		this.webSite = webSite;
+//		this.linkedIn = linkedIn;
+//	}
+
 
 	/* Object methods */
 	//TODO create input control
-
-	/* (non-Javadoc)
+	/**
+	 * Basic trainee description
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + "Trainee [trainer=" + trainer + ", surname=" + surname + ", givenName=" + givenName + ", sessionCode="
-				+ sessionCode + ", programmingLanguage=" + programmingLanguage + ", graphicAPI=" + graphicAPI
-				+ ", approachedCompany=" + approachedCompany + ", webSite=" + webSite + ", linkedIn=" + linkedIn + "]";
+		
+		return super.toString() + "Trainee [trainer=" + trainer + "]";
 	}
 	
-//	/**
-//	 * @return String 
-//	 * @see java.lang.Object#toString()
-//	 */
-//	@Override
-//	public String toString() {
-//		String newLine = System.getProperty("line.separator");
-//		
-//		return super.toString()
-//			+ newLine + "Formateur : " + trainer
-//			+ newLine
-//			+ newLine + "INFORMATIONS OBLIGATOIRES POUR CREATION DE PROFIL PUBLIC/RESTREINT"
-//			+ newLine + "Nom (restreint)  : " + surname
-//			+ newLine + "Prénom (restreint) : " + givenName
-//			+ newLine + "Session : " + sessionCode
-//			+ newLine + "Langage(s) : " + programmingLanguage
-//			+ newLine
-//			+ newLine + "INFORMATIONS PUBLIQUES FACULTATIVES"
-//			+ newLine + "Entreprise(s) démarchée(s) : " + approachedCompany
-//			+ newLine + "API(s) graphique : " + graphicAPI
-//			+ newLine + "Site Internet : " + webSite
-//			+ newLine + "LinkedIn : " + linkedIn;
-//	}
-
 	
 	/* Object - Getter & setter */
 	/**
@@ -126,6 +101,8 @@ public class Trainee extends User {
 	public String getTrainer() {
 		return trainer;
 	}
+
+	
 
 	/**
 	 * @param trainer the trainer to set
