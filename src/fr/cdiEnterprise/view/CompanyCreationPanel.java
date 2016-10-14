@@ -2,10 +2,13 @@ package fr.cdiEnterprise.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -20,6 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import fr.cdiEnterprise.control.BookMarkListener;
 import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.model.Department;
 import fr.cdiEnterprise.model.Language;
@@ -80,6 +84,9 @@ public class CompanyCreationPanel extends JPanel {
 	private JButton btnCreate;
 	private JButton btnCancel;
 	private JButton btnFavoris;
+
+
+	private Component BookMarkPanel;
 	
 	public CompanyCreationPanel() {
 		
@@ -248,6 +255,16 @@ public class CompanyCreationPanel extends JPanel {
 		panSouth.add(btnCreate);
 		panSouth.add(btnCancel);
 		panSouth.add(btnFavoris);
+		
+		//listeners
+		//BookMarkListener btnFavoris = new BookMarkListener(null);
+
+		//btnFavoris.addActionListener((ActionListener) this);
+//				
+//				
+//				// TODO Ajout dans favoris 
+
+		
 //
 //		clic = new AppListeners(this);
 //		btnOk.addActionListener(clic);

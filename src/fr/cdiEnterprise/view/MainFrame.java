@@ -36,6 +36,7 @@ public class MainFrame extends JFrame {
 	private static CompanyDeletUpdatPanel panelUpdateDeleteCompany;
 	private static JPanel panelMessaging;
 	private static BookMarkPanel panelBookMark;
+	private static JScrollPane scrollBookMark;
 	
 	/**
 	 * MainFrame constructor.
@@ -99,6 +100,7 @@ public class MainFrame extends JFrame {
 		
 		//Panel for BookMark
 		panelBookMark = new BookMarkPanel();
+		scrollBookMark = new JScrollPane(panelBookMark);
 		
 	}
 
@@ -113,7 +115,8 @@ public class MainFrame extends JFrame {
 	/**
 	 * @return the homePan
 	 */
-	public static JPanel getHomePan() {
+	public static JPanel getHomePan() 
+	{
 		return homePan;
 	}
 
@@ -121,11 +124,13 @@ public class MainFrame extends JFrame {
 	 * 
 	 * @return
 	 */
+	
 	public static JScrollPane getScrollUser() {
 		return scrollUser;
 	}
 
-	public static CompanyCreationPanel getPanelCreatCompany() {
+	public static CompanyCreationPanel getPanelCreatCompany() 
+	{
 		return panelCreatCompany;
 	}
 	
@@ -133,10 +138,23 @@ public class MainFrame extends JFrame {
 	/**This method will provide the main BookMark Panel
 	 * @return the panelBookMark
 	 */
-	public static BookMarkPanel getPanelBookMark() {
+	
+	public static BookMarkPanel getPanelBookMark() 
+	{
 		return panelBookMark;
 	}
 
+	/**
+	 * @return the scrollBookMark
+	 */
+	
+	public static JScrollPane getScrollBookMark() 
+	{
+		return scrollBookMark;
+	}
+
+	
+	
 	public static CompanyDeletUpdatPanel getPanelDeletUpdatCompany(){
 		return panelUpdateDeleteCompany;
 	}
