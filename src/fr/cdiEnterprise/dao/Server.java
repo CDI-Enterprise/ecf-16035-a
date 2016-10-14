@@ -11,6 +11,7 @@ import javax.swing.plaf.synth.SynthSeparatorUI;
 import java.util.Set;
 
 import fr.cdiEnterprise.model.Item;
+import fr.cdiEnterprise.service.Items;
 
 /**
  * This is the class server, which is actually a message container. message are
@@ -23,12 +24,13 @@ import fr.cdiEnterprise.model.Item;
  */
 public  class Server {
 
-	static HashMap<String, ArrayList<Item>> items = new HashMap<String, ArrayList<Item>>();
-	static HashMap<String, ArrayList<Item>> itemsDraft = new HashMap<String, ArrayList<Item>>();
+	 
+	static HashMap<String, Items> items      = new HashMap<String, Items>();
+	static HashMap<String, Items> itemsDraft = new HashMap<String, Items>();
 
 	public Server() {
-		items = new HashMap<String, ArrayList<Item>>();
- 		itemsDraft = new HashMap<String, ArrayList<Item>>();
+		items = new HashMap<String, Items>();
+ 		itemsDraft = new HashMap<String, Items>();
          
 	}
 
@@ -39,7 +41,7 @@ public  class Server {
 	 */
 	public static boolean post(Item item) {
 		
-		ArrayList<Item> mess = getAllItems(item.getReceiver(),false);
+		Items mess = getAllItems(item.getReceiver(),false);
 		System.out.println("Nombre de message deja present :" + mess.size());
 
 		if (item != null) {
@@ -63,7 +65,7 @@ public  class Server {
 	public static boolean postDraft(Item item) {
 
 		
-		ArrayList<Item> mess = getAllItems(item.getReceiver(),true);
+		Items mess = getAllItems(item.getReceiver(),true);
 		System.out.println("Nombre de message deja present :" + mess.size());
 		//ArrayList<Item> mess = new ArrayList<Item>();
 
@@ -85,9 +87,9 @@ public  class Server {
 	 * @param draft will tell if the message to look for is a draft or a message
 	 * @return an Arraylist of message.
 	 */
-	public static ArrayList<Item> getAllItems(String rcv, boolean draft) {
+	public static Items getAllItems(String rcv, boolean draft) {
 
-		ArrayList<Item> allMyItems = new ArrayList<Item>();
+		Items allMyItems = new Items();
 		
 		if(draft) {
 			Set<String> fromDraft = itemsDraft.keySet();

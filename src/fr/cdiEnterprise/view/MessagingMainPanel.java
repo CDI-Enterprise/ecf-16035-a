@@ -27,8 +27,10 @@ import fr.cdiEnterprise.control.MpClient;
 import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.service.Clients;
+import fr.cdiEnterprise.service.Items;
 import fr.cdiEnterprise.util.ReadProperties;
 import net.miginfocom.swing.MigLayout;
+
 
 /**
  * This class is going to display the main messenging's page, which contains all the messages for the user.
@@ -46,13 +48,16 @@ public class MessagingMainPanel extends JPanel {
 	private JButton btnDisplay;
 	
 	private String nombreMessage;
-	private ArrayList<Item> allItems;
-	private DefaultListModel<Item> listModele;
+	private Items allItems;
+	private VstTableItemModel2 tiModel;
 	private DefaultTableModel tableModele;
 	private JScrollPane scrollPane;
 	private JTable table;
 	//private String[][] tableauMsg;
-	private String[][] tableauMsg;// = {
+	private String[][] tableauMsg;
+	private Items userItems;
+	
+	// = {
 //			{"olivier", "test1", "13-10-2016"},
 //			{"claire", "test3", "14-10-2016"},
 //			{"anais", "test4", "12-10-2016"},
@@ -70,7 +75,7 @@ public class MessagingMainPanel extends JPanel {
 	 */
 	public MessagingMainPanel() {
 		
-		listModele = new DefaultListModel<>();
+		//listModele = new DefaultListModel<>();
 		MessageListener listener = new MessageListener(this);
 		border = BorderFactory.createLineBorder(Color.GRAY);
 		
@@ -111,7 +116,7 @@ public class MessagingMainPanel extends JPanel {
 		JLabel lblTitle = new JLabel("- Messagerie -");
 		JLabel lblMess = new JLabel("Nombre de Message(s) :");
 		
-		
+		tiModel = new VstTableItemModel2(userItems);
 		
 		tableModele =  new DefaultTableModel(tableauMsg, new String[] {
 				"Sender", "Objet", "Date Reception"
@@ -138,8 +143,10 @@ public class MessagingMainPanel extends JPanel {
 		scrollPane = new JScrollPane();
 		panMess.add(scrollPane, BorderLayout.CENTER);
 		
-		table = new JTable();
-		table.setModel(tableModele);
+		
+		table = new JTable(tiModel);
+		//table = new JTable();
+		//table.setModel(tableModele);
 		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		
 		table.setFillsViewportHeight(true);
@@ -177,6 +184,10 @@ public class MessagingMainPanel extends JPanel {
 		btnDisplay.addActionListener(listener);
 	}
 
+	public VstTableItemModel2 getTiModel() {
+		return tiModel;
+	}
+
 	/**
 	 * @param allItems
 	 * @return
@@ -194,6 +205,7 @@ public class MessagingMainPanel extends JPanel {
 		// rapatrier tous les messages.
 		
 		allItems = cli.getMessages(false);
+		userItems =(Items) allItems;
 		if(allItems.isEmpty()) {
 			System.out.println("--- il n'y a pas de message ---");
 			tableauMsg = new String[allItems.size()][3];
@@ -251,5 +263,11 @@ public class MessagingMainPanel extends JPanel {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public Items getUserItems() {
+		return userItems;
+	}
+
+
 
 }

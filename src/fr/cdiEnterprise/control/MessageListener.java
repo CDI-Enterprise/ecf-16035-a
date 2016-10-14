@@ -26,6 +26,7 @@ import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.model.Trainee;
 import fr.cdiEnterprise.model.User;
 import fr.cdiEnterprise.service.Clients;
+import fr.cdiEnterprise.service.Items;
 import fr.cdiEnterprise.util.ReadProperties;
 import fr.cdiEnterprise.view.MainFrame;
 import fr.cdiEnterprise.view.MessagingMainPanel;
@@ -161,12 +162,17 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	        Point p = me.getPoint();
 	        int row = table.rowAtPoint(p);
 	        if (me.getClickCount() == 1) {
-	        	//System.out.println("click..." +row);
+	        	System.out.println("click..." +row);
+	        	Items itms = panelMain.getUserItems();
+	        	
+	        	System.out.println("object selected "+panelMain.getTiModel().getUserAt(row).getObject());
+	        	
+	        	
 	            // your valueChanged overridden method 
 	        }
 	        
 	        if (me.getClickCount() == 2) {
-	        	//System.out.println("double click..." +row);
+	        	System.out.println("double click..." +row);
 	            // your valueChanged overridden method 
 	        }
 	    }
