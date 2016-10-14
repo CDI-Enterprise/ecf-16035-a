@@ -34,8 +34,6 @@ public class Datas {
 	private static Languages languagesCompanyList = new Languages();
 	private static Departments listeDepartments = new Departments();
 
-
-
 	/**
 	 * 
 	 */
@@ -67,7 +65,7 @@ public class Datas {
 
 //		usersList.add(new Trainee("email@boite.fr", "Pseudo1", "mdp", "Stagiaire", "Saint-Jérôme", "D. Muller", "Nom1", "Prénom1",
 //				"16035", null, "Java", "Swing", "site.fr", "LI"));
-//	
+		
 // HEAD
 		// List Department
 		//Departments allDepartments = new Departments();
@@ -100,12 +98,12 @@ public class Datas {
 			regionsList.add(new Region(Region.REGIONS[i]));	
 		}
 
-	//Languages allLunguages = new Languages();
-	for (int i =0; i< Language.LANGUAGES.length; i++){
+		//Languages allLunguages = new Languages();
+		for (int i =0; i< Language.LANGUAGES.length; i++){
 		languagesCompanyList.add(new Language(Language.LANGUAGES[i]));
+		}
 	}
 	
-	}
 	public static Departments getDepartmentsList() {
 		return departmentsList;
 	}
