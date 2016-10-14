@@ -33,18 +33,20 @@ public class MainFrame extends JFrame {
 
 	private static PanelUser panelUser;
 	private static JScrollPane scrollUser;
+	
 	private static CompanyCreationPanel panelCreatCompany;
 	private static JScrollPane scrollCreateCompany;
 	private static JScrollPane scrollUpdateDeleteCompany;
 	private static CompanyDeletUpdatPanel panelUpdateDeleteCompany;
+	
 	private static JPanel panelMessaging;
+	
 	private static BookMarkPanel panelBookMark;
 	
 	/**
 	 * MainFrame constructor.
-	 * Constructs a Main Frame with a default panel of 1440*900 non resizable
+	 * Constructs a Main Frame with a default panel of 1280*800 resizable
 	 * With a personalized icon for system menu and main title
-	 * With a white background in the main panel
 	 * With a main menu @see fr.cdiEnterprise.view.Menu
 	 * It opens where the OS windows usually do
 	 */
@@ -101,6 +103,7 @@ public class MainFrame extends JFrame {
 		scrollCreateCompany = new JScrollPane(panelCreatCompany);
 		panelUpdateDeleteCompany = new CompanyDeletUpdatPanel();
 		scrollUpdateDeleteCompany = new JScrollPane(panelUpdateDeleteCompany);
+		
 		panelMessaging = new MessagingMainPanel();
 		
 		//Panel for BookMark

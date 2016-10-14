@@ -94,6 +94,9 @@ public class PanelUserListeners implements ActionListener, MouseListener {
 		afpa = panelUser.getTxtAfpa().getText();
 		trainer = panelUser.getTxtTrainer().getText();
 
+		// Clear all fields
+//		if (e.getSource() == panelUser.)
+		
 		// User creation
 		if (e.getSource() == panelUser.getCmdCreate()) {
 
