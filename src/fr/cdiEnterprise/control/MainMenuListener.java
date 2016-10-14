@@ -64,7 +64,7 @@ public class MainMenuListener implements ActionListener {
 			MainFrame.getMainPan().repaint();
 			
 		}
-		if(e.getSource() == menu.getMenuBookmark())
+		if(e.getSource() == menu.getSubBookMarkRead())
 		{
 			MainFrame.getMainPan().removeAll();
 			MainFrame.getMainPan().add(MainFrame.getPanelBookMark());

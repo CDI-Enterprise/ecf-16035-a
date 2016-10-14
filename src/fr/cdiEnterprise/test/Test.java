@@ -14,7 +14,6 @@ fen.setResizable(true);
 fen.setLocationRelativeTo(null);
 fen.pack();
 		
-System.out.println(Datas.getDepartmentsList());
 		
 }
 }
