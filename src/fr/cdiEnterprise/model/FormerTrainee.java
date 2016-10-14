@@ -17,7 +17,11 @@ public class FormerTrainee extends Trainee {
 	private Company formerCompany;							// Former companies where former trainee worked, none possible
 	
 	
-	/* Constructors */
+	// Constructor test
+	public FormerTrainee(String inscriptionDate, String status, String alias, String email, String afpa, String trainer) {
+		super(inscriptionDate, status, alias, email, afpa, trainer);
+	}
+		
 	/**
 	 * Default constructor
 	 */

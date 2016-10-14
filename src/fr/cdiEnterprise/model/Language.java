@@ -11,10 +11,10 @@ package fr.cdiEnterprise.model;
 public class Language {
 
 	private static int languageId;								// Auto-generated language's id
-
 	private int id;
 	private String languageName;
-
+	public static final String[] LANGUAGES = { "JAVA", "PhP", "CSS", "C#", "C++", "Ruby" };
+	
 	/**
 	 * Default constructor
 	 */
@@ -22,8 +22,7 @@ public class Language {
 		languageId++;
 		this.id = languageId;
 		this.languageName = languageName;
-		
-	}
+		}
 
 	public String getLanguageName() {
 		return languageName;
@@ -38,7 +37,8 @@ public class Language {
 	 */
 	@Override
 	public String toString() {
-		return "Language [id=" + id + ", languageName=" + languageName + "]";
+		return  languageName ;
+
 	}
 	
 }
