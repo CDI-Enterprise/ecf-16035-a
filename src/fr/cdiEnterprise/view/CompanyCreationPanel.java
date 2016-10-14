@@ -60,6 +60,8 @@ public class CompanyCreationPanel extends JPanel {
 	private JLabel lblSize;
 	private JRadioButton optMicroEnt;
 	private JRadioButton optPME;
+	private JRadioButton optETI;
+	private JRadioButton optGrdEnt;
 	private JLabel lblSector;
 	private JTextField txtSector;
 	private JLabel lblLanguages;
@@ -163,6 +165,8 @@ public class CompanyCreationPanel extends JPanel {
 		lblSize= new JLabel("Taille entreprise");
 		optMicroEnt = new JRadioButton("Microentreprise (<10)");
 		optPME = new JRadioButton("PME (<250)");
+		optETI = new JRadioButton("ETI (>250 et <5000)"); 
+		optGrdEnt= new JRadioButton("Grande Entreprise");
 		
 		lblSector = new JLabel("Secteur");
 		txtSector = new JTextField();
@@ -177,7 +181,7 @@ public class CompanyCreationPanel extends JPanel {
 		}
 		languages = new JScrollPane(lstLanguages, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		languages.setMinimumSize(new Dimension(300, 60));
+		languages.setPreferredSize(new Dimension(150, 60));
 		lblSelcLanguages = new JLabel();
 		btnLanguageCreate = new JButton("Ajouter un nouveau langage");
 
@@ -228,7 +232,9 @@ public class CompanyCreationPanel extends JPanel {
 		panCompany.add(lblSelcRegion, "wrap 20");
 		panCompany.add(lblSize);
 		panCompany.add(optMicroEnt);
-		panCompany.add(optPME, "wrap 20");
+		panCompany.add(optPME);
+		panCompany.add(optETI);
+		panCompany.add(optGrdEnt, "wrap 20");
 		panCompany.add(lblSector);
 		panCompany.add(txtSector, "wrap 20");
 		panCompany.add(lblLanguages);

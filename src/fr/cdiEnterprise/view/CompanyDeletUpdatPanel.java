@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -58,7 +59,10 @@ public class CompanyDeletUpdatPanel extends JPanel {
 	private JComboBox<String> cboCompanyRegion;
 	private JLabel lblSelcRegion;
 	private JLabel lblSize;
-	private JTextField txtSize;
+	private JRadioButton optMicroEnt;
+	private JRadioButton optPME;
+	private JRadioButton optETI;
+	private JRadioButton optGrdEnt;
 	private JLabel lblSector;
 	private JTextField txtSector;
 	private JLabel lblLanguages;
@@ -157,8 +161,10 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		
 		lblSelcRegion = new JLabel();
 		lblSize= new JLabel("Taille entreprise");
-		txtSize = new JTextField();
-		txtSize.setColumns(20);
+		optMicroEnt = new JRadioButton("Microentreprise (<10)");
+		optPME = new JRadioButton("PME (<250)");
+		optETI = new JRadioButton("ETI (>250 et <5000)"); 
+		optGrdEnt= new JRadioButton("Grande Entreprise");
 		
 		lblSector = new JLabel("Secteur");
 		txtSector = new JTextField();
@@ -173,7 +179,7 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		}
 		languages = new JScrollPane(lstLanguages, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		languages.setPreferredSize(new Dimension(300, 60));
+		languages.setPreferredSize(new Dimension(150, 60));
 		lblSelcLanguages = new JLabel();
 
 		lblProjets = new JLabel("Principaux projets de l'entreprise");
@@ -232,7 +238,10 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		panCompany.add(cboCompanyRegion);
 		panCompany.add(lblSelcRegion, "wrap 20");
 		panCompany.add(lblSize);
-		panCompany.add(txtSize, "wrap 20");
+		panCompany.add(optMicroEnt);
+		panCompany.add(optPME);
+		panCompany.add(optETI);
+		panCompany.add(optGrdEnt, "wrap 20");
 		panCompany.add(lblSector);
 		panCompany.add(txtSector, "wrap 20");
 		panCompany.add(lblLanguages);
