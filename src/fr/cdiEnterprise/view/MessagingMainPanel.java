@@ -51,13 +51,14 @@ public class MessagingMainPanel extends JPanel {
 	private DefaultTableModel tableModele;
 	private JScrollPane scrollPane;
 	private JTable table;
-	private String[][] tableauMsg = {
-			{"olivier", "test1", "13-10-2016"},
-			{"claire", "test3", "14-10-2016"},
-			{"anais", "test4", "12-10-2016"},
-			{"ismael", "test5", "14-10-2016"},
-
-		};; 
+	//private String[][] tableauMsg;
+	private String[][] tableauMsg;// = {
+//			{"olivier", "test1", "13-10-2016"},
+//			{"claire", "test3", "14-10-2016"},
+//			{"anais", "test4", "12-10-2016"},
+//			{"ismael", "test5", "14-10-2016"},
+//
+//		};; 
 	
 	
 	private static final String FORMAT_LIST = "%1$-25s %2$-35s %3$-10s";
@@ -73,8 +74,25 @@ public class MessagingMainPanel extends JPanel {
 		MessageListener listener = new MessageListener(this);
 		border = BorderFactory.createLineBorder(Color.GRAY);
 		
-		
 		fillModel();
+		
+		if(tableauMsg.length != 0) {
+			System.out.println("Nb emails :"+tableauMsg[0][1]);
+			//tableauMsg = new String[2][3];
+			tableauMsg[1][0] ="toto";
+			tableauMsg[1][1] = "test1Bis"; 
+			tableauMsg[1][2] = "13-10-2016";
+			tableModele = new DefaultTableModel(tableauMsg,new String[] {"Sender", "Objet", "Date reception"
+				});
+		}else {
+			tableauMsg = new String[1][3];
+			tableauMsg[0][0] ="nico";
+			tableauMsg[0][1] = "test1"; 
+			tableauMsg[0][2] = "12-10-2016";
+			tableModele = new DefaultTableModel(tableauMsg,new String[] {"Sender", "Objet", "Date reception"
+			});
+		}
+
 		
 		
 		JPanel panMess = new JPanel();
@@ -90,7 +108,7 @@ public class MessagingMainPanel extends JPanel {
 		JLabel lblTitle = new JLabel("- Messagerie -");
 		JLabel lblMess = new JLabel("Nombre de Message(s) :");
 		
-		JLabel lblNombre = new JLabel(listModele.size()+"");
+		JLabel lblNombre = new JLabel(tableModele.getRowCount()+"");
 		
 		btnNew = new JButton("Nouveau");
 		btnDraft = new JButton("Brouillon");
@@ -106,7 +124,7 @@ public class MessagingMainPanel extends JPanel {
 		String header = String.format(FORMAT_LIST, HEADER_LIST);
 		
 		JLabel headerLabel = new JLabel(header);
-		JList<Item> list = new JList<Item>(listModele);
+		//JList<Item> list = new JList<Item>(listModele);
 		
 		scrollPane = new JScrollPane();
 		panMess.add(scrollPane, BorderLayout.CENTER);
@@ -121,12 +139,7 @@ public class MessagingMainPanel extends JPanel {
 		table.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 16));
 		//table.setAutoCreateRowSorter(true);
 		//table.setColumnSelectionAllowed(false);
-		table.setModel(new DefaultTableModel(
-				tableauMsg,
-			new String[] {
-				"Sender", "Objet", "Date reception"
-			}
-		));
+		table.setModel(tableModele);
 		scrollPane.setViewportView(table);
 		
 		panNorth.add(lblTitle);
@@ -159,19 +172,33 @@ public class MessagingMainPanel extends JPanel {
 	 * @return
 	 */
 	private void fillModel() {
+		// obteniur toutes les boites de messageries
 		Clients allClients = Datas.getClientBox();
 		
+		// retourne la boite messagerie de notre utilisateur.
 		MpClient cli = allClients.getClient(ReadProperties.getMyAlias());
 		if(cli == null) {
 			System.out.println("cli est null");
 		}
+		// TODO (nicolas)factoriser cette partie.
+		// rapatrier tous les messages.
+		
 		allItems = cli.getMessages(false);
-		//tableauMsg = new String[allItems.size()][3];
-		System.out.println("Nb emails :"+allItems.size());
+		if(allItems.isEmpty()) {
+			System.out.println("--- il n'y a pas de message ---");
+			tableauMsg = new String[allItems.size()][3];
+		}else {
+			tableauMsg = new String[allItems.size()][3];
+			// recupere tous les messages d'un utilisateur de l'app.
+			tableauMsg = allClients.getMsgTableFormat(ReadProperties.getMyAlias(), false);
+			
+		}
+		//
+		
 			
 		
 
-		//tableauMsg = allClients.getMsgTableFormat(ReadProperties.getMyAlias(), false);
+		//
 		
 		
 

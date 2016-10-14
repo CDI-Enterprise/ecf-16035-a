@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import java.util.Set;
 
@@ -38,8 +38,9 @@ public  class Server {
 	 * @return boolean which tell if the message has been properly delivered.
 	 */
 	public static boolean post(Item item) {
-
-		ArrayList<Item> mess = new ArrayList<Item>();
+		
+		ArrayList<Item> mess = getAllItems(item.getReceiver(),false);
+		System.out.println("Nombre de message deja present :" + mess.size());
 
 		if (item != null) {
 
@@ -61,11 +62,14 @@ public  class Server {
 	 */
 	public static boolean postDraft(Item item) {
 
-		ArrayList<Item> mess = new ArrayList<Item>();
+		
+		ArrayList<Item> mess = getAllItems(item.getReceiver(),true);
+		System.out.println("Nombre de message deja present :" + mess.size());
+		//ArrayList<Item> mess = new ArrayList<Item>();
 
 		if (item != null) {
 			mess.add(item);
-			System.out.println(item.getSender());
+			//System.out.println(item.getSender());
 			itemsDraft.put(item.getSender(), mess);
 			return true;
 		}

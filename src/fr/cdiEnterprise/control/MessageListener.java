@@ -98,7 +98,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		if(e.getSource() ==  panelNew.getBtnEnv()) {
 			
 			//panelNew = new MessagingNewPanel();
-			System.out.println("envoie from " + panelNew.getFrom());
+			//System.out.println("envoie from " + panelNew.getFrom());
 			String receiver = (String) panelNew.getCboReceiver().getItemAt(panelNew.getCboReceiver().getSelectedIndex());
 			System.out.println("envoie to " + receiver);
 			System.out.println("envoie objet " + panelNew.getTxtObject().getText());
@@ -136,7 +136,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		System.out.println("lettre tapée : " +e.getKeyChar());
 		nb ++;
 		nbCaracters += nb;
-		System.out.println("nombre de lettre tapées " + nbCaracters);
+		
 		panelNew.getLblCounter().setText((MESSAGE_MAX_SIZE - nbCaracters)+"");
 	}
 
@@ -161,12 +161,12 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	        Point p = me.getPoint();
 	        int row = table.rowAtPoint(p);
 	        if (me.getClickCount() == 1) {
-	        	System.out.println("click..." +row);
+	        	//System.out.println("click..." +row);
 	            // your valueChanged overridden method 
 	        }
 	        
 	        if (me.getClickCount() == 2) {
-	        	System.out.println("double click..." +row);
+	        	//System.out.println("double click..." +row);
 	            // your valueChanged overridden method 
 	        }
 	    }

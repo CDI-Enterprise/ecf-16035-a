@@ -116,6 +116,7 @@ public class Menu extends JMenuBar {
 		subCompanyCreate.addActionListener(listener);
 		subCompanyUpdateDelete.addActionListener(listener);
 		
+		
 		menuBookmark.addActionListener(listener);
 
 
