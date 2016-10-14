@@ -6,6 +6,7 @@ package fr.cdiEnterprise.service;
 import java.util.ArrayList;
 
 import fr.cdiEnterprise.control.MpClient;
+import fr.cdiEnterprise.model.Item;
 
 /**
  * Class is going to hold all the Users that are registered on the Messaging
@@ -31,6 +32,27 @@ public class Clients extends ArrayList<MpClient> {
 			}
 		}
 		return theClient;
+	}
+	
+	/**
+	 * This method is going to provide an Array of all the message for a particular user.
+	 * @param box this is to identify the User message box.
+	 * @param draft indicate if we need the draft folder
+	 * @return an array of message.
+	 */
+	public String[][] getMsgTableFormat(String box, boolean draft) {
+		int index = 0;
+		MpClient cli = getClient(box);
+		ArrayList<Item> itms = cli.getMessages(draft);
+		String[][] liste = new String[itms.size()][3];
+		
+		for(Item current : itms) {
+			liste[index][0] = current.getSender();
+			liste[index][1] = current.getObject();
+			liste[index][2] = current.getTimeStamp().toString();
+		}
+		
+		return liste;
 	}
 
 }

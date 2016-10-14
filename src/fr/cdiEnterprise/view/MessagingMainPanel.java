@@ -5,6 +5,8 @@ package fr.cdiEnterprise.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -13,9 +15,14 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
 
 import fr.cdiEnterprise.control.MessageListener;
+
 import fr.cdiEnterprise.control.MpClient;
 import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.model.Item;
@@ -39,7 +46,19 @@ public class MessagingMainPanel extends JPanel {
 	private JButton btnDisplay;
 	
 	private String nombreMessage;
+	private ArrayList<Item> allItems;
 	private DefaultListModel<Item> listModele;
+	private DefaultTableModel tableModele;
+	private JScrollPane scrollPane;
+	private JTable table;
+	private String[][] tableauMsg = {
+			{"olivier", "test1", "13-10-2016"},
+			{"claire", "test3", "14-10-2016"},
+			{"anais", "test4", "12-10-2016"},
+			{"ismael", "test5", "14-10-2016"},
+
+		};; 
+	
 	
 	private static final String FORMAT_LIST = "%1$-25s %2$-35s %3$-10s";
 	private static final String[] HEADER_LIST	= {"From", "Objet", "Date reception"};
@@ -89,13 +108,35 @@ public class MessagingMainPanel extends JPanel {
 		JLabel headerLabel = new JLabel(header);
 		JList<Item> list = new JList<Item>(listModele);
 		
+		scrollPane = new JScrollPane();
+		panMess.add(scrollPane, BorderLayout.CENTER);
+		
+		table = new JTable(tableModele);
+		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		
+		table.setFillsViewportHeight(true);
+		
+		table.setEnabled(true);
+		
+		table.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 16));
+		//table.setAutoCreateRowSorter(true);
+		//table.setColumnSelectionAllowed(false);
+		table.setModel(new DefaultTableModel(
+				tableauMsg,
+			new String[] {
+				"Sender", "Objet", "Date reception"
+			}
+		));
+		scrollPane.setViewportView(table);
 		
 		panNorth.add(lblTitle);
 		
 		
 		
 		panCenter.setBorder(border);
-		panCenter.setLayout(new MigLayout());
+		
+		// used to be for the Jlist
+		/*panCenter.setLayout(new MigLayout());
 		
 //		panCenter.add(btnNew, "w 200!");
 //		panCenter.add(btnDraft, "w 200!");
@@ -104,8 +145,10 @@ public class MessagingMainPanel extends JPanel {
 		panCenter.add(lblNombre, "wrap");
 		
 		panCenter.add(headerLabel, "wrap");
-		panCenter.add(list, "wrap");
+		panCenter.add(list, "wrap");*/
 		
+		table.addMouseListener(listener);
+		//table.getSelectionModel().addListSelectionListener(listener);
 		btnNew.addActionListener(listener);
 		btnDraft.addActionListener(listener);
 		btnDisplay.addActionListener(listener);
@@ -122,12 +165,16 @@ public class MessagingMainPanel extends JPanel {
 		if(cli == null) {
 			System.out.println("cli est null");
 		}
-		ArrayList<Item> allItems = cli.getMessages(false);
+		allItems = cli.getMessages(false);
+		//tableauMsg = new String[allItems.size()][3];
 		System.out.println("Nb emails :"+allItems.size());
+			
 		
-		for(int i =0; i< allItems.size(); i++) {
-			listModele.addElement(allItems.get(i));
-		}
+
+		//tableauMsg = allClients.getMsgTableFormat(ReadProperties.getMyAlias(), false);
+		
+		
+
 		
 	}
 
