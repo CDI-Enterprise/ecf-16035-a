@@ -13,7 +13,7 @@ public class Language {
 	private static int languageId;								// Auto-generated language's id
 	private int id;
 	private String languageName;
-	public static final String[] LANGUAGES = { "JAVA", "PhP", "CSS", "C#", "C++" };
+	public static final String[] LANGUAGES = { "JAVA", "PhP", "CSS", "C#", "C++", "Ruby" };
 	
 	/**
 	 * Default constructor
