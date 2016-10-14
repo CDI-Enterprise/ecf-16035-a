@@ -3,13 +3,23 @@
  */
 package fr.cdiEnterprise.control;
 
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.time.LocalDateTime;
 
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 
 import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.model.Item;
@@ -32,7 +42,7 @@ import fr.cdiEnterprise.view.PanelUser;
  * @author Nicolas Tarral
  *
  */
-public class MessageListener implements ActionListener, KeyListener {
+public class MessageListener implements ActionListener, KeyListener, MouseListener {
 
 	// Given attribute
 	private static MessagingMainPanel panelMain;
@@ -140,5 +150,51 @@ public class MessageListener implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
-	}	
+	}
+
+
+
+
+	
+	    public void mousePressed(MouseEvent me) {
+	        JTable table =(JTable) me.getSource();
+	        Point p = me.getPoint();
+	        int row = table.rowAtPoint(p);
+	        if (me.getClickCount() == 1) {
+	        	System.out.println("click..." +row);
+	            // your valueChanged overridden method 
+	        }
+	        
+	        if (me.getClickCount() == 2) {
+	        	System.out.println("double click..." +row);
+	            // your valueChanged overridden method 
+	        }
+	    }
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
 }

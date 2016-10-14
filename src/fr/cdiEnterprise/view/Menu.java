@@ -1,8 +1,13 @@
 package fr.cdiEnterprise.view;
 
 import javax.swing.JMenuBar;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 
 import fr.cdiEnterprise.control.MainMenuListener;
 
@@ -86,6 +91,8 @@ public class Menu extends JMenuBar {
 		menuMessaging = new JMenu("Messagerie");
 		subMessageDisplay = new JMenuItem("Affichage");
 		menuMessaging.add(subMessageDisplay);
+		subMessageDisplay.setMnemonic(KeyEvent.VK_M);
+		subMessageDisplay.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.CTRL_MASK));
 		this.add(menuMessaging);
 
 		// HELP
