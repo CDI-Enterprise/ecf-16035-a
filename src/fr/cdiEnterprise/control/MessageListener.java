@@ -108,19 +108,22 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			System.out.println("envoie objet " + panelNew.getTxtObject().getText());
 			System.out.println("envoie message " + panelNew.getTxtMessage().getText());*/
 			if(panelNew.getTxtObject().getText().isEmpty()) {
-				
+				customDialog("le champ Objet doit etre remplie.");
+			}else {
+				Clients clients = Datas.getClientBox();
+				MpClient cli = clients.getClient(ReadProperties.getMyAlias());
+				cli.newEmail(cli.getBox(), receiver, panelNew.getTxtObject().getText(),panelNew.getTxtMessage().getText());
+				System.out.println("Message send out...");
+				panelMain.refresh();
+				System.out.println("switch to panel : main message");
+				MainFrame.SwithPanel(panelMain);
 			}
-			Clients clients = Datas.getClientBox();
-			MpClient cli = clients.getClient(ReadProperties.getMyAlias());
-			cli.newEmail(cli.getBox(), receiver, panelNew.getTxtObject().getText(),panelNew.getTxtMessage().getText());
-			System.out.println("Message send out...");
-			panelMain.refresh();
 			
 			
 			
 			
-			System.out.println("switch to panel : main message");
-			MainFrame.SwithPanel(panelMain);
+			
+
 		
 		}
 		
@@ -209,8 +212,8 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			
 		}
 		
-		public void customDialog(String Message) {
-			JOptionPane.showMessageDialog(panelNew, "Some inforlations are missing", "Nouveau message", JOptionPane.WARNING_MESSAGE);
+		public void customDialog(String message) {
+			JOptionPane.showMessageDialog(panelNew, message, "Nouveau message", JOptionPane.WARNING_MESSAGE);
 		}
 
 }
