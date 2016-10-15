@@ -12,6 +12,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.time.LocalDateTime;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -26,6 +28,7 @@ import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.model.Trainee;
 import fr.cdiEnterprise.model.User;
 import fr.cdiEnterprise.service.Clients;
+import fr.cdiEnterprise.service.Items;
 import fr.cdiEnterprise.util.ReadProperties;
 import fr.cdiEnterprise.view.MainFrame;
 import fr.cdiEnterprise.view.MessagingMainPanel;
@@ -95,14 +98,18 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			
 		
 		}
+		// ENOIE MESSAGE
 		if(e.getSource() ==  panelNew.getBtnEnv()) {
 			
 			//panelNew = new MessagingNewPanel();
-			System.out.println("envoie from " + panelNew.getFrom());
+			//System.out.println("envoie from " + panelNew.getFrom());
 			String receiver = (String) panelNew.getCboReceiver().getItemAt(panelNew.getCboReceiver().getSelectedIndex());
-			System.out.println("envoie to " + receiver);
+			/*System.out.println("envoie to " + receiver);
 			System.out.println("envoie objet " + panelNew.getTxtObject().getText());
-			System.out.println("envoie message " + panelNew.getTxtMessage().getText());
+			System.out.println("envoie message " + panelNew.getTxtMessage().getText());*/
+			if(panelNew.getTxtObject().getText().isEmpty()) {
+				
+			}
 			Clients clients = Datas.getClientBox();
 			MpClient cli = clients.getClient(ReadProperties.getMyAlias());
 			cli.newEmail(cli.getBox(), receiver, panelNew.getTxtObject().getText(),panelNew.getTxtMessage().getText());
@@ -136,7 +143,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		System.out.println("lettre tapée : " +e.getKeyChar());
 		nb ++;
 		nbCaracters += nb;
-		System.out.println("nombre de lettre tapées " + nbCaracters);
+		
 		panelNew.getLblCounter().setText((MESSAGE_MAX_SIZE - nbCaracters)+"");
 	}
 
@@ -162,6 +169,11 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	        int row = table.rowAtPoint(p);
 	        if (me.getClickCount() == 1) {
 	        	System.out.println("click..." +row);
+	        	Items itms = panelMain.getUserItems();
+	        	
+	        	System.out.println("object selected "+panelMain.getTiModel().getUserAt(row).getObject());
+	        	
+	        	
 	            // your valueChanged overridden method 
 	        }
 	        
@@ -195,6 +207,10 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		public void mouseExited(MouseEvent e) {
 			// TODO Auto-generated method stub
 			
+		}
+		
+		public void customDialog(String Message) {
+			JOptionPane.showMessageDialog(panelNew, "Some inforlations are missing", "Nouveau message", JOptionPane.WARNING_MESSAGE);
 		}
 
 }

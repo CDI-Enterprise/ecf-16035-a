@@ -93,7 +93,7 @@ public class BookMarkPanel extends JPanel
 		lblFieldInfo = new JLabel("Mes Favoris");						
 		lblFieldInfo.setFont(new Font(getName(), Font.CENTER_BASELINE, 14));
 		northPan.add(lblFieldInfo);
-		northPan.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		northPan.setBorder(BorderFactory.createLineBorder(Color.RED));
 
 		//West
 
@@ -104,12 +104,12 @@ public class BookMarkPanel extends JPanel
 
 		//JList Company 
 		jListBookMarkPan = new JPanel();
-		jListBookMarkPan.setLayout(new MigLayout());
+		jListBookMarkPan.setLayout(new MigLayout("fill, wrap 2"));
 		jListBookMarkPan.setBorder(BorderFactory.createTitledBorder("MA LISTE D'ENTREPRISE"));
 		westPan.add(jListBookMarkPan, "wrap, w 550!");
 
 		//TODO remplace it with a ComboBox
-		
+
 		mdlListCompany = new DefaultListModel<Favorite>();							//Create model of BookMarkList
 
 		JList<Favorite> lstBookMarkCompany = new JList<Favorite>(mdlListCompany);
@@ -121,18 +121,23 @@ public class BookMarkPanel extends JPanel
 				}
 			}
 		}
-
 		panListCompany = new JScrollPane(lstBookMarkCompany);						//Add scrollpane to jlist
 		jListBookMarkPan.add(panListCompany);										//Add to panel in windows
 
 		//Button 
 
 		cmdBookMarkValidate = new JButton("Voir");
-		cmdBookMarkValidate.setAlignmentX(CENTER_ALIGNMENT);
-		westPan.add(cmdBookMarkValidate, "wrap");
+//		cmdBookMarkValidate.setLayout(null);
+//		cmdBookMarkValidate.setBounds(0, 500, 100, 100);
+		
+//		cmdBookMarkValidate.setAlignmentX(CENTER_ALIGNMENT);
+//		cmdBookMarkValidate.setAlignmentY(LEFT_ALIGNMENT);
+		westPan.add(cmdBookMarkValidate,"grow, span 2 2");
+		
 		cmdBookMarkDelete = new JButton("Supprimer");
-		cmdBookMarkDelete.setAlignmentX(CENTER_ALIGNMENT);
-		westPan.add(cmdBookMarkDelete, "wrap");
+//		cmdBookMarkDelete.setAlignmentX(CENTER_ALIGNMENT);
+//		cmdBookMarkDelete.setAlignmentY(RIGHT_ALIGNMENT);
+		westPan.add(cmdBookMarkDelete, "grow, span 2 2");
 
 
 		//Center
@@ -141,7 +146,7 @@ public class BookMarkPanel extends JPanel
 		centerPan.setLayout(new FlowLayout());
 		centerPan.setBorder(new EmptyBorder(0, 0, 0, 5));
 		this.add(centerPan, BorderLayout.CENTER);
-		
+
 		listCompanyResultPan = new JPanel();
 		listCompanyResultPan.setLayout(new MigLayout());
 		listCompanyResultPan.setBorder(BorderFactory.createTitledBorder("Détail sur l'Entreprise"));
@@ -149,13 +154,13 @@ public class BookMarkPanel extends JPanel
 
 		mdlListRsult = new DefaultTableModel();
 		bookMarkResult= new JTable(mdlListRsult);
-		
+
 		//TODO LOOP
-		
-		
+
+
 		panListCompanyMarked = new JScrollPane(bookMarkResult);
 		listCompanyResultPan.add(panListCompanyMarked);
-		
+
 
 
 

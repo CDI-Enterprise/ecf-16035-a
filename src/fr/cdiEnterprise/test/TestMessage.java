@@ -3,11 +3,13 @@ package fr.cdiEnterprise.test;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-
-
 import fr.cdiEnterprise.control.MpClient;
 import fr.cdiEnterprise.dao.Server;
 import fr.cdiEnterprise.model.Item;
+import fr.cdiEnterprise.service.Items;
+
+
+
 
 
 
@@ -115,7 +117,7 @@ public class TestMessage {
 			nicolas.getMessages(true);
 			nicolas.display(true);
 			
-			ArrayList<Item>  nickitms = nicolas.getMessages(true);
+			Items  nickitms = nicolas.getMessages(true);
 			System.out.println("size of draft is : " + nickitms.size());
 			//System.out.println(nickitms.toString());
 			//simule la selection du message dans une liste et renvoie de l'identifiant de l'email selectionné
@@ -137,7 +139,7 @@ public class TestMessage {
 			// le message sera remis.
 			
 			nicolas.editDraft(nicolas.popMessage("5", true),  "olivier", "test[edited]", "Ce message a ete modifier...");
-			ArrayList<Item> items =  nicolas.getMessages( true);
+			Items items =  nicolas.getMessages( true);
 			//System.out.println("size of draft is "+ items.size());
 			for(int i = 0; i <items.size(); i++ ) {
 				System.out.println("---"+items.get(i).getSender());

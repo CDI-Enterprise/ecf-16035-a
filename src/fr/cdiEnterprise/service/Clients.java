@@ -44,12 +44,19 @@ public class Clients extends ArrayList<MpClient> {
 		int index = 0;
 		MpClient cli = getClient(box);
 		ArrayList<Item> itms = cli.getMessages(draft);
-		String[][] liste = new String[itms.size()][3];
+		System.out.println("nombre d'emails---" + itms.size());
+		String[][] liste = new String[itms.size()+1][3];
 		
 		for(Item current : itms) {
+			
 			liste[index][0] = current.getSender();
 			liste[index][1] = current.getObject();
 			liste[index][2] = current.getTimeStamp().toString();
+			System.out.println(liste[index][0]);
+			System.out.println(liste[index][2]);
+			
+
+			index++;
 		}
 		
 		return liste;

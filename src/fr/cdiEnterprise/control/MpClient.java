@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import fr.cdiEnterprise.dao.Server;
 import fr.cdiEnterprise.model.Item;
+import fr.cdiEnterprise.service.Items;
 
 
 
@@ -33,14 +34,14 @@ public class MpClient {
 
 	private Server server;
 	private String box;
-	private ArrayList<Item> myMessages;
-	private ArrayList<Item> myDraft;
+	private Items myMessages;
+	private Items myDraft;
 	
 	public MpClient(Server s, String usr) {
 		box = usr;
 		this.server = s;
-		this.myMessages = new  ArrayList<Item>();
-		this.myDraft = new  ArrayList<Item>();
+		this.myMessages = new Items();
+		this.myDraft = new  Items();
 
 	}
 	
@@ -173,7 +174,7 @@ public class MpClient {
 	 * @param draft true will indicate to return the draft email
 	 * @return an arrayList of items
 	 */
-	public ArrayList<Item> getMessages(boolean draft) {
+	public Items getMessages(boolean draft) {
 
 		
 		myMessages = server.getAllItems(this.box, draft);
