@@ -12,6 +12,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.time.LocalDateTime;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -102,9 +104,12 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			//panelNew = new MessagingNewPanel();
 			//System.out.println("envoie from " + panelNew.getFrom());
 			String receiver = (String) panelNew.getCboReceiver().getItemAt(panelNew.getCboReceiver().getSelectedIndex());
-			System.out.println("envoie to " + receiver);
+			/*System.out.println("envoie to " + receiver);
 			System.out.println("envoie objet " + panelNew.getTxtObject().getText());
-			System.out.println("envoie message " + panelNew.getTxtMessage().getText());
+			System.out.println("envoie message " + panelNew.getTxtMessage().getText());*/
+			if(panelNew.getTxtObject().getText().isEmpty()) {
+				
+			}
 			Clients clients = Datas.getClientBox();
 			MpClient cli = clients.getClient(ReadProperties.getMyAlias());
 			cli.newEmail(cli.getBox(), receiver, panelNew.getTxtObject().getText(),panelNew.getTxtMessage().getText());
@@ -202,6 +207,10 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		public void mouseExited(MouseEvent e) {
 			// TODO Auto-generated method stub
 			
+		}
+		
+		public void customDialog(String Message) {
+			JOptionPane.showMessageDialog(panelNew, "Some inforlations are missing", "Nouveau message", JOptionPane.WARNING_MESSAGE);
 		}
 
 }
