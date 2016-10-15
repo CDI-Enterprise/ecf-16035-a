@@ -11,15 +11,19 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
+import fr.cdiEnterprise.control.BookMarkListener;
 import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.model.Company;
+import fr.cdiEnterprise.model.Favorite;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -38,7 +42,7 @@ public class BookMarkPanel extends JPanel
 
 	private static final long serialVersionUID = 1L;
 
-	private JButton cmdBookMark;			//
+	private JButton cmdBookMark;			//Button Favoris to CompanyCreationPanel
 
 
 
@@ -55,18 +59,26 @@ public class BookMarkPanel extends JPanel
 
 	private JPanel jListBookMarkPan;
 
-	private DefaultListModel<Company> mdlListCompany;		//List model
-	private JList <Company> bookMarkChoosen;				//List of enterprise recorded
+	private DefaultListModel<Favorite> mdlListCompany;		//List model
+	private JList<Favorite> bookMarkChoosen;				//List of enterprise recorded
 	private JScrollPane	panListCompany;						//Add scrollbar to the JList
 
+	private JButton cmdBookMarkValidate;					//Button for show a company
 	private JButton cmdBookMarkDelete;						//Button for delete a favorites
 
 
 	//Center
 
-	private JTable bookMarkResult;							//Info Company
+	private JPanel listCompanyResultPan;
+	private DefaultTableModel mdlListRsult;			//Detailed information on the company
+	private JTable bookMarkResult;					//Info Company
+	//private JList<Company> lstCompanyMarked;
+	private JScrollPane panListCompanyMarked;
 
 
+	/**
+	 * 
+	 */
 	public BookMarkPanel()
 	{
 		//Main
@@ -77,10 +89,11 @@ public class BookMarkPanel extends JPanel
 		northPan.setLayout(new FlowLayout());
 		this.add(northPan, BorderLayout.NORTH);
 
-		lblFieldInfo = new JLabel("Mes Favoris");
+		//Windows title
+		lblFieldInfo = new JLabel("Mes Favoris");						
 		lblFieldInfo.setFont(new Font(getName(), Font.CENTER_BASELINE, 14));
 		northPan.add(lblFieldInfo);
-		northPan.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+		northPan.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		//West
 
@@ -93,45 +106,89 @@ public class BookMarkPanel extends JPanel
 		jListBookMarkPan = new JPanel();
 		jListBookMarkPan.setLayout(new MigLayout());
 		jListBookMarkPan.setBorder(BorderFactory.createTitledBorder("MA LISTE D'ENTREPRISE"));
-		westPan.add(jListBookMarkPan, "wrap, w 400!");
+		westPan.add(jListBookMarkPan, "wrap, w 550!");
 
-		mdlListCompany = new DefaultListModel<Company>();							//Create model of BookMarkList
-		JList<Company> lstBookMarkCompany = new JList<Company>(mdlListCompany);
+		//TODO remplace it with a ComboBox
+		
+		mdlListCompany = new DefaultListModel<Favorite>();							//Create model of BookMarkList
+
+		JList<Favorite> lstBookMarkCompany = new JList<Favorite>(mdlListCompany);
+		lstBookMarkCompany.setVisibleRowCount(5);
 		if(Datas.getCompaniesList() != null) {
-			for (Company user : Datas.getCompaniesList()) {
-				if(user != null) {
-					mdlListCompany.addElement(user);
-								 }
-						}
+			for (Favorite favorite : Datas.getFavoritesList()) {
+				if(favorite != null) {
+					mdlListCompany.addElement(favorite);
 				}
+			}
+		}
+
 		panListCompany = new JScrollPane(lstBookMarkCompany);						//Add scrollpane to jlist
 		jListBookMarkPan.add(panListCompany);										//Add to panel in windows
 
-		
+		//Button 
+
+		cmdBookMarkValidate = new JButton("Voir");
+		cmdBookMarkValidate.setAlignmentX(CENTER_ALIGNMENT);
+		westPan.add(cmdBookMarkValidate, "wrap");
+		cmdBookMarkDelete = new JButton("Supprimer");
+		cmdBookMarkDelete.setAlignmentX(CENTER_ALIGNMENT);
+		westPan.add(cmdBookMarkDelete, "wrap");
+
+
 		//Center
-		
+
 		centerPan = new JPanel();
-
+		centerPan.setLayout(new FlowLayout());
+		centerPan.setBorder(new EmptyBorder(0, 0, 0, 5));
+		this.add(centerPan, BorderLayout.CENTER);
 		
+		listCompanyResultPan = new JPanel();
+		listCompanyResultPan.setLayout(new MigLayout());
+		listCompanyResultPan.setBorder(BorderFactory.createTitledBorder("Détail sur l'Entreprise"));
+		centerPan.add(listCompanyResultPan);
+
+		mdlListRsult = new DefaultTableModel();
+		bookMarkResult= new JTable(mdlListRsult);
+		
+		//TODO LOOP
+		
+		
+		panListCompanyMarked = new JScrollPane(bookMarkResult);
+		listCompanyResultPan.add(panListCompanyMarked);
+		
+
+
+
+		//LISTENER
+		BookMarkListener listener = new BookMarkListener(this);					//Creation of actionListener 
+		cmdBookMarkValidate.addActionListener(listener);
+		cmdBookMarkDelete.addActionListener(listener);
+
+
 	}
-
-
-
-
-
-
-
-
 
 
 
 	/**
 	 * @return the mdlListCompany
 	 */
-	public DefaultListModel<Company> getMdlListCompany() {
+	public DefaultListModel<Favorite> getMdlListCompany() {
 		return mdlListCompany;
 	}
 
+	/**
+	 * @return the cmdBookMarkValidate
+	 */
+	public JButton getCmdBookMarkValidate() {
+		return cmdBookMarkValidate;
+	}
+
+	/**
+	 * @return the cmdBookMarkDelete
+	 */
+	public JButton getCmdBookMarkDelete() {
+		return cmdBookMarkDelete;
+	}
 
 	/**
 	 * @return the cmdBookMark

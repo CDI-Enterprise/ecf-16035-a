@@ -4,6 +4,7 @@
 package fr.cdiEnterprise.dao;
 import fr.cdiEnterprise.control.MpClient;
 import fr.cdiEnterprise.model.Department;
+import fr.cdiEnterprise.model.Favorite;
 import fr.cdiEnterprise.model.FormerTrainee;
 import fr.cdiEnterprise.model.Language;
 import fr.cdiEnterprise.model.Region;
@@ -14,6 +15,7 @@ import fr.cdiEnterprise.model.Trainer;
 
 import fr.cdiEnterprise.service.Companies;
 import fr.cdiEnterprise.service.Departments;
+import fr.cdiEnterprise.service.Favorites;
 import fr.cdiEnterprise.service.Languages;
 import fr.cdiEnterprise.service.Regions;
 import fr.cdiEnterprise.service.Users;
@@ -35,6 +37,8 @@ public class Datas {
 	private static Regions regionsList = new Regions();
 
 	private static Languages languagesCompanyList = new Languages();
+	
+	private static Favorites favoritesList = new Favorites();
 
 	/**
 	 * 
@@ -81,6 +85,13 @@ public class Datas {
 		for (int i =0; i< Language.LANGUAGES.length; i++){
 		languagesCompanyList.add(new Language(Language.LANGUAGES[i]));
 		}
+		
+		
+		//BookMark
+		for(int i =0; i< Favorite.FAVORITES.length;i++)
+		{
+			favoritesList.add(new Favorite(Favorite.FAVORITES[i]));
+		}
 	}
 	
 	
@@ -121,6 +132,22 @@ public class Datas {
 
 	public static Languages getLanguagesCompanyList() {
 		return languagesCompanyList;
+	}
+
+	/**
+	 * @return the favoritesList
+	 */
+	
+	public static Favorites getFavoritesList() {
+		return favoritesList;
+	}
+
+	/**
+	 * @param favoritesList the favoritesList to set
+	 */
+	
+	public static void setFavoritesList(Favorites favoritesList) {
+		Datas.favoritesList = favoritesList;
 	}
 
 }
