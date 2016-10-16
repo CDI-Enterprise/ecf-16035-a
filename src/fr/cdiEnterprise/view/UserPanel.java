@@ -26,9 +26,8 @@ import fr.cdiEnterprise.model.User;
 import net.miginfocom.swing.MigLayout;
 
 /**
- * Panel for a user's profile CRUD
- * Last update: 20161007
- * @version 0.0
+ * Panel for a user's profile CRUD.
+ * @version 16-10-2016
  * @author Claire
  */
 public class UserPanel extends JPanel {

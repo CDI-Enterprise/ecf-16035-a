@@ -2,11 +2,9 @@ package fr.cdiEnterprise.model;
 
 /**
  * Class for Trainee creation.
- * 
- * @see fr.cdiEnterprise.model.User
- * @version 13-10-2016
  * @author Claire
- * 
+ * @see fr.cdiEnterprise.model.User
+ * @version 13-10-2016 
  */
 
 public class Trainee extends User {

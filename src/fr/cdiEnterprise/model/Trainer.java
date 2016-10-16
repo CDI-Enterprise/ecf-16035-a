@@ -2,12 +2,9 @@ package fr.cdiEnterprise.model;
 
 /**
  * Class for Trainer creation.
- * Last update: 20161001
- * 
- * @see fr.cdiEnterprise.model.User
- * @version 1.0
  * @author Claire
- *
+ * @see fr.cdiEnterprise.model.User
+ * @version 01-10-2016
  */
 public class Trainer extends User {
 
@@ -21,7 +18,6 @@ public class Trainer extends User {
 	/**
 	 * @param email
 	 * @param alias
-	 * @param password
 	 * @param status
 	 * @param afpa
 	 */

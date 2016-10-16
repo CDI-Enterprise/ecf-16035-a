@@ -11,10 +11,8 @@ import fr.cdiEnterprise.view.MainFrame;
 
 /**
  * Listeners for menu of the main frame
- * Last update: 20161007
- * @version 0.1
- * @author Claire
- *
+ * @version 07-10-2016
+ * @author Claire, Anais, Nicolas, Ismael
  */
 
 // TODO is this the best listener for a JMenuBar?

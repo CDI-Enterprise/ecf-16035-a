@@ -9,6 +9,11 @@ import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+/**
+ * Methods for the control package
+ * @version 16-10-2016
+ * @author Claire
+ */
 public class ControlMethods {
 
 	/**
@@ -44,15 +49,17 @@ public class ControlMethods {
 	 */
 	public static void resetJTextField(ArrayList<JTextField> allJTextFields) {
 		
-		for (Component c : allJTextFields)
-		{
-		  if (c instanceof JTextField)
-		    {
+		for (Component c : allJTextFields) {
+			
+		  if (c instanceof JTextField) {
+			  
 		      JTextField textfield = (JTextField) c;
 		      textfield.setText("");
 		      textfield.setEnabled(true);
 		    }
 		}
 	}
+	
+	
 	
 }

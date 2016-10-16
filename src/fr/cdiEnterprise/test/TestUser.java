@@ -7,8 +7,8 @@ import fr.cdiEnterprise.model.Trainee;
 import fr.cdiEnterprise.model.Trainer;
 
 /**
+ * Class test for User module.
  * @author Claire
- *
  */
 public class TestUser {
 
