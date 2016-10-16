@@ -14,9 +14,8 @@ import fr.cdiEnterprise.control.MainMenuListener;
 
 /**
  * Main menu for the CDI Enterprise program, visible on every frame.
- * Last update: 20161007 * 
- * @version 0.2
  * @author Claire, Anais, Nicolas, Ismael
+ * @version 07-10-2016
  */
 
 public class Menu extends JMenuBar {
@@ -34,17 +33,17 @@ public class Menu extends JMenuBar {
 
 	// menuProfile : sub item
 	private JMenuItem subProfileCrud;
-	
+
 	// menuEntreprise : sub item
 	private JMenuItem subCompanyCreate;
 	private JMenuItem subCompanyUpdateDelete;
 	private JMenuItem subCompanyRead;
+	
 	private JMenuItem subMessageDisplay;
-	
-	
+
 	//menuBokkMark : sub item
 	private JMenuItem subBookMarkRead;
-	
+
 	// menuHelp : sub item
 	private JMenuItem subHelpDoc;
 	private JMenuItem subHelpShortcut;
@@ -55,8 +54,8 @@ public class Menu extends JMenuBar {
 	 * Constructor
 	 */
 	public Menu() {
-		
-		// PROFILE TODO Claire MenuListener
+
+		// PROFILE
 		menuProfile = new JMenu("Profil");
 		this.add(menuProfile);
 		subProfileCrud = new JMenuItem("Gérer les profils");
@@ -117,18 +116,14 @@ public class Menu extends JMenuBar {
 		//LISTENER
 		MainMenuListener listener = new MainMenuListener(this);
 		subProfileCrud.addActionListener(listener);
-		
+
 		subMessageDisplay.addActionListener(listener);
+
 		subCompanyCreate.addActionListener(listener);
 		subCompanyUpdateDelete.addActionListener(listener);
-		
 
-		
 		menuBookmark.addActionListener(listener);
-
 		subBookMarkRead.addActionListener(listener);
-
-
 
 	}
 
@@ -139,14 +134,14 @@ public class Menu extends JMenuBar {
 	public JMenuItem getSubProfileCrud() {
 		return subProfileCrud;
 	}
-	
+
 	/**
 	 * @return the subCompanyCreate
 	 */
 	public JMenuItem getSubCompanyCreate() {
 		return subCompanyCreate;
 	}
-	
+
 	public JMenuItem getSubCompanyUpdateDelete(){
 		return subCompanyUpdateDelete;
 	}
@@ -163,4 +158,4 @@ public class Menu extends JMenuBar {
 		return subMessageDisplay;
 	}
 
-	}
+}

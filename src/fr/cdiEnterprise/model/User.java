@@ -7,9 +7,8 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Abstract base class for all User creation: Trainee, FormerTrainee, Trainer.
- * @version 13-10-2016
  * @author Claire
- *
+ * @version 13-10-2016
  */
 
 public abstract class User {
@@ -27,7 +26,6 @@ public abstract class User {
 	private String afpa;									// Name of the AFPA the user go/went to or work for
 
 
-	/* Constructors */
 	/**
 	 * Default constructor
 	 */
@@ -64,7 +62,12 @@ public abstract class User {
 //	}
 
 
-	/* Object methods */
+	/**
+	 * Generates a date and time from the "Europe/Paris" zone when a User is created.
+	 * @author Claire
+	 * @return inscriptionDate
+	 * @since 16-10-2016
+	 */
 	public String setInscriptionDate() {
 		
 		DateTimeFormatter formatter;
@@ -80,7 +83,7 @@ public abstract class User {
 	}
 	
 	/**
-	 * Basic user description
+	 * Basic user description.
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -90,7 +93,6 @@ public abstract class User {
 	}
 
 
-	/* Object - Getter & setter */	
 	/**
 	 * @return the email
 	 */
@@ -175,7 +177,6 @@ public abstract class User {
 		return inscriptionDate;
 	}
 
-	/* Class - Getter & setter */	
 	/**
 	 * @return the totalId
 	 */

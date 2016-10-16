@@ -26,7 +26,7 @@ import fr.cdiEnterprise.model.User;
 import net.miginfocom.swing.MigLayout;
 
 /**
- * Panel for a user's profile CRUD
+ * Panel for a user's profile CRUD.
  * @version 16-10-2016
  * @author Claire
  */

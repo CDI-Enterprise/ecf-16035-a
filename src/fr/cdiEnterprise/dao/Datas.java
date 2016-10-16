@@ -21,8 +21,9 @@ import fr.cdiEnterprise.service.Regions;
 import fr.cdiEnterprise.service.Users;
 
 /**
- * @author Claire, Anaïs, Nicolas
- *
+ * Temporary database.
+ * @author Claire, Anais, Nicolas
+ * @version 16-10-2016
  */
 public class Datas {
 
@@ -137,7 +138,6 @@ public class Datas {
 	/**
 	 * @return the favoritesList
 	 */
-	
 	public static Favorites getFavoritesList() {
 		return favoritesList;
 	}
@@ -145,7 +145,6 @@ public class Datas {
 	/**
 	 * @param favoritesList the favoritesList to set
 	 */
-	
 	public static void setFavoritesList(Favorites favoritesList) {
 		Datas.favoritesList = favoritesList;
 	}
