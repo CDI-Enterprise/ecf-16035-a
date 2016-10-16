@@ -2,11 +2,9 @@ package fr.cdiEnterprise.model;
 
 /**
  * Class for FormerTrainee creation.
- * 
+ * @author Claire
  * @see fr.cdiEnterprise.model.User, fr.cdiEnterprise.model.Trainee
  * @version 13-10-2016
- * @author Claire
- *
  */
 
 public class FormerTrainee extends Trainee {
@@ -18,8 +16,8 @@ public class FormerTrainee extends Trainee {
 	
 	
 	// Constructor test
-	public FormerTrainee(String inscriptionDate, String status, String alias, String email, String afpa, String trainer) {
-		super(inscriptionDate, status, alias, email, afpa, trainer);
+	public FormerTrainee(String status, String alias, String email, String afpa, String trainer) {
+		super(status, alias, email, afpa, trainer);
 	}
 		
 	/**
@@ -70,9 +68,9 @@ public class FormerTrainee extends Trainee {
 
 	
 	/* Object methods */
-	//TODO create input control
+	//TODO Claire create input control
 
-	/* (non-Javadoc)
+	/**
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

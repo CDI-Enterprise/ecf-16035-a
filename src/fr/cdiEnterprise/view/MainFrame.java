@@ -3,7 +3,6 @@ package fr.cdiEnterprise.view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,10 +14,8 @@ import java.util.Map.Entry;
 
 /**
  * MainFrame for the CDI Enterprise program with a JMenuBar.
- * Last update: 20161007
- * @version 1.0
- * @author Claire, Ana�s
- *
+ * @author Claire, Anais
+ * @version 07-10-2016
  */
 
 public class MainFrame extends JFrame {
@@ -31,21 +28,23 @@ public class MainFrame extends JFrame {
 	protected static JPanel mainPan;
 	private static JPanel homePan;
 
-	private static PanelUser panelUser;
+	private static UserPanel panelUser;
 	private static JScrollPane scrollUser;
+	
 	private static CompanyCreationPanel panelCreatCompany;
 	private static JScrollPane scrollCreateCompany;
 	private static JScrollPane scrollUpdateDeleteCompany;
 	private static CompanyDeletUpdatPanel panelUpdateDeleteCompany;
+	
 	private static JPanel panelMessaging;
+	
 	private static BookMarkPanel panelBookMark;
 	private static JScrollPane scrollBookMark;
 	
 	/**
 	 * MainFrame constructor.
-	 * Constructs a Main Frame with a default panel of 1440*900 non resizable
+	 * Constructs a Main Frame with a default panel of 1280*800 resizable
 	 * With a personalized icon for system menu and main title
-	 * With a white background in the main panel
 	 * With a main menu @see fr.cdiEnterprise.view.Menu
 	 * It opens where the OS windows usually do
 	 */
@@ -56,9 +55,9 @@ public class MainFrame extends JFrame {
 			Object key = entry.getKey();
 			Object value = javax.swing.UIManager.get(key);
 			if (value != null && value instanceof javax.swing.plaf.FontUIResource) {
-				javax.swing.plaf.FontUIResource fr=(javax.swing.plaf.FontUIResource)value;
+//				javax.swing.plaf.FontUIResource fr=(javax.swing.plaf.FontUIResource)value;
 				// (String for font name, integer for style, integer for size)
-				javax.swing.plaf.FontUIResource f = new javax.swing.plaf.FontUIResource(fr.getFamily(), Font.PLAIN, 14);
+				javax.swing.plaf.FontUIResource f = new javax.swing.plaf.FontUIResource("Arial", Font.PLAIN, 14);
 				javax.swing.UIManager.put(key, f);
 			}
 		}
@@ -93,7 +92,7 @@ public class MainFrame extends JFrame {
 
 		
 		// Panel for user CRUD
-		panelUser = new PanelUser();
+		panelUser = new UserPanel();
 		panelUser.setPreferredSize(new Dimension (1260,800));
 		scrollUser = new JScrollPane(panelUser);
 		
@@ -102,6 +101,7 @@ public class MainFrame extends JFrame {
 		scrollCreateCompany = new JScrollPane(panelCreatCompany);
 		panelUpdateDeleteCompany = new CompanyDeletUpdatPanel();
 		scrollUpdateDeleteCompany = new JScrollPane(panelUpdateDeleteCompany);
+		
 		panelMessaging = new MessagingMainPanel();
 		
 		//Panel for BookMark
@@ -111,8 +111,8 @@ public class MainFrame extends JFrame {
 	}
 
 	/**
-	 * Display the welcome panel
-	 * @return mainPan
+	 * Displays the welcome panel.
+	 * @return the mainPan
 	 */
 	public static JPanel getMainPan() {
 		return mainPan;
@@ -121,16 +121,13 @@ public class MainFrame extends JFrame {
 	/**
 	 * @return the homePan
 	 */
-	public static JPanel getHomePan() 
-	{
+	public static JPanel getHomePan() {
 		return homePan;
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @return the scrolUSer
 	 */
-	
 	public static JScrollPane getScrollUser() {
 		return scrollUser;
 	}
@@ -152,7 +149,6 @@ public class MainFrame extends JFrame {
 	/**This method will provide the main BookMark Panel
 	 * @return the panelBookMark
 	 */
-	
 	public static BookMarkPanel getPanelBookMark() 
 	{
 		return panelBookMark;
@@ -162,7 +158,6 @@ public class MainFrame extends JFrame {
 	/**
 	 * @return the scrollBookMark
 	 */
-	
 	public static JScrollPane getScrollBookMark() 
 	{
 		return scrollBookMark;
@@ -186,7 +181,6 @@ public class MainFrame extends JFrame {
 	public static JPanel getPanelMessaging() {
 		return panelMessaging;
 	}
-	
 	
 	/**
 	 * 

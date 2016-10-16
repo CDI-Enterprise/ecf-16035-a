@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -16,20 +17,20 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
-import fr.cdiEnterprise.control.PanelUserListeners;
+import fr.cdiEnterprise.control.UserPanelListeners;
 import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.model.User;
 import net.miginfocom.swing.MigLayout;
 
 /**
- * Panel for a user's profile CRUD
- * Last update: 20161007
- * @version 0.0
+ * Panel for a user's profile CRUD.
+ * @version 16-10-2016
  * @author Claire
  */
-public class PanelUser extends JPanel {
+public class UserPanel extends JPanel {
 
 	/**
 	 * 
@@ -39,20 +40,18 @@ public class PanelUser extends JPanel {
 	//TODO fake companies list in database!
 	String [] company = {"Aucune", "9e compagnie", "Cie", "Comme Pagny", "Autre..."};
 
-	// Main panels
-	private JPanel northPan;
-	private JPanel westPan;
-	private JPanel centerPan;
-//	private JPanel eastPan;
-	private JPanel southPan;
+//	private JPanel panEast;
 
 	// NORTH
+	private JPanel panNorth;
 	//Labels
 	private JLabel lblFieldInfo;
 
 	// WEST
+	private JPanel panWest;
+	private JScrollPane panScrollWest;
 	// First panel for first log-in informations
-	private JPanel registerPan;
+	private JPanel panRegister;
 	// Labels
 	private JLabel lblStatus;
 	private JLabel lblAlias;
@@ -72,7 +71,7 @@ public class PanelUser extends JPanel {
 	private JTextField txtTrainer;
 
 	// Second panel for public profile informations
-	private JPanel publicPan;
+	private JPanel panPublic;
 	// Labels
 	private JLabel lblSession;
 	private JLabel lblMainInfoLang;
@@ -86,8 +85,8 @@ public class PanelUser extends JPanel {
 	private JRadioButton optJava;
 	private JTextField txtJob;
 
-	// Third panel for protected profile informations
-	private JPanel protectedPan;
+	// Third panel for restricted profile informations
+	private JPanel panRestricted;
 	// Labels
 	private JLabel lblSurname;
 	private JLabel lblGivenName;
@@ -96,7 +95,7 @@ public class PanelUser extends JPanel {
 	private JTextField txtGivenName;
 
 	// Fourth panel for optional profile informations
-	private JPanel optionalPan;
+	private JPanel panOptional;
 	// Labels
 	private JLabel lblInfoLang;
 	private JLabel lblApi;
@@ -107,53 +106,60 @@ public class PanelUser extends JPanel {
 	private JTextField txtLinkedIn;
 	
 	// CENTER
-	private JPanel listUsersPan;
-	private DefaultListModel<User> mdlListUsers;
+	private JPanel panCenter;
+	// JList
+	private JPanel panLstUsers;
+	private DefaultListModel<User> mdlLstUsers;
 	private JList<User> lstUsers;
-	private JScrollPane panListUsers;
+	private JScrollPane panScrollLstUsers;
 	
 	// SOUTH
+	private JPanel panSouth;
 	// JButton
 	private JButton cmdCancel;
 	private JButton cmdCreate;
 	private JButton cmdUpdate;
 	private JButton cmdDelete;
 
-	public PanelUser() {
+	// ArrayList of components
+	ArrayList<JTextField> allJTextFields;
+	
+	public UserPanel() {
 
 		// Main layout for book creation panel
 		this.setLayout(new BorderLayout(10, 20));
 
 		
 		// NORTH - main information on compulsory fields
-		northPan = new JPanel();
-		northPan.setLayout(new FlowLayout());
-		this.add(northPan, BorderLayout.NORTH);
+		panNorth = new JPanel();
+		panNorth.setLayout(new FlowLayout());
+		this.add(panNorth, BorderLayout.NORTH);
 
 		lblFieldInfo = new JLabel("Les champs marqués d'étoiles sont obligatoires pour : "
 				+ "* tous les utilisateurs / "
 				+ "** les statuts Stagiaire et Ancien / "
 				+ "*** le statut Ancien");
 		lblFieldInfo.setFont(new Font(getName(), Font.BOLD, 14));
-		northPan.add(lblFieldInfo);
-		northPan.setBorder(BorderFactory.createLineBorder(Color.RED));
+		panNorth.add(lblFieldInfo);
+		panNorth.setBorder(BorderFactory.createLineBorder(Color.RED));
 
 		
 		// WEST - For create / update with four horizontal parts
-		westPan = new JPanel();
-		westPan.setLayout(new MigLayout());
-		westPan.setBorder(new EmptyBorder(0, 5,0, 0));
-		this.add(westPan, BorderLayout.WEST);
+		panWest = new JPanel();
+		panWest.setLayout(new MigLayout());
+		panScrollWest = new JScrollPane(panWest);
+		panScrollWest.setBorder(new EmptyBorder(0, 5,0, 0));
+		this.add(panScrollWest, BorderLayout.WEST);
 
 		// FIRST horizontal part: first log-in informations
-		registerPan = new JPanel();	
-		registerPan.setLayout(new MigLayout());
-		registerPan.setBorder(BorderFactory.createTitledBorder("ENREGISTREMENT"));
-		westPan.add(registerPan, "wrap, w 475!");
+		panRegister = new JPanel();	
+		panRegister.setLayout(new MigLayout());
+		panRegister.setBorder(BorderFactory.createTitledBorder("ENREGISTREMENT"));
+		panWest.add(panRegister, "wrap, w 475!");
 
 		// User status
 		lblStatus = new JLabel("Statut* : ");
-		registerPan.add(lblStatus, "w 200!");
+		panRegister.add(lblStatus, "w 200!");
 		optTrainee = new JRadioButton("Stagiaire");
 		optFormerTrainee = new JRadioButton("Ancien");
 		optTrainer = new JRadioButton("Formateur");
@@ -163,203 +169,212 @@ public class PanelUser extends JPanel {
 		statusGrp.add(optFormerTrainee);
 		statusGrp.add(optTrainer);
 		
-		registerPan.add(optTrainee, "split 3");
-		registerPan.add(optFormerTrainee);
-		registerPan.add(optTrainer, "wrap");
+		panRegister.add(optTrainee, "split 3");
+		panRegister.add(optFormerTrainee);
+		panRegister.add(optTrainer, "wrap");
 
 		// User alias
 		lblAlias = new JLabel("Pseudo* : ");
-		registerPan.add(lblAlias);
+		panRegister.add(lblAlias);
 		txtAlias = new JTextField(20);
-		registerPan.add(txtAlias, "wrap");
+		panRegister.add(txtAlias, "wrap");
 		lblInfoAlias = new JLabel("<html><font color = #808080>Maximum 20 caractères</font></html>");
 		lblInfoAlias.setFont(new Font(getName(), Font.ITALIC, 13));
-		registerPan.add(lblInfoAlias, "wrap, cell 1 2 1 1");
+		panRegister.add(lblInfoAlias, "wrap, cell 1 2 1 1");
 
 		// User email
 		lblMail = new JLabel("Mail* : ");
-		registerPan.add(lblMail);
+		panRegister.add(lblMail);
 		txtMail = new JTextField(20);
-		registerPan.add(txtMail, "wrap");
+		panRegister.add(txtMail, "wrap");
 //		lblInfoMail = new JLabel("<html><font color = #808080 >Ne sera pas rendu public</font></html>");
 //		lblInfoMail.setFont(new Font(getName(), Font.ITALIC, 13));
 //		registerPan.add(lblInfoMail, "wrap, cell 1 4 1 1");
 
 		// Name of AFPA where the user did his training
 		lblAfpa = new JLabel("AFPA* : ");
-		registerPan.add(lblAfpa);
+		panRegister.add(lblAfpa);
 		txtAfpa = new JTextField(20);
-		registerPan.add(txtAfpa, "wrap");
+		panRegister.add(txtAfpa, "wrap");
 
 		// User trainer
 		lblTrainer = new JLabel("Nom du formateur** : ");
-		registerPan.add(lblTrainer);
+		panRegister.add(lblTrainer);
 		txtTrainer = new JTextField(20);
-		registerPan.add(txtTrainer);
+		panRegister.add(txtTrainer);
 
 		// SECOND horizontal part: public profile informations
-		publicPan = new JPanel();
-		publicPan.setLayout(new MigLayout());
-		publicPan.setBorder(BorderFactory.createTitledBorder("PROFIL PUBLIC"));
-		westPan.add(publicPan, "wrap, w 475!");
+		panPublic = new JPanel();
+		panPublic.setLayout(new MigLayout());
+		panPublic.setBorder(BorderFactory.createTitledBorder("PROFIL PUBLIC"));
+		panWest.add(panPublic, "wrap, w 475!");
 
 		// Code of training session, usually 5 numbers
 		lblSession = new JLabel("Numéro de session** : ");
-		publicPan.add(lblSession, "w 200!");
+		panPublic.add(lblSession, "w 200!");
 		txtSession = new JTextField(20);
-		publicPan.add(txtSession, "wrap");
+		panPublic.add(txtSession, "wrap");
 
 		// Main programming language of the training
 		lblMainInfoLang = new JLabel("Langage principal** : ");
-		publicPan.add(lblMainInfoLang);
+		panPublic.add(lblMainInfoLang);
 		optCsharp = new JRadioButton("C#");
 		optJava = new JRadioButton("Java");
-		publicPan.add(optCsharp, "split 2");
-		publicPan.add(optJava, "wrap");
+		panPublic.add(optCsharp, "split 2");
+		panPublic.add(optJava, "wrap");
 
 		// List of approached companies
-		// TODO put arraylist in JList?
+		// TODO Claire put arraylist in JList?
 		lblApproachedCie = new JLabel("Entreprise(s) démarchée(s)*** : ");
-		publicPan.add(lblApproachedCie);
+		panPublic.add(lblApproachedCie);
 		JComboBox<String> approachedCie = new JComboBox<String> ();
 		for (int i = 0; i < company.length; i++) {
 			approachedCie.addItem(company[i]);
 		}
 		approachedCie.setMaximumRowCount(5);
-		publicPan.add(approachedCie, "wrap");
+		panPublic.add(approachedCie, "wrap");
 
 		// Current job
 		lblJob = new JLabel("Profession actuelle*** : ");
-		publicPan.add(lblJob);
+		panPublic.add(lblJob);
 		txtJob = new JTextField(20);
-		publicPan.add(txtJob, "wrap");
+		panPublic.add(txtJob, "wrap");
 
 		// Current company
-		// TODO cie arraylist
+		// TODO Claire cie arraylist
 		lblCurrentCie = new JLabel("Entreprise actuelle*** : ");
-		publicPan.add(lblCurrentCie);
+		panPublic.add(lblCurrentCie);
 		JComboBox<String> currentCie = new JComboBox<String> ();
 		for (int i = 0; i < company.length; i++) {
 			currentCie.addItem(company[i]);
 		}
 		currentCie.setMaximumRowCount(5);
-		publicPan.add(currentCie, "wrap");
+		panPublic.add(currentCie, "wrap");
 
 		// Former companies
 		lblFormerCie = new JLabel("Ancienne(s) entreprise(s)*** : "); 
-		publicPan.add(lblFormerCie);
+		panPublic.add(lblFormerCie);
 		JComboBox<String> formerCie = new JComboBox<String> ();
 		for (int i = 0; i<company.length; i++) {
 			formerCie.addItem(company[i]);
 		}
 		formerCie.setMaximumRowCount(5);
-		publicPan.add(formerCie, "wrap");
+		panPublic.add(formerCie, "wrap");
 
 		// THIRD horizontal part: protected profile informations
-		protectedPan = new JPanel();
-		protectedPan.setLayout(new MigLayout());
-		protectedPan.setBorder(BorderFactory.createTitledBorder("PROFIL RESTREINT"));
-		westPan.add(protectedPan, "wrap, w 475!");
+		panRestricted = new JPanel();
+		panRestricted.setLayout(new MigLayout());
+		panRestricted.setBorder(BorderFactory.createTitledBorder("PROFIL RESTREINT"));
+		panWest.add(panRestricted, "wrap, w 475!");
 
 		// Trainee surname for trainer (monitoring)
 		lblSurname = new JLabel("Nom** : ");
-		protectedPan.add(lblSurname, "w 200!");
+		panRestricted.add(lblSurname, "w 200!");
 		txtSurname = new JTextField(20);
-		protectedPan.add(txtSurname, "wrap");
+		panRestricted.add(txtSurname, "wrap");
 
 		// Trainee given name for trainer (monitoring)
 		lblGivenName = new JLabel("Prénom** : ");
-		protectedPan.add(lblGivenName);
+		panRestricted.add(lblGivenName);
 		txtGivenName = new JTextField(20);
-		protectedPan.add(txtGivenName, "wrap");
+		panRestricted.add(txtGivenName, "wrap");
 
 		// FOURTH horizontal part: optional profile informations
-		optionalPan = new JPanel();
-		optionalPan.setLayout(new MigLayout());
-		optionalPan.setBorder(BorderFactory.createTitledBorder("VISIBLE PUBLIQUEMENT SI RENSEIGNÉ"));
-		westPan.add(optionalPan, "w 475!");
+		panOptional = new JPanel();
+		panOptional.setLayout(new MigLayout());
+		panOptional.setBorder(BorderFactory.createTitledBorder("VISIBLE PUBLIQUEMENT SI RENSEIGNÉ"));
+		panWest.add(panOptional, "w 475!");
 
 		// Other known programming languages
 		lblInfoLang = new JLabel("Autre(s) langage(s) : ");
-		optionalPan.add(lblInfoLang, "w 200!");
-		// TODO create language list in dao
+		panOptional.add(lblInfoLang, "w 200!");
+		// TODO Claire create language list in dao
 		String [] progLanguage = {"C", "PHP"};
 		JComboBox<String> cboProgLanguage = new JComboBox<String> ();
 		for (int i = 0; i < progLanguage.length; i++) {
 			cboProgLanguage.addItem(progLanguage[i]);
 		}
 		cboProgLanguage.setMaximumRowCount(2);
-		optionalPan.add(cboProgLanguage, "wrap");
+		panOptional.add(cboProgLanguage, "wrap");
 
 		// Known graphic API
 		lblApi = new JLabel("API graphique : ");
-		optionalPan.add(lblApi);
-		// TODO create api list in dao
+		panOptional.add(lblApi);
+		// TODO Claire create api list in dao
 		String [] graphicApi = {"AWT", "JFace", "Swing", "SWT"};
 		JComboBox<String> cboGraphicApi = new JComboBox<String> ();
 		for (int i = 0; i < graphicApi.length; i++) {
 			cboGraphicApi.addItem(graphicApi[i]);
 		}
 		cboGraphicApi.setMaximumRowCount(4);
-		optionalPan.add(cboGraphicApi, "wrap");
+		panOptional.add(cboGraphicApi, "wrap");
 
 		// User web site
 		lblWebsite = new JLabel("Site Internet : ");
-		optionalPan.add(lblWebsite);
+		panOptional.add(lblWebsite);
 		txtWebsite = new JTextField(20);
-		optionalPan.add(txtWebsite, "wrap");
+		panOptional.add(txtWebsite, "wrap");
 
 		// User LinkedIn
 		lblLinkedIn = new JLabel("Profil LinkedIn");
-		optionalPan.add(lblLinkedIn);
+		panOptional.add(lblLinkedIn);
 		txtLinkedIn = new JTextField(20);
-		optionalPan.add(txtLinkedIn, "wrap");
+		panOptional.add(txtLinkedIn, "wrap");
 
 		
 		// CENTER - for list of users
-		centerPan = new JPanel();
-		centerPan.setLayout(new MigLayout());
-		centerPan.setBorder(new EmptyBorder(0, 0, 0, 5));
+		panCenter = new JPanel();
+		panCenter.setLayout(new MigLayout());
+		panCenter.setBorder(new EmptyBorder(0, 0, 0, 5));
 		
-		this.add(centerPan, BorderLayout.CENTER);
+		this.add(panCenter, BorderLayout.CENTER);
 		
-		listUsersPan = new JPanel();
-		listUsersPan.setLayout(new MigLayout());
-		listUsersPan.setBorder(BorderFactory.createTitledBorder("Liste des utilisateurs"));
-		centerPan.add(listUsersPan);
+		panLstUsers = new JPanel();
+		panLstUsers.setLayout(new MigLayout());
+		panLstUsers.setBorder(BorderFactory.createTitledBorder("Liste des utilisateurs"));
+		panCenter.add(panLstUsers);
 		
-		mdlListUsers = new DefaultListModel<User>();
-		lstUsers = new JList<User>(mdlListUsers);
+		mdlLstUsers = new DefaultListModel<User>();
+		lstUsers = new JList<User>(mdlLstUsers);
+		lstUsers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
 		if(Datas.getUsersList() != null) {
 			for (User user : Datas.getUsersList()) {
 				if(user != null) {
-					mdlListUsers.addElement(user);
+					mdlLstUsers.addElement(user);
 				}
-				
 			}
 		}
 
-		panListUsers = new JScrollPane(lstUsers);
-		listUsersPan.add(panListUsers);
+		panScrollLstUsers = new JScrollPane(lstUsers);
+		panLstUsers.add(panScrollLstUsers);
 		
 		
 		// SOUTH - Footer for JButton
-		southPan = new JPanel();
-		southPan.setLayout(new FlowLayout());
-		this.add(southPan, BorderLayout.SOUTH);
+		panSouth = new JPanel();
+		panSouth.setLayout(new FlowLayout());
+		this.add(panSouth, BorderLayout.SOUTH);
 		cmdCancel = new JButton("Annuler");
-		southPan.add(cmdCancel);
+		panSouth.add(cmdCancel);
 		cmdCreate = new JButton("S'enregistrer");
-		southPan.add(cmdCreate);
+		panSouth.add(cmdCreate);
 		cmdUpdate = new JButton("Modifier");
-		southPan.add(cmdUpdate);
+		panSouth.add(cmdUpdate);
 		cmdDelete = new JButton("Supprimer");
-		southPan.add(cmdDelete);
+		panSouth.add(cmdDelete);
 		
+		// ArrayList of components
+		allJTextFields = new ArrayList<JTextField>();
+		allJTextFields.add(txtAlias);
+		allJTextFields.add(txtMail);
+		allJTextFields.add(txtAfpa);
+		allJTextFields.add(txtTrainer);
 		
 		// LISTENERS
-		PanelUserListeners listener = new PanelUserListeners(this);
+		UserPanelListeners listener = new UserPanelListeners(this);
+		cmdCancel.addActionListener(listener);
 		cmdCreate.addActionListener(listener);
+		cmdUpdate.addActionListener(listener);
 		cmdDelete.addActionListener(listener);
 		
 		lstUsers.addMouseListener(listener);
@@ -448,7 +463,14 @@ public class PanelUser extends JPanel {
 	 * @return the mdlListUsers
 	 */
 	public DefaultListModel<User> getMdlListUsers() {
-		return mdlListUsers;
+		return mdlLstUsers;
+	}
+
+	/**
+	 * @return the allJTextFields
+	 */
+	public ArrayList<JTextField> getAllJTextFields() {
+		return allJTextFields;
 	}
 
 	/**
@@ -459,10 +481,24 @@ public class PanelUser extends JPanel {
 	}
 
 	/**
+	 * @return the cmdCancel
+	 */
+	public JButton getCmdCancel() {
+		return cmdCancel;
+	}
+
+	/**
 	 * @return the cmdCreate
 	 */
 	public JButton getCmdCreate() {
 		return cmdCreate;
+	}
+
+	/**
+	 * @return the cmdUpdate
+	 */
+	public JButton getCmdUpdate() {
+		return cmdUpdate;
 	}
 
 	/**

@@ -1,74 +1,56 @@
 package fr.cdiEnterprise.model;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Abstract base class for all User creation: Trainee, FormerTrainee, Trainer.
- * 
- * @version 13-10-2016
  * @author Claire
- *
+ * @version 13-10-2016
  */
 
 public abstract class User {
 
-	/* Class attributes */
-	private static int totalId = 0;							// Auto-generated total user's number since the beginning
-
-	/* Object attributes */
 	//Auto-generated
+	private static int totalId = 0;							// Auto-generated total user's number since the beginning
 	private int id;											// Id number for user
-	// TODO auto-generated date
-	private String inscriptionDate;							// Date of first log-in for user
+	private String inscriptionDate;							// Date of registration for user
 
 	//Compulsory first log-in information
 	private String status;									// Three possible choices: Trainee, FormerTrainee, Trainer
 	private String email;									// User's email (can be use for log-in)
 	private String alias;									// User's nickname for log-in
-	private String password;								// User's password (minimum 8 characters)
+//	private String password;								// User's password (minimum 8 characters)
 	private String afpa;									// Name of the AFPA the user go/went to or work for
 
 
-	/* Constructors */
 	/**
 	 * Default constructor
 	 */
 	public User(){	
 	}
 	
-	// Constructor test
-	public User(String inscriptionDate, String status, String alias, String email, String afpa) {
-		totalId++;
-		this.id = totalId;
-		this.inscriptionDate = inscriptionDate;
-		this.status = status;
-		this.alias = alias;
-		this.email = email;
-		this.afpa = afpa;
-	}
-
-//	/**
-//	 * Constructs a user with compulsory first log-in informations
-//	 * @param email
-//	 * @param alias
-//	 * @param password
-//	 * @param status
-//	 * @param afpa
-//	 */
-//	public User(String email, String alias, String password, String status, String afpa) {
-//		totalId++;
-//		this.id = totalId;
-//		this.email = email;
-//		this.alias = alias;
-//		this.password = password;
-//		this.status = status;
-//		this.afpa = afpa;
-//	}
-
-
-	/* Object methods */
-	//TODO create input control
-
 	/**
-	 * Basic user description
+	 * Constructs a user with compulsory first log-in informations
+	 * @param email
+	 * @param alias
+	 * @param password
+	 * @param status
+	 * @param afpa
+	 */
+	public User(String status, String alias, String email, String afpa) {
+		setId();
+		setInscriptionDate();
+		setStatus(status);
+		setAlias(alias);
+		setEmail(email);
+		setAfpa(afpa);
+	}
+	
+	/**
+	 * Basic user description.
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -77,8 +59,45 @@ public abstract class User {
 				+ ", email=" + email + ", afpa=" + afpa + "]";
 	}
 
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
 
-	/* Object - Getter & setter */	
+	/**
+	 *Increments totalId of Users and  set the id
+	 */
+	private void setId() {
+		totalId++;
+		this.id = totalId;
+	}
+	
+	/**
+	 * @return the inscriptionDate
+	 */
+	public String getInscriptionDate() {
+		return inscriptionDate;
+	}
+
+	/**
+	 * Generates a date and time from the "Europe/Paris" zone when a User is created.
+	 * @author Claire
+	 * @return inscriptionDate
+	 * @since 16-10-2016
+	 */
+	private void setInscriptionDate() {
+		
+		DateTimeFormatter formatter;
+		ZonedDateTime zdt;
+		
+		formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+		zdt = Instant.now().atZone(ZoneId.of("Europe/Paris"));
+		this.inscriptionDate = zdt.format(formatter);
+		
+	}
+	
 	/**
 	 * @return the email
 	 */
@@ -105,20 +124,6 @@ public abstract class User {
 	 */
 	public void setAlias(String alias) {
 		this.alias = alias;
-	}
-
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	/**
@@ -149,21 +154,6 @@ public abstract class User {
 		this.afpa = afpa;
 	}
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * @return the inscriptionDate
-	 */
-	public String getInscriptionDate() {
-		return inscriptionDate;
-	}
-
-	/* Class - Getter & setter */	
 	/**
 	 * @return the totalId
 	 */

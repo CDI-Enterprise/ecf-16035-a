@@ -5,6 +5,7 @@ package fr.cdiEnterprise.dao;
 import fr.cdiEnterprise.control.MpClient;
 import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Department;
+import fr.cdiEnterprise.model.Favorite;
 import fr.cdiEnterprise.model.FormerTrainee;
 import fr.cdiEnterprise.model.Language;
 import fr.cdiEnterprise.model.Region;
@@ -15,14 +16,15 @@ import fr.cdiEnterprise.model.Trainer;
 
 import fr.cdiEnterprise.service.Companies;
 import fr.cdiEnterprise.service.Departments;
+import fr.cdiEnterprise.service.Favorites;
 import fr.cdiEnterprise.service.Languages;
 import fr.cdiEnterprise.service.Regions;
 import fr.cdiEnterprise.service.Users;
 
-
 /**
- * @author Claire, Anaïs, Nicolas
- *
+ * Temporary database.
+ * @author Claire, Anais, Nicolas
+ * @version 16-10-2016
  */
 public class Datas {
 
@@ -37,6 +39,8 @@ public class Datas {
 	private static Regions regionsList = new Regions();
 
 	private static Languages languagesCompanyList = new Languages();
+	
+	private static Favorites favoritesList = new Favorites();
 
 	/**
 	 * 
@@ -47,43 +51,16 @@ public class Datas {
 
 	public static void init(){
 		
-		// Test du server de messagerie
-		exchange = new Server();
-		clientBox = new Clients();
-
-//		// Non exhaustive DB programming language
-//		progLangList = new Languages();
-//		progLangList.add(new Language("C"));
-//		progLangList.add(new Language("C++"));
-//		progLangList.add(new Language("Delphi"));
-//		progLangList.add(new Language("JavaScript"));
-//		progLangList.add(new Language("Perl"));
-//		progLangList.add(new Language("PHP"));
-//		progLangList.add(new Language("Python"));
-//		progLangList.add(new Language("R"));
-//		progLangList.add(new Language("Ruby"));
-//		progLangList.add(new Language("Visual Basic"));
-		
-		// Test list trainee
-		usersList = new Users();
-
-//		usersList.add(new Trainee("email@boite.fr", "Pseudo1", "mdp", "Stagiaire", "Saint-Jérôme", "D. Muller", "Nom1", "Prénom1",
-//				"16035", null, "Java", "Swing", "site.fr", "LI"));
-		
-// HEAD
-		// List Department
-
-
 		// User database
 		usersList = new Users();
-		usersList.add(new Trainer("01-01-2010 08:00", "Formateur", "Domi", "domim@afpa.fr", "Saint-Jérôme"));
-		usersList.add(new FormerTrainee("29-08-2015 08:00", "Ancien", "CDI", "cdi@mail.org", "Saint-Jérôme", "E. Cattaneo"));
+		usersList.add(new Trainer("Formateur", "Domi", "domim@afpa.fr", "Saint-Jérôme"));
+		usersList.add(new FormerTrainee("Ancien", "CDI", "cdi@mail.org", "Saint-Jérôme", "E. Cattaneo"));
 		
-		usersList.add(new Trainee("29-08-2016 08:00", "Stagiaire", "Klaroo", "klaroo@mail.fr", "Saint-Jérôme", "D. Muller"));
-		usersList.add(new Trainee("29-08-2016 08:00", "Stagiaire", "Cookie", "cookie@mail.fr", "Saint-Jérôme", "D. Muller"));
-		usersList.add(new Trainee("29-08-2016 08:00", "Stagiaire", "Omy", "omy@mail.fr", "Saint-Jérôme", "D. Muller"));
-		usersList.add(new Trainee("29-08-2016 08:00", "Stagiaire", "Oracle", "oracle@mail.fr", "Saint-Jérôme", "D. Muller"));
-		usersList.add(new Trainee("29-08-2016 08:00", "Stagiaire", "Dark Swan", "darkswan@mail.fr", "Saint-Jérôme", "D. Muller"));
+		usersList.add(new Trainee("Stagiaire", "Klaroo", "klaroo@mail.fr", "Saint-Jérôme", "D. Muller"));
+		usersList.add(new Trainee("Stagiaire", "Cookie", "cookie@mail.fr", "Saint-Jérôme", "D. Muller"));
+		usersList.add(new Trainee("Stagiaire", "Omy", "omy@mail.fr", "Saint-Jérôme", "D. Muller"));
+		usersList.add(new Trainee("Stagiaire", "Oracle", "oracle@mail.fr", "Saint-Jérôme", "D. Muller"));
+		usersList.add(new Trainee("Stagiaire", "Dark Swan", "darkswan@mail.fr", "Saint-Jérôme", "D. Muller"));
 		
 		
 		// Test du server de messagerie
@@ -111,6 +88,13 @@ public class Datas {
 		for (int i =0; i< Language.LANGUAGES.length; i++){
 		languagesCompanyList.add(new Language(Language.LANGUAGES[i]));
 		}
+		
+		
+		//BookMark
+		for(int i =0; i< Favorite.FAVORITES.length;i++)
+		{
+			favoritesList.add(new Favorite(Favorite.FAVORITES[i]));
+		}
 		//Companies database
 //		companiesList.add(new Company("AFPA", "53 Boulevard Laveran", "13000","MARSEILLE", 
 //						new Department(Department.DEPARTMENTS[13]),new Region(Region.REGIONS[11]),
@@ -126,15 +110,9 @@ public class Datas {
 		return usersList;
 	}
 	
-	public static Department getDepartment(String nomDepartment) {
-		return departmentsList.getDepartment(nomDepartment);
-	}
-
 	public static Companies getCompaniesList() {
 		return companiesList;
-
 	}
-
 
 	public static void setCompaniesList(Companies listeCompanies) {
 		Datas.companiesList = listeCompanies;
@@ -152,18 +130,30 @@ public class Datas {
 		Datas.departmentsList = listeDepartments;
 	}
 
-
 	public static Regions getRegionsList() {
 		return regionsList;
 	}
 
+	public static void setRegionsList(Regions listeRegions) {
+		Datas.regionsList = listeRegions;
+	}
 
 	public static Languages getLanguagesCompanyList() {
 		return languagesCompanyList;
 	}
 
-	public static Region getRegion(String nomRegion) {
-		return regionsList.getRegion(nomRegion);
+	/**
+	 * @return the favoritesList
+	 */
+	public static Favorites getFavoritesList() {
+		return favoritesList;
+	}
+
+	/**
+	 * @param favoritesList the favoritesList to set
+	 */
+	public static void setFavoritesList(Favorites favoritesList) {
+		Datas.favoritesList = favoritesList;
 	}
 
 }

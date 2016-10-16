@@ -59,9 +59,9 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 		companyCity = panCompCreat.getTxtCompanyCity().getText();
 		companyPostalCode = panCompCreat.getTxtPostalCode().getText();
 		nomDepartment = panCompCreat.getCboCompanyDepartment().getSelectedItem().toString();
-		companyDepartment = Datas.getDepartment(nomDepartment);
+//		companyDepartment = Datas.getDepartment(nomDepartment);
 		nomRegion = panCompCreat.getCboCompanyRegion().getSelectedItem().toString();
-		companyRegion = Datas.getRegion(nomRegion);
+//		companyRegion = Datas.getRegion(nomRegion);
 		
 		sizeGrp = panCompCreat.getSizeGrp();
 		enumOpt = sizeGrp.getElements();

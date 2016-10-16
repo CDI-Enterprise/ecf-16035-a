@@ -40,7 +40,7 @@ public class BookMarkListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-	//	if(e.getSource() == BookMarkPanel.getCmdBookMark())
+		if(e.getSource() == bookMarkPanel.getCmdBookMarkDelete())
 		{
 			
 		}

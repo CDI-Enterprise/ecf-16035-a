@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 
 import fr.cdiEnterprise.control.MessageListener;
 import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.model.User;
 import fr.cdiEnterprise.service.Users;
 import fr.cdiEnterprise.util.ReadProperties;
@@ -22,18 +23,18 @@ import javafx.scene.control.ComboBox;
 import net.miginfocom.swing.MigLayout;
 
 /**
- * class nouveau message, inclu une combobox qui donne accés aux psuedo des utlisateurs de la class Datas.
+ * Cette class represente la vue d'un message que l'utlidsqteu consulte.
+ * l'utilisateur a la possibilité d'y repondre ou de le supprimer.
  * 
- * 
- * @version 13-10-2016
+ * @version 15-10-2016
  * @author nicolas Tarral
  *
  */
 public class MessagingReadPanel extends JPanel {
 	
-	private JButton btnEnv;
-	private JButton btnDraft;
-	private JButton btnReturn;
+	private JButton btnRep;
+	private JButton btnDel;
+	private JButton btnRet;
 	
 	private String from;
 	private JLabel receiver;
@@ -53,13 +54,30 @@ public class MessagingReadPanel extends JPanel {
 	private JTextArea  txtMessage;
 	
 	private Users usersList;
+	private Item itm;
 
 
 	
-	public MessagingReadPanel() {
+	public MessagingReadPanel(Item item) {
 		
-		
+		itm = item;
 		MessageListener listener = new MessageListener((JPanel) this);
+		
+		System.out.println(itm.toString());
+		
+		receiver = new JLabel(itm.getSender());
+		object = new JLabel(itm.getObject());
+		Message = new JLabel(itm.getBody());
+		
+		txtMessage = new JTextArea(10, 50);
+		/*if(itm != null) {
+			
+			txtMessage.setText("From :/n" +itm.getSender() +"/n");
+			txtMessage.setText("When :/n" +itm.getTimeStamp() +"/n");
+			txtMessage.setText("Objet :/n" +itm.getObject() +"/n");
+			txtMessage.setText("Message :/n" +itm.getBody() +"/n");
+		}*/
+		
 		
 		usersList = Datas.getUsersList();
 		from = ReadProperties.getMyAlias();
@@ -74,13 +92,13 @@ public class MessagingReadPanel extends JPanel {
 		panMess.add(panCenter,BorderLayout.CENTER);
 		
 		
-		JLabel lblTitle = new JLabel("- Nouveau Message -");
+		JLabel lblTitle = new JLabel("- Votre Message -");
 		
-		btnEnv = new JButton("Envoyé");
-		btnDraft = new JButton("Brouillon");
-		btnReturn = new JButton("Retour");
+		btnRep = new JButton("Repondre");
+		btnDel = new JButton("Effacer");
+		btnRet = new JButton("Retour");
 		
-		receiver = new JLabel("Destinataire");
+	/*	receiver = new JLabel("Destinataire");
 		object = new JLabel("Objet");
 		Message = new JLabel("Texte");
 		letterCount = new JLabel("compteur");
@@ -88,19 +106,19 @@ public class MessagingReadPanel extends JPanel {
 		
 		
 		lblReceiver = new JLabel();
-		lblObject = new JLabel();
+		lblObject = new JLabel();*/
 		lblMessage = new JLabel();
 
 
-		cboReceiver = new JComboBox();
-		cboReceiver.setEditable(true);
-		cboReceiver.setMaximumRowCount(3);
+		//cboReceiver = new JComboBox();
+		//cboReceiver.setEditable(true);
+		//cboReceiver.setMaximumRowCount(3);
 		//txtReceiver = new JTextField();
-		txtObject = new JTextField(20);
-		txtMessage = new JTextArea(10, 50);
+		//txtObject = new JTextField(20);
+		
 	
 		
-		if(usersList != null) {
+		/*if(usersList != null) {
 			for(User current : usersList) {
 				if(current != null) {
 					cboReceiver.addItem(current.getAlias());
@@ -109,35 +127,37 @@ public class MessagingReadPanel extends JPanel {
 			}
 		}else {
 			System.out.println("usersList is null ");
-		}
+		}*/
 		
 		
 		panNorth.add(lblTitle);
 		panCenter.setLayout(new MigLayout());
 		
 		
-		panCenter.add(receiver, "w 200!");
-		panCenter.add(lblReceiver, "wrap");
-		panCenter.add(object, "w 200!");
-		panCenter.add(lblObject, "wrap");
+		panCenter.add(receiver, "wrap");
+		//panCenter.add(lblReceiver, "wrap");
+		panCenter.add(object, "wrap");
+		//panCenter.add(lblObject, "wrap");*/
 		
-		panCenter.add(Message, "w 200!");
-		panCenter.add(lblMessage, "wrap");
+		panCenter.add(Message, "wrap");
+		
+		//panCenter.add(lblMessage, "w 200!");
+		//panCenter.add(txtMessage, "wrap");
 
-		panCenter.add(letterCount, "w 200!");
-		panCenter.add(lblCounter, "wrap");
+		//panCenter.add(letterCount, "w 200!");
+		//panCenter.add(lblCounter, "wrap");
 		
 		
-		panCenter.add(btnEnv, "w 200!");
-		panCenter.add(btnDraft, "w 200!");
-		panCenter.add(btnReturn, "w 200!");
+		panCenter.add(btnRep, "w 200!");
+		panCenter.add(btnDel, "w 200!");
+		panCenter.add(btnRet, "w 200!");
 		
 		
-		btnEnv.addActionListener(listener);
-		btnDraft.addActionListener(listener);
-		btnReturn.addActionListener(listener);
+		btnRep.addActionListener(listener);
+		btnDel.addActionListener(listener);
+		btnRet.addActionListener(listener);
 		
-		txtMessage.addKeyListener(listener);
+//		txtMessage.addKeyListener(listener);
 		
 		
 		
@@ -158,20 +178,20 @@ public class MessagingReadPanel extends JPanel {
 
 
 
-	public JButton getBtnEnv() {
-		return btnEnv;
+	public JButton getBtnRep() {
+		return btnRep;
 	}
 
 
 
-	public JButton getBtnDraft() {
-		return btnDraft;
+	public JButton getBtnDel() {
+		return btnDel;
 	}
 
 
 
-	public JButton getBtnReturn() {
-		return btnReturn;
+	public JButton getBtnRet() {
+		return btnRet;
 	}
 
 
@@ -196,6 +216,18 @@ public class MessagingReadPanel extends JPanel {
 
 	public JTextArea getTxtMessage() {
 		return txtMessage;
+	}
+
+
+
+	public Item getItm() {
+		return itm;
+	}
+
+
+
+	public void setItm(Item itm) {
+		this.itm = itm;
 	}
 
 
