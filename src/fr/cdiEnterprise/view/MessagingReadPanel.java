@@ -22,10 +22,10 @@ import javafx.scene.control.ComboBox;
 import net.miginfocom.swing.MigLayout;
 
 /**
- * class nouveau message, inclu une combobox qui donne accés aux psuedo des utlisateurs de la class Datas.
+ * Cette class represente la vue d'un message que l'utlidsqteu consulte.
+ * l'utilisateur a la possibilité d'y repondre ou de le supprimer.
  * 
- * 
- * @version 13-10-2016
+ * @version 15-10-2016
  * @author nicolas Tarral
  *
  */
@@ -74,10 +74,10 @@ public class MessagingReadPanel extends JPanel {
 		panMess.add(panCenter,BorderLayout.CENTER);
 		
 		
-		JLabel lblTitle = new JLabel("- Nouveau Message -");
+		JLabel lblTitle = new JLabel("- Votre Message -");
 		
-		btnEnv = new JButton("Envoyé");
-		btnDraft = new JButton("Brouillon");
+		btnEnv = new JButton("Repondre");
+		btnDraft = new JButton("Effacer");
 		btnReturn = new JButton("Retour");
 		
 		receiver = new JLabel("Destinataire");
@@ -137,7 +137,7 @@ public class MessagingReadPanel extends JPanel {
 		btnDraft.addActionListener(listener);
 		btnReturn.addActionListener(listener);
 		
-		txtMessage.addKeyListener(listener);
+//		txtMessage.addKeyListener(listener);
 		
 		
 		

@@ -33,6 +33,7 @@ import fr.cdiEnterprise.util.ReadProperties;
 import fr.cdiEnterprise.view.MainFrame;
 import fr.cdiEnterprise.view.MessagingMainPanel;
 import fr.cdiEnterprise.view.MessagingNewPanel;
+import fr.cdiEnterprise.view.MessagingReadPanel;
 import fr.cdiEnterprise.view.PanelUser;
 
 /**
@@ -50,6 +51,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	// Given attribute
 	private static MessagingMainPanel panelMain;
 	private MessagingNewPanel panelNew;
+	private MessagingReadPanel panelRead;
 	private JPanel panel;
 	private static final int MESSAGE_MAX_SIZE = 850;
 	// Attribute to create-update a user
@@ -71,7 +73,9 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		if(panelUser instanceof MessagingNewPanel) {
 			panelNew = (MessagingNewPanel) panelUser;
 		}
-
+		if(panelUser instanceof MessagingReadPanel) {
+			panelRead = (MessagingReadPanel) panelUser;
+		}
 		
 		
 	}
@@ -182,7 +186,12 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	        
 	        if (me.getClickCount() == 2) {
 	        	System.out.println("double click..." +row);
-	            // your valueChanged overridden method 
+	        	Item itm = panelMain.getTiModel().getUserAt(row);
+	        	panelRead = new MessagingReadPanel();
+				
+				System.out.println("switch to panel : read message");
+				MainFrame.SwithPanel(panelRead);
+	        
 	        }
 	    }
 
