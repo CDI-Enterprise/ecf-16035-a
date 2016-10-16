@@ -35,11 +35,12 @@ import fr.cdiEnterprise.view.MessagingMainPanel;
 import fr.cdiEnterprise.view.MessagingNewPanel;
 import fr.cdiEnterprise.view.MessagingReadPanel;
 import fr.cdiEnterprise.view.PanelUser;
+import fr.cdiEnterprise.view.SpecialTableItemModel;
 
 /**
- * Class for the actionListner dedicated to the Messaging part.
- * This class is able to identify if the user ask to create a new messa, znd return back to the 
- * message list.
+ * Class for the actionListner dedicated to the Messaging part. This class is
+ * able to identify if the user ask to create a new messa, znd return back to
+ * the message list.
  * 
  * 
  * @version 13-10-2016
@@ -59,170 +60,170 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	private String alias;
 	private String email;
 	private int nbCaracters;
-	
-	
+
 	/**
 	 * Constructs a listener taking a panel for attribute
 	 */
 	public MessageListener(JPanel panelUser) {
-		
-		if(panelUser instanceof MessagingMainPanel) {
-			
+
+		if (panelUser instanceof MessagingMainPanel) {
+
 			this.panelMain = (MessagingMainPanel) panelUser;
-		} 
-		if(panelUser instanceof MessagingNewPanel) {
+		}
+		if (panelUser instanceof MessagingNewPanel) {
 			panelNew = (MessagingNewPanel) panelUser;
 		}
-		if(panelUser instanceof MessagingReadPanel) {
+		if (panelUser instanceof MessagingReadPanel) {
 			panelRead = (MessagingReadPanel) panelUser;
 		}
-		
-		
+
 	}
 
 	// ACTION LISTENER
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		
-		
-		
-		if(e.getSource() ==  panelMain.getBtnNew()) {
-			
+
+		if (e.getSource() == panelMain.getBtnNew()) {
+
 			panelNew = new MessagingNewPanel();
-			
+
 			System.out.println("switch to panel : new message");
 			MainFrame.SwithPanel(panelNew);
-		
-		}if(e.getSource() ==  panelMain.getBtnDisplay()) {
-			
-			
-			
+
+		}
+		if (e.getSource() == panelMain.getBtnDisplay()) {
+
 			System.out.println("switch to panel : new message");
-			
-		
+
 		}
 		// ENOIE MESSAGE
-		if(e.getSource() ==  panelNew.getBtnEnv()) {
-			
-			//panelNew = new MessagingNewPanel();
-			//System.out.println("envoie from " + panelNew.getFrom());
-			String receiver = (String) panelNew.getCboReceiver().getItemAt(panelNew.getCboReceiver().getSelectedIndex());
-			/*System.out.println("envoie to " + receiver);
-			System.out.println("envoie objet " + panelNew.getTxtObject().getText());
-			System.out.println("envoie message " + panelNew.getTxtMessage().getText());*/
-			if(panelNew.getTxtObject().getText().isEmpty()) {
+		if (e.getSource() == panelNew.getBtnEnv()) {
+
+			// panelNew = new MessagingNewPanel();
+			// System.out.println("envoie from " + panelNew.getFrom());
+			String receiver = (String) panelNew.getCboReceiver()
+					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
+			/*
+			 * System.out.println("envoie to " + receiver); System.out.println(
+			 * "envoie objet " + panelNew.getTxtObject().getText());
+			 * System.out.println("envoie message " +
+			 * panelNew.getTxtMessage().getText());
+			 */
+			if (panelNew.getTxtObject().getText().isEmpty()) {
 				customDialog("le champ Objet doit etre remplie.");
-			}else {
+			} else {
 				Clients clients = Datas.getClientBox();
 				MpClient cli = clients.getClient(ReadProperties.getMyAlias());
-				cli.newEmail(cli.getBox(), receiver, panelNew.getTxtObject().getText(),panelNew.getTxtMessage().getText());
+				cli.newEmail(cli.getBox(), receiver, panelNew.getTxtObject().getText(),
+						panelNew.getTxtMessage().getText());
 				System.out.println("Message send out...");
 				panelMain.refresh();
 				System.out.println("switch to panel : main message");
 				MainFrame.SwithPanel(panelMain);
 			}
-			
-			
-			
-			
-			
 
-		
 		}
-		
-		
-		if(e.getSource() ==  panelNew.getBtnReturn()) {
-			
-			//panelNew = new MessagingNewPanel();
-			
+
+		if (e.getSource() == panelNew.getBtnReturn()) {
+
+			// panelNew = new MessagingNewPanel();
+
 			System.out.println("switch to panel : main message");
 			MainFrame.SwithPanel(panelMain);
-		
+
 		}
-	
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
+
 		int nb = 0;
-		System.out.println("lettre tapée : " +e.getKeyChar());
-		nb ++;
+		System.out.println("lettre tapée : " + e.getKeyChar());
+		nb++;
 		nbCaracters += nb;
-		
-		panelNew.getLblCounter().setText((MESSAGE_MAX_SIZE - nbCaracters)+"");
+
+		panelNew.getLblCounter().setText((MESSAGE_MAX_SIZE - nbCaracters) + "");
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
+	public void mousePressed(MouseEvent me) {
+		JTable table = (JTable) me.getSource();
+		Point p = me.getPoint();
+		int row = table.rowAtPoint(p);
+		SpecialTableItemModel spemod = panelMain.getTiModel();
+		System.out.println("click..." + row );
+		System.out.println(spemod.getRowCount() -1);
+		if (me.getClickCount() == 1) {
+			if (row > spemod.getRowCount() -1) {
+				System.out.println("hors de la partie");
+			} else {
+				Item itm = spemod.getUserAt(row);
+				panelRead = new MessagingReadPanel();
 
-
-
-	
-	    public void mousePressed(MouseEvent me) {
-	        JTable table =(JTable) me.getSource();
-	        Point p = me.getPoint();
-	        int row = table.rowAtPoint(p);
-	        if (me.getClickCount() == 1) {
-	        	System.out.println("click..." +row);
-	        	Items itms = panelMain.getUserItems();
-	        	
-	        	System.out.println("object selected "+panelMain.getTiModel().getUserAt(row).getObject());
-	        	
-	        	
-	            // your valueChanged overridden method 
-	        }
-	        
-	        if (me.getClickCount() == 2) {
-	        	System.out.println("double click..." +row);
-	        	Item itm = panelMain.getTiModel().getUserAt(row);
-	        	panelRead = new MessagingReadPanel();
-				
 				System.out.println("switch to panel : read message");
 				MainFrame.SwithPanel(panelRead);
-	        
-	        }
-	    }
+			}
 
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
+		if (me.getClickCount() == 2) {
 			
-		}
-
-
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
 			
+			spemod = panelMain.getTiModel();
+			System.out.println("double click..." + row );
+			System.out.println(spemod.getRowCount() -1);
+			if (row > spemod.getRowCount() -1) {
+				System.out.println("hors de la partie");
+			} else {
+				Item itm = spemod.getUserAt(row);
+				panelRead = new MessagingReadPanel();
+
+				System.out.println("switch to panel : read message");
+				MainFrame.SwithPanel(panelRead);
+			}
+		}
 		}
 
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+	}
 
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		public void customDialog(String message) {
-			JOptionPane.showMessageDialog(panelNew, message, "Nouveau message", JOptionPane.WARNING_MESSAGE);
-		}
+	
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void customDialog(String message) {
+		JOptionPane.showMessageDialog(panelNew, message, "Nouveau message", JOptionPane.WARNING_MESSAGE);
+	}
 
 }

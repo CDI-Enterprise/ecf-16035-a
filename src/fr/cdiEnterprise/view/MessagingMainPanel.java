@@ -147,7 +147,7 @@ public class MessagingMainPanel extends JPanel {
 		table = new JTable(tiModel);
 		//table = new JTable();
 		//table.setModel(tableModele);
-		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		//table.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		
 		table.setFillsViewportHeight(true);
 		
@@ -218,7 +218,7 @@ public class MessagingMainPanel extends JPanel {
 			// recupere tous les messages d'un utilisateur de l'app.
 			tableauMsg = allClients.getMsgTableFormat(ReadProperties.getMyAlias(), false);
 			
-			
+		
 			tableModele =  new DefaultTableModel(tableauMsg, new String[] {
 					"Sender", "Objet", "Date Reception"
 				});
