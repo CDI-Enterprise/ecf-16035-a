@@ -7,10 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
@@ -22,21 +18,25 @@ import fr.cdiEnterprise.model.FormerTrainee;
 import fr.cdiEnterprise.model.Trainee;
 import fr.cdiEnterprise.model.Trainer;
 import fr.cdiEnterprise.model.User;
-import fr.cdiEnterprise.view.PanelUser;
+import fr.cdiEnterprise.view.UserPanel;
 
 /**
  * Listeners for users CRUD
  * 
- * @version 13-10-2016
+ * @version 16-10-2016
  * @author Claire
  *
  */
-public class PanelUserListeners implements ActionListener, MouseListener {
+public class UserPanelListeners implements ActionListener, MouseListener {
 
 	// Given attribute
-	private PanelUser panelUser;
+	private UserPanel panelUser;
+	
+	// Attributes do define the selected status
+	ButtonGroup jrButtonGrp;
+	JRadioButton jrButtonSelected;	
 
-	// Attributes to handle selection(s)
+	// Attributes to handle selection
 	private User selectedUser;
 	private Trainee selectedTrainee;
 	private FormerTrainee selectedFormerTrainee;
@@ -49,11 +49,6 @@ public class PanelUserListeners implements ActionListener, MouseListener {
 	// Attribute to create-update a user
 	private User user;
 
-	// To create the inscriptionDate
-	DateTimeFormatter formatter;
-	ZonedDateTime zdt;
-	private String inscriptionDate;
-
 	private String status;
 	private String alias;
 	private String email;
@@ -63,7 +58,7 @@ public class PanelUserListeners implements ActionListener, MouseListener {
 	/**
 	 * Constructs a listener taking a panel for attribute
 	 */
-	public PanelUserListeners(PanelUser panelUser) {
+	public UserPanelListeners(UserPanel panelUser) {
 
 		this.panelUser = panelUser;
 
@@ -73,38 +68,114 @@ public class PanelUserListeners implements ActionListener, MouseListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		// Inscription date creation
-		formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-		zdt = Instant.now().atZone(ZoneId.of("Europe/Paris"));
-		inscriptionDate = zdt.format(formatter);
-
-		// Status selection
-		ButtonGroup statusGrp = panelUser.getStatusGrp();
-		Enumeration<AbstractButton> enumOpt = statusGrp.getElements();
-
-		while (enumOpt.hasMoreElements()) {
-			JRadioButton optListener = (JRadioButton) enumOpt.nextElement();
-			if (optListener.isSelected()) {
-				status = optListener.getText();
-			}
-		}
-
+		// Calls the status selection method
+		jrButtonGrp = panelUser.getStatusGrp();
+		jrButtonSelected = ControlMethods.getSelectedJRadioButton(jrButtonGrp);
+		status = jrButtonSelected.getText();		
+		
+		// Register informations
 		alias = panelUser.getTxtAlias().getText();
 		email = panelUser.getTxtMail().getText();
 		afpa = panelUser.getTxtAfpa().getText();
 		trainer = panelUser.getTxtTrainer().getText();
-
-		// Clear all fields
-//		if (e.getSource() == panelUser.)
 		
+
+		// Clears all fields
+		if (e.getSource() == panelUser.getCmdCancel()) {
+
+			// Clears User JList
+			panelUser.getLstUsers().setSelectedIndices(new int[] {});
+
+			// clears status JRadioButton
+			panelUser.getOptTrainee().setEnabled(true);
+			panelUser.getOptFormerTrainee().setEnabled(true);
+			panelUser.getOptTrainer().setEnabled(true);
+			// FIXME last JRadioButton selected stay this way
+			panelUser.getOptTrainee().setSelected(false);
+			panelUser.getOptFormerTrainee().setSelected(false);
+			panelUser.getOptTrainer().setSelected(false);
+
+			// Clears register informations JTextField
+			panelUser.getTxtAlias().setText("");
+			panelUser.getTxtMail().setText("");
+			panelUser.getTxtAfpa().setText("");
+			panelUser.getTxtTrainer().setText("");
+
+		}
+
 		// User creation
 		if (e.getSource() == panelUser.getCmdCreate()) {
 
-			user = new Trainee(inscriptionDate, status, alias, email, afpa, trainer);
-			System.out.println(user);
+			// TODO try catch if no status
+			// Depending on status, instantiates a Trainee or FormerTrainee or Trainer with User reference
+			switch (status) {
+            case "Stagiaire" :  
+            	user = new Trainee(status, alias, email, afpa, trainer);
+				System.out.println(user); // Test code
+				System.out.println(Datas.getUsersList()); // Test code
+				
+				break;
+			
+            case "Ancien" :
+            	user = new FormerTrainee(status, alias, email, afpa, trainer);
+            	System.out.println(user); // Test code
+            	System.out.println(Datas.getUsersList()); // Test code
+            	break;
+            	
+            case "Formateur" :
+            	user = new Trainer(status, alias, email, afpa);
+				System.out.println(user); // Test code
+				System.out.println(Datas.getUsersList()); // Test code
+				break;
+				
+			default:
+				System.out.println("Aucun statut sélectionné.");
+				break;
+            
+			}
 
 			Datas.getUsersList().add(user);
 			panelUser.getMdlListUsers().addElement(user);
+
+			System.out.println(Datas.getUsersList()); // Test code
+
+		}
+
+		// User modification
+		if (e.getSource() == panelUser.getCmdUpdate()) {
+
+			selectedUser.setEmail(email);
+			// ???
+			panelUser.getMdlListUsers().set(indexUser, selectedUser);
+			System.out.println(Datas.getUsersList()); // Test code
+
+			// If selected User is a Trainee
+			if (selectedUser.getStatus() == "Stagiaire") {
+
+				// Cast User to Trainee
+				selectedTrainee = (Trainee) selectedUser;
+				indexTrainee = indexUser;
+				
+//				selectedTrainee.setStatus(status);
+//				panelUser.getMdlListUsers().set(indexTrainee, selectedTrainee);
+				
+			}
+			// If the selected User is a FormerTrainee
+			else if (selectedUser.getStatus() == "Ancien") {
+
+			}
+			// If selected User is a Trainer
+			else {
+				
+				// Cast User to Trainer
+				selectedTrainer = (Trainer) selectedUser;
+				indexTrainer = indexUser;
+
+				selectedTrainer.setAfpa(afpa);
+				// TODO trainer dans user list?
+				panelUser.getMdlListUsers().set(indexTrainer, selectedTrainer);
+				
+			}
 
 		}
 
@@ -114,6 +185,8 @@ public class PanelUserListeners implements ActionListener, MouseListener {
 			Datas.getUsersList().remove(selectedUser);
 			panelUser.getMdlListUsers().remove(indexUser);
 
+			System.out.println(Datas.getUsersList()); // Test code
+
 		}
 
 	}
@@ -122,51 +195,51 @@ public class PanelUserListeners implements ActionListener, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
-		if(e.getSource() == panelUser.getLstUsers()) {
+		if (e.getSource() == panelUser.getLstUsers()) {
 
 			// Get the selected User and its index in the model list
 			selectedUser = (User) panelUser.getLstUsers().getSelectedValue();
 			indexUser = panelUser.getLstUsers().getSelectedIndex();
-			
+
 			// Display informations of the selected User
 			panelUser.getTxtAlias().setText(selectedUser.getAlias());
 			panelUser.getTxtMail().setText(selectedUser.getEmail());
 			panelUser.getTxtAfpa().setText(selectedUser.getAfpa());
-			
+
 			// These fields can't be changed by the User
 			panelUser.getTxtAlias().setEnabled(false);
 			panelUser.getTxtAfpa().setEnabled(false);
 
 			// Display informations if the selected User is a Trainee
-			if(selectedUser.getStatus() == "Stagiaire") {
+			if (selectedUser.getStatus() == "Stagiaire") {
 
+				// Cast User to Trainee
 				selectedTrainee = (Trainee) selectedUser;
-				// indexTrainee = indexUser;
-				
+
 				// Status
 				panelUser.getOptTrainee().setSelected(true);
 				panelUser.getOptTrainee().setEnabled(true);
 				panelUser.getOptFormerTrainee().setEnabled(true);
 				panelUser.getOptTrainer().setEnabled(false);
-				
+
 				// Trainer
 				panelUser.getTxtTrainer().setText(selectedTrainee.getTrainer());
 				panelUser.getTxtTrainer().setEnabled(false);
 
 			}
 			// Display informations if the selected User is a FormerTrainee
-			else if(selectedUser.getStatus() == "Ancien") {
+			else if (selectedUser.getStatus() == "Ancien") {
 
+				// Cast User to FormerTrainee
 				selectedFormerTrainee = (FormerTrainee) selectedUser;
-				// indexFormerTrainee = indexUser;
-				
+
 				// Status
 				panelUser.getOptFormerTrainee().setSelected(true);
 				panelUser.getOptTrainee().setEnabled(false);
 				panelUser.getOptFormerTrainee().setEnabled(false);
 				panelUser.getOptTrainer().setEnabled(false);
-				
-				
+
+
 				// Trainer
 				panelUser.getTxtTrainer().setText(selectedFormerTrainee.getTrainer());
 				panelUser.getTxtTrainer().setEnabled(false);
@@ -175,20 +248,20 @@ public class PanelUserListeners implements ActionListener, MouseListener {
 			// Display informations if the selected User is a Trainer
 			else {
 
+				// Cast User to Trainer
 				selectedTrainer = (Trainer) selectedUser;
-				// indexFormerTrainee = indexUser;
-				
+
 				// Status
 				panelUser.getOptTrainer().setSelected(true);
 				panelUser.getOptTrainee().setEnabled(false);
 				panelUser.getOptFormerTrainee().setEnabled(false);
 				panelUser.getOptTrainer().setEnabled(false);
-				
+
 				// Clean fields not related to the Trainer status
 				panelUser.getTxtTrainer().setText("");
 				// A trainer can change his place of work
 				panelUser.getTxtAfpa().setEnabled(true);
-				
+
 
 			}
 

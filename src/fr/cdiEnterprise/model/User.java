@@ -1,5 +1,10 @@
 package fr.cdiEnterprise.model;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Abstract base class for all User creation: Trainee, FormerTrainee, Trainer.
  * 
@@ -16,7 +21,6 @@ public abstract class User {
 	/* Object attributes */
 	//Auto-generated
 	private int id;											// Id number for user
-	// TODO auto-generated date
 	private String inscriptionDate;							// Date of first log-in for user
 
 	//Compulsory first log-in information
@@ -35,10 +39,10 @@ public abstract class User {
 	}
 	
 	// Constructor test
-	public User(String inscriptionDate, String status, String alias, String email, String afpa) {
+	public User(String status, String alias, String email, String afpa) {
 		totalId++;
 		this.id = totalId;
-		this.inscriptionDate = inscriptionDate;
+		this.inscriptionDate = setInscriptionDate();
 		this.status = status;
 		this.alias = alias;
 		this.email = email;
@@ -65,8 +69,20 @@ public abstract class User {
 
 
 	/* Object methods */
-	//TODO create input control
-
+	public String setInscriptionDate() {
+		
+		DateTimeFormatter formatter;
+		ZonedDateTime zdt;
+		String inscriptionDate;
+		
+		formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+		zdt = Instant.now().atZone(ZoneId.of("Europe/Paris"));
+		inscriptionDate = zdt.format(formatter);
+		
+		return inscriptionDate;
+		
+	}
+	
 	/**
 	 * Basic user description
 	 * @see java.lang.Object#toString()

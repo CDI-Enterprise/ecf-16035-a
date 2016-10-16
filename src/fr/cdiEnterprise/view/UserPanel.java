@@ -16,9 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
-import fr.cdiEnterprise.control.PanelUserListeners;
+import fr.cdiEnterprise.control.UserPanelListeners;
 import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.model.User;
 import net.miginfocom.swing.MigLayout;
@@ -29,7 +30,7 @@ import net.miginfocom.swing.MigLayout;
  * @version 0.0
  * @author Claire
  */
-public class PanelUser extends JPanel {
+public class UserPanel extends JPanel {
 
 	/**
 	 * 
@@ -120,7 +121,7 @@ public class PanelUser extends JPanel {
 	private JButton cmdUpdate;
 	private JButton cmdDelete;
 
-	public PanelUser() {
+	public UserPanel() {
 
 		// Main layout for book creation panel
 		this.setLayout(new BorderLayout(10, 20));
@@ -332,12 +333,13 @@ public class PanelUser extends JPanel {
 		
 		mdlLstUsers = new DefaultListModel<User>();
 		lstUsers = new JList<User>(mdlLstUsers);
+		lstUsers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
 		if(Datas.getUsersList() != null) {
 			for (User user : Datas.getUsersList()) {
 				if(user != null) {
 					mdlLstUsers.addElement(user);
 				}
-				
 			}
 		}
 
@@ -360,8 +362,10 @@ public class PanelUser extends JPanel {
 		
 		
 		// LISTENERS
-		PanelUserListeners listener = new PanelUserListeners(this);
+		UserPanelListeners listener = new UserPanelListeners(this);
+		cmdCancel.addActionListener(listener);
 		cmdCreate.addActionListener(listener);
+		cmdUpdate.addActionListener(listener);
 		cmdDelete.addActionListener(listener);
 		
 		lstUsers.addMouseListener(listener);
@@ -461,10 +465,24 @@ public class PanelUser extends JPanel {
 	}
 
 	/**
+	 * @return the cmdCancel
+	 */
+	public JButton getCmdCancel() {
+		return cmdCancel;
+	}
+
+	/**
 	 * @return the cmdCreate
 	 */
 	public JButton getCmdCreate() {
 		return cmdCreate;
+	}
+
+	/**
+	 * @return the cmdUpdate
+	 */
+	public JButton getCmdUpdate() {
+		return cmdUpdate;
 	}
 
 	/**

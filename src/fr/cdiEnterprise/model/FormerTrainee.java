@@ -18,8 +18,8 @@ public class FormerTrainee extends Trainee {
 	
 	
 	// Constructor test
-	public FormerTrainee(String inscriptionDate, String status, String alias, String email, String afpa, String trainer) {
-		super(inscriptionDate, status, alias, email, afpa, trainer);
+	public FormerTrainee(String status, String alias, String email, String afpa, String trainer) {
+		super(status, alias, email, afpa, trainer);
 	}
 		
 	/**

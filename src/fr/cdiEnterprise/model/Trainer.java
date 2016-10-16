@@ -25,8 +25,8 @@ public class Trainer extends User {
 	 * @param status
 	 * @param afpa
 	 */
-	public Trainer(String email, String alias, String password, String status, String afpa) {
-		super(email, alias, password, status, afpa);
+	public Trainer(String status, String alias, String email, String afpa) {
+		super(status, alias, email, afpa);
 	}
 
 	/**

@@ -30,7 +30,7 @@ import fr.cdiEnterprise.util.ReadProperties;
 import fr.cdiEnterprise.view.MainFrame;
 import fr.cdiEnterprise.view.MessagingMainPanel;
 import fr.cdiEnterprise.view.MessagingNewPanel;
-import fr.cdiEnterprise.view.PanelUser;
+import fr.cdiEnterprise.view.UserPanel;
 
 /**
  * Class for the actionListner dedicated to the Messaging part.

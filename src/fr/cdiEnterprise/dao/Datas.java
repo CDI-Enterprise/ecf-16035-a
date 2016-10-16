@@ -47,14 +47,14 @@ public class Datas {
 		
 		// User database
 		usersList = new Users();
-		usersList.add(new Trainer("01-01-2010 08:00", "Formateur", "Domi", "domim@afpa.fr", "Saint-Jérôme"));
-		usersList.add(new FormerTrainee("29-08-2015 08:00", "Ancien", "CDI", "cdi@mail.org", "Saint-Jérôme", "E. Cattaneo"));
+		usersList.add(new Trainer("Formateur", "Domi", "domim@afpa.fr", "Saint-Jérôme"));
+		usersList.add(new FormerTrainee("Ancien", "CDI", "cdi@mail.org", "Saint-Jérôme", "E. Cattaneo"));
 		
-		usersList.add(new Trainee("29-08-2016 08:00", "Stagiaire", "Klaroo", "klaroo@mail.fr", "Saint-Jérôme", "D. Muller"));
-		usersList.add(new Trainee("29-08-2016 08:00", "Stagiaire", "Cookie", "cookie@mail.fr", "Saint-Jérôme", "D. Muller"));
-		usersList.add(new Trainee("29-08-2016 08:00", "Stagiaire", "Omy", "omy@mail.fr", "Saint-Jérôme", "D. Muller"));
-		usersList.add(new Trainee("29-08-2016 08:00", "Stagiaire", "Oracle", "oracle@mail.fr", "Saint-Jérôme", "D. Muller"));
-		usersList.add(new Trainee("29-08-2016 08:00", "Stagiaire", "Dark Swan", "darkswan@mail.fr", "Saint-Jérôme", "D. Muller"));
+		usersList.add(new Trainee("Stagiaire", "Klaroo", "klaroo@mail.fr", "Saint-Jérôme", "D. Muller"));
+		usersList.add(new Trainee("Stagiaire", "Cookie", "cookie@mail.fr", "Saint-Jérôme", "D. Muller"));
+		usersList.add(new Trainee("Stagiaire", "Omy", "omy@mail.fr", "Saint-Jérôme", "D. Muller"));
+		usersList.add(new Trainee("Stagiaire", "Oracle", "oracle@mail.fr", "Saint-Jérôme", "D. Muller"));
+		usersList.add(new Trainee("Stagiaire", "Dark Swan", "darkswan@mail.fr", "Saint-Jérôme", "D. Muller"));
 		
 		// Test du server de messagerie
 		exchange = new Server();

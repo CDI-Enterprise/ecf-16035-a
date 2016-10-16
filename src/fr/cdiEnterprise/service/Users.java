@@ -22,7 +22,7 @@ public class Users extends ArrayList<User> {
 	 * 
 	 */
 	public Users() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 }

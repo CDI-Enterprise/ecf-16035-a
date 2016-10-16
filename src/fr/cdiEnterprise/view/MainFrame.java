@@ -31,7 +31,7 @@ public class MainFrame extends JFrame {
 	protected static JPanel mainPan;
 	private static JPanel homePan;
 
-	private static PanelUser panelUser;
+	private static UserPanel panelUser;
 	private static JScrollPane scrollUser;
 	
 	private static CompanyCreationPanel panelCreatCompany;
@@ -59,7 +59,7 @@ public class MainFrame extends JFrame {
 			if (value != null && value instanceof javax.swing.plaf.FontUIResource) {
 				javax.swing.plaf.FontUIResource fr=(javax.swing.plaf.FontUIResource)value;
 				// (String for font name, integer for style, integer for size)
-				javax.swing.plaf.FontUIResource f = new javax.swing.plaf.FontUIResource(fr.getFamily(), Font.PLAIN, 14);
+				javax.swing.plaf.FontUIResource f = new javax.swing.plaf.FontUIResource("Arial", Font.PLAIN, 14);
 				javax.swing.UIManager.put(key, f);
 			}
 		}
@@ -94,7 +94,7 @@ public class MainFrame extends JFrame {
 
 		
 		// Panel for user CRUD
-		panelUser = new PanelUser();
+		panelUser = new UserPanel();
 		panelUser.setPreferredSize(new Dimension (1260,800));
 		scrollUser = new JScrollPane(panelUser);
 		

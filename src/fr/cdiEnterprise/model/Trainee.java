@@ -36,8 +36,8 @@ public class Trainee extends User {
 	}
 	
 	// Constructor test
-	public Trainee(String inscriptionDate, String status, String alias, String email, String afpa, String trainer) {
-		super(inscriptionDate, status, alias, email, afpa);
+	public Trainee(String status, String alias, String email, String afpa, String trainer) {
+		super(status, alias, email, afpa);
 		this.trainer = trainer;
 	}
 

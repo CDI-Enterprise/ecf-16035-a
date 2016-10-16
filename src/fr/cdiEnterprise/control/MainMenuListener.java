@@ -39,7 +39,7 @@ public class MainMenuListener implements ActionListener {
 			MainFrame.getMainPan().removeAll();
 			MainFrame.getMainPan().add(MainFrame.getScrollUser());
 			MainFrame.getMainPan().repaint();
-			MainFrame.getMainPan().revalidate();
+			MainFrame.getMainPan().validate();
 	
 		}
 		
