@@ -2,23 +2,117 @@ package fr.cdiEnterprise.control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
+import javax.swing.JList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.model.Company;
+import fr.cdiEnterprise.view.CompanyCreationPanel;
 import fr.cdiEnterprise.view.CompanyDeletUpdatPanel;
+import fr.cdiEnterprise.view.MainFrame;
 
-public class PanelDeletUpdatCompListeners implements ActionListener{
+
+public class PanelDeletUpdatCompListeners implements ActionListener, ListSelectionListener, MouseListener {
+
+	private CompanyDeletUpdatPanel panCompDeletUpdat;
+	private Company selecCompanie;
+	private int selecIndex;
 	
-	private CompanyDeletUpdatPanel compDeletUpdatPan;
 	
-	
-	public PanelDeletUpdatCompListeners(CompanyDeletUpdatPanel compDeletUpdatPan){
-		this.compDeletUpdatPan= compDeletUpdatPan;
+	public PanelDeletUpdatCompListeners(CompanyDeletUpdatPanel panCompDeletUpdat) {
+		this.panCompDeletUpdat = panCompDeletUpdat;
 	}
 
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == panCompDeletUpdat.getBtnCancel()){
+			MainFrame.getMainPan().removeAll();
+			MainFrame.getMainPan().add(MainFrame.getHomePan());
+			MainFrame.getMainPan().repaint();
+			MainFrame.getMainPan().revalidate();
+		}
+		
+		if (e.getSource() == panCompDeletUpdat.getBtnDelete()){
+			System.out.println(Datas.getCompaniesList());
+			System.out.println("*******Suppression*****");
+			Datas.getCompaniesList().remove(selecCompanie);
+			System.out.println(Datas.getCompaniesList());
+			CompanyCreationPanel.getDlmCompanies().remove(selecIndex);
+		}
+
+		if (e.getSource() == panCompDeletUpdat.getBtnUpdate()){
+			System.out.println("Modification d'une entreprise");
+			selecCompanie.setAdress(panCompDeletUpdat.getTxtCompanyAdress().getText());			
+			CompanyCreationPanel.getDlmCompanies().set(selecIndex, selecCompanie);
+			Datas.getCompaniesList().set(selecIndex, selecCompanie);
+			System.out.println(Datas.getCompaniesList());
+		}
+	}
+
+	@Override
+	public void valueChanged(ListSelectionEvent ev) {
+//		if (ev.getSource() == panCompDeletUpdat.getLstCompanies()) {
+////			System.out.println("Affiche");     (test)
+//			selecCompanie = (Company) panCompDeletUpdat.getLstCompanies().getSelectedValue();
+//			selecIndex = panCompDeletUpdat.getLstCompanies().getSelectedIndex();
+////			System.out.println(selecCompanie);    (test)
+////			System.out.println(selecIndex);       (test)
+//		}
+
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+//		JList list = (JList)e.getSource();
+//
+//		if (e.getClickCount() == 2) {
+//			    System.out.println("double clicked");
+//		}
+		
+      if(e.getSource() == panCompDeletUpdat.getLstCompanies()) {
+    	selecCompanie = (Company) panCompDeletUpdat.getLstCompanies().getSelectedValue();
+		selecIndex = panCompDeletUpdat.getLstCompanies().getSelectedIndex();
+        panCompDeletUpdat.getTxtCompanyName().setText(selecCompanie.getCompanyName());
+		panCompDeletUpdat.getTxtCompanyAdress().setText(selecCompanie.getAdress());
+		panCompDeletUpdat.getTxtCompanyCity().setText(selecCompanie.getCity());
+		panCompDeletUpdat.getTxtPostalCode().setText(selecCompanie.getPostalCode());
+		panCompDeletUpdat.getTxtSector().setText(selecCompanie.getSector());
+		panCompDeletUpdat.getTxtProjets().setText(selecCompanie.getProjets());
+		panCompDeletUpdat.getTxtWebSite().setText(selecCompanie.getWebSite());
+		panCompDeletUpdat.getTxtContactName().setText(selecCompanie.getContact().getName());
+		panCompDeletUpdat.getTxtContactPhone().setText(selecCompanie.getContact().getPhoneNumber());
+		panCompDeletUpdat.getTxtContactMail().setText(selecCompanie.getContact().getEmail());
+      }
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
 }
+

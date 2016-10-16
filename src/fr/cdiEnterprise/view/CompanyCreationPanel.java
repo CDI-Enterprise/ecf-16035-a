@@ -93,7 +93,7 @@ public class CompanyCreationPanel extends JPanel {
 	private JButton btnFavoris;
 	private PanelCreateComListener clic;
 	protected static DefaultListModel<Company> dlmCompanies;
-
+	private JList<Company> lstCompanies;
 
 
 	private Component BookMarkPanel;
@@ -231,7 +231,7 @@ public class CompanyCreationPanel extends JPanel {
 		
 		
 		dlmCompanies = new DefaultListModel<Company>();
-		JList<Company> lstCompanies = new JList<Company>(dlmCompanies);
+		lstCompanies = new JList<Company>(dlmCompanies);
 		for (Company company: Datas.getCompaniesList()){
 			dlmCompanies.addElement(company);
 		}
@@ -294,7 +294,7 @@ public class CompanyCreationPanel extends JPanel {
 		clic = new PanelCreateComListener(this);
 		btnCreate.addActionListener(clic);
 		cboCompanyDepartment.addActionListener(clic);
-
+		btnCancel.addActionListener(clic);
 		
 		//listeners
 		//BookMarkListener btnFavoris = new BookMarkListener(null);
@@ -304,23 +304,6 @@ public class CompanyCreationPanel extends JPanel {
 //				
 //				// TODO Ajout dans favoris 
 
-		
-//
-//		clic = new AppListeners(this);
-//		btnOk.addActionListener(clic);
-//
-//		btnDelete.addActionListener(clic);
-//		// btnModif.addActionListener(clic);
-//
-//		cboEditeur.addActionListener(clic);
-//		cboThemes.addActionListener(clic);
-//		// cboAuteur.addActionListener(clic);
-//		btnCreaAuteur.addActionListener(clic);
-//		btnCreaEditeur.addActionListener(clic);
-//		btnCreaTheme.addActionListener(clic);
-//		btnOkDate.addActionListener(clic);
-//		lstLivres.addListSelectionListener(clic);
-//		lstAuteurs.addListSelectionListener(clic);
 
 	}
 
@@ -684,8 +667,8 @@ public class CompanyCreationPanel extends JPanel {
 	/**
 	 * @return the dlmCompanies
 	 */
-	public DefaultListModel<Company> getDlmCompanies() {
-		return dlmCompanies;
+	public static DefaultListModel<Company> getDlmCompanies() {
+		return CompanyCreationPanel.dlmCompanies;
 	}
 
 	public ButtonGroup getSizeGrp() {

@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.MouseListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -16,8 +18,10 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 
+import fr.cdiEnterprise.control.PanelDeletUpdatCompListeners;
 import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Department;
@@ -86,7 +90,7 @@ public class CompanyDeletUpdatPanel extends JPanel {
 	private JButton btnDelete;
 	private JButton btnUpdate;
 	private JButton btnCancel;
-	
+	private PanelDeletUpdatCompListeners clic;
 	
 	public CompanyDeletUpdatPanel() {
 		panneau = this;
@@ -211,9 +215,10 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		for (Company company: Datas.getCompaniesList()){
 			dlmCompanies.addElement(company);
 		}
+		lstCompanies.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		companies = new JScrollPane(lstCompanies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		companies.setPreferredSize(new Dimension(300, 50));
+		companies.setPreferredSize(new Dimension(800, 800));
 		
 		
 		btnDelete = new JButton("Supprimer");
@@ -264,9 +269,16 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		panSouth.add(btnUpdate);
 		panSouth.add(btnCancel);
 		
+		clic = new PanelDeletUpdatCompListeners(this);
 		
-//		btnDelete.addActionListener(clic);
-//		// btnModif.addActionListener(clic);
+		MouseListener cliq = (MouseListener) new PanelDeletUpdatCompListeners(this);
+		
+		btnDelete.addActionListener(clic);
+		btnCancel.addActionListener(clic);
+		
+		lstCompanies.addListSelectionListener(clic);
+		lstCompanies.addMouseListener(cliq);
+		btnUpdate.addActionListener(clic);
 	}
 
 
@@ -684,5 +696,4 @@ public class CompanyDeletUpdatPanel extends JPanel {
 	public JButton getBtnCancel() {
 		return btnCancel;
 	}
-
 }
