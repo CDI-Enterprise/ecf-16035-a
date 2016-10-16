@@ -67,6 +67,9 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	 */
 	public MessageListener(JPanel panelUser) {
 
+
+		
+		
 		if (panelUser instanceof MessagingMainPanel) {
 
 			this.panelMain = (MessagingMainPanel) panelUser;
@@ -92,13 +95,13 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			MainFrame.SwithPanel(panelNew);
 
 		}
-		if (e.getSource() == panelMain.getBtnDisplay()) {
+		else if  (e.getSource() == panelMain.getBtnDisplay()) {
 
 			System.out.println("switch to panel : new message");
 
 		}
 		// ENVOIE MESSAGE
-		if (e.getSource() == panelNew.getBtnEnv()) {
+		else if ((panelNew != null) && (e.getSource() == panelNew.getBtnEnv())) {
 
 			// panelNew = new MessagingNewPanel();
 			// System.out.println("envoie from " + panelNew.getFrom());
@@ -125,13 +128,18 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 		}
 
-		if (e.getSource() == panelNew.getBtnReturn()) {
+		else if ((panelNew != null) && ( e.getSource() == panelNew.getBtnReturn())) {
 
 			// panelNew = new MessagingNewPanel();
 
 			System.out.println("switch to panel : main message");
 			MainFrame.SwithPanel(panelMain);
 
+		}else if ((panelRead != null ) && (e.getSource() == panelRead.getBtnRet())) {
+			System.out.println("switch to panel : main message");
+			MainFrame.SwithPanel(panelMain);
+		} else {
+			System.out.println("nothing correspond to that event...");
 		}
 
 	}

@@ -166,6 +166,12 @@ public class MessagingReadPanel extends JPanel {
 
 
 
+	public MessagingReadPanel() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public JLabel getLblCounter() {
 		return lblCounter;
 	}
