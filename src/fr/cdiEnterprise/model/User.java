@@ -81,6 +81,22 @@ public abstract class User {
 		return inscriptionDate;
 		
 	}
+//	
+//	/**
+//	 * Check if the alias isn't null and if it's less than 20 characters.
+//	 * @author Claire
+//	 * @since 16-10-2016
+//	 */
+//	public boolean isLessThanTwenty(String alias) {
+//		
+//		boolean correct = false;
+//		
+//		if (alias != null && alias.length() > 20) {
+//			correct = true;
+//		}
+//		
+//		return correct;
+//	}
 	
 	/**
 	 * Basic user description.
