@@ -10,8 +10,7 @@ package fr.cdiEnterprise.model;
 
 public class Contact {
 
-	private String lastName;
-	private String firstName;
+	private String name;
 	private String phoneNumber;
 	private String email;
 
@@ -20,28 +19,21 @@ public class Contact {
 		
 	}
 	
-	public Contact (String lastName,String firstName, String phoneNumber, String email){
-		this.setLastName(lastName);
-		this.setFirstName(firstName);
+	public Contact (String name, String phoneNumber, String email){
+		this.setName(name);
 		this.setPhoneNumber(phoneNumber);
 		this.setEmail(email);
 	}
 
-	public String getLastName() {
-		return lastName;
+	
+	public String getName() {
+		return name;
 	}
 	
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setName(String name){
+		this.name=name;
 	}
 	
-	public String getFirstName(){
-		return firstName;
-	}
-	
-	public void setFirstName(String firstName){
-		this.firstName=firstName;
-	}
 	
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -58,11 +50,10 @@ public class Contact {
 	public void setEmail(String email){
 		this.email=email;
 	}
-	
-	
+		
 	@Override
 	public String toString() {
-		return "Contact: " + firstName + lastName + phoneNumber + email;
+		return "Contact: " + name + phoneNumber + email;
 	}
 		
 }

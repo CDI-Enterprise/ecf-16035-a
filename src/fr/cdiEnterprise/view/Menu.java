@@ -41,6 +41,10 @@ public class Menu extends JMenuBar {
 	private JMenuItem subCompanyRead;
 	private JMenuItem subMessageDisplay;
 	
+	
+	//menuBokkMark : sub item
+	private JMenuItem subBookMarkRead;
+	
 	// menuHelp : sub item
 	private JMenuItem subHelpDoc;
 	private JMenuItem subHelpShortcut;
@@ -80,6 +84,8 @@ public class Menu extends JMenuBar {
 		// BOOKMARK
 		menuBookmark = new JMenu("Favoris");
 		this.add(menuBookmark);
+		subBookMarkRead = new JMenuItem("Mes Favoris");
+		menuBookmark.add(subBookMarkRead);
 
 		// MESSAGING
 		menuMessaging = new JMenu("Messagerie");
@@ -116,7 +122,12 @@ public class Menu extends JMenuBar {
 		subCompanyCreate.addActionListener(listener);
 		subCompanyUpdateDelete.addActionListener(listener);
 		
+
+		
 		menuBookmark.addActionListener(listener);
+
+		subBookMarkRead.addActionListener(listener);
+
 
 
 	}
@@ -141,11 +152,12 @@ public class Menu extends JMenuBar {
 	}
 
 	/**
-	 * @return the menuBookmark
+	 * @return the subBookMarkRead
 	 */
-	public JMenu getMenuBookmark() {
-		return menuBookmark;
+	public JMenuItem getSubBookMarkRead() {
+		return subBookMarkRead;
 	}
+
 
 	public JMenuItem getSubMessageDisplay() {
 		return subMessageDisplay;

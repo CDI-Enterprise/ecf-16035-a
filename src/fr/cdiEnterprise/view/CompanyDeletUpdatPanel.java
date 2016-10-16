@@ -144,7 +144,7 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		cboCompanyDepartment = new JComboBox<String>();
 		
 		for (Department department : Datas.getDepartmentsList()) {
-			cboCompanyDepartment.addItem(department.toString());
+			cboCompanyDepartment.addItem(department.getDepartmentName());
 		}
 		cboCompanyDepartment.setEditable(true);
 		cboCompanyDepartment.setMaximumRowCount(5);
@@ -206,11 +206,11 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		txtContactMail = new JTextField();
 		txtContactMail.setColumns(20);
 		
-		dlmCompanies = new DefaultListModel<Company>();
-		lstCompanies = new JList<Company>(dlmCompanies);
-//		for (Company company: Datas.getListeCompanies()){
-//			dlmCompanies.addElement(company);
-//		}
+//		dlmCompanies = new DefaultListModel<Company>();
+		lstCompanies = new JList<Company>(CompanyCreationPanel.dlmCompanies);
+		for (Company company: Datas.getCompaniesList()){
+			dlmCompanies.addElement(company);
+		}
 		companies = new JScrollPane(lstCompanies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		companies.setPreferredSize(new Dimension(300, 50));
@@ -264,6 +264,425 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		panSouth.add(btnUpdate);
 		panSouth.add(btnCancel);
 		
+		
+//		btnDelete.addActionListener(clic);
+//		// btnModif.addActionListener(clic);
+	}
+
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+	/**
+	 * @return the panneau
+	 */
+	public Container getPanneau() {
+		return panneau;
+	}
+
+
+	/**
+	 * @return the panNorth
+	 */
+	public JPanel getPanNorth() {
+		return panNorth;
+	}
+
+
+	/**
+	 * @return the panSouth
+	 */
+	public JPanel getPanSouth() {
+		return panSouth;
+	}
+
+
+	/**
+	 * @return the panCenter
+	 */
+	public JPanel getPanCenter() {
+		return panCenter;
+	}
+
+
+	/**
+	 * @return the panWest
+	 */
+	public JPanel getPanWest() {
+		return panWest;
+	}
+
+
+	/**
+	 * @return the lblTitle
+	 */
+	public JLabel getLblTitle() {
+		return lblTitle;
+	}
+
+
+	/**
+	 * @return the panCompany
+	 */
+	public JPanel getPanCompany() {
+		return panCompany;
+	}
+
+
+	/**
+	 * @return the panContact
+	 */
+	public JPanel getPanContact() {
+		return panContact;
+	}
+
+
+	/**
+	 * @return the border
+	 */
+	public Border getBorder() {
+		return border;
+	}
+
+
+	/**
+	 * @return the lblCompanyName
+	 */
+	public JLabel getLblCompanyName() {
+		return lblCompanyName;
+	}
+
+
+	/**
+	 * @return the txtCompanyName
+	 */
+	public JTextField getTxtCompanyName() {
+		return txtCompanyName;
+	}
+
+
+	/**
+	 * @return the lblCompanyAdress
+	 */
+	public JLabel getLblCompanyAdress() {
+		return lblCompanyAdress;
+	}
+
+
+	/**
+	 * @return the txtCompanyAdress
+	 */
+	public JTextField getTxtCompanyAdress() {
+		return txtCompanyAdress;
+	}
+
+
+	/**
+	 * @return the lblCompanyCity
+	 */
+	public JLabel getLblCompanyCity() {
+		return lblCompanyCity;
+	}
+
+
+	/**
+	 * @return the txtCompanyCity
+	 */
+	public JTextField getTxtCompanyCity() {
+		return txtCompanyCity;
+	}
+
+
+	/**
+	 * @return the lblPostalCode
+	 */
+	public JLabel getLblPostalCode() {
+		return lblPostalCode;
+	}
+
+
+	/**
+	 * @return the txtPostalCode
+	 */
+	public JTextField getTxtPostalCode() {
+		return txtPostalCode;
+	}
+
+
+	/**
+	 * @return the lblCompanyDepartment
+	 */
+	public JLabel getLblCompanyDepartment() {
+		return lblCompanyDepartment;
+	}
+
+
+	/**
+	 * @return the cboCompanyDepartment
+	 */
+	public JComboBox<String> getCboCompanyDepartment() {
+		return cboCompanyDepartment;
+	}
+
+
+	/**
+	 * @return the lblSelcDepartment
+	 */
+	public JLabel getLblSelcDepartment() {
+		return lblSelcDepartment;
+	}
+
+
+	/**
+	 * @return the lblCompanyRegion
+	 */
+	public JLabel getLblCompanyRegion() {
+		return lblCompanyRegion;
+	}
+
+
+	/**
+	 * @return the cboCompanyRegion
+	 */
+	public JComboBox<String> getCboCompanyRegion() {
+		return cboCompanyRegion;
+	}
+
+
+	/**
+	 * @return the lblSelcRegion
+	 */
+	public JLabel getLblSelcRegion() {
+		return lblSelcRegion;
+	}
+
+
+	/**
+	 * @return the lblSize
+	 */
+	public JLabel getLblSize() {
+		return lblSize;
+	}
+
+
+	/**
+	 * @return the optMicroEnt
+	 */
+	public JRadioButton getOptMicroEnt() {
+		return optMicroEnt;
+	}
+
+
+	/**
+	 * @return the optPME
+	 */
+	public JRadioButton getOptPME() {
+		return optPME;
+	}
+
+
+	/**
+	 * @return the optETI
+	 */
+	public JRadioButton getOptETI() {
+		return optETI;
+	}
+
+
+	/**
+	 * @return the optGrdEnt
+	 */
+	public JRadioButton getOptGrdEnt() {
+		return optGrdEnt;
+	}
+
+
+	/**
+	 * @return the lblSector
+	 */
+	public JLabel getLblSector() {
+		return lblSector;
+	}
+
+
+	/**
+	 * @return the txtSector
+	 */
+	public JTextField getTxtSector() {
+		return txtSector;
+	}
+
+
+	/**
+	 * @return the lblLanguages
+	 */
+	public JLabel getLblLanguages() {
+		return lblLanguages;
+	}
+
+
+	/**
+	 * @return the dlmLanguages
+	 */
+	public DefaultListModel<Language> getDlmLanguages() {
+		return dlmLanguages;
+	}
+
+
+	/**
+	 * @return the lstLanguages
+	 */
+	public JList<Language> getLstLanguages() {
+		return lstLanguages;
+	}
+
+
+	/**
+	 * @return the languages
+	 */
+	public JScrollPane getLanguages() {
+		return languages;
+	}
+
+
+	/**
+	 * @return the lblSelcLanguages
+	 */
+	public JLabel getLblSelcLanguages() {
+		return lblSelcLanguages;
+	}
+
+
+	/**
+	 * @return the lblWebSite
+	 */
+	public JLabel getLblWebSite() {
+		return lblWebSite;
+	}
+
+
+	/**
+	 * @return the txtWebSite
+	 */
+	public JTextField getTxtWebSite() {
+		return txtWebSite;
+	}
+
+
+	/**
+	 * @return the lblProjets
+	 */
+	public JLabel getLblProjets() {
+		return lblProjets;
+	}
+
+
+	/**
+	 * @return the txtProjets
+	 */
+	public JTextArea getTxtProjets() {
+		return txtProjets;
+	}
+
+
+	/**
+	 * @return the lblContactName
+	 */
+	public JLabel getLblContactName() {
+		return lblContactName;
+	}
+
+
+	/**
+	 * @return the txtContactName
+	 */
+	public JTextField getTxtContactName() {
+		return txtContactName;
+	}
+
+
+	/**
+	 * @return the lblContactPhone
+	 */
+	public JLabel getLblContactPhone() {
+		return lblContactPhone;
+	}
+
+
+	/**
+	 * @return the txtContactPhone
+	 */
+	public JTextField getTxtContactPhone() {
+		return txtContactPhone;
+	}
+
+
+	/**
+	 * @return the lblContactMail
+	 */
+	public JLabel getLblContactMail() {
+		return lblContactMail;
+	}
+
+
+	/**
+	 * @return the txtContactMail
+	 */
+	public JTextField getTxtContactMail() {
+		return txtContactMail;
+	}
+
+
+	/**
+	 * @return the dlmCompanies
+	 */
+	public DefaultListModel<Company> getDlmCompanies() {
+		return dlmCompanies;
+	}
+
+
+	/**
+	 * @return the lstCompanies
+	 */
+	public JList<Company> getLstCompanies() {
+		return lstCompanies;
+	}
+
+
+	/**
+	 * @return the companies
+	 */
+	public JScrollPane getCompanies() {
+		return companies;
+	}
+
+
+	/**
+	 * @return the btnDelete
+	 */
+	public JButton getBtnDelete() {
+		return btnDelete;
+	}
+
+
+	/**
+	 * @return the btnUpdate
+	 */
+	public JButton getBtnUpdate() {
+		return btnUpdate;
+	}
+
+
+	/**
+	 * @return the btnCancel
+	 */
+	public JButton getBtnCancel() {
+		return btnCancel;
 	}
 
 }

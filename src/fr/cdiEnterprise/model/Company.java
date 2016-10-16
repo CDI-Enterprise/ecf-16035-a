@@ -23,6 +23,7 @@ public class Company {
 	private String sector;
 	private String size;
 	private Languages languages;
+	private String projets;
 	private String webSite;
 	private Contact contact;
 
@@ -30,6 +31,16 @@ public class Company {
 	 * Constructeur par défaut, ne prend pas de paramètres
 	 */
 	public Company() {
+	}
+
+	public Company(String companyName, String adress, String postalCode, String city, Department department) {
+		id++;
+		this.companyName = companyName;
+		this.adress = adress;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.department = department;
+		this.idEnterprise = id;
 	}
 
 	/**
@@ -46,8 +57,8 @@ public class Company {
 	 * @param webSite
 	 * @param contact
 	 */
-	public Company(String companyName, String adress, String postalCode, String city, Department department, Region region,
-			String sector, String size, Languages languages, String webSite, Contact contact) {
+	public Company(String companyName, String adress, String postalCode, String city, Department department, Region region, String size,
+			String sector,  Languages languages,String projets, String webSite, Contact contact) {
 		id++;
 		this.companyName = companyName;
 		this.adress = adress;
@@ -58,6 +69,7 @@ public class Company {
 		this.sector = sector;
 		this.size = size;
 		this.languages = languages;
+		this.projets=projets;
 		this.webSite = webSite;
 		this.contact = contact;
 		this.idEnterprise = id;
@@ -127,6 +139,9 @@ public class Company {
 		return getLanguages();
 	}
 
+	public String getProjets(){
+		return projets;
+	}
 	/**
 	 * @return the webSite
 	 */
@@ -224,6 +239,15 @@ public class Company {
 	}
 
 	/**
+	 * @param projets
+	 *            the projets to set
+	 */
+	public void setProjets(String projets) {
+		this.projets = projets;
+	}
+	
+	
+	/**
 	 * @param webSite
 	 *            the webSite to set
 	 */
@@ -255,7 +279,7 @@ public class Company {
 	@Override
 	public String toString() {
 		return "Entreprise [companyName=" + companyName + ", adress=" + adress + ", postalCode=" + postalCode
-				+ ", city=" + city + ", department=" + department + ", region=" + region + ", domaine=" + sector + ", size= " + size 
+				+ ", city=" + city + ", department=" + department + ", region=" + region + ", size=" + size + ", sector= " + sector 
 				+ ", webSite=" + webSite + ", contact=" + contact + "]";
 	}
 
