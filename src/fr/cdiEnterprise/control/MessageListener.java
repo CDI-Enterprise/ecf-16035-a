@@ -60,6 +60,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	private String alias;
 	private String email;
 	private int nbCaracters;
+	private Item item;
 
 	/**
 	 * Constructs a listener taking a panel for attribute
@@ -96,7 +97,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			System.out.println("switch to panel : new message");
 
 		}
-		// ENOIE MESSAGE
+		// ENVOIE MESSAGE
 		if (e.getSource() == panelNew.getBtnEnv()) {
 
 			// panelNew = new MessagingNewPanel();
@@ -163,9 +164,9 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		Point p = me.getPoint();
 		int row = table.rowAtPoint(p);
 		SpecialTableItemModel spemod = panelMain.getTiModel();
-		System.out.println("click..." + row );
-		System.out.println(spemod.getRowCount() -1);
-		if (me.getClickCount() == 1) {
+		//System.out.println("click..." + row );
+		//System.out.println(spemod.getRowCount() -1);
+	/*	if (me.getClickCount() == 1) {
 			if (row > spemod.getRowCount() -1) {
 				System.out.println("hors de la partie");
 			} else {
@@ -174,28 +175,32 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 				System.out.println("switch to panel : read message");
 				MainFrame.SwithPanel(panelRead);
-			}
+			}*/
 
 		if (me.getClickCount() == 2) {
 			
 			
 			spemod = panelMain.getTiModel();
-			System.out.println("double click..." + row );
-			System.out.println(spemod.getRowCount() -1);
+			//System.out.println("double click..." + row );
+			//System.out.println(spemod.getRowCount() -1);
 			if (row > spemod.getRowCount() -1) {
 				System.out.println("hors de la partie");
 			} else {
 				Item itm = spemod.getUserAt(row);
-				panelRead = new MessagingReadPanel();
-
-				System.out.println("switch to panel : read message");
+				
+				
+				
+				panelRead = new MessagingReadPanel(itm);
+				
+				
+				System.out.println(itm.toString());
+				
 				MainFrame.SwithPanel(panelRead);
 			}
 		}
 		}
 
-	}
-
+	
 	
 
 	@Override
@@ -224,6 +229,14 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 	public void customDialog(String message) {
 		JOptionPane.showMessageDialog(panelNew, message, "Nouveau message", JOptionPane.WARNING_MESSAGE);
+	}
+
+	public Item getItem() {
+		return item;
+	}
+
+	public void setItem(Item item) {
+		this.item = item;
 	}
 
 }
