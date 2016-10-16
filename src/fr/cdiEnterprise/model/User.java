@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Abstract base class for all User creation: Trainee, FormerTrainee, Trainer.
- * 
  * @version 13-10-2016
  * @author Claire
  *
@@ -15,13 +14,10 @@ import java.time.format.DateTimeFormatter;
 
 public abstract class User {
 
-	/* Class attributes */
-	private static int totalId = 0;							// Auto-generated total user's number since the beginning
-
-	/* Object attributes */
 	//Auto-generated
+	private static int totalId = 0;							// Auto-generated total user's number since the beginning
 	private int id;											// Id number for user
-	private String inscriptionDate;							// Date of first log-in for user
+	private String inscriptionDate;							// Date of registration for user
 
 	//Compulsory first log-in information
 	private String status;									// Three possible choices: Trainee, FormerTrainee, Trainer

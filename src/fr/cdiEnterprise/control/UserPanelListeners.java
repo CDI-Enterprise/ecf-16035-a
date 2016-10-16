@@ -3,15 +3,12 @@
  */
 package fr.cdiEnterprise.control;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Enumeration;
 
-import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -25,7 +22,6 @@ import fr.cdiEnterprise.view.UserPanel;
 
 /**
  * Listeners for users CRUD
- * 
  * @version 16-10-2016
  * @author Claire
  *
@@ -76,12 +72,11 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 		jrButtonSelected = ControlMethods.getSelectedJRadioButton(jrButtonGrp);
 		status = jrButtonSelected.getText();		
 
-		// Register informations
+		// Register informations TODO Claire loop method?
 		alias = panelUser.getTxtAlias().getText();
 		email = panelUser.getTxtMail().getText();
 		afpa = panelUser.getTxtAfpa().getText();
 		trainer = panelUser.getTxtTrainer().getText();
-
 
 		// Clears all fields
 		if (e.getSource() == panelUser.getCmdCancel()) {
@@ -98,7 +93,6 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 			// Calls the method which clears and enables all JTextField 
 			allJTextFields = panelUser.getAllJTextFields();
 			ControlMethods.resetJTextField(allJTextFields);
-		
 		}
 
 		// User creation
@@ -140,11 +134,13 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 		// User modification
 		if (e.getSource() == panelUser.getCmdUpdate()) {
 
-			// TODO Claire change of status and class for Trainee to FormerTrainee
 			selectedUser.setEmail(email);
 			selectedUser.setAfpa(afpa);
 			// Re-affects new informations to the selected User
 			panelUser.getMdlListUsers().set(indexUser, selectedUser);
+			
+			// TODO Claire change of status and class for Trainee to FormerTrainee
+			
 			System.out.println(Datas.getUsersList()); // Test code
 
 		}
@@ -166,11 +162,11 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 
 		if (e.getSource() == panelUser.getLstUsers()) {
 
-			// Get the selected User and its index in the model list
+			// Gets the selected User and its index in the model list
 			selectedUser = (User) panelUser.getLstUsers().getSelectedValue();
 			indexUser = panelUser.getLstUsers().getSelectedIndex();
 
-			// Display informations of the selected User
+			// Displays informations of the selected User
 			panelUser.getTxtAlias().setText(selectedUser.getAlias());
 			panelUser.getTxtMail().setText(selectedUser.getEmail());
 			panelUser.getTxtAfpa().setText(selectedUser.getAfpa());
@@ -183,7 +179,7 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 			// Depending on status, displays related informations of the selected User
 			switch (selectedUser.getStatus()) {
 			case "Stagiaire" :  
-				// Cast User to Trainee
+				// Casts User to Trainee
 				selectedTrainee = (Trainee) selectedUser;
 				// Status
 				panelUser.getOptTrainee().setSelected(true);
@@ -195,7 +191,7 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 				break;
 
 			case "Ancien" :
-				// Cast User to FormerTrainee
+				// Casts User to FormerTrainee
 				selectedFormerTrainee = (FormerTrainee) selectedUser;
 				// Status
 				panelUser.getOptFormerTrainee().setSelected(true);
@@ -207,17 +203,17 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 				break;
 
 			case "Formateur" :
-				// Cast User to Trainer
+				// Casts User to Trainer
 				selectedTrainer = (Trainer) selectedUser;
 				// Status
 				panelUser.getOptTrainer().setSelected(true);
 				panelUser.getOptTrainee().setEnabled(false);
 				panelUser.getOptFormerTrainee().setEnabled(false);
 				panelUser.getOptTrainer().setEnabled(false);
-				// Clean fields not related to the Trainer status
-				panelUser.getTxtTrainer().setText("");
 				// A trainer can change his place of work
 				panelUser.getTxtAfpa().setEnabled(true);
+				// Clears fields not related to the Trainer status
+				panelUser.getTxtTrainer().setText("");
 				break;
 
 			default:

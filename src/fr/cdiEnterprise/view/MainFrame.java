@@ -3,7 +3,6 @@ package fr.cdiEnterprise.view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,7 +16,7 @@ import java.util.Map.Entry;
  * MainFrame for the CDI Enterprise program with a JMenuBar.
  * Last update: 20161007
  * @version 1.0
- * @author Claire, Ana�s
+ * @author Claire, Anais
  *
  */
 
@@ -58,7 +57,7 @@ public class MainFrame extends JFrame {
 			Object key = entry.getKey();
 			Object value = javax.swing.UIManager.get(key);
 			if (value != null && value instanceof javax.swing.plaf.FontUIResource) {
-				javax.swing.plaf.FontUIResource fr=(javax.swing.plaf.FontUIResource)value;
+//				javax.swing.plaf.FontUIResource fr=(javax.swing.plaf.FontUIResource)value;
 				// (String for font name, integer for style, integer for size)
 				javax.swing.plaf.FontUIResource f = new javax.swing.plaf.FontUIResource("Arial", Font.PLAIN, 14);
 				javax.swing.UIManager.put(key, f);
