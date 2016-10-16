@@ -279,7 +279,7 @@ public class Company {
 	@Override
 	public String toString() {
 		return "Entreprise [companyName=" + companyName + ", adress=" + adress + ", postalCode=" + postalCode
-				+ ", city=" + city + ", department=" + department + ", region=" + region + ", size=" + size + ", sector= " + sector 
+				+ ", city=" + city + ", department=" + department + ", region=" + region +", langages=" + languages.toString() + ", size=" + size + ", sector= " + sector 
 				+ ", webSite=" + webSite + ", contact=" + contact + "]";
 	}
 

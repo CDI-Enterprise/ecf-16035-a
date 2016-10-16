@@ -3,6 +3,7 @@
  */
 package fr.cdiEnterprise.dao;
 import fr.cdiEnterprise.control.MpClient;
+import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Department;
 import fr.cdiEnterprise.model.Favorite;
 import fr.cdiEnterprise.model.FormerTrainee;
@@ -61,6 +62,7 @@ public class Datas {
 		usersList.add(new Trainee("Stagiaire", "Oracle", "oracle@mail.fr", "Saint-Jérôme", "D. Muller"));
 		usersList.add(new Trainee("Stagiaire", "Dark Swan", "darkswan@mail.fr", "Saint-Jérôme", "D. Muller"));
 		
+		
 		// Test du server de messagerie
 		exchange = new Server();
 		clientBox = new Clients();
@@ -93,6 +95,11 @@ public class Datas {
 		{
 			favoritesList.add(new Favorite(Favorite.FAVORITES[i]));
 		}
+		//Companies database
+//		companiesList.add(new Company("AFPA", "53 Boulevard Laveran", "13000","MARSEILLE", 
+//						new Department(Department.DEPARTMENTS[13]),new Region(Region.REGIONS[11]),
+//						null,"Formation", new Languages(),"Formation métier",
+//						"afpa.fr", null));
 	}
 	
 	

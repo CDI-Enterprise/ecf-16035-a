@@ -17,6 +17,7 @@ import fr.cdiEnterprise.model.Department;
 import fr.cdiEnterprise.model.Region;
 import fr.cdiEnterprise.service.Languages;
 import fr.cdiEnterprise.view.CompanyCreationPanel;
+import fr.cdiEnterprise.view.MainFrame;
 
 public class PanelCreateComListener implements ActionListener, ListSelectionListener {
 
@@ -99,7 +100,14 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 					companySize,companySector, companyLanguages, companyProjets, companyWebSite, contact);
 			Datas.getCompaniesList().add(company);
 			System.out.println(Datas.getCompaniesList());
-			panCompCreat.getDlmCompanies().addElement(company);
+			CompanyCreationPanel.getDlmCompanies().addElement(company);
+		}
+		
+		if (e.getSource() == panCompCreat.getBtnCancel()){
+			MainFrame.getMainPan().removeAll();
+			MainFrame.getMainPan().add(MainFrame.getHomePan());
+			MainFrame.getMainPan().repaint();
+			MainFrame.getMainPan().revalidate();
 		}
 		
 	}
