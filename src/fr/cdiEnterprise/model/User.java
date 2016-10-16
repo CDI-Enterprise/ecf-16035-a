@@ -22,7 +22,7 @@ public abstract class User {
 	private String status;									// Three possible choices: Trainee, FormerTrainee, Trainer
 	private String email;									// User's email (can be use for log-in)
 	private String alias;									// User's nickname for log-in
-	private String password;								// User's password (minimum 8 characters)
+//	private String password;								// User's password (minimum 8 characters)
 	private String afpa;									// Name of the AFPA the user go/went to or work for
 
 
@@ -32,71 +32,22 @@ public abstract class User {
 	public User(){	
 	}
 	
-	// Constructor test
-	public User(String status, String alias, String email, String afpa) {
-		totalId++;
-		this.id = totalId;
-		this.inscriptionDate = setInscriptionDate();
-		this.status = status;
-		this.alias = alias;
-		this.email = email;
-		this.afpa = afpa;
-	}
-
-//	/**
-//	 * Constructs a user with compulsory first log-in informations
-//	 * @param email
-//	 * @param alias
-//	 * @param password
-//	 * @param status
-//	 * @param afpa
-//	 */
-//	public User(String email, String alias, String password, String status, String afpa) {
-//		totalId++;
-//		this.id = totalId;
-//		this.email = email;
-//		this.alias = alias;
-//		this.password = password;
-//		this.status = status;
-//		this.afpa = afpa;
-//	}
-
-
 	/**
-	 * Generates a date and time from the "Europe/Paris" zone when a User is created.
-	 * @author Claire
-	 * @return inscriptionDate
-	 * @since 16-10-2016
+	 * Constructs a user with compulsory first log-in informations
+	 * @param email
+	 * @param alias
+	 * @param password
+	 * @param status
+	 * @param afpa
 	 */
-	public String setInscriptionDate() {
-		
-		DateTimeFormatter formatter;
-		ZonedDateTime zdt;
-		String inscriptionDate;
-		
-		formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-		zdt = Instant.now().atZone(ZoneId.of("Europe/Paris"));
-		inscriptionDate = zdt.format(formatter);
-		
-		return inscriptionDate;
-		
+	public User(String status, String alias, String email, String afpa) {
+		setId();
+		setInscriptionDate();
+		setStatus(status);
+		setAlias(alias);
+		setEmail(email);
+		setAfpa(afpa);
 	}
-//	
-//	/**
-//	 * Check if the alias isn't null and if it's less than 20 characters.
-//	 * @author Claire
-//	 * @since 16-10-2016
-//	 */
-//	public boolean isLessThanTwenty(String alias) {
-//		
-//		boolean correct = false;
-//		
-//		if (alias != null && alias.length() > 20) {
-//			correct = true;
-//		}
-//		
-//		return correct;
-//	}
 	
 	/**
 	 * Basic user description.
@@ -108,7 +59,45 @@ public abstract class User {
 				+ ", email=" + email + ", afpa=" + afpa + "]";
 	}
 
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
 
+	/**
+	 *Increments totalId of Users and  set the id
+	 */
+	private void setId() {
+		totalId++;
+		this.id = totalId;
+	}
+	
+	/**
+	 * @return the inscriptionDate
+	 */
+	public String getInscriptionDate() {
+		return inscriptionDate;
+	}
+
+	/**
+	 * Generates a date and time from the "Europe/Paris" zone when a User is created.
+	 * @author Claire
+	 * @return inscriptionDate
+	 * @since 16-10-2016
+	 */
+	private void setInscriptionDate() {
+		
+		DateTimeFormatter formatter;
+		ZonedDateTime zdt;
+		
+		formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+		zdt = Instant.now().atZone(ZoneId.of("Europe/Paris"));
+		this.inscriptionDate = zdt.format(formatter);
+		
+	}
+	
 	/**
 	 * @return the email
 	 */
@@ -138,20 +127,6 @@ public abstract class User {
 	}
 
 	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	/**
 	 * @return the status
 	 */
 	public String getStatus() {
@@ -177,20 +152,6 @@ public abstract class User {
 	 */
 	public void setAfpa(String afpa) {
 		this.afpa = afpa;
-	}
-
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * @return the inscriptionDate
-	 */
-	public String getInscriptionDate() {
-		return inscriptionDate;
 	}
 
 	/**

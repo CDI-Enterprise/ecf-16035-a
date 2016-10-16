@@ -98,6 +98,13 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 		// User creation
 		if (e.getSource() == panelUser.getCmdCreate()) {
 
+//			try {
+//				
+//			}
+//			catch () {
+//				System.out.println("Vous devez remplir les champs obligatoires.");
+//			}
+			
 			// TODO Claire try catch if no status
 			// Depending on status, instantiates a Trainee or FormerTrainee or Trainer with User reference
 			switch (status) {
