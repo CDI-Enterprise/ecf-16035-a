@@ -57,13 +57,7 @@ public class MessagingMainPanel extends JPanel {
 	private String[][] tableauMsg;
 	private Items userItems;
 	
-	// = {
-//			{"olivier", "test1", "13-10-2016"},
-//			{"claire", "test3", "14-10-2016"},
-//			{"anais", "test4", "12-10-2016"},
-//			{"ismael", "test5", "14-10-2016"},
-//
-//		};; 
+
 	
 	
 	private static final String FORMAT_LIST = "%1$-25s %2$-35s %3$-10s";
@@ -78,28 +72,12 @@ public class MessagingMainPanel extends JPanel {
 		//listModele = new DefaultListModel<>();
 		MessageListener listener = new MessageListener(this);
 		border = BorderFactory.createLineBorder(Color.GRAY);
+		table = new JTable(tiModel);
+		
 		
 		fillModel();
 		
-		
-		
-		
-//		if(tableauMsg.length != 0) {
-//			System.out.println("Nb emails :"+tableauMsg[0][1]);
-//			//tableauMsg = new String[2][3];
-//			tableauMsg[1][0] ="toto";
-//			tableauMsg[1][1] = "test1Bis"; 
-//			tableauMsg[1][2] = "13-10-2016";
-//			tableModele = new DefaultTableModel(tableauMsg,new String[] {"Sender", "Objet", "Date reception"
-//				});
-//		}else {
-//			tableauMsg = new String[1][3];
-//			tableauMsg[0][0] ="nico";
-//			tableauMsg[0][1] = "test1"; 
-//			tableauMsg[0][2] = "12-10-2016";
-//			tableModele = new DefaultTableModel(tableauMsg,new String[] {"Sender", "Objet", "Date reception"
-//			});
-//		}
+
 
 		
 		
@@ -144,7 +122,7 @@ public class MessagingMainPanel extends JPanel {
 		panMess.add(scrollPane, BorderLayout.CENTER);
 		
 		
-		table = new JTable(tiModel);
+		
 		//table = new JTable();
 		//table.setModel(tableModele);
 		//table.setPreferredScrollableViewportSize(new Dimension(500, 70));
@@ -156,7 +134,7 @@ public class MessagingMainPanel extends JPanel {
 		table.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 16));
 		//table.setAutoCreateRowSorter(true);
 		//table.setColumnSelectionAllowed(false);
-		table.setModel(tableModele);
+		//table.setModel(tableModele);
 		scrollPane.setViewportView(table);
 		
 		panNorth.add(lblTitle);
@@ -210,20 +188,33 @@ public class MessagingMainPanel extends JPanel {
 		if(allItems.isEmpty()) {
 			System.out.println("--- il n'y a pas de message ---");
 			tableauMsg = new String[allItems.size()][3];
-			userItems = new Items();
+			tableauMsg = allClients.getMsgTableFormat(ReadProperties.getMyAlias(), false);
+			if(tableauMsg == null) {
+				System.out.println("tableauMsg est null" + tableauMsg.length);
+			}else {
+				
+				System.out.println("tableauMsg nest pqs null" + tableauMsg.length);
+				tableModele =  new DefaultTableModel(tableauMsg, new String[] {
+						"Sender", "Objet", "Date Reception"
+					});
+				
+			}
+			
+			
 		}else {
 			userItems = allItems;
 			tiModel.setUsers(userItems);
 			tableauMsg = new String[allItems.size()][3];
 			// recupere tous les messages d'un utilisateur de l'app.
 			tableauMsg = allClients.getMsgTableFormat(ReadProperties.getMyAlias(), false);
-			
-		
 			tableModele =  new DefaultTableModel(tableauMsg, new String[] {
 					"Sender", "Objet", "Date Reception"
 				});
-			table.setModel(tableModele);
+		
+			
 		}
+		System.out.println("tableModele est "+tableModele.getRowCount()+ "table " + table);
+		table.setModel(tableModele);
 		//
 		
 			

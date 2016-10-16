@@ -187,12 +187,12 @@ public class MpClient {
 	/**
 	 * this is going to remove a message or a draft message, and with a particular id.
 	 * @param identifier to get the requested email removed
-	 * @param draft will indicate if this is a drfaft email
+	 * @param draft will indicate if this is a draft email
 	 */
 	public void removeMessage(String identifier, boolean draft) {
 		
 		if(server.removeMessage(this.box, identifier, draft)) {
-			//System.out.println("Message has been removed...");
+			System.out.println("Message has been removed...");
 		}
 	}
 	

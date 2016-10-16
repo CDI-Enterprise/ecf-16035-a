@@ -60,13 +60,16 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	private String alias;
 	private String email;
 	private int nbCaracters;
-	private Item item;
-
+	private static Item currentItem;
+	private static MpClient cli;
+	private Clients clients;
+	
 	/**
 	 * Constructs a listener taking a panel for attribute
 	 */
 	public MessageListener(JPanel panelUser) {
-
+		clients = Datas.getClientBox();
+		cli = clients.getClient(ReadProperties.getMyAlias());
 
 		
 		
@@ -116,8 +119,8 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			if (panelNew.getTxtObject().getText().isEmpty()) {
 				customDialog("le champ Objet doit etre remplie.");
 			} else {
-				Clients clients = Datas.getClientBox();
-				MpClient cli = clients.getClient(ReadProperties.getMyAlias());
+				//Clients clients = Datas.getClientBox();
+				//MpClient cli = clients.getClient(ReadProperties.getMyAlias());
 				cli.newEmail(cli.getBox(), receiver, panelNew.getTxtObject().getText(),
 						panelNew.getTxtMessage().getText());
 				System.out.println("Message send out...");
@@ -128,6 +131,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 		}
 
+		//RETURN FROM THE NEW MESSAGE PANEL
 		else if ((panelNew != null) && ( e.getSource() == panelNew.getBtnReturn())) {
 
 			// panelNew = new MessagingNewPanel();
@@ -135,8 +139,15 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			System.out.println("switch to panel : main message");
 			MainFrame.SwithPanel(panelMain);
 
-		}else if ((panelRead != null ) && (e.getSource() == panelRead.getBtnRet())) {
+		}else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnRet())) {
 			System.out.println("switch to panel : main message");
+			MainFrame.SwithPanel(panelMain);
+		} else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnDel())) {
+			
+			cli.removeMessage(currentItem.getId(), false);
+			System.out.println("switch to panel : main message");
+			cli.numberOfMessages(false);
+			panelMain.refresh();
 			MainFrame.SwithPanel(panelMain);
 		} else {
 			System.out.println("nothing correspond to that event...");
@@ -194,14 +205,14 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			if (row > spemod.getRowCount() -1) {
 				System.out.println("hors de la partie");
 			} else {
-				Item itm = spemod.getUserAt(row);
+				currentItem = spemod.getUserAt(row);
 				
 				
 				
-				panelRead = new MessagingReadPanel(itm);
+				panelRead = new MessagingReadPanel(currentItem);
 				
 				
-				System.out.println(itm.toString());
+				System.out.println(currentItem.toString());
 				
 				MainFrame.SwithPanel(panelRead);
 			}
@@ -240,11 +251,11 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	}
 
 	public Item getItem() {
-		return item;
+		return currentItem;
 	}
 
 	public void setItem(Item item) {
-		this.item = item;
+		this.currentItem = item;
 	}
 
 }

@@ -42,22 +42,30 @@ public class Clients extends ArrayList<MpClient> {
 	 */
 	public String[][] getMsgTableFormat(String box, boolean draft) {
 		int index = 0;
+		String[][] liste = null;
 		MpClient cli = getClient(box);
 		ArrayList<Item> itms = cli.getMessages(draft);
 		System.out.println("nombre d'emails---" + itms.size());
-		String[][] liste = new String[itms.size()+1][3];
-		
-		for(Item current : itms) {
+		if(itms.isEmpty()) {
+			liste = new String[itms.size()][3];
+		} else  {
+			liste = new String[itms.size()+1][3];
 			
-			liste[index][0] = current.getSender();
-			liste[index][1] = current.getObject();
-			liste[index][2] = current.getTimeStamp().toString();
-			System.out.println(liste[index][0]);
-			System.out.println(liste[index][2]);
-			
+			for(Item current : itms) {
+				
+				liste[index][0] = current.getSender();
+				liste[index][1] = current.getObject();
+				liste[index][2] = current.getTimeStamp().toString();
+				System.out.println(liste[index][0]);
+				System.out.println(liste[index][2]);
+				
 
-			index++;
+				index++;
+			}
 		}
+			
+		
+	
 		
 		return liste;
 	}
