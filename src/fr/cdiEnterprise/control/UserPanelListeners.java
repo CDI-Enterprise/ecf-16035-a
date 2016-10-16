@@ -3,15 +3,18 @@
  */
 package fr.cdiEnterprise.control;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.model.FormerTrainee;
@@ -43,7 +46,7 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 	private Trainer selectedTrainer;
 	private int indexUser;
 
-	// Attribute to create-update a user
+	// Attributes to create-update a user
 	private User user;
 
 	private String status;
@@ -51,6 +54,9 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 	private String email;
 	private String afpa;
 	private String trainer;
+	
+	// Attributes to reset component
+	ArrayList<JTextField> allJTextFields;
 
 	/**
 	 * Constructs a listener taking a panel for attribute
@@ -88,13 +94,11 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 			panelUser.getOptTrainee().setEnabled(true);
 			panelUser.getOptFormerTrainee().setEnabled(true);
 			panelUser.getOptTrainer().setEnabled(true);
-
-			// Clears register informations JTextField
-			panelUser.getTxtAlias().setText("");
-			panelUser.getTxtMail().setText("");
-			panelUser.getTxtAfpa().setText("");
-			panelUser.getTxtTrainer().setText("");
-
+			
+			// Calls the method which clears and enables all JTextField 
+			allJTextFields = panelUser.getAllJTextFields();
+			ControlMethods.resetJTextField(allJTextFields);
+		
 		}
 
 		// User creation
@@ -165,7 +169,6 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 			// Get the selected User and its index in the model list
 			selectedUser = (User) panelUser.getLstUsers().getSelectedValue();
 			indexUser = panelUser.getLstUsers().getSelectedIndex();
-			
 
 			// Display informations of the selected User
 			panelUser.getTxtAlias().setText(selectedUser.getAlias());
@@ -175,6 +178,7 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 			// These fields can't be changed by the User
 			panelUser.getTxtAlias().setEnabled(false);
 			panelUser.getTxtAfpa().setEnabled(false);
+			panelUser.getTxtTrainer().setEnabled(false);
 
 			// Depending on status, displays related informations of the selected User
 			switch (selectedUser.getStatus()) {
@@ -188,7 +192,6 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 				panelUser.getOptTrainer().setEnabled(false);
 				// Trainer
 				panelUser.getTxtTrainer().setText(selectedTrainee.getTrainer());
-				panelUser.getTxtTrainer().setEnabled(false);
 				break;
 
 			case "Ancien" :
@@ -201,7 +204,6 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 				panelUser.getOptTrainer().setEnabled(false);
 				// Trainer
 				panelUser.getTxtTrainer().setText(selectedFormerTrainee.getTrainer());
-				panelUser.getTxtTrainer().setEnabled(false);
 				break;
 
 			case "Formateur" :

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -121,6 +122,9 @@ public class UserPanel extends JPanel {
 	private JButton cmdUpdate;
 	private JButton cmdDelete;
 
+	// ArrayList of components
+	ArrayList<JTextField> allJTextFields;
+	
 	public UserPanel() {
 
 		// Main layout for book creation panel
@@ -360,6 +364,12 @@ public class UserPanel extends JPanel {
 		cmdDelete = new JButton("Supprimer");
 		panSouth.add(cmdDelete);
 		
+		// ArrayList of components
+		allJTextFields = new ArrayList<JTextField>();
+		allJTextFields.add(txtAlias);
+		allJTextFields.add(txtMail);
+		allJTextFields.add(txtAfpa);
+		allJTextFields.add(txtTrainer);
 		
 		// LISTENERS
 		UserPanelListeners listener = new UserPanelListeners(this);
@@ -455,6 +465,13 @@ public class UserPanel extends JPanel {
 	 */
 	public DefaultListModel<User> getMdlListUsers() {
 		return mdlLstUsers;
+	}
+
+	/**
+	 * @return the allJTextFields
+	 */
+	public ArrayList<JTextField> getAllJTextFields() {
+		return allJTextFields;
 	}
 
 	/**
