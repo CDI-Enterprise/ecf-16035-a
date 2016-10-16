@@ -70,7 +70,7 @@ public class FormerTrainee extends Trainee {
 
 	
 	/* Object methods */
-	//TODO create input control
+	//TODO Claire create input control
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

@@ -42,9 +42,6 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 	private FormerTrainee selectedFormerTrainee;
 	private Trainer selectedTrainer;
 	private int indexUser;
-	private int indexTrainee;
-	private int indexFormerTrainee;
-	private int indexTrainer;
 
 	// Attribute to create-update a user
 	private User user;
@@ -86,14 +83,11 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 			// Clears User JList
 			panelUser.getLstUsers().setSelectedIndices(new int[] {});
 
-			// clears status JRadioButton
+			// Clears and re-enables status JRadioButton
+			jrButtonGrp.clearSelection();
 			panelUser.getOptTrainee().setEnabled(true);
 			panelUser.getOptFormerTrainee().setEnabled(true);
 			panelUser.getOptTrainer().setEnabled(true);
-			// FIXME last JRadioButton selected stay this way
-			panelUser.getOptTrainee().setSelected(false);
-			panelUser.getOptFormerTrainee().setSelected(false);
-			panelUser.getOptTrainer().setSelected(false);
 
 			// Clears register informations JTextField
 			panelUser.getTxtAlias().setText("");
@@ -113,7 +107,6 @@ public class UserPanelListeners implements ActionListener, MouseListener {
             	user = new Trainee(status, alias, email, afpa, trainer);
 				System.out.println(user); // Test code
 				System.out.println(Datas.getUsersList()); // Test code
-				
 				break;
 			
             case "Ancien" :
@@ -136,7 +129,6 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 
 			Datas.getUsersList().add(user);
 			panelUser.getMdlListUsers().addElement(user);
-
 			System.out.println(Datas.getUsersList()); // Test code
 
 		}
@@ -144,38 +136,12 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 		// User modification
 		if (e.getSource() == panelUser.getCmdUpdate()) {
 
+			// TODO change of status and class for Trainee to FormerTrainee
 			selectedUser.setEmail(email);
-			// ???
+			selectedUser.setAfpa(afpa);
+			// Re-affects new informations to the selected User
 			panelUser.getMdlListUsers().set(indexUser, selectedUser);
 			System.out.println(Datas.getUsersList()); // Test code
-
-			// If selected User is a Trainee
-			if (selectedUser.getStatus() == "Stagiaire") {
-
-				// Cast User to Trainee
-				selectedTrainee = (Trainee) selectedUser;
-				indexTrainee = indexUser;
-				
-//				selectedTrainee.setStatus(status);
-//				panelUser.getMdlListUsers().set(indexTrainee, selectedTrainee);
-				
-			}
-			// If the selected User is a FormerTrainee
-			else if (selectedUser.getStatus() == "Ancien") {
-
-			}
-			// If selected User is a Trainer
-			else {
-				
-				// Cast User to Trainer
-				selectedTrainer = (Trainer) selectedUser;
-				indexTrainer = indexUser;
-
-				selectedTrainer.setAfpa(afpa);
-				// TODO trainer dans user list?
-				panelUser.getMdlListUsers().set(indexTrainer, selectedTrainer);
-				
-			}
 
 		}
 
@@ -184,7 +150,6 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 
 			Datas.getUsersList().remove(selectedUser);
 			panelUser.getMdlListUsers().remove(indexUser);
-
 			System.out.println(Datas.getUsersList()); // Test code
 
 		}

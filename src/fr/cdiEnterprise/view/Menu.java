@@ -55,14 +55,14 @@ public class Menu extends JMenuBar {
 	 * Constructor
 	 */
 	public Menu() {
-
-		// TODO shortcuts - use of char obsolete?
 		
-		// PROFILE TODO MenuListener
+		// PROFILE TODO Claire MenuListener
 		menuProfile = new JMenu("Profil");
 		this.add(menuProfile);
 		subProfileCrud = new JMenuItem("Gérer les profils");
 		menuProfile.add(subProfileCrud);
+		subProfileCrud.setMnemonic(KeyEvent.VK_P);
+		subProfileCrud.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
 
 		// COMPANY
 		menuCompany = new JMenu("Entreprise");
