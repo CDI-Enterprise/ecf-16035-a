@@ -31,7 +31,7 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 
 	// Given attribute
 	private UserPanel panelUser;
-	
+
 	// Attributes do define the selected status
 	ButtonGroup jrButtonGrp;
 	JRadioButton jrButtonSelected;	
@@ -69,13 +69,13 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 		jrButtonGrp = panelUser.getStatusGrp();
 		jrButtonSelected = ControlMethods.getSelectedJRadioButton(jrButtonGrp);
 		status = jrButtonSelected.getText();		
-		
+
 		// Register informations
 		alias = panelUser.getTxtAlias().getText();
 		email = panelUser.getTxtMail().getText();
 		afpa = panelUser.getTxtAfpa().getText();
 		trainer = panelUser.getTxtTrainer().getText();
-		
+
 
 		// Clears all fields
 		if (e.getSource() == panelUser.getCmdCancel()) {
@@ -100,31 +100,31 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 		// User creation
 		if (e.getSource() == panelUser.getCmdCreate()) {
 
-			// TODO try catch if no status
+			// TODO Claire try catch if no status
 			// Depending on status, instantiates a Trainee or FormerTrainee or Trainer with User reference
 			switch (status) {
-            case "Stagiaire" :  
-            	user = new Trainee(status, alias, email, afpa, trainer);
+			case "Stagiaire" :  
+				user = new Trainee(status, alias, email, afpa, trainer);
 				System.out.println(user); // Test code
 				System.out.println(Datas.getUsersList()); // Test code
 				break;
-			
-            case "Ancien" :
-            	user = new FormerTrainee(status, alias, email, afpa, trainer);
-            	System.out.println(user); // Test code
-            	System.out.println(Datas.getUsersList()); // Test code
-            	break;
-            	
-            case "Formateur" :
-            	user = new Trainer(status, alias, email, afpa);
+
+			case "Ancien" :
+				user = new FormerTrainee(status, alias, email, afpa, trainer);
 				System.out.println(user); // Test code
 				System.out.println(Datas.getUsersList()); // Test code
 				break;
-				
+
+			case "Formateur" :
+				user = new Trainer(status, alias, email, afpa);
+				System.out.println(user); // Test code
+				System.out.println(Datas.getUsersList()); // Test code
+				break;
+
 			default:
 				System.out.println("Aucun statut sélectionné.");
 				break;
-            
+
 			}
 
 			Datas.getUsersList().add(user);
@@ -136,7 +136,7 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 		// User modification
 		if (e.getSource() == panelUser.getCmdUpdate()) {
 
-			// TODO change of status and class for Trainee to FormerTrainee
+			// TODO Claire change of status and class for Trainee to FormerTrainee
 			selectedUser.setEmail(email);
 			selectedUser.setAfpa(afpa);
 			// Re-affects new informations to the selected User
@@ -165,6 +165,7 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 			// Get the selected User and its index in the model list
 			selectedUser = (User) panelUser.getLstUsers().getSelectedValue();
 			indexUser = panelUser.getLstUsers().getSelectedIndex();
+			
 
 			// Display informations of the selected User
 			panelUser.getTxtAlias().setText(selectedUser.getAlias());
@@ -175,58 +176,51 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 			panelUser.getTxtAlias().setEnabled(false);
 			panelUser.getTxtAfpa().setEnabled(false);
 
-			// Display informations if the selected User is a Trainee
-			if (selectedUser.getStatus() == "Stagiaire") {
-
+			// Depending on status, displays related informations of the selected User
+			switch (selectedUser.getStatus()) {
+			case "Stagiaire" :  
 				// Cast User to Trainee
 				selectedTrainee = (Trainee) selectedUser;
-
 				// Status
 				panelUser.getOptTrainee().setSelected(true);
 				panelUser.getOptTrainee().setEnabled(true);
 				panelUser.getOptFormerTrainee().setEnabled(true);
 				panelUser.getOptTrainer().setEnabled(false);
-
 				// Trainer
 				panelUser.getTxtTrainer().setText(selectedTrainee.getTrainer());
 				panelUser.getTxtTrainer().setEnabled(false);
+				break;
 
-			}
-			// Display informations if the selected User is a FormerTrainee
-			else if (selectedUser.getStatus() == "Ancien") {
-
+			case "Ancien" :
 				// Cast User to FormerTrainee
 				selectedFormerTrainee = (FormerTrainee) selectedUser;
-
 				// Status
 				panelUser.getOptFormerTrainee().setSelected(true);
 				panelUser.getOptTrainee().setEnabled(false);
 				panelUser.getOptFormerTrainee().setEnabled(false);
 				panelUser.getOptTrainer().setEnabled(false);
-
-
 				// Trainer
 				panelUser.getTxtTrainer().setText(selectedFormerTrainee.getTrainer());
 				panelUser.getTxtTrainer().setEnabled(false);
+				break;
 
-			}
-			// Display informations if the selected User is a Trainer
-			else {
-
+			case "Formateur" :
 				// Cast User to Trainer
 				selectedTrainer = (Trainer) selectedUser;
-
 				// Status
 				panelUser.getOptTrainer().setSelected(true);
 				panelUser.getOptTrainee().setEnabled(false);
 				panelUser.getOptFormerTrainee().setEnabled(false);
 				panelUser.getOptTrainer().setEnabled(false);
-
 				// Clean fields not related to the Trainer status
 				panelUser.getTxtTrainer().setText("");
 				// A trainer can change his place of work
 				panelUser.getTxtAfpa().setEnabled(true);
+				break;
 
+			default:
+				System.out.println("Aucun statut sélectionné.");
+				break;
 
 			}
 

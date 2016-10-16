@@ -82,7 +82,7 @@ public class Trainee extends User {
 
 
 	/* Object methods */
-	//TODO create input control
+	//TODO Claire create input control
 	/**
 	 * Basic trainee description
 	 * @see java.lang.Object#toString()
