@@ -37,7 +37,7 @@ public class MessagingNewPanel extends JPanel {
 	
 	private String from;
 	private JLabel receiver;
-	private JLabel object;
+	private JLabel lblobject;
 	private JLabel Message;
 	private JLabel letterCount;
 	private JLabel lblCounter;
@@ -76,7 +76,7 @@ public class MessagingNewPanel extends JPanel {
 		btnReturn = new JButton("Retour");
 		
 		receiver = new JLabel("Destinataire");
-		object = new JLabel("Objet");
+		lblobject = new JLabel("Objet");
 		Message = new JLabel("Texte");
 		letterCount = new JLabel("compteur");
 		lblCounter =   new JLabel();
@@ -88,7 +88,10 @@ public class MessagingNewPanel extends JPanel {
 		cboReceiver.setMaximumRowCount(3);
 		//txtReceiver = new JTextField();
 		txtObject = new JTextField(20);
+		
 		txtMessage = new JTextArea(10, 50);
+		txtMessage.setLineWrap(true);
+		txtMessage.setWrapStyleWord(true);
 	
 		
 		if(usersList != null) {
@@ -109,7 +112,7 @@ public class MessagingNewPanel extends JPanel {
 		
 		panCenter.add(receiver, "w 200!");
 		panCenter.add(cboReceiver, "wrap");
-		panCenter.add(object, "w 200!");
+		panCenter.add(lblobject, "w 200!");
 		panCenter.add(txtObject, "wrap");
 		
 		panCenter.add(Message, "w 200!");
@@ -187,6 +190,24 @@ public class MessagingNewPanel extends JPanel {
 
 	public JTextArea getTxtMessage() {
 		return txtMessage;
+	}
+
+
+
+	public JLabel getLblobject() {
+		return lblobject;
+	}
+
+
+
+	public void setLblobject(JLabel lblobject) {
+		this.lblobject = lblobject;
+	}
+
+
+
+	public void setTxtObject(JTextField txtObject) {
+		this.txtObject = txtObject;
 	}
 
 

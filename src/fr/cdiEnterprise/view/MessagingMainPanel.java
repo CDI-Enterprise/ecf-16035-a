@@ -4,28 +4,28 @@
 package fr.cdiEnterprise.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
+
 import java.awt.Font;
-import java.util.ArrayList;
+
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
+
 import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 
 import fr.cdiEnterprise.control.MessageListener;
 
 import fr.cdiEnterprise.control.MpClient;
 import fr.cdiEnterprise.dao.Datas;
-import fr.cdiEnterprise.model.Item;
+
 import fr.cdiEnterprise.service.Clients;
 import fr.cdiEnterprise.service.Items;
 import fr.cdiEnterprise.util.ReadProperties;
@@ -43,6 +43,7 @@ public class MessagingMainPanel extends JPanel {
 	
 	
 	private Border border;
+	private Border	borderTitle;
 	private JButton btnNew;
 	private JButton btnDraft;
 	private JButton btnDisplay;
@@ -71,7 +72,11 @@ public class MessagingMainPanel extends JPanel {
 		
 		//listModele = new DefaultListModel<>();
 		MessageListener listener = new MessageListener(this);
-		border = BorderFactory.createLineBorder(Color.GRAY);
+		
+		
+		borderTitle = BorderFactory.createTitledBorder("Message");
+		border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+		
 		table = new JTable(tiModel);
 		
 		
@@ -91,7 +96,7 @@ public class MessagingMainPanel extends JPanel {
 		panMess.add(panCenter,BorderLayout.CENTER);
 		panMess.add(panWest, BorderLayout.WEST);
 		
-		JLabel lblTitle = new JLabel("- Messagerie -");
+		//JLabel lblTitle = new JLabel("- Messagerie -");
 		JLabel lblMess = new JLabel("Nombre de Message(s) :");
 		
 		tiModel = new SpecialTableItemModel(userItems);
@@ -119,7 +124,10 @@ public class MessagingMainPanel extends JPanel {
 		//JList<Item> list = new JList<Item>(listModele);
 		
 		scrollPane = new JScrollPane();
-		panMess.add(scrollPane, BorderLayout.CENTER);
+		panCenter.setBorder(borderTitle);
+		
+		panCenter.add(scrollPane, BorderLayout.CENTER);	
+		//panMess.add(scrollPane, BorderLayout.CENTER);
 		
 		
 		
@@ -137,11 +145,10 @@ public class MessagingMainPanel extends JPanel {
 		//table.setModel(tableModele);
 		scrollPane.setViewportView(table);
 		
-		panNorth.add(lblTitle);
+		//panNorth.add(lblTitle);
 		
 		
 		
-		panCenter.setBorder(border);
 		
 		// used to be for the Jlist
 		/*panCenter.setLayout(new MigLayout());
