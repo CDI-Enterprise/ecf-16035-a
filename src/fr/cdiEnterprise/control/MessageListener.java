@@ -10,30 +10,22 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.time.LocalDateTime;
 
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
+
 
 import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.model.Item;
-import fr.cdiEnterprise.model.Trainee;
-import fr.cdiEnterprise.model.User;
+
 import fr.cdiEnterprise.service.Clients;
-import fr.cdiEnterprise.service.Items;
+
 import fr.cdiEnterprise.util.ReadProperties;
 import fr.cdiEnterprise.view.MainFrame;
 import fr.cdiEnterprise.view.MessagingMainPanel;
 import fr.cdiEnterprise.view.MessagingNewPanel;
-import fr.cdiEnterprise.view.UserPanel;
+
 import fr.cdiEnterprise.view.MessagingReadPanel;
 import fr.cdiEnterprise.view.SpecialTableItemModel;
 
@@ -53,12 +45,12 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	private static MessagingMainPanel panelMain;
 	private MessagingNewPanel panelNew;
 	private MessagingReadPanel panelRead;
-	private JPanel panel;
+//	private JPanel panel;
 	private static final int MESSAGE_MAX_SIZE = 850;
 	// Attribute to create-update a user
-	private User user;
-	private String alias;
-	private String email;
+//	private User user;
+//	private String alias;
+//	private String email;
 	private int nbCaracters;
 	private static Item currentItem;
 	private static MpClient cli;
@@ -75,7 +67,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		
 		if (panelUser instanceof MessagingMainPanel) {
 
-			this.panelMain = (MessagingMainPanel) panelUser;
+			MessageListener.panelMain = (MessagingMainPanel) panelUser;
 		}
 		if (panelUser instanceof MessagingNewPanel) {
 			panelNew = (MessagingNewPanel) panelUser;
@@ -138,7 +130,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 			System.out.println("switch to panel : main message");
 			MainFrame.SwithPanel(panelMain);
-
+		
 		}else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnRet())) {
 			System.out.println("switch to panel : main message");
 			MainFrame.SwithPanel(panelMain);
@@ -168,13 +160,13 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -182,7 +174,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		JTable table = (JTable) me.getSource();
 		Point p = me.getPoint();
 		int row = table.rowAtPoint(p);
-		SpecialTableItemModel spemod = panelMain.getTiModel();
+		SpecialTableItemModel<?> spemod = panelMain.getTiModel();
 		//System.out.println("click..." + row );
 		//System.out.println(spemod.getRowCount() -1);
 	/*	if (me.getClickCount() == 1) {
@@ -224,25 +216,25 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -255,7 +247,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	}
 
 	public void setItem(Item item) {
-		this.currentItem = item;
+		MessageListener.currentItem = item;
 	}
 
 }

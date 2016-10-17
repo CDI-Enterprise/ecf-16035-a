@@ -88,7 +88,10 @@ public class MessagingNewPanel extends JPanel {
 		cboReceiver.setMaximumRowCount(3);
 		//txtReceiver = new JTextField();
 		txtObject = new JTextField(20);
+		
 		txtMessage = new JTextArea(10, 50);
+		txtMessage.setLineWrap(true);
+		txtMessage.setWrapStyleWord(true);
 	
 		
 		if(usersList != null) {

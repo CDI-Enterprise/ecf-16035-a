@@ -115,6 +115,10 @@ public class MessagingReadPanel extends JPanel {
 		//cboReceiver.setMaximumRowCount(3);
 		//txtReceiver = new JTextField();
 		//txtObject = new JTextField(20);
+		txtMessage = new JTextArea(10,50);
+		txtMessage.setText(itm.getBody());
+		txtMessage.setLineWrap(true);
+		txtMessage.setWrapStyleWord(true);
 		
 	
 		
@@ -139,7 +143,9 @@ public class MessagingReadPanel extends JPanel {
 		panCenter.add(object, "wrap");
 		//panCenter.add(lblObject, "wrap");*/
 		
-		panCenter.add(Message, "wrap");
+		panCenter.add(txtMessage, "wrap");
+		
+		
 		
 		//panCenter.add(lblMessage, "w 200!");
 		//panCenter.add(txtMessage, "wrap");

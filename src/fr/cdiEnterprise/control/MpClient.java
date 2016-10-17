@@ -2,7 +2,7 @@ package fr.cdiEnterprise.control;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+
 
 import fr.cdiEnterprise.dao.Server;
 import fr.cdiEnterprise.model.Item;
@@ -35,13 +35,13 @@ public class MpClient {
 	private Server server;
 	private String box;
 	private Items myMessages;
-	private Items myDraft;
+	//private Items myDraft;
 	
 	public MpClient(Server s, String usr) {
 		box = usr;
 		this.server = s;
 		this.myMessages = new Items();
-		this.myDraft = new  Items();
+	//	this.myDraft = new  Items();
 
 	}
 	
