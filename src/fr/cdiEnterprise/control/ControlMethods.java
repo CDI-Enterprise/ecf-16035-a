@@ -60,6 +60,10 @@ public class ControlMethods {
 		}
 	}
 	
+//	public static String nullJTextField(String field){
+		//TODO méthode pour controler si un textfield est null @Anaïs
+//	}
+	
 	
 	
 }
