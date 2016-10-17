@@ -92,6 +92,13 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			MainFrame.SwithPanel(panelNew);
 
 		}
+		else if  (e.getSource() == panelMain.getBtnDraft()) {
+			// TODO (nicolas) implementer la consultations des messages brouillon
+			// nouveau panel.
+			
+			System.out.println("switch to panel : brouillon message");
+
+		}
 		else if  (e.getSource() == panelMain.getBtnDisplay()) {
 
 			System.out.println("switch to panel : new message");
@@ -105,9 +112,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			String receiver = (String) panelNew.getCboReceiver()
 					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
 
-			// TODO (nicolas) interroger BDD pour mettre a jour 
-			// la liste des emails
-			
+
 			
 			/*
 			 * System.out.println("envoie to " + receiver); System.out.println(
@@ -129,6 +134,12 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 				MainFrame.SwithPanel(panelMain);
 			}
 
+		}
+		
+		else if ((panelNew != null) && (e.getSource() == panelNew.getBtnDraft())) {
+			// TODO (nicolas) implementer l'envoie du message vers le repertoire brouillon
+			// et revenir vers les messages brouillons
+			
 		}
 
 		//RETURN FROM THE NEW MESSAGE PANEL
