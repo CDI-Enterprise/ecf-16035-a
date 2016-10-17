@@ -114,7 +114,8 @@ public class MessagingReadPanel extends JPanel {
 		//cboReceiver.setEditable(true);
 		//cboReceiver.setMaximumRowCount(3);
 		//txtReceiver = new JTextField();
-		//txtObject = new JTextField(20);
+		txtObject = new JTextField(20);
+		txtObject.setText(itm.getObject());
 		txtMessage = new JTextArea(10,50);
 		txtMessage.setText(itm.getBody());
 		txtMessage.setLineWrap(true);
@@ -140,7 +141,7 @@ public class MessagingReadPanel extends JPanel {
 		
 		panCenter.add(receiver, "wrap");
 		//panCenter.add(lblReceiver, "wrap");
-		panCenter.add(object, "wrap");
+		panCenter.add(txtObject, "wrap");
 		//panCenter.add(lblObject, "wrap");*/
 		
 		panCenter.add(txtMessage, "wrap");

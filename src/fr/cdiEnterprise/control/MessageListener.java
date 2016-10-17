@@ -129,8 +129,27 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			// panelNew = new MessagingNewPanel();
 
 			System.out.println("switch to panel : main message");
+
 			MainFrame.SwithPanel(panelMain);
-		
+			
+		// CAS POSSIBLES DE LA Fenetre de lecture.
+		}else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnRep())) {
+			
+			
+			currentItem = panelRead.getItm();
+			String send = currentItem.getSender();
+			String recv = currentItem.getReceiver();
+			currentItem.setSender(recv);
+			currentItem.setReceiver(send);
+			currentItem.setObject(panelRead.getTxtObject().getText());
+			currentItem.setBody(panelRead.getTxtMessage().getText());
+			
+			cli.sendEmail(currentItem, false);
+			System.out.println(currentItem.toString());
+			
+			System.out.println("switch to panel : main message");
+			panelMain.refresh();
+			MainFrame.SwithPanel(panelMain);
 		}else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnRet())) {
 			System.out.println("switch to panel : main message");
 			MainFrame.SwithPanel(panelMain);
@@ -170,6 +189,11 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 	}
 
+	/**
+	 * Cette Method va trouvé l'objet Item selectionné dans la table et
+	 * mettre l'Item dans la proriété de l'objet de la class Messagelistener.
+	 * il sera ensuite plus facile a manipuler.
+	 */
 	public void mousePressed(MouseEvent me) {
 		JTable table = (JTable) me.getSource();
 		Point p = me.getPoint();
@@ -198,14 +222,8 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 				System.out.println("hors de la partie");
 			} else {
 				currentItem = spemod.getUserAt(row);
-				
-				
-				
 				panelRead = new MessagingReadPanel(currentItem);
-				
-				
 				System.out.println(currentItem.toString());
-				
 				MainFrame.SwithPanel(panelRead);
 			}
 		}
