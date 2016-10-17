@@ -9,6 +9,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -94,7 +95,7 @@ public class CompanyCreationPanel extends JPanel {
 	private PanelCreateComListener clic;
 	protected static DefaultListModel<Company> dlmCompanies;
 	private JList<Company> lstCompanies;
-
+	private ArrayList<JTextField> allJTextFields;
 
 	private Component BookMarkPanel;
 	
@@ -239,12 +240,26 @@ public class CompanyCreationPanel extends JPanel {
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		companies.setPreferredSize(new Dimension(300, 50));
 		
+		
+		/*Footer*/
 		btnCreate = new JButton("Enregistrer");
 		btnCancel = new JButton("Annuler");
 		btnFavoris = new JButton("Ajouter aux favoris");
 		
-//		dateEdit = new JDateChooser();
-//
+		/*Arraylist of JtextField to reset*/
+		allJTextFields = new ArrayList<JTextField>();
+		allJTextFields.add(txtCompanyName);
+		allJTextFields.add(txtCompanyAdress);
+		allJTextFields.add(txtPostalCode);
+		allJTextFields.add(txtCompanyCity);
+		allJTextFields.add(txtSector);
+		allJTextFields.add(txtWebSite);
+		allJTextFields.add(txtContactName);
+		allJTextFields.add(txtContactPhone);
+		allJTextFields.add(txtContactMail);
+		
+
+		/*Attach Component to panel*/
 		panWest.add(panCompany, "wrap 20");
 		panCompany.add(lblCompanyName);
 		panCompany.add(txtCompanyName, "wrap 20");
@@ -673,6 +688,20 @@ public class CompanyCreationPanel extends JPanel {
 
 	public ButtonGroup getSizeGrp() {
 			return sizeGrp;
+	}
+
+	/**
+	 * @return the allJTextFields
+	 */
+	public ArrayList<JTextField> getAllJTextFields() {
+		return allJTextFields;
+	}
+
+	/**
+	 * @param allJTextFields the allJTextFields to set
+	 */
+	public void setAllJTextFields(ArrayList<JTextField> allJTextFields) {
+		this.allJTextFields = allJTextFields;
 	}	
 	
 	}
