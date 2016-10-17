@@ -135,7 +135,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		// CAS POSSIBLES DE LA Fenetre de lecture.
 		}else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnRep())) {
 			
-			
+			cli.display(false);
 			currentItem = panelRead.getItm();
 			String send = currentItem.getSender();
 			String recv = currentItem.getReceiver();
@@ -143,12 +143,13 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			currentItem.setReceiver(send);
 			currentItem.setObject(panelRead.getTxtObject().getText());
 			currentItem.setBody(panelRead.getTxtMessage().getText());
-			
+			cli.display(false);
 			cli.sendEmail(currentItem, false);
 			System.out.println(currentItem.toString());
 			
 			System.out.println("switch to panel : main message");
 			panelMain.refresh();
+			cli.display(false);
 			MainFrame.SwithPanel(panelMain);
 		}else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnRet())) {
 			System.out.println("switch to panel : main message");

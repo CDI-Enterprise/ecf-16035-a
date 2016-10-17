@@ -56,6 +56,7 @@ public class SpecialTableItemModel<Item> extends AbstractTableModel {
         switch (columnIndex) {
             case 0:
                 value = user.getSender();
+                
                 break;
             case 1:
                 value = user.getObject();

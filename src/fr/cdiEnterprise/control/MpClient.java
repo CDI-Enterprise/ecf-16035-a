@@ -96,15 +96,15 @@ public class MpClient {
 			return true;
 		}else {
 			if(item.getObject() != null && item.getBody() != null) {
-				item.setObject("re: "+ item.getObject());
-				item.setTimeStamp(timeStamp);
+				itm.setObject("re: "+ item.getObject());
+				itm.setTimeStamp(timeStamp);
 				String snd = item.getSender();
 				String rcv = item.getReceiver();
-				item.setReceiver(snd);
-				item.setSender(rcv);
+				itm.setReceiver(snd);
+				itm.setSender(rcv);
 				
 				
-				server.post(item);
+				server.post(itm);
 				return true;
 			}else {
 				return false;
