@@ -2,14 +2,10 @@ package fr.cdiEnterprise.control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Enumeration;
-
-import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Contact;
@@ -42,8 +38,11 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 	private String contactName;
 	private String contactPhone;
 	private String contactMail;
-	private ButtonGroup sizeGrp;
-	private Enumeration<AbstractButton> enumOpt;
+
+	
+	// Attributes do define the selected status
+		ButtonGroup btnGrp;
+		JRadioButton btnSelected;	
 	
 	// Attribute to create a company
 	Company company;
@@ -59,18 +58,16 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 		companyCity = panCompCreat.getTxtCompanyCity().getText();
 		companyPostalCode = panCompCreat.getTxtPostalCode().getText();
 		nomDepartment = panCompCreat.getCboCompanyDepartment().getSelectedItem().toString();
-//		companyDepartment = Datas.getDepartment(nomDepartment);
+		companyDepartment = Datas.getDepartment(nomDepartment);
 		nomRegion = panCompCreat.getCboCompanyRegion().getSelectedItem().toString();
-//		companyRegion = Datas.getRegion(nomRegion);
+		companyRegion = Datas.getRegion(nomRegion);
 		
-		sizeGrp = panCompCreat.getSizeGrp();
-		enumOpt = sizeGrp.getElements();
-		while (enumOpt.hasMoreElements()) {
-			JRadioButton optListener = (JRadioButton) enumOpt.nextElement();
-			if (optListener.isSelected()) {
-				companySize = optListener.getText();
-			}
-		}
+		// Calls the status selection method
+		btnGrp = panCompCreat.getSizeGrp();
+		btnSelected = ControlMethods.getSelectedJRadioButton(btnGrp);
+		companySize = btnSelected.getText();		
+		
+		//TODO créer excepion nullPointerException Anaïs
 		
 		companySector = panCompCreat.getTxtSector().getText();
 		
@@ -101,6 +98,7 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 			Datas.getCompaniesList().add(company);
 			System.out.println(Datas.getCompaniesList());
 			CompanyCreationPanel.getDlmCompanies().addElement(company);
+			ControlMethods.resetJTextField(panCompCreat.getAllJTextFields());
 		}
 		
 		if (e.getSource() == panCompCreat.getBtnCancel()){

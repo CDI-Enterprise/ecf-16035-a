@@ -3,7 +3,7 @@
  */
 package fr.cdiEnterprise.dao;
 import fr.cdiEnterprise.control.MpClient;
-import fr.cdiEnterprise.model.Company;
+//import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Department;
 import fr.cdiEnterprise.model.Favorite;
 import fr.cdiEnterprise.model.FormerTrainee;
@@ -156,4 +156,11 @@ public class Datas {
 		Datas.favoritesList = favoritesList;
 	}
 
+	public static Department getDepartment(String nomDepartment) {
+		return departmentsList.getDepartment(nomDepartment);
+	}
+	
+	public static Region getRegion(String nomRegion) {
+		return regionsList.getRegion(nomRegion);
+	}
 }

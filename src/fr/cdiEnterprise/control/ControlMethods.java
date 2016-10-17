@@ -54,7 +54,7 @@ public class ControlMethods {
 		  if (c instanceof JTextField) {
 			  
 		      JTextField textfield = (JTextField) c;
-		      textfield.setText("");
+		      textfield.setText(null);
 		      textfield.setEnabled(true);
 		    }
 		}
