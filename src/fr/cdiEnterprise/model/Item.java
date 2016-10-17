@@ -47,6 +47,22 @@ public class Item {
 		this.body = body;
 		this.timeStamp = timeStamp;
 	}
+	
+	/**
+	 * Contructeur de copy
+	 * @param itm
+	 */
+	public Item(Item itm) {
+	    this.id = itm.id;
+	    this.sender = itm.sender;
+	    this.receiver= itm.receiver;
+	    this.object = itm.object;
+	    this.body = itm.body;
+	    this.timeStamp = itm.timeStamp;
+	    this.draftEmail = itm.draftEmail;// you can access  
+	  }
+	
+
 
 	public String getSender() {
 		return sender;

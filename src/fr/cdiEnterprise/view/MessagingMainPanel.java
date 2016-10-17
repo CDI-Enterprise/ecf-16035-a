@@ -25,7 +25,7 @@ import fr.cdiEnterprise.control.MessageListener;
 
 import fr.cdiEnterprise.control.MpClient;
 import fr.cdiEnterprise.dao.Datas;
-
+import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.service.Clients;
 import fr.cdiEnterprise.service.Items;
 import fr.cdiEnterprise.util.ReadProperties;
@@ -56,7 +56,7 @@ public class MessagingMainPanel extends JPanel {
 	private JTable table;
 	//private String[][] tableauMsg;
 	private String[][] tableauMsg;
-	private Items userItems;
+	private Items copyUserItems;
 	
 
 	
@@ -96,10 +96,10 @@ public class MessagingMainPanel extends JPanel {
 		panMess.add(panCenter,BorderLayout.CENTER);
 		panMess.add(panWest, BorderLayout.WEST);
 		
-		//JLabel lblTitle = new JLabel("- Messagerie -");
+
 		JLabel lblMess = new JLabel("Nombre de Message(s) :");
 		
-		tiModel = new SpecialTableItemModel(userItems);
+		tiModel = new SpecialTableItemModel(copyUserItems);
 		
 		tableModele =  new DefaultTableModel(tableauMsg, new String[] {
 				"Sender", "Objet", "Date Reception"
@@ -174,28 +174,34 @@ public class MessagingMainPanel extends JPanel {
 	}
 
 	/**
+	 * This method is going to fill up the table model with the listing copy coming from the database.
+	 * it will fill up the model table and set up the table
 	 * @param allItems
 	 * @return
 	 */
 	private void fillModel() {
-		// obteniur toutes les boites de messageries
-		Clients allClients = Datas.getClientBox();
+
 		
-		// retourne la boite messagerie de notre utilisateur.
-		MpClient cli = allClients.getClient(ReadProperties.getMyAlias());
-		if(cli == null) {
-			System.out.println("cli est null");
-		}
-		// TODO (nicolas)factoriser cette partie.
-		// rapatrier tous les messages.
-		
-		allItems = cli.getMessages(false);
-		
-		
-		if(allItems.isEmpty()) {
+		int index = 0;
+		if(copyUserItems.isEmpty()) {
+			
 			System.out.println("--- il n'y a pas de message ---");
-			tableauMsg = new String[allItems.size()][3];
-			tableauMsg = allClients.getMsgTableFormat(ReadProperties.getMyAlias(), false);
+			tableauMsg = new String[copyUserItems.size()][3];
+			for(Item current : copyUserItems) {
+				
+				tableauMsg[index][0] = current.getSender();
+				tableauMsg[index][1] = current.getObject();
+				tableauMsg[index][2] = current.getTimeStamp().toString();
+				System.out.println(tableauMsg[index][0]);
+				System.out.println(tableauMsg[index][2]);
+				
+
+				index++;
+			}
+			
+			
+			
+				
 			if(tableauMsg == null) {
 				System.out.println("tableauMsg est null" + tableauMsg.length);
 			}else {
@@ -209,11 +215,23 @@ public class MessagingMainPanel extends JPanel {
 			
 			
 		}else {
-			userItems = allItems;
-			tiModel.setUsers(userItems);
-			tableauMsg = new String[allItems.size()][3];
+			
+			tiModel.setUsers(copyUserItems);
+			tableauMsg = new String[copyUserItems.size()][3];
 			// recupere tous les messages d'un utilisateur de l'app.
-			tableauMsg = allClients.getMsgTableFormat(ReadProperties.getMyAlias(), false);
+			
+			for(Item current : copyUserItems) {
+				
+				tableauMsg[index][0] = current.getSender();
+				tableauMsg[index][1] = current.getObject();
+				tableauMsg[index][2] = current.getTimeStamp().toString();
+				System.out.println(tableauMsg[index][0]);
+				System.out.println(tableauMsg[index][2]);
+				
+
+				index++;
+			}
+			
 			tableModele =  new DefaultTableModel(tableauMsg, new String[] {
 					"Sender", "Objet", "Date Reception"
 				});
@@ -222,16 +240,7 @@ public class MessagingMainPanel extends JPanel {
 		}
 		System.out.println("tableModele est "+tableModele.getRowCount()+ "table " + table);
 		table.setModel(tableModele);
-		//
-		
-			
-		
 
-		//
-		
-		
-
-		
 	}
 
 	/**
@@ -262,12 +271,17 @@ public class MessagingMainPanel extends JPanel {
 	public void refresh() {
 		fillModel();
 		
-		// TODO Auto-generated method stub
+
 		
 	}
 
-	public Items getUserItems() {
-		return userItems;
+
+	public Items getCopyUserItems() {
+		return copyUserItems;
+	}
+
+	public void setCopyUserItems(Items copyUserItems) {
+		this.copyUserItems = copyUserItems;
 	}
 
 

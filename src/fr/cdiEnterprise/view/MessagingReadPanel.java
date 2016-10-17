@@ -174,7 +174,7 @@ public class MessagingReadPanel extends JPanel {
 
 
 	public MessagingReadPanel() {
-		// TODO Auto-generated constructor stub
+	
 	}
 
 
