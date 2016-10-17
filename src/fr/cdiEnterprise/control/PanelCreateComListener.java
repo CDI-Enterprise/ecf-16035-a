@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
+import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import fr.cdiEnterprise.dao.Datas;
@@ -53,9 +54,15 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		companyName = panCompCreat.getTxtCompanyName().getText();
+		if(panCompCreat.getTxtCompanyName().getText()==null){
+//			panCompCreat.getTxtCompanyName().setBorder(new Border());
+		}
+		else {
+			companyName = panCompCreat.getTxtCompanyName().getText();	
+		}
 		companyAdress = panCompCreat.getTxtCompanyAdress().getText();
-		companyCity = panCompCreat.getTxtCompanyCity().getText();
+		
+		companyCity = panCompCreat.getTxtCompanyCity().getText().toUpperCase();
 		companyPostalCode = panCompCreat.getTxtPostalCode().getText();
 		nomDepartment = panCompCreat.getCboCompanyDepartment().getSelectedItem().toString();
 		companyDepartment = Datas.getDepartment(nomDepartment);
