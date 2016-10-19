@@ -7,6 +7,11 @@ import fr.cdiEnterprise.dao.Database;
 import fr.cdiEnterprise.dao.messageDao;
 import fr.cdiEnterprise.model.Item;
 
+/**
+ * test creation base et insert d'une donnee.
+ * @author nicolas Tarral
+ *
+ */
 public class TestDB {
 
 	public static void main(String[] args) throws SQLException {
