@@ -117,12 +117,7 @@ public class RechercheAvanceePanel extends JPanel{
 			
 
 			model = (DefaultTableModel) tableResultats.getModel();
-			// Positionement de la fenêtre
-//			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//			this.setTitle("RECHERCHE AVANCEE");
-//			setBounds(0, 0, 800, 400);	
 
-			
 			this.setBorder(new LineBorder(Color.BLUE));
 			this.setLayout(new BorderLayout(5, 5));
 
@@ -149,7 +144,7 @@ public class RechercheAvanceePanel extends JPanel{
 			// FIN TABLEAU (fonctionne)
 
 			tableResultats=new JTable(new ModelTable());
-			tableResultats.setPreferredScrollableViewportSize(new Dimension(780, 110));
+			tableResultats.setPreferredScrollableViewportSize(new Dimension(780, 250));
 			scrollTable=new JScrollPane(tableResultats);
 			panelNorth.add(scrollTable);
 			

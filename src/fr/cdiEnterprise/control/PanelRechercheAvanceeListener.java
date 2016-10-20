@@ -14,7 +14,7 @@ public class PanelRechercheAvanceeListener implements ActionListener{
 	private String mcVille;
 	private String mcRegion;
 	private RechercheAvanceePanel panelRecherche;
-	private String rqtSqlRecherche;
+//	private String rqtSqlRecherche;
 	
 /**
  * 
@@ -61,7 +61,7 @@ public class PanelRechercheAvanceeListener implements ActionListener{
 				mcRegion = panelRecherche.getTxtRegion().getText();
 			}
 			System.out.println(mcRaisonSociale + "," + mcDomaine + "," + mcVille + "," + mcRegion );
-			rqtSqlRecherche= " select * from ficheEntreprise";
+			
 		}
 		//panelRecherche.clear();
 	}
