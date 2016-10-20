@@ -71,7 +71,9 @@ public class messageDao {
 		System.out.println(createStatement);
 		
 		statement.executeUpdate(createStatement);
-		statement.executeUpdate("commit");
+		
+		connection.commit();
+
 		
 		} catch (SQLException e) {
 			System.out.println("SQL Error In the insertMessage...");
@@ -145,6 +147,7 @@ public class messageDao {
 	//		        		WHERE sender = 'claire';
 			System.out.println(createStatement);
 			resultSet = statement.executeQuery(createStatement);
+			connection.commit();
 			
 			while(resultSet.next()) {
 				
