@@ -6,13 +6,13 @@ package fr.cdiEnterprise.control;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import fr.cdiEnterprise.view.Menu;
 import fr.cdiEnterprise.view.MainFrame;
+import fr.cdiEnterprise.view.Menu;
 
 /**
  * Listeners for menu of the main frame
  * @version 07-10-2016
- * @author Claire, Anais, Nicolas, Ismael
+ * @author Claire, Anais, Nicolas, Ismael, Olivier
  */
 
 // TODO is this the best listener for a JMenuBar?
@@ -66,6 +66,14 @@ public class MainMenuListener implements ActionListener {
 		{
 			MainFrame.getMainPan().removeAll();
 			MainFrame.getMainPan().add(MainFrame.getPanelBookMark());
+			MainFrame.getMainPan().validate();
+			MainFrame.getMainPan().repaint();
+		}
+		
+		if(e.getSource() == menu.getSubSearchRechercher())
+		{
+			MainFrame.getMainPan().removeAll();
+			MainFrame.getMainPan().add(MainFrame.getPanelRecherche());
 			MainFrame.getMainPan().validate();
 			MainFrame.getMainPan().repaint();
 		}
