@@ -35,15 +35,15 @@ public class messageDao {
 	
 	// TODO inserItem - public static boolean post(Item item) {
 	
-	public static void insertItem(Item item) throws SQLException {
+	public static void insertItem(Item item) throws SQLException  {
 		
 		
 		Connection connection = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
-		
-		connection = Database.getConnect();
 		try {
+		connection = Database.getConnect();
+		
 			statement = connection.createStatement();
 
 		
@@ -64,16 +64,17 @@ public class messageDao {
 		draft = booleanToInt(item.isDraftEmail());
 		
 		String createStatement = String
-		        .format("insert into %s (%s  , %s ,%s , %s ,%s, %s , %s ) values ( " + "'" + ident + "' , '" + sender + " ' , ' " + receiver + "',  '" + object + "', ' " + body + "', ' " + date + "',  '" + draft + "' )", 	
+		        .format("insert into %s (%s  , %s ,%s , %s ,%s, %s , %s ) values ( " + "'" + ident + "' , '" + sender + "' , '" + receiver + "',  '" + object + "', '" + body + "', '" + date + "',  '" + draft + "' )", 	
 		                TABLE_NAME, //
 		                "identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft");
 
 		System.out.println(createStatement);
 		
 		statement.executeUpdate(createStatement);
+		statement.executeUpdate("commit");
 		
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("SQL Error In the insertMessage...");
 			e.printStackTrace();
 		} finally {
 			if(resultSet != null ) {
@@ -106,11 +107,76 @@ public class messageDao {
 	// TODO insertDraft - public static boolean postDraft(Item item)
 
 
-	// TODO getMessages - public static Items getAllItems(String rcv, boolean draft) {
-	
+	// TODO getMessages - public static Items getAllItems(String box, boolean draft) {
+	/**
+	 * This method is going to return the email for a particular user mailbox or a draft Mailbox.
+	 * box will indicate the mailbox whether draft is false , or draft message if that is true
+	 * @param rcv
+	 * @param draft
+	 * @return
+	 * @throws SQLException
+	 */
+	public static Items getAllItems(String box, boolean draft) throws SQLException {
+		
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		Items items = new Items();
+		
+		connection = Database.getConnect();
+		statement = connection.createStatement();
+			
+			String ident = null;
+			String sender = null;
+			String receiver =null;
+			String object = null;
+			String body = null;
+			String date = null;
+			int draftMess = 0;
+			
+			
+			
+			String createStatement = String
+			        .format("select %s, %s  , %s ,%s , %s ,%s, %s from %s WHERE %s = '%s'", 	
+		                 //
+		                "identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft", TABLE_NAME,"RECEIVER", box);
+			
+//			        		select identity, sender, receiver, subject, messBody, timeStamp, draft from mailbox
+	//		        		WHERE sender = 'claire';
+			System.out.println(createStatement);
+			resultSet = statement.executeQuery(createStatement);
+			
+			while(resultSet.next()) {
+				
+				
+				ident = resultSet.getString("identity");
+				sender = resultSet.getString("sender");
+				receiver = resultSet.getString("receiver");
+				object = resultSet.getString("subject");
+				body = resultSet.getString("messBody");
+				date = resultSet.getString("timeStamp");
+				draftMess = resultSet.getInt("draft");
+				
+				
+				Item item = new Item(ident, sender, receiver, object, body, StringToLocalDate(date), intToBoolean(draftMess));
+				items.add(item);
+				
+				
+			}
+			return items;
+			
+	}
+		
+//	}
 	
 	// TODO deleteMessage - public static boolean removeMessage(String usr, String identifier, boolean draft) {
 
+	 //public static boolean removeMessage(String usr, String identifier, boolean draft) {
+		 
+		 
+		 
+		 
+	 //}
 
 	// TODO popMessage - public static Item popMessage(String usr, String identifier, boolean draft) {
 	
@@ -126,11 +192,21 @@ public class messageDao {
 	 */
 	public static String localDateToString(LocalDateTime input) {
 		
-		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:MM:SS");
+		System.out.println(input.toString());
+		
+		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM uuuu HH:mm:ss");
 		  String text = input.format(formatter);
 		  
 		  return text;
 
+	}
+	
+	public static LocalDateTime StringToLocalDate( String input ) {
+		
+		System.out.println("before transform "+input);
+		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM uuuu HH:mm:ss");
+		  LocalDateTime localTime = LocalDateTime.parse(input, formatter);
+		  return localTime;
 	}
 	
 	/**
@@ -144,6 +220,15 @@ public class messageDao {
 		int output = 0;
 		if(input == true) {
 			output = 1;
+		}
+		return output;
+		
+	}
+	
+	public static boolean intToBoolean(int input) {
+		boolean output = false;
+		if(input == 1) {
+			output = true;
 		}
 		return output;
 		

@@ -1,10 +1,12 @@
 package fr.cdiEnterprise.control;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
 import fr.cdiEnterprise.dao.Server;
+import fr.cdiEnterprise.dao.messageDao;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.service.Items;
 
@@ -24,10 +26,10 @@ import fr.cdiEnterprise.service.Items;
  * As soon as the message is send out to the final user, the timestamp is setup, the draft boolean will be put on false.
  * 
  * @author Nicolas Tarral
- * @version 01-10-2016
+ * @version 20-10-2016
  *
  */
-public class MpClient {
+public class MpClientV2 {
 	
 	private static int ID_NUMBER = 0;
 	  
@@ -37,7 +39,7 @@ public class MpClient {
 	private Items myMessages;
 	//private Items myDraft;
 	
-	public MpClient(Server s, String usr) {
+	public MpClientV2(Server s, String usr) {
 		box = usr;
 		this.server = s;
 		this.myMessages = new Items();
@@ -53,8 +55,9 @@ public class MpClient {
 	 * @param obj this is to provide the email's object
 	 * @param bdy the body of the message.
 	 * @return this will return true if the message was correctly sent out
+	 * @throws SQLException 
 	 */
-	public boolean newEmail(String from, String to, String obj, String bdy ) {
+	public void newEmail(String from, String to, String obj, String bdy ) throws SQLException  {
 		
 		String idNumber = null;
 		
@@ -64,14 +67,11 @@ public class MpClient {
 		Item itm = new Item(from, to, obj, bdy, timeStamp);
 		System.out.println("Taille du Message : "+bdy.length());
 		itm.setId(idNumber);
-		if(server.post(itm)) {
+
+		messageDao.insertItem(itm);
+
 			
-			return true;
-		}
-		// TODO function to generate new thread
 		
-		
-		return false;
 	}
 	
 	/**
@@ -173,11 +173,12 @@ public class MpClient {
 	 * will depends on the boolean status
 	 * @param draft true will indicate to return the draft email
 	 * @return an arrayList of items
+	 * @throws SQLException 
 	 */
-	public Items getMessages(boolean draft) {
+	public Items getMessages(boolean draft) throws SQLException {
 
 		
-		myMessages = server.getAllItems(this.box, draft);
+		myMessages = messageDao.getAllItems(this.box, draft);
 		//System.out.println("numbers of email : " +myMessages.size());
 		
 		
