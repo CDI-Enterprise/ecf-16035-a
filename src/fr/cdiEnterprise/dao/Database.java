@@ -10,8 +10,8 @@ public class Database {
 	
 	
 	final String strNomDriver = "oracle.jdbc.driver.OracleDriver";
-	// static final String dbURL ="jdbc:oracle:thin:stag14/stag14pw@localhost:1521:xe"; // a asuga local a la masion
-	static final String dbURL ="jdbc:oracle:thin:stag14/stag14pw@junon:1521:afpa";
+	 static final String dbURL ="jdbc:oracle:thin:stag14/stag14pw@localhost:1521:xe"; // a asuga local a la masion
+	//static final String dbURL ="jdbc:oracle:thin:stag14/stag14pw@junon:1521:afpa";
 
 	//static Connection conn = null;
 	

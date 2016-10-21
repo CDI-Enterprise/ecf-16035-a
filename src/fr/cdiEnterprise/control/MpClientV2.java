@@ -71,7 +71,7 @@ public class MpClientV2 {
 		itm.setId(idNumber);
 
 		messageDao.insertItem(itm);
-
+		System.out.println("Message devrait etre insere");
 			
 		
 	}

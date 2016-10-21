@@ -137,49 +137,40 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		// PANEL NOUVEAU MESSAGE
 		else if ((panelNew != null) && (e.getSource() == panelNew.getBtnEnv())) {
 
-			// panelNew = new MessagingNewPanel();
-			// System.out.println("envoie from " + panelNew.getFrom());
-			String receiver = (String) panelNew.getCboReceiver()
-					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
-
-			/*
-			 * System.out.println("envoie to " + receiver); System.out.println(
-			 * "envoie objet " + panelNew.getTxtObject().getText());
-			 * System.out.println("envoie message " +
-			 * panelNew.getTxtMessage().getText());
-			 */
-			if (panelNew.getTxtObject().getText().isEmpty()) {
-				customDialog("le champ Objet doit etre remplie.");
-			} else {
-				//Clients clients = Datas.getClientBox();
-				//MpClient cli = clients.getClient(ReadProperties.getMyAlias());
-				//cli.newEmail(cli.getBox(), receiver, panelNew.getTxtObject().getText(),// old implementation.
-				//		panelNew.getTxtMessage().getText());
-				System.out.println(alias);
-				System.out.println(panelNew.getTxtObject().getText()+" - "+
-						panelNew.getTxtMessage().getText());
-				
-				client.newEmail(alias,receiver, panelNew.getTxtObject().getText(),
-						panelNew.getTxtMessage().getText());
-				
-				System.out.println("Message send out...");
-				
-				
-				// TODO (Nicolas) : need to handle well this exception, maybe in the class client ?
-
-					try {
-						MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-
-				
-				// MessageListener.panelMain.setCopyUserItems(cli.getMessages(false)); // old implementation.
-				panelMain.refresh();
-				System.out.println("switch to panel : main message");
-				MainFrame.SwithPanel(panelMain);
-			}
+			System.out.println("Click sur message envoie");
+//			String receiver = (String) panelNew.getCboReceiver()
+//					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
+//
+//			if (panelNew.getTxtObject().getText().isEmpty()) {
+//				customDialog("le champ Objet doit etre remplie.");
+//			} else {
+//
+//				System.out.println("Envoie d'un message depuis cette utilisateur"+alias);
+//				System.out.println(panelNew.getTxtObject().getText()+" - "+
+//						panelNew.getTxtMessage().getText());
+//				
+//				client.newEmail(alias,receiver, panelNew.getTxtObject().getText(),
+//						panelNew.getTxtMessage().getText());
+//				
+//				System.out.println("Message send out...");
+//				
+//				
+//				// TODO (Nicolas) : need to handle well this exception, maybe in the class client ?
+//
+//					try {
+//						MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
+//						
+//					} catch (Exception e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
+//
+//				
+//				// MessageListener.panelMain.setCopyUserItems(cli.getMessages(false)); // old implementation.
+//				panelMain.refresh();
+//				System.out.println("switch to panel : main message");
+//				MainFrame.SwithPanel(panelMain);
+//			}
 
 		}
 		
