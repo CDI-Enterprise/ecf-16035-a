@@ -4,7 +4,7 @@ import fr.cdiEnterprise.service.Languages;
 
 /**
  * Cette classe représente une fiche entreprise qui sera renseignée par un
- * utilisateur.
+ * utilisateur. 
  * 
  * @author Anaïs
  * @version 07-10-2016
