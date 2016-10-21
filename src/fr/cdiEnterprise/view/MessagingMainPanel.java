@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 
@@ -76,8 +77,9 @@ public class MessagingMainPanel extends JPanel {
 	
 	/**
 	 * Default constructor 
+	 * @throws SQLException 
 	 */
-	public MessagingMainPanel() {
+	public MessagingMainPanel()  {
 		
 		//listModele = new DefaultListModel<>();
 		MessageListener listener = new MessageListener(this);

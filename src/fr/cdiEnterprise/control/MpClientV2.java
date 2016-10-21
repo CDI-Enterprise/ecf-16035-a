@@ -31,6 +31,8 @@ import fr.cdiEnterprise.service.Items;
  */
 public class MpClientV2 {
 	
+	
+	
 	private static int ID_NUMBER = 0;
 	  
 
@@ -57,7 +59,7 @@ public class MpClientV2 {
 	 * @return this will return true if the message was correctly sent out
 	 * @throws SQLException 
 	 */
-	public void newEmail(String from, String to, String obj, String bdy ) throws SQLException  {
+	public void newEmail(String from, String to, String obj, String bdy )   {
 		
 		String idNumber = null;
 		
@@ -175,7 +177,7 @@ public class MpClientV2 {
 	 * @return an arrayList of items
 	 * @throws SQLException 
 	 */
-	public Items getMessages(boolean draft) throws SQLException {
+	public Items getMessages(boolean draft)  {
 
 		
 		myMessages = messageDao.getAllItems(this.box, draft);
@@ -247,9 +249,9 @@ public class MpClientV2 {
 //		}
 //	}
 //
-//	public String getBox() {
-//		return box;
-//	}
+	public  String getBox() {
+		return box;
+	}
 //	
 //	
 }

@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.sql.SQLException;
 import java.util.Map.Entry;
 
 /**
@@ -48,8 +49,9 @@ public class MainFrame extends JFrame {
 	 * With a personalized icon for system menu and main title
 	 * With a main menu @see fr.cdiEnterprise.view.Menu
 	 * It opens where the OS windows usually do
+	 * @throws SQLException 
 	 */
-	public MainFrame() {
+	public MainFrame()  {
 
 		// Algorithm from stackoverflow.com, set the font by default
 		for (Entry<Object, Object> entry : javax.swing.UIManager.getDefaults().entrySet()) {

@@ -6,6 +6,7 @@ package fr.cdiEnterprise.service;
 import java.util.ArrayList;
 
 import fr.cdiEnterprise.control.MpClient;
+import fr.cdiEnterprise.control.MpClientV2;
 import fr.cdiEnterprise.model.Item;
 
 /**
@@ -33,6 +34,10 @@ public class Clients extends ArrayList<MpClient> {
 		}
 		return theClient;
 	}
+
+	
+
+	
 	
 	/**
 	 * This method is going to provide an Array of all the message for a particular user.

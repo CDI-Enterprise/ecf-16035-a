@@ -35,58 +35,58 @@ public class messageDao {
 	
 	// TODO inserItem - public static boolean post(Item item) {
 	
-	public static void insertItem(Item item) throws SQLException  {
+	public static void insertItem(Item item)   {
 		
 		
 		Connection connection = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
 		try {
-		connection = Database.getConnect();
-		
+			connection = Database.getConnect();
+			
 			statement = connection.createStatement();
-
-		
-		String ident = null;
-		String sender = null;
-		String receiver =null;
-		String object = null;
-		String body = null;
-		String date = null;
-		int draft = 0; // 0 for draft
-		
-		ident = item.getId();
-		sender = item.getSender();
-		receiver = item.getReceiver();
-		object = item.getObject();
-		body = item.getBody();
-		date = localDateToString(item.getTimeStamp());
-		draft = booleanToInt(item.isDraftEmail());
-		
-		String createStatement = String
-		        .format("insert into %s (%s  , %s ,%s , %s ,%s, %s , %s ) values ( " + "'" + ident + "' , '" + sender + "' , '" + receiver + "',  '" + object + "', '" + body + "', '" + date + "',  '" + draft + "' )", 	
-		                TABLE_NAME, //
-		                "identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft");
-
-		System.out.println(createStatement);
-		
-		statement.executeUpdate(createStatement);
-		
-		connection.commit();
+	
+			
+			String ident = null;
+			String sender = null;
+			String receiver =null;
+			String object = null;
+			String body = null;
+			String date = null;
+			int draft = 0; // 0 for draft
+			
+			ident = item.getId();
+			sender = item.getSender();
+			receiver = item.getReceiver();
+			object = item.getObject();
+			body = item.getBody();
+			date = localDateToString(item.getTimeStamp());
+			draft = booleanToInt(item.isDraftEmail());
+			
+			String createStatement = String
+			        .format("insert into %s (%s  , %s ,%s , %s ,%s, %s , %s ) values ( " + "'" + ident + "' , '" + sender + "' , '" + receiver + "',  '" + object + "', '" + body + "', '" + date + "',  '" + draft + "' )", 	
+			                TABLE_NAME, //
+			                "identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft");
+	
+			System.out.println(createStatement);
+			
+			statement.executeUpdate(createStatement);
+			
+			connection.commit();
 
 		
 		} catch (SQLException e) {
 			System.out.println("SQL Error In the insertMessage...");
 			e.printStackTrace();
 		} finally {
-			if(resultSet != null ) {
-				resultSet.close();
-			}
-			if(statement != null ) {
+			try {
 				statement.close();
-			}
-			if(connection != null) {
 				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			}
 			
 			
@@ -102,7 +102,7 @@ public class messageDao {
 //
 //		return false;
 		
-	}
+	
 
 	
 
@@ -118,7 +118,7 @@ public class messageDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static Items getAllItems(String box, boolean draft) throws SQLException {
+	public static Items getAllItems(String box, boolean draft)  {
 		
 		Connection connection = null;
 		Statement statement = null;
@@ -126,7 +126,12 @@ public class messageDao {
 		Items items = new Items();
 		
 		connection = Database.getConnect();
-		statement = connection.createStatement();
+		try {
+			statement = connection.createStatement();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 			
 			String ident = null;
 			String sender = null;
@@ -146,26 +151,33 @@ public class messageDao {
 //			        		select identity, sender, receiver, subject, messBody, timeStamp, draft from mailbox
 	//		        		WHERE sender = 'claire';
 			System.out.println(createStatement);
-			resultSet = statement.executeQuery(createStatement);
-			connection.commit();
-			
-			while(resultSet.next()) {
+			try {
+				resultSet = statement.executeQuery(createStatement);
+				connection.commit();
 				
-				
-				ident = resultSet.getString("identity");
-				sender = resultSet.getString("sender");
-				receiver = resultSet.getString("receiver");
-				object = resultSet.getString("subject");
-				body = resultSet.getString("messBody");
-				date = resultSet.getString("timeStamp");
-				draftMess = resultSet.getInt("draft");
-				
-				
-				Item item = new Item(ident, sender, receiver, object, body, StringToLocalDate(date), intToBoolean(draftMess));
-				items.add(item);
-				
-				
+				while(resultSet.next()) {
+					
+					
+					ident = resultSet.getString("identity");
+					sender = resultSet.getString("sender");
+					receiver = resultSet.getString("receiver");
+					object = resultSet.getString("subject");
+					body = resultSet.getString("messBody");
+					date = resultSet.getString("timeStamp");
+					draftMess = resultSet.getInt("draft");
+					
+					
+					Item item = new Item(ident, sender, receiver, object, body, StringToLocalDate(date), intToBoolean(draftMess));
+					items.add(item);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+
+				
+				
+			
 			return items;
 			
 	}

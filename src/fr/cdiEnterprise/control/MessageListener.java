@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -17,10 +18,11 @@ import javax.swing.JTable;
 
 
 import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.dao.Server;
 import fr.cdiEnterprise.model.Item;
 
 import fr.cdiEnterprise.service.Clients;
-
+import fr.cdiEnterprise.service.ClientsV2;
 import fr.cdiEnterprise.util.ReadProperties;
 import fr.cdiEnterprise.view.MainFrame;
 import fr.cdiEnterprise.view.MessagingDraftPanel;
@@ -51,19 +53,28 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	private static final int MESSAGE_MAX_SIZE = 850;
 	// Attribute to create-update a user
 //	private User user;
-//	private String alias;
+	private String alias;
 	
 	private int nbCaracters;
 	private static Item currentItem;
+	
 	private static MpClient cli;
-	private Clients clients;
+	private static MpClientV2 client;
+	//private Clients clients;
+	private ClientsV2 clientsV2;
 	
 	/**
 	 * Constructs a listener taking a panel for attribute
+	 * @throws SQLException 
 	 */
-	public MessageListener(JPanel panelUser) {
-		clients = Datas.getClientBox();
-		cli = clients.getClient(ReadProperties.getMyAlias());
+	public MessageListener(JPanel panelUser)  {
+		
+		this.alias = ReadProperties.getMyAlias();
+		this.client = new MpClientV2(alias );
+		//clients = Datas.getClientBox(); // old implementation.
+			
+				//cli = clients.getClient(ReadProperties.getMyAlias());// commented line to avoid calling old implementation.
+		//client = clientsV2.getClient(ReadProperties.getMyAlias());
 		
 
 		
@@ -71,7 +82,15 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		if (panelUser instanceof MessagingMainPanel) {
 
 			MessageListener.panelMain = (MessagingMainPanel) panelUser;
-			MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));
+			//MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));//old implementation
+	
+				try {
+					MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			
 		}
 		if (panelUser instanceof MessagingDraftPanel) {
@@ -133,10 +152,29 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			} else {
 				//Clients clients = Datas.getClientBox();
 				//MpClient cli = clients.getClient(ReadProperties.getMyAlias());
-				cli.newEmail(cli.getBox(), receiver, panelNew.getTxtObject().getText(),
+				//cli.newEmail(cli.getBox(), receiver, panelNew.getTxtObject().getText(),// old implementation.
+				//		panelNew.getTxtMessage().getText());
+				System.out.println(alias);
+				System.out.println(panelNew.getTxtObject().getText()+" - "+
 						panelNew.getTxtMessage().getText());
+				
+				client.newEmail(alias,receiver, panelNew.getTxtObject().getText(),
+						panelNew.getTxtMessage().getText());
+				
 				System.out.println("Message send out...");
-				MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));
+				
+				
+				// TODO (Nicolas) : need to handle well this exception, maybe in the class client ?
+
+					try {
+						MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+				
+				// MessageListener.panelMain.setCopyUserItems(cli.getMessages(false)); // old implementation.
 				panelMain.refresh();
 				System.out.println("switch to panel : main message");
 				MainFrame.SwithPanel(panelMain);
@@ -231,9 +269,15 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	public void keyTyped(KeyEvent e) {
 
 		int nb = 0;
-		System.out.println("lettre tapée : " + e.getKeyChar());
-		nb++;
-		nbCaracters += nb;
+		if(e.getKeyChar() == '\b' || e.VK_DELETE == e.getKeyChar()) {
+			System.out.println("lettre tapée : " + e.getKeyChar());
+			
+		}else {
+			System.out.println("lettre tapée : " + e.getKeyChar());
+			nb++;
+			nbCaracters += nb;
+		}
+
 
 		panelNew.getLblCounter().setText((MESSAGE_MAX_SIZE - nbCaracters) + "");
 	}

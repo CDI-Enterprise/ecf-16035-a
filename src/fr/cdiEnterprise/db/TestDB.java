@@ -17,7 +17,7 @@ import fr.cdiEnterprise.util.ReadProperties;
  */
 public class TestDB {
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args)  {
 
 		Database Oracle = new Database();
 		Items items = new Items();
@@ -27,8 +27,14 @@ public class TestDB {
 		// used to be tested with messageDAO  Item message2 = new Item("omy", "oracle", "test2", "This is a test.", LocalDateTime.now());
 		//message2.setDraftEmail(false);
 		//messageDao.insertItem(message2);
-		client.newEmail("omy", "oracle", "test2", "This is a test.");
-		client.newEmail("claire", "oracle", "test3", "This is a test3.");
+		try {
+			client.newEmail("omy", "oracle", "test2", "This is a test.");
+			client.newEmail("claire", "oracle", "test3", "This is a test3.");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
 
 //		Item message3 = new Item("claire", "oracle", "test3", "This is a test3.", LocalDateTime.now());
@@ -38,14 +44,13 @@ public class TestDB {
 		
 		
 		System.out.println("--- TEST DE RECEPTION ---");
-		
-		//items = messageDao.getAllItems("oracle", false);
-		items =  client.getMessages(false);
-		for(Item current :items) {
-			System.out.println("email : "+current);
-		}
-		
-		System.out.println("---- FIN DE TEST ----");
+
+//		items =  client.getMessages(false);
+//		for(Item current :items) {
+//			System.out.println("email : "+current);
+//		}
+//		
+//		System.out.println("---- FIN DE TEST ----");
 		
 	}
 
