@@ -16,12 +16,20 @@ import fr.cdiEnterprise.service.Languages;
 import fr.cdiEnterprise.view.CompanyCreationPanel;
 import fr.cdiEnterprise.view.MainFrame;
 
+/**
+ *Listeners for panel "Company Creation"
+ *
+ * @version 21-10-2016
+ * @author Anaïs
+ * 
+ *
+ */
 public class PanelCreateComListener implements ActionListener, ListSelectionListener {
 
 	// Given attribute
 	private CompanyCreationPanel panCompCreat;
 
-	// Attribut
+	// Attributes 
 	private String companyName;
 	private String companyAdress;
 	private String companyCity;
@@ -42,8 +50,8 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 
 	
 	// Attributes do define the selected status
-		ButtonGroup btnGrp;
-		JRadioButton btnSelected;	
+	ButtonGroup btnGrp;
+	JRadioButton btnSelected;	
 	
 	// Attribute to create a company
 	Company company;
