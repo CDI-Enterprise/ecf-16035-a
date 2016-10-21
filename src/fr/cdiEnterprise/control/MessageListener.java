@@ -64,6 +64,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	public MessageListener(JPanel panelUser) {
 		clients = Datas.getClientBox();
 		cli = clients.getClient(ReadProperties.getMyAlias());
+		
 
 		
 		
@@ -103,7 +104,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			// nouveau panel.
 			panelDraft = new MessagingDraftPanel();
 			MessageListener.panelDraft.setCopyUserItems(cli.getMessages(true));
-			
+			panelDraft.refresh();
 			System.out.println("switch to panel : brouillon message");
 			MainFrame.SwithPanel(panelDraft);
 			
@@ -144,6 +145,23 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		}
 		
 		else if ((panelNew != null) && (e.getSource() == panelNew.getBtnDraft())) {
+			
+			String receiver = (String) panelNew.getCboReceiver()
+					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
+			
+			
+			if (panelNew.getTxtObject().getText().isEmpty()) {
+				customDialog("le champ Objet doit etre remplie.");
+			} else {
+					cli.draft(cli.getBox(), receiver, panelNew.getTxtObject().getText(),
+							panelNew.getTxtMessage().getText());
+					System.out.println("Message in Draft.");
+					panelDraft = new MessagingDraftPanel();
+					MessageListener.panelDraft.setCopyUserItems(cli.getMessages(true));
+					panelDraft.refresh();
+					System.out.println("switch to panel : main message");
+					MainFrame.SwithPanel(panelDraft);
+			}
 			// TODO (nicolas) implementer l'envoie du message vers le repertoire brouillon
 			// et revenir vers les messages brouillons
 			

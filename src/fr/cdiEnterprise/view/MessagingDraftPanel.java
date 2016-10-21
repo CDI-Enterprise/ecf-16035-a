@@ -232,7 +232,7 @@ public class MessagingDraftPanel extends JPanel {
 				
 				tableauMsg[index][0] = current.getSender();
 				tableauMsg[index][1] = current.getObject();
-				tableauMsg[index][2] = current.getTimeStamp().toString();
+			//	tableauMsg[index][2] = current.getTimeStamp().toString();
 				System.out.println(tableauMsg[index][0]);
 				System.out.println(tableauMsg[index][2]);
 				
