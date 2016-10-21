@@ -53,7 +53,7 @@ public class MessagingDraftPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private Border border;
 	private Border	borderTitle;
-	private JButton btnNew;
+	private JButton btnDel;
 	private JButton btnRet;
 	private JButton btnDisplay;
 	
@@ -131,19 +131,19 @@ public class MessagingDraftPanel extends JPanel {
 		
 		
 		
-		//btnNew = new JButton("Nouveau");
+		btnDel = new JButton("Supprimer");
 		btnRet = new JButton("Retour");
 		btnDisplay = new JButton("Refersh");
 		
 		
-		//btnNew.setMnemonic(KeyEvent.VK_N);
-		btnRet.setMnemonic(KeyEvent.VK_S);
+		btnDel.setMnemonic(KeyEvent.VK_S);
+		btnRet.setMnemonic(KeyEvent.VK_R);
 		btnDisplay.setMnemonic(KeyEvent.VK_D);
 		
 		panNorth.setLayout(new FlowLayout());
 		panWest.setLayout(new MigLayout());
 		
-		//panWest.add(btnNew, "wrap");
+		panWest.add(btnDel, "wrap");
 		panWest.add(btnRet, "wrap");
 		panWest.add(btnDisplay, "wrap");
 		
@@ -264,8 +264,8 @@ public class MessagingDraftPanel extends JPanel {
 		System.out.println("--- fin ---");
 	}
 
-	public JButton getBtnNew() {
-		return btnNew;
+	public JButton getBtnDel() {
+		return btnDel;
 	}
 
 	public JButton getBtnRet() {
