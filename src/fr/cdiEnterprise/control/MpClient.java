@@ -84,27 +84,27 @@ public class MpClient {
 
 		LocalDateTime timeStamp = LocalDateTime.now();
 	
-		Item itm = new Item(item.getSender(), item.getReceiver(), item.getObject(), item.getBody(),  timeStamp);
+		Item repliedItem = new Item(item.getSender(), item.getReceiver(), item.getObject(), item.getBody(),  timeStamp);
 		
-		itm.setId(item.getId());
+		repliedItem.setId(item.getId());
 		if(draft) {
 			
-			itm.setDraftEmail(false);
-			System.out.println(itm.toString());
-			server.post(itm);
+			repliedItem.setDraftEmail(false);
+			System.out.println(repliedItem.toString());
+			server.post(repliedItem);
 			
 			return true;
 		}else {
 			if(item.getObject() != null && item.getBody() != null) {
-				itm.setObject("re: "+ item.getObject());
-				itm.setTimeStamp(timeStamp);
+				repliedItem.setObject("re: "+ item.getObject());
+				repliedItem.setTimeStamp(timeStamp);
 				String snd = item.getSender();
 				String rcv = item.getReceiver();
-				itm.setReceiver(snd);
-				itm.setSender(rcv);
+				repliedItem.setReceiver(snd);
+				repliedItem.setSender(rcv);
 				
 				
-				server.post(itm);
+				server.post(repliedItem);
 				return true;
 			}else {
 				return false;

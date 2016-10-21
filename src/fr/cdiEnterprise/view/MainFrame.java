@@ -35,6 +35,7 @@ public class MainFrame extends JFrame {
 	private static JScrollPane scrollCreateCompany;
 	private static JScrollPane scrollUpdateDeleteCompany;
 	private static CompanyDeletUpdatPanel panelUpdateDeleteCompany;
+	private static RechercheAvanceePanel panelRecherche;
 	
 	private static JPanel panelMessaging;
 	
@@ -102,6 +103,10 @@ public class MainFrame extends JFrame {
 		panelUpdateDeleteCompany = new CompanyDeletUpdatPanel();
 		scrollUpdateDeleteCompany = new JScrollPane(panelUpdateDeleteCompany);
 		
+		// Panel Search
+		panelRecherche = new RechercheAvanceePanel();
+		
+		
 		panelMessaging = new MessagingMainPanel();
 		
 		//Panel for BookMark
@@ -144,6 +149,13 @@ public class MainFrame extends JFrame {
 	public static JScrollPane getScrollCreateCompany() {
 		return scrollCreateCompany;
 
+	}
+
+	/**
+	 * @return the panelRecherche
+	 */
+	public static RechercheAvanceePanel getPanelRecherche() {
+		return panelRecherche;
 	}
 
 	/**This method will provide the main BookMark Panel
