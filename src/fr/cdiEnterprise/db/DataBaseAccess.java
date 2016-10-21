@@ -178,17 +178,18 @@ public class DataBaseAccess {
 
 
 
+//public static int getIdAuteurMax() throws SQLException {
 
-
-
-
-
-
-
-
-
-
-
-
+//	conn = DataBase.getConnection();
+//	stmt = conn.createStatement();
+//
+//	ResultSet rsMax = stmt.executeQuery("select max (refauteur) from auteurs");
+//	int idMax = 0;
+//
+//	while (rsMax.next())
+//		idMax = rsMax.getInt(1);
+//
+//	return idMax;
+//}
 
 }
