@@ -88,7 +88,7 @@ public class Menu extends JMenuBar {
 
 		// MESSAGING
 		menuMessaging = new JMenu("Messagerie");
-		subMessageDisplay = new JMenuItem("Affichage");
+		subMessageDisplay = new JMenuItem("Gerer les Messages");
 		menuMessaging.add(subMessageDisplay);
 		subMessageDisplay.setMnemonic(KeyEvent.VK_M);
 		subMessageDisplay.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.CTRL_MASK));

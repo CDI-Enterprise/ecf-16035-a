@@ -4,6 +4,7 @@
 package fr.cdiEnterprise.view;
 
 import java.awt.BorderLayout;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -74,6 +75,10 @@ public class MessagingNewPanel extends JPanel {
 		btnEnv = new JButton("Envoyé");
 		btnDraft = new JButton("Brouillon");
 		btnReturn = new JButton("Retour");
+		
+		btnEnv.setMnemonic(KeyEvent.VK_E);
+		btnDraft.setMnemonic(KeyEvent.VK_B);
+		btnReturn.setMnemonic(KeyEvent.VK_R);
 		
 		receiver = new JLabel("Destinataire");
 		lblobject = new JLabel("Objet");

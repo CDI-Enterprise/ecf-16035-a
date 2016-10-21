@@ -4,9 +4,12 @@
 package fr.cdiEnterprise.view;
 
 import java.awt.BorderLayout;
-
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
-
+import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
 
@@ -16,10 +19,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import fr.cdiEnterprise.control.MessageListener;
 
@@ -42,6 +47,10 @@ import net.miginfocom.swing.MigLayout;
 public class MessagingMainPanel extends JPanel {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Border border;
 	private Border	borderTitle;
 	private JButton btnNew;
@@ -78,8 +87,17 @@ public class MessagingMainPanel extends JPanel {
 		border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		
 		table = new JTable(tiModel);
+		table.setFillsViewportHeight(true);
+		table.setEnabled(true);
+		table.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 16));
+		table.setPreferredScrollableViewportSize(new Dimension(780, 110));
+		
+		//table.setPreferredScrollableViewportSize(table.getPreferredSize());
+		DefaultTableCellRenderer stringRenderer = (DefaultTableCellRenderer)table.getDefaultRenderer(String.class);
+		stringRenderer.setHorizontalAlignment( SwingConstants.CENTER );
 		
 		
+		JScrollPane scroller = new JScrollPane(table);
 		fillModel();
 		
 
@@ -87,6 +105,7 @@ public class MessagingMainPanel extends JPanel {
 		
 		
 		JPanel panMess = new JPanel();
+		
 		JPanel panNorth = new JPanel();
 		JPanel panWest = new JPanel();
 		JPanel panCenter = new JPanel();
@@ -98,6 +117,11 @@ public class MessagingMainPanel extends JPanel {
 		
 
 		JLabel lblMess = new JLabel("Nombre de Message(s) :");
+		JLabel lblNombre = new JLabel(tableModele.getRowCount()+"");
+		JLabel lblTitre = new JLabel("Boite de Messagerie de :"+ReadProperties.getMyAlias());
+		
+		String header = String.format(FORMAT_LIST, HEADER_LIST);
+		JLabel headerLabel = new JLabel(header);
 		
 		tiModel = new SpecialTableItemModel(copyUserItems);
 		
@@ -105,28 +129,32 @@ public class MessagingMainPanel extends JPanel {
 				"Sender", "Objet", "Date Reception"
 			});
 		
-		JLabel lblNombre = new JLabel(tableModele.getRowCount()+"");
+		
 		
 		btnNew = new JButton("Nouveau");
 		btnDraft = new JButton("Brouillon");
 		btnDisplay = new JButton("Refersh");
 		
+		
+		btnNew.setMnemonic(KeyEvent.VK_N);
+		btnDraft.setMnemonic(KeyEvent.VK_S);
+		btnDisplay.setMnemonic(KeyEvent.VK_D);
+		
+		panNorth.setLayout(new FlowLayout());
 		panWest.setLayout(new MigLayout());
 		
 		panWest.add(btnNew, "wrap");
 		panWest.add(btnDraft, "wrap");
 		panWest.add(btnDisplay, "wrap");
 		
-		
-		String header = String.format(FORMAT_LIST, HEADER_LIST);
-		
-		JLabel headerLabel = new JLabel(header);
+		panNorth.add(lblTitre);
+
 		//JList<Item> list = new JList<Item>(listModele);
 		
 		scrollPane = new JScrollPane();
 		panCenter.setBorder(borderTitle);
 		
-		panCenter.add(scrollPane, BorderLayout.CENTER);	
+		panCenter.add(scroller, BorderLayout.CENTER);	
 		//panMess.add(scrollPane, BorderLayout.CENTER);
 		
 		
@@ -135,32 +163,15 @@ public class MessagingMainPanel extends JPanel {
 		//table.setModel(tableModele);
 		//table.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		
-		table.setFillsViewportHeight(true);
-		
-		table.setEnabled(true);
-		
-		table.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 16));
+
 		//table.setAutoCreateRowSorter(true);
 		//table.setColumnSelectionAllowed(false);
 		//table.setModel(tableModele);
-		scrollPane.setViewportView(table);
-		
-		//panNorth.add(lblTitle);
 		
 		
+		//scrollPane.setViewportView(table);
 		
-		
-		// used to be for the Jlist
-		/*panCenter.setLayout(new MigLayout());
-		
-//		panCenter.add(btnNew, "w 200!");
-//		panCenter.add(btnDraft, "w 200!");
-//		panCenter.add(btnDisplay, "wrap");
-		panCenter.add(lblMess, "w 200!");
-		panCenter.add(lblNombre, "wrap");
-		
-		panCenter.add(headerLabel, "wrap");
-		panCenter.add(list, "wrap");*/
+
 		
 		table.addMouseListener(listener);
 		//table.getSelectionModel().addListSelectionListener(listener);
@@ -172,6 +183,7 @@ public class MessagingMainPanel extends JPanel {
 	public SpecialTableItemModel getTiModel() {
 		return tiModel;
 	}
+	
 
 	/**
 	 * This method is going to fill up the table model with the listing copy coming from the database.
@@ -283,6 +295,9 @@ public class MessagingMainPanel extends JPanel {
 	public void setCopyUserItems(Items copyUserItems) {
 		this.copyUserItems = copyUserItems;
 	}
+
+
+
 
 
 
