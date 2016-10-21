@@ -6,13 +6,15 @@ package fr.cdiEnterprise.view;
 import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 
 import fr.cdiEnterprise.control.MessageListener;
 import fr.cdiEnterprise.dao.Datas;
@@ -35,6 +37,8 @@ public class MessagingNewPanel extends JPanel {
 	private JButton btnEnv;
 	private JButton btnDraft;
 	private JButton btnReturn;
+	private Border border;
+	private Border borderMessage;
 	
 	private String from;
 	private JLabel receiver;
@@ -57,6 +61,8 @@ public class MessagingNewPanel extends JPanel {
 		
 		MessageListener listener = new MessageListener((JPanel) this);
 		
+		borderMessage = BorderFactory.createTitledBorder(" Nouveau Message ");
+		border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		usersList = Datas.getUsersList();
 		from = ReadProperties.getMyAlias();
 		
@@ -97,6 +103,7 @@ public class MessagingNewPanel extends JPanel {
 		txtMessage = new JTextArea(10, 50);
 		txtMessage.setLineWrap(true);
 		txtMessage.setWrapStyleWord(true);
+		txtMessage.setBorder(border);
 	
 		
 		if(usersList != null) {
@@ -113,7 +120,7 @@ public class MessagingNewPanel extends JPanel {
 		
 		panNorth.add(lblTitle);
 		panCenter.setLayout(new MigLayout());
-		
+		panCenter.setBorder(borderMessage);
 		
 		panCenter.add(receiver, "w 200!");
 		panCenter.add(cboReceiver, "wrap");

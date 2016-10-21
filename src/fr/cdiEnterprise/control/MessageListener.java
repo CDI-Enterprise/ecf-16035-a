@@ -23,6 +23,7 @@ import fr.cdiEnterprise.service.Clients;
 
 import fr.cdiEnterprise.util.ReadProperties;
 import fr.cdiEnterprise.view.MainFrame;
+import fr.cdiEnterprise.view.MessagingDraftPanel;
 import fr.cdiEnterprise.view.MessagingMainPanel;
 import fr.cdiEnterprise.view.MessagingNewPanel;
 
@@ -43,6 +44,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 	// Given attribute
 	private static MessagingMainPanel panelMain;
+	private static MessagingDraftPanel panelDraft;
 	private MessagingNewPanel panelNew;
 	private MessagingReadPanel panelRead;
 //	private JPanel panel;
@@ -71,6 +73,9 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));
 			
 		}
+		if (panelUser instanceof MessagingDraftPanel) {
+			panelDraft = (MessagingDraftPanel) panelUser;
+		}		
 		if (panelUser instanceof MessagingNewPanel) {
 			panelNew = (MessagingNewPanel) panelUser;
 		}
@@ -93,18 +98,22 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 		}
 		else if  (e.getSource() == panelMain.getBtnDraft()) {
+			
 			// TODO (nicolas) implementer la consultations des messages brouillon
 			// nouveau panel.
+			panelDraft = new MessagingDraftPanel();
+			MessageListener.panelDraft.setCopyUserItems(cli.getMessages(true));
 			
 			System.out.println("switch to panel : brouillon message");
-
+			MainFrame.SwithPanel(panelDraft);
+			
 		}
 		else if  (e.getSource() == panelMain.getBtnDisplay()) {
 
 			System.out.println("switch to panel : new message");
 
 		}
-		// ENVOIE MESSAGE
+		// PANEL NOUVEAU MESSAGE
 		else if ((panelNew != null) && (e.getSource() == panelNew.getBtnEnv())) {
 
 			// panelNew = new MessagingNewPanel();
@@ -112,8 +121,6 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			String receiver = (String) panelNew.getCboReceiver()
 					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
 
-
-			
 			/*
 			 * System.out.println("envoie to " + receiver); System.out.println(
 			 * "envoie objet " + panelNew.getTxtObject().getText());
@@ -151,14 +158,11 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 			MainFrame.SwithPanel(panelMain);
 			
-		// CAS POSSIBLES DE LA Fenetre de lecture.
+		// PANEL LECTURE D'UN MESSAGE - CAS POSSIBLES DE LA Fenetre de lecture.
 		}else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnRep())) {
-			
 			System.out.print("appuie sur reply...");
-			
 			cli.display(false);
 			currentItem = panelRead.getItm();
-			
 			currentItem.setObject(panelRead.getTxtObject().getText());
 			currentItem.setBody(panelRead.getTxtMessage().getText());
 			
@@ -176,14 +180,30 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			System.out.println("switch to panel : main message");
 			MainFrame.SwithPanel(panelMain);
 		} else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnDel())) {
-			
 			cli.removeMessage(currentItem.getId(), false);
 			System.out.println("switch to panel : main message");
 			cli.numberOfMessages(false);
 			MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));
 			panelMain.refresh();
 			MainFrame.SwithPanel(panelMain);
-		} else {
+		
+		// LISTE DES BROUILLONS
+		} else if ((panelDraft != null) && (e.getSource() == panelDraft.getBtnDisplay())) {
+			
+			
+		}
+
+		
+		else if ((panelDraft != null) && ( e.getSource() == panelDraft.getBtnRet())) {
+
+			// panelNew = new MessagingNewPanel();
+			MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));
+			System.out.println("switch to panel : main message");
+
+			MainFrame.SwithPanel(panelMain);
+		
+		}
+		else {
 			System.out.println("nothing correspond to that event...");
 		}
 
