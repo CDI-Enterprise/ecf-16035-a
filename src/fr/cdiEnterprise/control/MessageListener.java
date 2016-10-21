@@ -82,6 +82,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		if (panelUser instanceof MessagingMainPanel) {
 
 			MessageListener.panelMain = (MessagingMainPanel) panelUser;
+			
 			//MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));//old implementation
 	
 				try {
@@ -208,8 +209,10 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		//RETURN FROM THE NEW MESSAGE PANEL
 		else if ((panelNew != null) && ( e.getSource() == panelNew.getBtnReturn())) {
 
-			// panelNew = new MessagingNewPanel();
-			MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));
+		
+			//MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));
+			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
+			System.out.println("taille mess "+client.getMessages(false).size());
 			System.out.println("switch to panel : main message");
 
 			MainFrame.SwithPanel(panelMain);
