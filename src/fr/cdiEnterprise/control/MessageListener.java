@@ -282,19 +282,14 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 					if (panelMod.getTxtObject().getText().isEmpty()) {
 						customDialog("le champ Objet doit etre remplie.");
 					} else {
-						
-						
-						
+
 						Item draftToSend = new Item(alias,receiver, panelMod.getTxtObject().getText(),
 								panelMod.getTxtMessage().getText(), null);
-						
-
-						
-						
 						// TODO (Nicolas) : need to handle well this exception, maybe in the class client ?
 
+							client.sendEmail(draftToSend, true);
 							try {
-								MessageListener.panelDraft.setCopyUserItems(client.getMessages(true));
+								MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
 								
 								
 							} catch (Exception e1) {
@@ -327,6 +322,25 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 				}
 				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnSav())) {
 					System.out.println("appuis sur sauvegarder");
+					
+					String receiver = (String) panelMod.getCboReceiver()
+							.getItemAt(panelMod.getCboReceiver().getSelectedIndex());
+
+					Item draftToSend = new Item(alias,receiver, panelMod.getTxtObject().getText(),
+								panelMod.getTxtMessage().getText(), null);
+					System.out.println(panelMod.getTxtMessage().getText());
+					
+					try {
+						client.editDraft(draftToSend);
+					} catch (SQLException e1) {
+						//TODO gerer cet exception
+						e1.printStackTrace();
+					}
+					
+					panelDraft.setCopyUserItems(client.getMessages(true));
+					panelDraft.refresh();
+					MainFrame.SwithPanel(panelDraft);
+					
 					// TODO (nicolas) implementer sauvegarde du brouillon.		
 					
 				}
