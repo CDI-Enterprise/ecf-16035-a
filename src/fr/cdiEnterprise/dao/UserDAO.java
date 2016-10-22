@@ -15,7 +15,10 @@ import fr.cdiEnterprise.model.User;
 import fr.cdiEnterprise.service.Users;
 
 /**
+ * Handle the request and result to and from database for models: User, Trainee, Trainer and FormerTrainee.
+ * 
  * @author Claire
+ * @version 22-10-2016
  *
  */
 public class UserDAO {
@@ -50,9 +53,13 @@ public class UserDAO {
 	
 	/**
 	 * Search an user by Id from database and displays it.
+	 * 
+	 * @author Claire
 	 * @param userId
 	 * @return user
 	 * @throws SQLException
+	 * @version 22-10-2016
+	 * 
 	 */
 	public User search(int userId) throws SQLException {
 		
@@ -108,9 +115,12 @@ public class UserDAO {
 	
 	/**
 	 * Search an user by status from database and displays it.
+	 * 
+	 * @author Claire
 	 * @param userStatus
 	 * @return user
-	 * @throws SQLException
+	 * @version 22-10-2016
+	 * 
 	 */
 	public Users search(String userStatus) throws SQLException {
 		
@@ -169,6 +179,8 @@ public class UserDAO {
 	
 	/**
 	 * Insert a new user in database.
+	 * 
+	 * @author Claire
 	 * @param id
 	 * @param inscriptionDate
 	 * @param status
@@ -177,6 +189,8 @@ public class UserDAO {
 	 * @param afpa
 	 * @return creationDone (test code)
 	 * @throws SQLException
+	 * @version 22-10-2016
+	 * 
 	 */
 	public String create(int id, String inscriptionDate,
 			String status, String alias, String mail, String afpa) throws SQLException {
@@ -216,10 +230,14 @@ public class UserDAO {
 	
 	/**
 	 * Read all users from database.
+	 * 
+	 * @author Claire
 	 * @return users
 	 * @throws SQLException
+	 * @version 22-10-2016
+	 * 
 	 */
-	public Users read() throws SQLException {
+	private Users read() throws SQLException {
 
 		users = new Users();
 
@@ -274,6 +292,8 @@ public class UserDAO {
 	
 	/**
 	 * Updates an user in database.
+	 * 
+	 * @author Claire
 	 * @param id
 	 * @param inscriptionDate
 	 * @param status
@@ -282,6 +302,8 @@ public class UserDAO {
 	 * @param afpa
 	 * @return updateDone (test code)
 	 * @throws SQLException
+	 * @version 22-10-2016
+	 * 
 	 */
 	public String update(int id, String inscriptionDate,
 			String status, String alias, String mail, String afpa) throws SQLException {
@@ -324,9 +346,13 @@ public class UserDAO {
 
 	/**
 	 * Deletes an user in database.
+	 * 
+	 * @author Claire
 	 * @param id
 	 * @return deleteDone (test code)
 	 * @throws SQLException
+	 * @version 22-10-2016
+	 * 
 	 */
 	public String delete(int id) throws SQLException {
 
@@ -360,9 +386,13 @@ public class UserDAO {
 
 	/**
 	 * Closes request and automatically result of request if there's one.
+	 * 
+	 * @author Claire
 	 * @param prepStatmt
 	 * @return a string (test code)
 	 * @throws SQLException
+	 * @version 22-10-2016
+	 * 
 	 */
 	private void closeRequest(PreparedStatement prepStatmt) throws SQLException {
 		if (prepStatmt != null) {
@@ -380,4 +410,19 @@ public class UserDAO {
 			// Fin test code
 		}	
 	}
+	
+	/**
+	 * Public method to initiate an SQL request, calling the UserDAO.read(); private method.
+	 * 
+	 * @author Claire
+	 * @return users
+	 * @throws SQLException
+	 * @version 22-10-2016
+	 * 
+	 */
+	public Users getUsersList() throws SQLException {
+		Users users = read();
+		return users;
+	}
+	
 }
