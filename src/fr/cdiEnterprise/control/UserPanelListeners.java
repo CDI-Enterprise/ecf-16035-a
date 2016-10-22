@@ -96,47 +96,47 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 		}
 
 		// User creation
-//		if (e.getSource() == panelUser.getCmdCreate()) {
-//
-////			try {
-////				
-////			}
-////			catch () {
-////				System.out.println("Vous devez remplir les champs obligatoires.");
-////			}
-//			
-//			// TODO Claire try catch if no status
-//			// Depending on status, instantiates a Trainee or FormerTrainee or Trainer with User reference
-//			switch (status) {
-//			case "Stagiaire" :  
-//				user = new Trainee(status, alias, email, afpa, trainer);
-//				System.out.println(user); // Test code
-//				System.out.println(OldDatas.getUsersList()); // Test code
-//				break;
-//
-//			case "Ancien" :
-//				user = new FormerTrainee(status, alias, email, afpa, trainer);
-//				System.out.println(user); // Test code
-//				System.out.println(OldDatas.getUsersList()); // Test code
-//				break;
-//
-//			case "Formateur" :
-//				user = new Trainer(status, alias, email, afpa);
-//				System.out.println(user); // Test code
-//				System.out.println(OldDatas.getUsersList()); // Test code
-//				break;
-//
-//			default:
-//				System.out.println("Aucun statut sélectionné.");
-//				break;
-//
+		if (e.getSource() == panelUser.getCmdCreate()) {
+
+//			try {
+//				
 //			}
-//
-//			OldDatas.getUsersList().add(user);
-//			panelUser.getMdlListUsers().addElement(user);
-//			System.out.println(OldDatas.getUsersList()); // Test code
-//
-//		}
+//			catch () {
+//				System.out.println("Vous devez remplir les champs obligatoires.");
+//			}
+			
+			// TODO Claire try catch if no status
+			// Depending on status, instantiates a Trainee or FormerTrainee or Trainer with User reference
+			switch (status) {
+			case "Stagiaire" :  
+				user = new Trainee(status, alias, email, afpa);
+				System.out.println(user); // Test code
+				System.out.println(OldDatas.getUsersList()); // Test code
+				break;
+
+			case "Ancien" :
+				user = new FormerTrainee(status, alias, email, afpa);
+				System.out.println(user); // Test code
+				System.out.println(OldDatas.getUsersList()); // Test code
+				break;
+
+			case "Formateur" :
+				user = new Trainer(status, alias, email, afpa);
+				System.out.println(user); // Test code
+				System.out.println(OldDatas.getUsersList()); // Test code
+				break;
+
+			default:
+				System.out.println("Aucun statut sélectionné.");
+				break;
+
+			}
+
+			OldDatas.getUsersList().add(user);
+			panelUser.getMdlListUsers().addElement(user);
+			System.out.println(OldDatas.getUsersList()); // Test code
+
+		}
 
 		// User modification
 		if (e.getSource() == panelUser.getCmdUpdate()) {

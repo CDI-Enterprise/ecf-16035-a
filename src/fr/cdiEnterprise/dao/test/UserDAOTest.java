@@ -11,6 +11,7 @@ import fr.cdiEnterprise.service.Users;
 
 /**
  * @author Claire
+ * @version 22-10-2016
  *
  */
 public class UserDAOTest {
