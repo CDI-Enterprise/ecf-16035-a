@@ -9,6 +9,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -40,7 +41,6 @@ public class CompanyCreationPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-
 	private Border border;
 	private JPanel panNorth;
 	private JPanel panWest;
@@ -59,10 +59,8 @@ public class CompanyCreationPanel extends JPanel {
 	private JTextField txtPostalCode;
 	private JLabel lblCompanyDepartment;
 	private JComboBox<String> cboCompanyDepartment;
-	private JLabel lblSelcDepartment;
 	private JLabel lblCompanyRegion;
 	private JComboBox<String> cboCompanyRegion;
-	private JLabel lblSelcRegion;
 	private JLabel lblSize;
 	private JRadioButton optMicroEnt;
 	private JRadioButton optPME;
@@ -94,7 +92,7 @@ public class CompanyCreationPanel extends JPanel {
 	private PanelCreateComListener clic;
 	protected static DefaultListModel<Company> dlmCompanies;
 	private JList<Company> lstCompanies;
-
+	private ArrayList<JTextField> allJTextFields;
 
 	private Component BookMarkPanel;
 	
@@ -136,16 +134,19 @@ public class CompanyCreationPanel extends JPanel {
 		panContact = new JPanel();	
 		panContact.setLayout(new MigLayout());
 		panContact.setBorder(BorderFactory.createTitledBorder("CONTACT ENTREPRISE"));
-	
+		
+		/*Company Name*/
 		lblCompanyName = new JLabel("Nom de l'entreprise *");
 		txtCompanyName = new JTextField();
 		txtCompanyName.setColumns(30);
 		txtCompanyName.setBorder(border);
 
+		/*Company Adress*/
 		lblCompanyAdress = new JLabel("Adresse (rue et numéro)");
 		txtCompanyAdress = new JTextField();
 		txtCompanyAdress.setColumns(30);
 
+		/*Company City*/
 		lblCompanyCity = new JLabel("Ville *");
 		txtCompanyCity = new JTextField();
 		txtCompanyCity.setColumns(30);
@@ -157,14 +158,11 @@ public class CompanyCreationPanel extends JPanel {
 		
 		lblCompanyDepartment = new JLabel("Departement *");
 		cboCompanyDepartment = new JComboBox<String>();
-		
-		for (Department department : Datas.getDepartmentsList()) {
+			for (Department department : Datas.getDepartmentsList()) {
 			cboCompanyDepartment.addItem(department.getDepartmentName());
-		}
+			}
 		cboCompanyDepartment.setEditable(true);
 		cboCompanyDepartment.setMaximumRowCount(5);
-		
-		lblSelcDepartment = new JLabel();
 
 		lblCompanyRegion = new JLabel("Région *");
 		cboCompanyRegion = new JComboBox<String>();
@@ -173,9 +171,7 @@ public class CompanyCreationPanel extends JPanel {
 		}
 		cboCompanyRegion.setEditable(true);
 		cboCompanyRegion.setMaximumRowCount(5);
-		
-		lblSelcRegion = new JLabel();
-		
+				
 		lblSize= new JLabel("Taille entreprise");
 		optMicroEnt = new JRadioButton("Microentreprise (<10)");
 		optPME = new JRadioButton("PME (<250)");
@@ -239,12 +235,26 @@ public class CompanyCreationPanel extends JPanel {
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		companies.setPreferredSize(new Dimension(300, 50));
 		
+		
+		/*Footer*/
 		btnCreate = new JButton("Enregistrer");
 		btnCancel = new JButton("Annuler");
 		btnFavoris = new JButton("Ajouter aux favoris");
 		
-//		dateEdit = new JDateChooser();
-//
+		/*Arraylist of JtextField to reset*/
+		allJTextFields = new ArrayList<JTextField>();
+		allJTextFields.add(txtCompanyName);
+		allJTextFields.add(txtCompanyAdress);
+		allJTextFields.add(txtPostalCode);
+		allJTextFields.add(txtCompanyCity);
+		allJTextFields.add(txtSector);
+		allJTextFields.add(txtWebSite);
+		allJTextFields.add(txtContactName);
+		allJTextFields.add(txtContactPhone);
+		allJTextFields.add(txtContactMail);
+		
+
+		/*Attach Component to panel*/
 		panWest.add(panCompany, "wrap 20");
 		panCompany.add(lblCompanyName);
 		panCompany.add(txtCompanyName, "wrap 20");
@@ -255,11 +265,9 @@ public class CompanyCreationPanel extends JPanel {
 		panCompany.add(lblPostalCode);
 		panCompany.add(txtPostalCode, "wrap 20");
 		panCompany.add(lblCompanyDepartment);
-		panCompany.add(cboCompanyDepartment);
-		panCompany.add(lblSelcDepartment, "wrap 20");
+		panCompany.add(cboCompanyDepartment, "wrap 20");
 		panCompany.add(lblCompanyRegion);
-		panCompany.add(cboCompanyRegion);
-		panCompany.add(lblSelcRegion, "wrap 20");
+		panCompany.add(cboCompanyRegion, "wrap 20");
 		panCompany.add(lblSize);
 		panCompany.add(optMicroEnt);
 		panCompany.add(optPME);
@@ -448,13 +456,6 @@ public class CompanyCreationPanel extends JPanel {
 	}
 
 	/**
-	 * @return the lblSelcDepartment
-	 */
-	public JLabel getLblSelcDepartment() {
-		return lblSelcDepartment;
-	}
-
-	/**
 	 * @return the lblCompanyRegion
 	 */
 	public JLabel getLblCompanyRegion() {
@@ -466,13 +467,6 @@ public class CompanyCreationPanel extends JPanel {
 	 */
 	public JComboBox<String> getCboCompanyRegion() {
 		return cboCompanyRegion;
-	}
-
-	/**
-	 * @return the lblSelcRegion
-	 */
-	public JLabel getLblSelcRegion() {
-		return lblSelcRegion;
 	}
 
 	/**
@@ -673,6 +667,20 @@ public class CompanyCreationPanel extends JPanel {
 
 	public ButtonGroup getSizeGrp() {
 			return sizeGrp;
+	}
+
+	/**
+	 * @return the allJTextFields
+	 */
+	public ArrayList<JTextField> getAllJTextFields() {
+		return allJTextFields;
+	}
+
+	/**
+	 * @param allJTextFields the allJTextFields to set
+	 */
+	public void setAllJTextFields(ArrayList<JTextField> allJTextFields) {
+		this.allJTextFields = allJTextFields;
 	}	
 	
 	}

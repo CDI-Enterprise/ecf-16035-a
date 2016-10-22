@@ -10,7 +10,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
-import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 
@@ -45,7 +44,7 @@ import net.miginfocom.swing.MigLayout;
  * @version 11-10-2016
  *
  */
-public class MessagingMainPanel extends JPanel {
+public class MessagingDraftPanel extends JPanel {
 	
 	
 	/**
@@ -54,8 +53,8 @@ public class MessagingMainPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private Border border;
 	private Border	borderTitle;
-	private JButton btnNew;
-	private JButton btnDraft;
+	private JButton btnDel;
+	private JButton btnRet;
 	private JButton btnDisplay;
 	
 	private String nombreMessage;
@@ -77,15 +76,14 @@ public class MessagingMainPanel extends JPanel {
 	
 	/**
 	 * Default constructor 
-	 * @throws SQLException 
 	 */
-	public MessagingMainPanel()  {
+	public MessagingDraftPanel() {
 		
 		//listModele = new DefaultListModel<>();
 		MessageListener listener = new MessageListener(this);
+		copyUserItems = new Items();
 		
-		
-		borderTitle = BorderFactory.createTitledBorder("Message");
+		borderTitle = BorderFactory.createTitledBorder("Brouillon");
 		border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		
 		table = new JTable(tiModel);
@@ -133,20 +131,20 @@ public class MessagingMainPanel extends JPanel {
 		
 		
 		
-		btnNew = new JButton("Nouveau");
-		btnDraft = new JButton("Brouillon");
+		btnDel = new JButton("Supprimer");
+		btnRet = new JButton("Retour");
 		btnDisplay = new JButton("Refersh");
 		
 		
-		btnNew.setMnemonic(KeyEvent.VK_N);
-		btnDraft.setMnemonic(KeyEvent.VK_S);
+		btnDel.setMnemonic(KeyEvent.VK_S);
+		btnRet.setMnemonic(KeyEvent.VK_R);
 		btnDisplay.setMnemonic(KeyEvent.VK_D);
 		
 		panNorth.setLayout(new FlowLayout());
 		panWest.setLayout(new MigLayout());
 		
-		panWest.add(btnNew, "wrap");
-		panWest.add(btnDraft, "wrap");
+		panWest.add(btnDel, "wrap");
+		panWest.add(btnRet, "wrap");
 		panWest.add(btnDisplay, "wrap");
 		
 		panNorth.add(lblTitre);
@@ -177,8 +175,8 @@ public class MessagingMainPanel extends JPanel {
 		
 		table.addMouseListener(listener);
 		//table.getSelectionModel().addListSelectionListener(listener);
-		btnNew.addActionListener(listener);
-		btnDraft.addActionListener(listener);
+		//btnNew.addActionListener(listener);
+		btnRet.addActionListener(listener);
 		btnDisplay.addActionListener(listener);
 	}
 
@@ -208,19 +206,15 @@ public class MessagingMainPanel extends JPanel {
 				tableauMsg[index][2] = current.getTimeStamp().toString();
 				System.out.println(tableauMsg[index][0]);
 				System.out.println(tableauMsg[index][2]);
-				
-
 				index++;
 			}
 			
-			
-			
-				
+	
 			if(tableauMsg == null) {
 				System.out.println("tableauMsg est null" + tableauMsg.length);
 			}else {
 				
-				System.out.println("tableauMsg nest pqs null" + tableauMsg.length);
+				System.out.println("tableauMsg nest pas null" + tableauMsg.length);
 				tableModele =  new DefaultTableModel(tableauMsg, new String[] {
 						"Sender", "Objet", "Date Reception"
 					});
@@ -238,7 +232,7 @@ public class MessagingMainPanel extends JPanel {
 				
 				tableauMsg[index][0] = current.getSender();
 				tableauMsg[index][1] = current.getObject();
-				tableauMsg[index][2] = current.getTimeStamp().toString();
+			//	tableauMsg[index][2] = current.getTimeStamp().toString();
 				System.out.println(tableauMsg[index][0]);
 				System.out.println(tableauMsg[index][2]);
 				
@@ -270,12 +264,12 @@ public class MessagingMainPanel extends JPanel {
 		System.out.println("--- fin ---");
 	}
 
-	public JButton getBtnNew() {
-		return btnNew;
+	public JButton getBtnDel() {
+		return btnDel;
 	}
 
-	public JButton getBtnDraft() {
-		return btnDraft;
+	public JButton getBtnRet() {
+		return btnRet;
 	}
 
 	public JButton getBtnDisplay() {

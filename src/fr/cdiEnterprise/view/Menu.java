@@ -14,7 +14,7 @@ import fr.cdiEnterprise.control.MainMenuListener;
 
 /**
  * Main menu for the CDI Enterprise program, visible on every frame.
- * @author Claire, Anais, Nicolas, Ismael
+ * @author Claire, Anais, Nicolas, Ismael, Olivier
  * @version 07-10-2016
  */
 
@@ -38,6 +38,10 @@ public class Menu extends JMenuBar {
 	private JMenuItem subCompanyCreate;
 	private JMenuItem subCompanyUpdateDelete;
 	private JMenuItem subCompanyRead;
+	
+	// menuSearch : sub item
+	private JMenuItem subSearchRechercher;
+	private JMenuItem subSearchDeleteRecherche;
 	
 	private JMenuItem subMessageDisplay;
 
@@ -79,6 +83,12 @@ public class Menu extends JMenuBar {
 		// SEARCH
 		menuSearch = new JMenu("Recherche");
 		this.add(menuSearch);
+		subSearchRechercher = new JMenuItem("Rechercher une fiche entreprise");
+		menuSearch.add(subSearchRechercher);
+		subSearchDeleteRecherche = new JMenuItem("Supprimer une recherche");
+		menuSearch.add(subSearchDeleteRecherche);
+
+		
 
 		// BOOKMARK
 		menuBookmark = new JMenu("Favoris");
@@ -88,7 +98,7 @@ public class Menu extends JMenuBar {
 
 		// MESSAGING
 		menuMessaging = new JMenu("Messagerie");
-		subMessageDisplay = new JMenuItem("Affichage");
+		subMessageDisplay = new JMenuItem("Gerer les Messages");
 		menuMessaging.add(subMessageDisplay);
 		subMessageDisplay.setMnemonic(KeyEvent.VK_M);
 		subMessageDisplay.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.CTRL_MASK));
@@ -97,6 +107,7 @@ public class Menu extends JMenuBar {
 		// HELP
 		menuHelp = new JMenu("Aide");
 		this.add(menuHelp);
+	
 
 		// Sub menu for Help
 		subHelpDoc = new JMenuItem("Documentation");
@@ -121,12 +132,13 @@ public class Menu extends JMenuBar {
 
 		subCompanyCreate.addActionListener(listener);
 		subCompanyUpdateDelete.addActionListener(listener);
-
+		
+		subSearchRechercher.addActionListener(listener);
+		subSearchDeleteRecherche.addActionListener(listener);
 		menuBookmark.addActionListener(listener);
 		subBookMarkRead.addActionListener(listener);
 
 	}
-
 
 	/**
 	 * @return the menuProfile
@@ -144,6 +156,20 @@ public class Menu extends JMenuBar {
 
 	public JMenuItem getSubCompanyUpdateDelete(){
 		return subCompanyUpdateDelete;
+	}
+	
+	/**
+	 * @return the subSearchRechercher
+	 */
+	public JMenuItem getSubSearchRechercher() {
+		return subSearchRechercher;
+	}
+	
+	/**
+	 * @return the subSearchDeleteRecherche
+	 */
+	public JMenuItem getSubSearchDeleteRecherche() {
+		return subSearchDeleteRecherche;
 	}
 
 	/**

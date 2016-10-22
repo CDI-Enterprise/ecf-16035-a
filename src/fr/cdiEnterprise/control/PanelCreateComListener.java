@@ -2,14 +2,11 @@ package fr.cdiEnterprise.control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Enumeration;
-
-import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
+import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Contact;
@@ -19,12 +16,20 @@ import fr.cdiEnterprise.service.Languages;
 import fr.cdiEnterprise.view.CompanyCreationPanel;
 import fr.cdiEnterprise.view.MainFrame;
 
+/**
+ *Listeners for panel "Company Creation"
+ *
+ * @version 21-10-2016
+ * @author Anaïs
+ * 
+ *
+ */
 public class PanelCreateComListener implements ActionListener, ListSelectionListener {
 
 	// Given attribute
 	private CompanyCreationPanel panCompCreat;
 
-	// Attribut
+	// Attributes 
 	private String companyName;
 	private String companyAdress;
 	private String companyCity;
@@ -42,8 +47,11 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 	private String contactName;
 	private String contactPhone;
 	private String contactMail;
-	private ButtonGroup sizeGrp;
-	private Enumeration<AbstractButton> enumOpt;
+
+	
+	// Attributes do define the selected status
+	ButtonGroup btnGrp;
+	JRadioButton btnSelected;	
 	
 	// Attribute to create a company
 	Company company;
@@ -54,23 +62,27 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		companyName = panCompCreat.getTxtCompanyName().getText();
+		if(panCompCreat.getTxtCompanyName().getText()==null){
+//			panCompCreat.getTxtCompanyName().setBorder(new Border());
+		}
+		else {
+			companyName = panCompCreat.getTxtCompanyName().getText();	
+		}
 		companyAdress = panCompCreat.getTxtCompanyAdress().getText();
-		companyCity = panCompCreat.getTxtCompanyCity().getText();
+		
+		companyCity = panCompCreat.getTxtCompanyCity().getText().toUpperCase();
 		companyPostalCode = panCompCreat.getTxtPostalCode().getText();
 		nomDepartment = panCompCreat.getCboCompanyDepartment().getSelectedItem().toString();
-//		companyDepartment = Datas.getDepartment(nomDepartment);
+		companyDepartment = Datas.getDepartment(nomDepartment);
 		nomRegion = panCompCreat.getCboCompanyRegion().getSelectedItem().toString();
-//		companyRegion = Datas.getRegion(nomRegion);
+		companyRegion = Datas.getRegion(nomRegion);
 		
-		sizeGrp = panCompCreat.getSizeGrp();
-		enumOpt = sizeGrp.getElements();
-		while (enumOpt.hasMoreElements()) {
-			JRadioButton optListener = (JRadioButton) enumOpt.nextElement();
-			if (optListener.isSelected()) {
-				companySize = optListener.getText();
-			}
-		}
+		// Calls the status selection method
+		btnGrp = panCompCreat.getSizeGrp();
+		btnSelected = ControlMethods.getSelectedJRadioButton(btnGrp);
+		companySize = btnSelected.getText();		
+		
+		//TODO créer excepion nullPointerException Anaïs
 		
 		companySector = panCompCreat.getTxtSector().getText();
 		
@@ -101,6 +113,7 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 			Datas.getCompaniesList().add(company);
 			System.out.println(Datas.getCompaniesList());
 			CompanyCreationPanel.getDlmCompanies().addElement(company);
+			ControlMethods.resetJTextField(panCompCreat.getAllJTextFields());
 		}
 		
 		if (e.getSource() == panCompCreat.getBtnCancel()){

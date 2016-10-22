@@ -33,11 +33,6 @@ public class ReadProperties {
 			System.exit(-1);
 		}
 
-		//properties.list(System.out);
-		// This is how you can read name value pairs
-//		System.out.println("-- using getProperty() --");
-//		System.out.println("Font=" + properties.getProperty("Font"));
-//		System.out.println("Alias=" + properties.getProperty("alias"));
 		return properties.getProperty("alias");
 	}
 }

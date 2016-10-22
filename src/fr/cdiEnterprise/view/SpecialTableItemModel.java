@@ -17,7 +17,7 @@ public class SpecialTableItemModel<Item> extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private Items users;
     private String[] columnIdentifiers;
-    private String[] columnNames = {"Sender","Objet", "Date Envoie"};
+	private String[] columnNames;
     
     public SpecialTableItemModel(Items users) {
 
@@ -56,6 +56,7 @@ public class SpecialTableItemModel<Item> extends AbstractTableModel {
         switch (columnIndex) {
             case 0:
                 value = user.getSender();
+                
                 break;
             case 1:
                 value = user.getObject();
@@ -92,12 +93,6 @@ public class SpecialTableItemModel<Item> extends AbstractTableModel {
 
 
 
-
-
-	public void addTableModelListener(TableModel tableModel) {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 

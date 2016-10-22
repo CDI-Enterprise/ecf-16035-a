@@ -10,30 +10,25 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.time.LocalDateTime;
+import java.sql.SQLException;
 
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
+
 
 import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.dao.Server;
 import fr.cdiEnterprise.model.Item;
-import fr.cdiEnterprise.model.Trainee;
-import fr.cdiEnterprise.model.User;
+
 import fr.cdiEnterprise.service.Clients;
-import fr.cdiEnterprise.service.Items;
+import fr.cdiEnterprise.service.ClientsV2;
 import fr.cdiEnterprise.util.ReadProperties;
 import fr.cdiEnterprise.view.MainFrame;
+import fr.cdiEnterprise.view.MessagingDraftPanel;
 import fr.cdiEnterprise.view.MessagingMainPanel;
 import fr.cdiEnterprise.view.MessagingNewPanel;
-import fr.cdiEnterprise.view.UserPanel;
+
 import fr.cdiEnterprise.view.MessagingReadPanel;
 import fr.cdiEnterprise.view.SpecialTableItemModel;
 
@@ -51,26 +46,57 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 	// Given attribute
 	private static MessagingMainPanel panelMain;
+	private static MessagingDraftPanel panelDraft;
 	private MessagingNewPanel panelNew;
 	private MessagingReadPanel panelRead;
-	private JPanel panel;
+//	private JPanel panel;
 	private static final int MESSAGE_MAX_SIZE = 850;
 	// Attribute to create-update a user
-	private User user;
+//	private User user;
 	private String alias;
-	private String email;
+	
 	private int nbCaracters;
-	private Item item;
-
+	private static Item currentItem;
+	
+	private static MpClient cli;
+	private static MpClientV2 client;
+	//private Clients clients;
+	private ClientsV2 clientsV2;
+	
 	/**
 	 * Constructs a listener taking a panel for attribute
+	 * @throws SQLException 
 	 */
-	public MessageListener(JPanel panelUser) {
+	public MessageListener(JPanel panelUser)  {
+		
+		this.alias = ReadProperties.getMyAlias();
+		this.client = new MpClientV2(alias );
+		//clients = Datas.getClientBox(); // old implementation.
+			
+				//cli = clients.getClient(ReadProperties.getMyAlias());// commented line to avoid calling old implementation.
+		//client = clientsV2.getClient(ReadProperties.getMyAlias());
+		
 
+		
+		
 		if (panelUser instanceof MessagingMainPanel) {
 
-			this.panelMain = (MessagingMainPanel) panelUser;
+			MessageListener.panelMain = (MessagingMainPanel) panelUser;
+			
+			//MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));//old implementation
+	
+				try {
+					MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			
 		}
+		if (panelUser instanceof MessagingDraftPanel) {
+			panelDraft = (MessagingDraftPanel) panelUser;
+		}		
 		if (panelUser instanceof MessagingNewPanel) {
 			panelNew = (MessagingNewPanel) panelUser;
 		}
@@ -92,46 +118,143 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			MainFrame.SwithPanel(panelNew);
 
 		}
-		if (e.getSource() == panelMain.getBtnDisplay()) {
+		else if  (e.getSource() == panelMain.getBtnDraft()) {
+			
+			// TODO (nicolas) implementer la consultations des messages brouillon
+			// nouveau panel.
+			panelDraft = new MessagingDraftPanel();
+			MessageListener.panelDraft.setCopyUserItems(cli.getMessages(true));
+			panelDraft.refresh();
+			System.out.println("switch to panel : brouillon message");
+			MainFrame.SwithPanel(panelDraft);
+			
+		}
+		else if  (e.getSource() == panelMain.getBtnDisplay()) {
 
 			System.out.println("switch to panel : new message");
 
 		}
-		// ENVOIE MESSAGE
-		if (e.getSource() == panelNew.getBtnEnv()) {
+		// PANEL NOUVEAU MESSAGE
+		else if ((panelNew != null) && (e.getSource() == panelNew.getBtnEnv())) {
 
-			// panelNew = new MessagingNewPanel();
-			// System.out.println("envoie from " + panelNew.getFrom());
+			System.out.println("Click sur message envoie");
+//			String receiver = (String) panelNew.getCboReceiver()
+//					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
+//
+//			if (panelNew.getTxtObject().getText().isEmpty()) {
+//				customDialog("le champ Objet doit etre remplie.");
+//			} else {
+//
+//				System.out.println("Envoie d'un message depuis cette utilisateur"+alias);
+//				System.out.println(panelNew.getTxtObject().getText()+" - "+
+//						panelNew.getTxtMessage().getText());
+//				
+//				client.newEmail(alias,receiver, panelNew.getTxtObject().getText(),
+//						panelNew.getTxtMessage().getText());
+//				
+//				System.out.println("Message send out...");
+//				
+//				
+//				// TODO (Nicolas) : need to handle well this exception, maybe in the class client ?
+//
+//					try {
+//						MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
+//						
+//					} catch (Exception e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
+//
+//				
+//				// MessageListener.panelMain.setCopyUserItems(cli.getMessages(false)); // old implementation.
+//				panelMain.refresh();
+//				System.out.println("switch to panel : main message");
+//				MainFrame.SwithPanel(panelMain);
+//			}
+
+		}
+		
+		else if ((panelNew != null) && (e.getSource() == panelNew.getBtnDraft())) {
+			
 			String receiver = (String) panelNew.getCboReceiver()
 					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
-			/*
-			 * System.out.println("envoie to " + receiver); System.out.println(
-			 * "envoie objet " + panelNew.getTxtObject().getText());
-			 * System.out.println("envoie message " +
-			 * panelNew.getTxtMessage().getText());
-			 */
+			
+			
 			if (panelNew.getTxtObject().getText().isEmpty()) {
 				customDialog("le champ Objet doit etre remplie.");
 			} else {
-				Clients clients = Datas.getClientBox();
-				MpClient cli = clients.getClient(ReadProperties.getMyAlias());
-				cli.newEmail(cli.getBox(), receiver, panelNew.getTxtObject().getText(),
-						panelNew.getTxtMessage().getText());
-				System.out.println("Message send out...");
-				panelMain.refresh();
-				System.out.println("switch to panel : main message");
-				MainFrame.SwithPanel(panelMain);
+					cli.draft(cli.getBox(), receiver, panelNew.getTxtObject().getText(),
+							panelNew.getTxtMessage().getText());
+					System.out.println("Message in Draft.");
+					panelDraft = new MessagingDraftPanel();
+					MessageListener.panelDraft.setCopyUserItems(cli.getMessages(true));
+					panelDraft.refresh();
+					System.out.println("switch to panel : main message");
+					MainFrame.SwithPanel(panelDraft);
 			}
-
+			// TODO (nicolas) implementer l'envoie du message vers le repertoire brouillon
+			// et revenir vers les messages brouillons
+			
 		}
 
-		if (e.getSource() == panelNew.getBtnReturn()) {
+		//RETURN FROM THE NEW MESSAGE PANEL
+		else if ((panelNew != null) && ( e.getSource() == panelNew.getBtnReturn())) {
 
-			// panelNew = new MessagingNewPanel();
+		
+			//MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));
+			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
+			System.out.println("taille mess "+client.getMessages(false).size());
+			System.out.println("switch to panel : main message");
 
+			MainFrame.SwithPanel(panelMain);
+			
+		// PANEL LECTURE D'UN MESSAGE - CAS POSSIBLES DE LA Fenetre de lecture.
+		}else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnRep())) {
+			System.out.print("appuie sur reply...");
+			cli.display(false);
+			currentItem = panelRead.getItm();
+			currentItem.setObject(panelRead.getTxtObject().getText());
+			currentItem.setBody(panelRead.getTxtMessage().getText());
+			
+			cli.sendEmail(currentItem, false);
+			MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));
+			cli.display(false);
+			System.out.println(currentItem.toString());
+			
+			System.out.println("switch to panel : main message");
+			panelMain.refresh();
+			cli.display(false);
+			MainFrame.SwithPanel(panelMain);
+		}else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnRet())) {
+			MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));
 			System.out.println("switch to panel : main message");
 			MainFrame.SwithPanel(panelMain);
+		} else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnDel())) {
+			cli.removeMessage(currentItem.getId(), false);
+			System.out.println("switch to panel : main message");
+			cli.numberOfMessages(false);
+			MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));
+			panelMain.refresh();
+			MainFrame.SwithPanel(panelMain);
+		
+		// LISTE DES BROUILLONS
+		} else if ((panelDraft != null) && (e.getSource() == panelDraft.getBtnDisplay())) {
+			
+			
+		}
 
+		
+		else if ((panelDraft != null) && ( e.getSource() == panelDraft.getBtnRet())) {
+
+			// panelNew = new MessagingNewPanel();
+			MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));
+			System.out.println("switch to panel : main message");
+
+			MainFrame.SwithPanel(panelMain);
+		
+		}
+		else {
+			System.out.println("nothing correspond to that event...");
 		}
 
 	}
@@ -140,30 +263,41 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	public void keyTyped(KeyEvent e) {
 
 		int nb = 0;
-		System.out.println("lettre tapée : " + e.getKeyChar());
-		nb++;
-		nbCaracters += nb;
+		if(e.getKeyChar() == '\b' || e.VK_DELETE == e.getKeyChar()) {
+			System.out.println("lettre tapée : " + e.getKeyChar());
+			
+		}else {
+			System.out.println("lettre tapée : " + e.getKeyChar());
+			nb++;
+			nbCaracters += nb;
+		}
+
 
 		panelNew.getLblCounter().setText((MESSAGE_MAX_SIZE - nbCaracters) + "");
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
+	/**
+	 * Cette Method va trouvé l'objet Item selectionné dans la table et
+	 * mettre l'Item dans la proriété de l'objet de la class Messagelistener.
+	 * il sera ensuite plus facile a manipuler.
+	 */
 	public void mousePressed(MouseEvent me) {
 		JTable table = (JTable) me.getSource();
 		Point p = me.getPoint();
 		int row = table.rowAtPoint(p);
-		SpecialTableItemModel spemod = panelMain.getTiModel();
+		SpecialTableItemModel<?> spemod = panelMain.getTiModel();
 		//System.out.println("click..." + row );
 		//System.out.println(spemod.getRowCount() -1);
 	/*	if (me.getClickCount() == 1) {
@@ -178,23 +312,17 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			}*/
 
 		if (me.getClickCount() == 2) {
-			
-			
+
 			spemod = panelMain.getTiModel();
 			//System.out.println("double click..." + row );
 			//System.out.println(spemod.getRowCount() -1);
 			if (row > spemod.getRowCount() -1) {
 				System.out.println("hors de la partie");
 			} else {
-				Item itm = spemod.getUserAt(row);
-				
-				
-				
-				panelRead = new MessagingReadPanel(itm);
-				
-				
-				System.out.println(itm.toString());
-				
+				currentItem = spemod.getUserAt(row);
+				Item itmCopy = new Item(currentItem);
+				panelRead = new MessagingReadPanel(itmCopy);
+				System.out.println(itmCopy.toString());
 				MainFrame.SwithPanel(panelRead);
 			}
 		}
@@ -205,25 +333,25 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -232,11 +360,11 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	}
 
 	public Item getItem() {
-		return item;
+		return currentItem;
 	}
 
 	public void setItem(Item item) {
-		this.item = item;
+		MessageListener.currentItem = item;
 	}
 
 }

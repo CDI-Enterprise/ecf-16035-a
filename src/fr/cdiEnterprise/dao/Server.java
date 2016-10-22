@@ -48,7 +48,7 @@ public  class Server {
 
 			mess.add(item);
 			items.put(item.getReceiver(), mess);
-			System.out.println("Message posted in "+ item.getReceiver());
+			System.out.println("Message posted in "+ item.getReceiver() + "address " + item);
 			return true;
 
 		}

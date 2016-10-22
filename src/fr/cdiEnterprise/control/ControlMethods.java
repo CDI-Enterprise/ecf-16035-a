@@ -6,6 +6,7 @@ import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -54,11 +55,54 @@ public class ControlMethods {
 		  if (c instanceof JTextField) {
 			  
 		      JTextField textfield = (JTextField) c;
-		      textfield.setText("");
+		      textfield.setText(null);
 		      textfield.setEnabled(true);
 		    }
 		}
 	}
+	
+	/**
+	 * Méthode pour controler la saisie des champs obligatoires
+	 * @author Anaïs
+	 * @param JTextField
+	 * @return 
+	 * @since 21-10-2016
+	 */
+	
+	public static String nullJTextField(JTextField txtField){
+		
+		String field = txtField.getText();
+		String fieldReturn = null;
+		
+		if(field == null){
+
+		}else{
+			fieldReturn=field;
+		}
+		return fieldReturn;
+		
+		//TODO méthode pour controler si un textfield est null @Anaïs
+	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

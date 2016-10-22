@@ -4,14 +4,17 @@
 package fr.cdiEnterprise.view;
 
 import java.awt.BorderLayout;
+import java.awt.event.KeyEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 
 import fr.cdiEnterprise.control.MessageListener;
 import fr.cdiEnterprise.dao.Datas;
@@ -34,10 +37,12 @@ public class MessagingNewPanel extends JPanel {
 	private JButton btnEnv;
 	private JButton btnDraft;
 	private JButton btnReturn;
+	private Border border;
+	private Border borderMessage;
 	
 	private String from;
 	private JLabel receiver;
-	private JLabel object;
+	private JLabel lblobject;
 	private JLabel Message;
 	private JLabel letterCount;
 	private JLabel lblCounter;
@@ -56,6 +61,8 @@ public class MessagingNewPanel extends JPanel {
 		
 		MessageListener listener = new MessageListener((JPanel) this);
 		
+		borderMessage = BorderFactory.createTitledBorder(" Nouveau Message ");
+		border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		usersList = Datas.getUsersList();
 		from = ReadProperties.getMyAlias();
 		
@@ -75,8 +82,12 @@ public class MessagingNewPanel extends JPanel {
 		btnDraft = new JButton("Brouillon");
 		btnReturn = new JButton("Retour");
 		
+		btnEnv.setMnemonic(KeyEvent.VK_E);
+		btnDraft.setMnemonic(KeyEvent.VK_B);
+		btnReturn.setMnemonic(KeyEvent.VK_R);
+		
 		receiver = new JLabel("Destinataire");
-		object = new JLabel("Objet");
+		lblobject = new JLabel("Objet");
 		Message = new JLabel("Texte");
 		letterCount = new JLabel("compteur");
 		lblCounter =   new JLabel();
@@ -88,7 +99,11 @@ public class MessagingNewPanel extends JPanel {
 		cboReceiver.setMaximumRowCount(3);
 		//txtReceiver = new JTextField();
 		txtObject = new JTextField(20);
+		
 		txtMessage = new JTextArea(10, 50);
+		txtMessage.setLineWrap(true);
+		txtMessage.setWrapStyleWord(true);
+		txtMessage.setBorder(border);
 	
 		
 		if(usersList != null) {
@@ -105,11 +120,11 @@ public class MessagingNewPanel extends JPanel {
 		
 		panNorth.add(lblTitle);
 		panCenter.setLayout(new MigLayout());
-		
+		panCenter.setBorder(borderMessage);
 		
 		panCenter.add(receiver, "w 200!");
 		panCenter.add(cboReceiver, "wrap");
-		panCenter.add(object, "w 200!");
+		panCenter.add(lblobject, "w 200!");
 		panCenter.add(txtObject, "wrap");
 		
 		panCenter.add(Message, "w 200!");
@@ -187,6 +202,24 @@ public class MessagingNewPanel extends JPanel {
 
 	public JTextArea getTxtMessage() {
 		return txtMessage;
+	}
+
+
+
+	public JLabel getLblobject() {
+		return lblobject;
+	}
+
+
+
+	public void setLblobject(JLabel lblobject) {
+		this.lblobject = lblobject;
+	}
+
+
+
+	public void setTxtObject(JTextField txtObject) {
+		this.txtObject = txtObject;
 	}
 
 

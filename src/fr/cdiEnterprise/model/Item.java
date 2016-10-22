@@ -47,6 +47,49 @@ public class Item {
 		this.body = body;
 		this.timeStamp = timeStamp;
 	}
+	
+	/**
+	 * complete constructor.
+	 * 
+	 * @param thread this is a unique number identifying a new message
+	 * @param sender is the user name that will be sending the message
+	 * @param receiver is the user name that will be receiving the message
+	 * @param object is the object for the email
+	 * @param body the body represent the message, should be limited to 1500 caracters.
+	 * @param timeStamp is the time when message has been sent.
+	 */
+	public Item(String id, String sender, String receiver, String object, String body, LocalDateTime timeStamp, boolean draft) {
+		super();
+		this.id = id;
+		this.sender = sender;
+		this.receiver = receiver;
+		this.object = object;
+		this.body = body;
+		this.timeStamp = timeStamp;
+		this.draftEmail = draft;
+	}
+	
+	/**
+	 * Contructeur de copy
+	 * @param itm
+	 */
+	public Item(Item itm) {
+	    this.id = itm.id;
+	    this.sender = itm.sender;
+	    this.receiver= itm.receiver;
+	    this.object = itm.object;
+	    this.body = itm.body;
+	    this.timeStamp = itm.timeStamp;
+	    this.draftEmail = itm.draftEmail;// you can access  
+	  }
+	
+
+
+	public Item() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 
 	public String getSender() {
 		return sender;

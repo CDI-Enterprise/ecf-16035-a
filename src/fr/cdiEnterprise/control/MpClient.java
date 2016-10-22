@@ -2,7 +2,7 @@ package fr.cdiEnterprise.control;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+
 
 import fr.cdiEnterprise.dao.Server;
 import fr.cdiEnterprise.model.Item;
@@ -35,13 +35,13 @@ public class MpClient {
 	private Server server;
 	private String box;
 	private Items myMessages;
-	private Items myDraft;
+	//private Items myDraft;
 	
 	public MpClient(Server s, String usr) {
 		box = usr;
 		this.server = s;
 		this.myMessages = new Items();
-		this.myDraft = new  Items();
+	//	this.myDraft = new  Items();
 
 	}
 	
@@ -84,27 +84,27 @@ public class MpClient {
 
 		LocalDateTime timeStamp = LocalDateTime.now();
 	
-		Item itm = new Item(item.getSender(), item.getReceiver(), item.getObject(), item.getBody(),  timeStamp);
+		Item repliedItem = new Item(item.getSender(), item.getReceiver(), item.getObject(), item.getBody(),  timeStamp);
 		
-		itm.setId(item.getId());
+		repliedItem.setId(item.getId());
 		if(draft) {
 			
-			itm.setDraftEmail(false);
-			System.out.println(itm.toString());
-			server.post(itm);
+			repliedItem.setDraftEmail(false);
+			System.out.println(repliedItem.toString());
+			server.post(repliedItem);
 			
 			return true;
 		}else {
 			if(item.getObject() != null && item.getBody() != null) {
-				item.setObject("re: "+ item.getObject());
-				item.setTimeStamp(timeStamp);
+				repliedItem.setObject("re: "+ item.getObject());
+				repliedItem.setTimeStamp(timeStamp);
 				String snd = item.getSender();
 				String rcv = item.getReceiver();
-				item.setReceiver(snd);
-				item.setSender(rcv);
+				repliedItem.setReceiver(snd);
+				repliedItem.setSender(rcv);
 				
 				
-				server.post(item);
+				server.post(repliedItem);
 				return true;
 			}else {
 				return false;
@@ -187,12 +187,12 @@ public class MpClient {
 	/**
 	 * this is going to remove a message or a draft message, and with a particular id.
 	 * @param identifier to get the requested email removed
-	 * @param draft will indicate if this is a drfaft email
+	 * @param draft will indicate if this is a draft email
 	 */
 	public void removeMessage(String identifier, boolean draft) {
 		
 		if(server.removeMessage(this.box, identifier, draft)) {
-			//System.out.println("Message has been removed...");
+			System.out.println("Message has been removed...");
 		}
 	}
 	
