@@ -19,6 +19,7 @@ public class UserDAO {
 	private Connection connect;
 
 	// Prepared statement for SQL request
+	private static PreparedStatement searchUser;
 	private static PreparedStatement createUser;
 	private static PreparedStatement updateUser;
 	private static PreparedStatement deleteUser;
@@ -26,7 +27,12 @@ public class UserDAO {
 	private static int result;
 	private static ResultSet requestRes;
 
-
+	private static String userInscriptionDate;
+	private static String userStatus;
+	private static String userAlias;	
+	private static String userMail;
+	private static String userAfpa;
+	
 	/**
 	 * Asks for the connection to DB.
 	 */
@@ -34,7 +40,47 @@ public class UserDAO {
 		this.connect = DBConnection.getConnect();
 	}
 	
+	/**
+	 * Search an author by Id from database and displays it.
+	 * @param authorId
+	 * @return author
+	 * @throws SQLException
+	 */
+	public String search(int userId) throws SQLException {
 
+		String user = "aucun";
+		
+		try {
+			searchUser = connect.prepareStatement("SELECT user_id, user_inscription_date, "
+					+ "user_status, user_alias, user_mail, user_afpa "
+					+ "FROM cdi_user "
+					+ "WHERE user_id = ?");
+			searchUser.setInt(1, userId);
+			requestRes = searchUser.executeQuery();
+
+			while(requestRes.next()){
+				userInscriptionDate = requestRes.getString(2);
+				userStatus = requestRes.getString(3);
+				userAlias = requestRes.getString(4);
+				userMail = requestRes.getString(5);
+				userAfpa = requestRes.getString(6);
+				user = "User : " + userId + " " + userInscriptionDate + " " + userStatus + " " + userAlias + " "
+						+ userMail + " " + userAfpa;
+			}
+			System.out.println(user); // Test code
+
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			System.err.println("Requête incorrecte : aucun auteur n'a pu être affiché.");
+		}
+
+		finally {
+			closeRequest(searchUser);
+		}
+
+		return user;
+	}
+	
 	/**
 	 * Insert a new user in database.
 	 * @param id

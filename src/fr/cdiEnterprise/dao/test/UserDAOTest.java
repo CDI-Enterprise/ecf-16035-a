@@ -18,8 +18,8 @@ public class UserDAOTest {
 		UserDAO userDAO = new UserDAO();
 		
 		// Test search a user
-//		String test = userDAO.search(3);
-//		System.out.println("App : " + test);
+		String test = userDAO.search(3);
+		System.out.println("App : " + test);
 		
 		// CREATE
 //		String creationDone = userDAO.create(10, "22/10/2016", "Ancien", "CDI", "cdi@mail.com", "Saint-Jérôme");
