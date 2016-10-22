@@ -1,8 +1,7 @@
 package fr.cdiEnterprise.application.test;
 
-import java.sql.Connection;
+import java.sql.SQLException;
 
-import fr.cdiEnterprise.dao.DBConnection;
 import fr.cdiEnterprise.view.test.UserFrameTest;
 
 /**
@@ -13,9 +12,7 @@ import fr.cdiEnterprise.view.test.UserFrameTest;
  */
 public class UserAppTest {
 
-	public static void main(String[] args) {
-		
-		Connection connect = DBConnection.getConnect();
+	public static void main(String[] args) throws SQLException {
 		
 		UserFrameTest mainFrame = new UserFrameTest();
 		mainFrame.setVisible(true);
