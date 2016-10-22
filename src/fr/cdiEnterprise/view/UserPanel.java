@@ -37,7 +37,7 @@ public class UserPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	//TODO fake companies list in database!
+	//TODO (Claire) fake companies list in database!
 	String [] company = {"Aucune", "9e compagnie", "Cie", "Comme Pagny", "Autre..."};
 
 //	private JPanel panEast;
@@ -224,7 +224,7 @@ public class UserPanel extends JPanel {
 		panPublic.add(optJava, "wrap");
 
 		// List of approached companies
-		// TODO Claire put arraylist in JList?
+		// TODO (Claire) put arraylist in JList?
 		lblApproachedCie = new JLabel("Entreprise(s) démarchée(s)*** : ");
 		panPublic.add(lblApproachedCie);
 		JComboBox<String> approachedCie = new JComboBox<String> ();
@@ -241,7 +241,7 @@ public class UserPanel extends JPanel {
 		panPublic.add(txtJob, "wrap");
 
 		// Current company
-		// TODO Claire cie arraylist
+		// TODO (Claire) cie arraylist
 		lblCurrentCie = new JLabel("Entreprise actuelle*** : ");
 		panPublic.add(lblCurrentCie);
 		JComboBox<String> currentCie = new JComboBox<String> ();
@@ -288,7 +288,7 @@ public class UserPanel extends JPanel {
 		// Other known programming languages
 		lblInfoLang = new JLabel("Autre(s) langage(s) : ");
 		panOptional.add(lblInfoLang, "w 200!");
-		// TODO Claire create language list in dao
+		// TODO (Claire) create language list in dao
 		String [] progLanguage = {"C", "PHP"};
 		JComboBox<String> cboProgLanguage = new JComboBox<String> ();
 		for (int i = 0; i < progLanguage.length; i++) {
@@ -300,7 +300,7 @@ public class UserPanel extends JPanel {
 		// Known graphic API
 		lblApi = new JLabel("API graphique : ");
 		panOptional.add(lblApi);
-		// TODO Claire create api list in dao
+		// TODO (Claire) create api list in dao
 		String [] graphicApi = {"AWT", "JFace", "Swing", "SWT"};
 		JComboBox<String> cboGraphicApi = new JComboBox<String> ();
 		for (int i = 0; i < graphicApi.length; i++) {

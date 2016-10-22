@@ -25,62 +25,24 @@ public class Trainee extends User {
 	private String linkedIn;								// LinkedIn address profile
 
 	
-	/* Constructors */
 	/**
-	 * Default constructor
+	 * Constructs a user with compulsory first log-in informations
+	 * @param status 
+	 * @param alias 
+	 * @param email 
+	 * @param afpa
 	 */
-	public Trainee(){
-		super();
+	public Trainee(String status, String alias, String email, String afpa){
+		super(status, alias, email, afpa);
 	}
 	
-	// Constructor test
-	public Trainee(String status, String alias, String email, String afpa, String trainer) {
-		super(status, alias, email, afpa);
-		this.trainer = trainer;
+	// Constructor test for DB
+	public Trainee(int id, String inscriptionDate, String status, String alias, String email, String afpa) {
+		super(id, inscriptionDate, status, alias, email, afpa);
 	}
 
-//	/**
-//	 * Constructs a trainee with compulsory first log-in, compulsory and optional profile informations
-//	 * Compulsory parameters from super class (log-in informations)
-//	 * @param email
-//	 * @param alias
-//	 * @param password
-//	 * @param status
-//	 * @param afpa
-//	 * 
-//	 * Compulsory parameters (log-in informations)
-//	 * @param trainer
-//	 * 
-//	 * Compulsory parameters (profile creation)
-//	 * @param surname
-//	 * @param givenName
-//	 * @param sessionCode
-//	 * @param programmingLanguage
-//	 * 
-//	 * Optional parameters (profile creation)
-//	 * @param approachedCompany
-//	 * @param graphicAPI;
-//	 * @param webSite;
-//	 * @param linkedIn;
-//	 */
-//	public Trainee(String email, String alias, String password, String status, String afpa, String trainer,
-//			String surname, String givenName, String sessionCode, Company approachedCompany,
-//			String programmingLanguage, String graphicAPI, String webSite, String linkedIn) {
-//		super(email, alias, password, status, afpa);
-//		this.trainer = trainer;
-//		this.surname = surname;
-//		this.givenName = givenName;
-//		this.sessionCode = sessionCode;
-//		this.approachedCompany = approachedCompany;
-//		this.programmingLanguage = programmingLanguage;
-//		this.graphicAPI = graphicAPI;
-//		this.webSite = webSite;
-//		this.linkedIn = linkedIn;
-//	}
 
-
-	/* Object methods */
-	//TODO Claire create input control
+	//TODO (Claire) create input control
 	/**
 	 * Basic trainee description
 	 * @see java.lang.Object#toString()
@@ -88,19 +50,16 @@ public class Trainee extends User {
 	@Override
 	public String toString() {
 		
-		return super.toString() + "Trainee [trainer=" + trainer + "]";
+		return super.toString();
 	}
 	
 	
-	/* Object - Getter & setter */
 	/**
 	 * @return the trainer
 	 */
 	public String getTrainer() {
 		return trainer;
 	}
-
-	
 
 	/**
 	 * @param trainer the trainer to set

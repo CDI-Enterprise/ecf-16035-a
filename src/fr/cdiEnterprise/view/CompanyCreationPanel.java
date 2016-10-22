@@ -310,7 +310,7 @@ public class CompanyCreationPanel extends JPanel {
 		//btnFavoris.addActionListener((ActionListener) this);
 //				
 //				
-//				// TODO Ajout dans favoris 
+//				// TODO (Anaïs) Ajout dans favoris 
 
 
 	}

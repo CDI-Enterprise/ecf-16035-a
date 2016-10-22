@@ -30,7 +30,7 @@ public class SpecialTableItemModel<Item> extends AbstractTableModel {
 
 
     public SpecialTableItemModel() {
-		// TODO Auto-generated constructor stub
+		// TODO (Nicolas) Auto-generated constructor stub
 	}
 
 

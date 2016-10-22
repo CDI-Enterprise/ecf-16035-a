@@ -39,7 +39,7 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 	private User selectedUser;
 	private Trainee selectedTrainee;
 	private FormerTrainee selectedFormerTrainee;
-	private Trainer selectedTrainer;
+//	private Trainer selectedTrainer;
 	private int indexUser;
 
 	// Attributes to create-update a user
@@ -49,7 +49,7 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 	private String alias;
 	private String email;
 	private String afpa;
-	private String trainer;
+//	private String trainer;
 	
 	// Attributes to reset component
 	ArrayList<JTextField> allJTextFields;
@@ -72,11 +72,11 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 		jrButtonSelected = MethodsForListeners.getSelectedJRadioButton(jrButtonGrp);
 		status = jrButtonSelected.getText();		
 
-		// Register informations TODO Claire loop method?
+		// Register informations TODO (Claire) loop method?
 		alias = panelUser.getTxtAlias().getText();
 		email = panelUser.getTxtMail().getText();
 		afpa = panelUser.getTxtAfpa().getText();
-		trainer = panelUser.getTxtTrainer().getText();
+//		trainer = panelUser.getTxtTrainer().getText();
 
 		// Clears all fields
 		if (e.getSource() == panelUser.getCmdCancel()) {
@@ -105,17 +105,17 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 //				System.out.println("Vous devez remplir les champs obligatoires.");
 //			}
 			
-			// TODO Claire try catch if no status
+			// TODO (Claire) try catch if no status
 			// Depending on status, instantiates a Trainee or FormerTrainee or Trainer with User reference
 			switch (status) {
 			case "Stagiaire" :  
-				user = new Trainee(status, alias, email, afpa, trainer);
+				user = new Trainee(status, alias, email, afpa);
 				System.out.println(user); // Test code
 				System.out.println(OldDatas.getUsersList()); // Test code
 				break;
 
 			case "Ancien" :
-				user = new FormerTrainee(status, alias, email, afpa, trainer);
+				user = new FormerTrainee(status, alias, email, afpa);
 				System.out.println(user); // Test code
 				System.out.println(OldDatas.getUsersList()); // Test code
 				break;
@@ -146,7 +146,7 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 			// Re-affects new informations to the selected User
 			panelUser.getMdlListUsers().set(indexUser, selectedUser);
 			
-			// TODO Claire change of status and class for Trainee to FormerTrainee
+			// TODO (Claire) change of status and class for Trainee to FormerTrainee
 			
 			System.out.println(OldDatas.getUsersList()); // Test code
 
@@ -211,7 +211,7 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 
 			case "Formateur" :
 				// Casts User to Trainer
-				selectedTrainer = (Trainer) selectedUser;
+//				selectedTrainer = (Trainer) selectedUser;
 				// Status
 				panelUser.getOptTrainer().setSelected(true);
 				panelUser.getOptTrainee().setEnabled(false);

@@ -30,7 +30,7 @@ public class TestDB {
 			client.newEmail("omy", "oracle", "test2", "This is a test.");
 			client.newEmail("claire", "oracle", "test3", "This is a test3.");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			// TODO (Nicolas) Auto-generated catch block
 			e.printStackTrace();
 		}
 		

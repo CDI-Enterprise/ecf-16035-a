@@ -41,7 +41,7 @@ public class TestMessage {
 		Server newServer = new Server();
 		ArrayList<String> clients = new ArrayList<String>();
 		
-		//TODO Poster message vers un utilisateur.
+		//TODO (Nicolas) Poster message vers un utilisateur.
 		
 		// Création de nouveaux messages et sauvegarde dans.
 		// creation des clients utilisateurs
@@ -61,7 +61,7 @@ public class TestMessage {
 		
 		//Poster message 
 		// note : avant d'envoyer un message veririfer si le destinataire est existe.
-		// TODO envoyer message derreur.
+		// TODO (Nicolas) envoyer message derreur.
 		System.out.println("envoie d'emails");
 		
 		
@@ -164,7 +164,7 @@ public class TestMessage {
 		try {
 			Thread.sleep(1500);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			// TODO (Nicolas) Auto-generated catch block
 			e.printStackTrace();
 		}
 		

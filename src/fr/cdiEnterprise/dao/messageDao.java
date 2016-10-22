@@ -87,7 +87,7 @@ public class messageDao {
 				statement.close();
 				connection.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				// TODO (Nicolas) Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -139,7 +139,7 @@ public class messageDao {
 		try {
 			statement = connection.createStatement();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
+			// TODO (Nicolas) Auto-generated catch block
 			e1.printStackTrace();
 		}
 			
@@ -192,7 +192,7 @@ public class messageDao {
 					items.add(item);
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				// TODO (Nicolas) Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -286,7 +286,7 @@ public class messageDao {
 	
 //	}
 	
-	// TODO deleteMessage - public static boolean removeMessage(String usr, String identifier, boolean draft) {
+	// TODO (Nicolas) deleteMessage - public static boolean removeMessage(String usr, String identifier, boolean draft) {
 
 	 public static boolean removeMessage(String usr, int identifier, boolean draft) {
 		 
@@ -302,7 +302,7 @@ public class messageDao {
 			statement.executeUpdate(query);
 			connection.commit();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// TODO (Nicolas) Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -320,11 +320,11 @@ public class messageDao {
 		 
 	 }
 
-	// TODO popMessage - public static Item popMessage(String usr, String identifier, boolean draft) {
+	// TODO (Nicolas) popMessage - public static Item popMessage(String usr, String identifier, boolean draft) {
 	
 	
 	
-	// TODO updateMessage - public static Item updateMessage
+	// TODO (Nicolas) updateMessage - public static Item updateMessage
 	
 	/**
 	 * This static method is going to be used to convert LocalDateTime in a String format this way

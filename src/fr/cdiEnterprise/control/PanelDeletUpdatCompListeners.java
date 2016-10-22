@@ -67,7 +67,7 @@ public class PanelDeletUpdatCompListeners implements ActionListener, ListSelecti
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		// TODO (Anaïs) Auto-generated method stub
 //		JList list = (JList)e.getSource();
 //
 //		if (e.getClickCount() == 2) {
@@ -92,26 +92,23 @@ public class PanelDeletUpdatCompListeners implements ActionListener, ListSelecti
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		// TODO (Anaïs) Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		// TODO (Anaïs) Auto-generated method stub		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		// TODO (Anaïs) Auto-generated method stub		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		// TODO (Anaïs) Auto-generated method stub		
 	}
 
 }
