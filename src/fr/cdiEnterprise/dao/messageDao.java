@@ -33,7 +33,7 @@ public class messageDao {
 	
 	
 	
-	// TODO inserItem - public static boolean post(Item item) {
+	
 	
 	public static void insertItem(Item item)   {
 		
@@ -47,7 +47,7 @@ public class messageDao {
 			statement = connection.createStatement();
 	
 			
-			String ident = null;
+			int ident = 0;
 			String sender = null;
 			String receiver =null;
 			String object = null;
@@ -106,10 +106,10 @@ public class messageDao {
 
 	
 
-	// TODO insertDraft - public static boolean postDraft(Item item)
+	// TODO (nicolas ) insertDraft - public static boolean postDraft(Item item)
 
 
-	// TODO getMessages - public static Items getAllItems(String box, boolean draft) {
+
 	/**
 	 * This method is going to return the email for a particular user mailbox or a draft Mailbox.
 	 * box will indicate the mailbox whether draft is false , or draft message if that is true
@@ -133,7 +133,8 @@ public class messageDao {
 			e1.printStackTrace();
 		}
 			
-			String ident = null;
+			//String ident = null;
+			int ident = 0;
 			String sender = null;
 			String receiver =null;
 			String object = null;
@@ -158,7 +159,7 @@ public class messageDao {
 				while(resultSet.next()) {
 					
 					
-					ident = resultSet.getString("identity");
+					ident = resultSet.getInt("identity");
 					sender = resultSet.getString("sender");
 					receiver = resultSet.getString("receiver");
 					object = resultSet.getString("subject");
@@ -186,12 +187,37 @@ public class messageDao {
 	
 	// TODO deleteMessage - public static boolean removeMessage(String usr, String identifier, boolean draft) {
 
-	 //public static boolean removeMessage(String usr, String identifier, boolean draft) {
+	 public static boolean removeMessage(String usr, int identifier, boolean draft) {
+		 
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		
+		connection = Database.getConnect();
+		try {
+			statement = connection.createStatement();
+			String query = "delete from mailbox where identity = '" + identifier + "'";
+			System.out.println(query);
+			statement.executeUpdate(query);
+			connection.commit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+		
+		
+		return true;
+		
+		
+		
+		
+		
 		 
 		 
 		 
-		 
-	 //}
+	 }
 
 	// TODO popMessage - public static Item popMessage(String usr, String identifier, boolean draft) {
 	

@@ -109,7 +109,7 @@ public class MainFrame extends JFrame {
 		panelRecherche = new RechercheAvanceePanel();
 		
 		
-		//panelMessaging = new MessagingMainPanel();
+		panelMessaging = new MessagingMainPanel();
 		
 		//Panel for BookMark
 		panelBookMark = new BookMarkPanel();

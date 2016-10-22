@@ -16,14 +16,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
-
 import fr.cdiEnterprise.dao.OldDatas;
-import fr.cdiEnterprise.dao.Server;
 import fr.cdiEnterprise.model.Item;
-
-import fr.cdiEnterprise.service.Clients;
-import fr.cdiEnterprise.service.ClientsV2;
-import fr.cdiEnterprise.util.MpClient;
+import fr.cdiEnterprise.model.User;
+import fr.cdiEnterprise.service.Items;
+import fr.cdiEnterprise.service.Users;
 import fr.cdiEnterprise.util.MpClientV2;
 import fr.cdiEnterprise.util.ReadProperties;
 import fr.cdiEnterprise.view.MainFrame;
@@ -60,10 +57,10 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	private int nbCaracters;
 	private static Item currentItem;
 	
-	private static MpClient cli;
+	//Previous implementation private static MpClient cli;
 	private static MpClientV2 client;
 	//private Clients clients;
-	private ClientsV2 clientsV2;
+	//private ClientsV2 clientsV2;
 	
 	/**
 	 * Constructs a listener taking a panel for attribute
@@ -72,7 +69,10 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	public MessageListener(JPanel panelUser)  {
 		
 		this.alias = ReadProperties.getMyAlias();
-		this.client = new MpClientV2(alias );
+		this.client = new MpClientV2(alias);
+		
+		//MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
+		
 		//clients = Datas.getClientBox(); // old implementation.
 			
 				//cli = clients.getClient(ReadProperties.getMyAlias());// commented line to avoid calling old implementation.
@@ -84,15 +84,15 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		if (panelUser instanceof MessagingMainPanel) {
 
 			MessageListener.panelMain = (MessagingMainPanel) panelUser;
+			Items itms =client.getMyMessages();
+				
+			MessageListener.panelMain.setCopyUserItems(itms);
+			System.out.println("Il ya " + MessageListener.panelMain.getCopyUserItems().size());
 			
+			MessageListener.panelMain.refresh();
 			//MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));//old implementation
 	
-				try {
-					MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+
 
 			
 		}
@@ -114,8 +114,17 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 		if (e.getSource() == panelMain.getBtnNew()) {
 
-			panelNew = new MessagingNewPanel();
+			Users usr = OldDatas.getUsersList();
+			for(User current : usr) {
+				String toLowerCase = current.getAlias().toLowerCase();
+				current.setAlias(toLowerCase);
+				
+			}
+			panelNew = new MessagingNewPanel(usr);
+			
 
+			
+			
 			System.out.println("switch to panel : new message");
 			MainFrame.SwithPanel(panelNew);
 
@@ -125,7 +134,8 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			// TODO (nicolas) implementer la consultations des messages brouillon
 			// nouveau panel.
 			panelDraft = new MessagingDraftPanel();
-			MessageListener.panelDraft.setCopyUserItems(cli.getMessages(true));
+			MessageListener.panelDraft.setCopyUserItems(client.getMessages(true));
+			//Previous implementation MessageListener.panelDraft.setCopyUserItems(cli.getMessages(true));
 			panelDraft.refresh();
 			System.out.println("switch to panel : brouillon message");
 			MainFrame.SwithPanel(panelDraft);
@@ -139,57 +149,59 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		// PANEL NOUVEAU MESSAGE
 		else if ((panelNew != null) && (e.getSource() == panelNew.getBtnEnv())) {
 
-			System.out.println("Click sur message envoie");
-//			String receiver = (String) panelNew.getCboReceiver()
-//					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
-//
-//			if (panelNew.getTxtObject().getText().isEmpty()) {
-//				customDialog("le champ Objet doit etre remplie.");
-//			} else {
-//
-//				System.out.println("Envoie d'un message depuis cette utilisateur"+alias);
-//				System.out.println(panelNew.getTxtObject().getText()+" - "+
-//						panelNew.getTxtMessage().getText());
-//				
-//				client.newEmail(alias,receiver, panelNew.getTxtObject().getText(),
-//						panelNew.getTxtMessage().getText());
-//				
-//				System.out.println("Message send out...");
-//				
-//				
-//				// TODO (Nicolas) : need to handle well this exception, maybe in the class client ?
-//
-//					try {
-//						MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
-//						
-//					} catch (Exception e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
-//
-//				
-//				// MessageListener.panelMain.setCopyUserItems(cli.getMessages(false)); // old implementation.
-//				panelMain.refresh();
-//				System.out.println("switch to panel : main message");
-//				MainFrame.SwithPanel(panelMain);
-//			}
+			
+			String receiver = (String) panelNew.getCboReceiver()
+					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
+
+			if (panelNew.getTxtObject().getText().isEmpty()) {
+				customDialog("le champ Objet doit etre remplie.");
+			} else {
+
+				System.out.println("Envoie d'un message depuis cette utilisateur"+alias);
+				System.out.println(panelNew.getTxtObject().getText()+" - "+
+						panelNew.getTxtMessage().getText());
+				
+				client.newEmail(alias,receiver, panelNew.getTxtObject().getText(),
+						panelNew.getTxtMessage().getText());
+				
+				System.out.println("Message send out...");
+				
+				
+				// TODO (Nicolas) : need to handle well this exception, maybe in the class client ?
+
+					try {
+						MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
+						
+						
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+				
+				// MessageListener.panelMain.setCopyUserItems(cli.getMessages(false)); // old implementation.
+				panelMain.refresh();
+				System.out.println("switch to panel : main message");
+				MainFrame.SwithPanel(panelMain);
+			}
 
 		}
 		
 		else if ((panelNew != null) && (e.getSource() == panelNew.getBtnDraft())) {
 			
-			String receiver = (String) panelNew.getCboReceiver()
-					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
+//	Nicolas code not used		String receiver = (String) panelNew.getCboReceiver()
+//					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
 			
 			
 			if (panelNew.getTxtObject().getText().isEmpty()) {
 				customDialog("le champ Objet doit etre remplie.");
 			} else {
-					cli.draft(cli.getBox(), receiver, panelNew.getTxtObject().getText(),
-							panelNew.getTxtMessage().getText());
+//					cli.draft(cli.getBox(), receiver, panelNew.getTxtObject().getText(),
+// TODO (nicolas) need to implement draft in MpClientV2//	panelNew.getTxtMessage().getText());
 					System.out.println("Message in Draft.");
 					panelDraft = new MessagingDraftPanel();
-					MessageListener.panelDraft.setCopyUserItems(cli.getMessages(true));
+					//MessageListener.panelDraft.setCopyUserItems(cli.getMessages(true));
+					MessageListener.panelDraft.setCopyUserItems(client.getMessages(true));
 					panelDraft.refresh();
 					System.out.println("switch to panel : main message");
 					MainFrame.SwithPanel(panelDraft);
@@ -213,29 +225,29 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		// PANEL LECTURE D'UN MESSAGE - CAS POSSIBLES DE LA Fenetre de lecture.
 		}else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnRep())) {
 			System.out.print("appuie sur reply...");
-			cli.display(false);
+			//cli.display(false);
 			currentItem = panelRead.getItm();
 			currentItem.setObject(panelRead.getTxtObject().getText());
 			currentItem.setBody(panelRead.getTxtMessage().getText());
 			
-			cli.sendEmail(currentItem, false);
-			MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));
-			cli.display(false);
+			client.sendEmail(currentItem, false);
+			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
+			//client.display(false);
 			System.out.println(currentItem.toString());
 			
 			System.out.println("switch to panel : main message");
 			panelMain.refresh();
-			cli.display(false);
+			//cli.display(false);
 			MainFrame.SwithPanel(panelMain);
 		}else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnRet())) {
-			MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));
+			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
 			System.out.println("switch to panel : main message");
 			MainFrame.SwithPanel(panelMain);
 		} else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnDel())) {
-			cli.removeMessage(currentItem.getId(), false);
+			client.removeMessage(currentItem.getId(), false);
 			System.out.println("switch to panel : main message");
-			cli.numberOfMessages(false);
-			MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));
+			//cli.numberOfMessages(false);
+			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
 			panelMain.refresh();
 			MainFrame.SwithPanel(panelMain);
 		
@@ -249,7 +261,8 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		else if ((panelDraft != null) && ( e.getSource() == panelDraft.getBtnRet())) {
 
 			// panelNew = new MessagingNewPanel();
-			MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));
+			//MessageListener.panelMain.setCopyUserItems(cli.getMessages(false)); // Previous imlplementatioons
+			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
 			System.out.println("switch to panel : main message");
 
 			MainFrame.SwithPanel(panelMain);
@@ -265,7 +278,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	public void keyTyped(KeyEvent e) {
 
 		int nb = 0;
-		if(e.getKeyChar() == '\b' || e.VK_DELETE == e.getKeyChar()) {
+		if(e.getKeyChar() == '\b' || KeyEvent.VK_DELETE == e.getKeyChar()) {
 			System.out.println("lettre tapée : " + e.getKeyChar());
 			
 		}else {

@@ -29,7 +29,15 @@ public class SpecialTableItemModel<Item> extends AbstractTableModel {
 
 
 
-    public String getColumnName(int col) {
+    public SpecialTableItemModel() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+
+
+	public String getColumnName(int col) {
         return columnNames[col];
     }
     

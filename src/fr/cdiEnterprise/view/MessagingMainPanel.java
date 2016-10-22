@@ -4,8 +4,7 @@
 package fr.cdiEnterprise.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -25,14 +24,14 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 import fr.cdiEnterprise.control.MessageListener;
-import fr.cdiEnterprise.dao.OldDatas;
+
+
+
 import fr.cdiEnterprise.model.Item;
-import fr.cdiEnterprise.service.Clients;
+
 import fr.cdiEnterprise.service.Items;
-import fr.cdiEnterprise.util.MpClient;
 import fr.cdiEnterprise.util.ReadProperties;
 import net.miginfocom.swing.MigLayout;
 
@@ -81,13 +80,19 @@ public class MessagingMainPanel extends JPanel {
 	public MessagingMainPanel()  {
 		
 		//listModele = new DefaultListModel<>();
+		System.out.println("constructor...");
+		copyUserItems = new Items();
+		this.tiModel = new SpecialTableItemModel();
+		table = new JTable();
+		System.out.println("==========================");
+		System.out.println("Timodel " + this.tiModel);
 		MessageListener listener = new MessageListener(this);
-		
+
 		
 		borderTitle = BorderFactory.createTitledBorder("Message");
 		border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		
-		table = new JTable(tiModel);
+		
 		table.setFillsViewportHeight(true);
 		table.setEnabled(true);
 		table.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 16));
@@ -100,7 +105,7 @@ public class MessagingMainPanel extends JPanel {
 		
 		JScrollPane scroller = new JScrollPane(table);
 		fillModel();
-		
+		System.out.println("nombre de message ligne 108" +copyUserItems.size());
 
 
 		
@@ -124,8 +129,8 @@ public class MessagingMainPanel extends JPanel {
 		String header = String.format(FORMAT_LIST, HEADER_LIST);
 		JLabel headerLabel = new JLabel(header);
 		
-		tiModel = new SpecialTableItemModel(copyUserItems);
 		
+		tiModel.setUsers(copyUserItems);
 		tableModele =  new DefaultTableModel(tableauMsg, new String[] {
 				"Sender", "Objet", "Date Reception"
 			});
@@ -194,7 +199,7 @@ public class MessagingMainPanel extends JPanel {
 	 */
 	private void fillModel() {
 
-		
+		System.out.println(copyUserItems.size() + " " + tiModel);
 		int index = 0;
 		if(copyUserItems.isEmpty()) {
 			

@@ -138,16 +138,7 @@ public class TestMessage {
 			// on pop le message delah boite draft, et ensuite on l"edite.
 			// le message sera remis.
 			
-			nicolas.editDraft(nicolas.popMessage("5", true),  "olivier", "test[edited]", "Ce message a ete modifier...");
-			Items items =  nicolas.getMessages( true);
-			//System.out.println("size of draft is "+ items.size());
-			for(int i = 0; i <items.size(); i++ ) {
-				System.out.println("---"+items.get(i).getSender());
-				if(items.get(i).getSender().equals("nicolas")) {
-					identity = items.get(i).getId();
-					//System.out.println("identity is "+identity);
-				}
-			}
+		
 			
 			// now we get the message from the draft queue and send it to the final receipient
 			
@@ -209,7 +200,7 @@ public class TestMessage {
 	private static Item getMessage(String usr,String id , ArrayList<Item> allItems) {
 		
 		for(int i = 0; i <allItems.size(); i++ ) {
-			if(allItems.get(i).getId().equals(id)) {
+			if(allItems.get(i).getId() == 0) {
 				return allItems.get(i);
 				
 			}

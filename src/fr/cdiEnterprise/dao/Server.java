@@ -149,36 +149,36 @@ public  class Server {
 	 * @param draft tell if the message to be removed is draft.
 	 * @return a boolean telling that the message has been removed from the list.
 	 */
-	public static boolean removeMessage(String usr, String identifier, boolean draft) {
-		boolean removed = false;
-
-			if(draft) {
-				ArrayList<Item> allUsrItems = itemsDraft.get(usr);
-				for(int i = 0; i < allUsrItems.size();i++) {
-				Item current = null;
-				if(allUsrItems.get(i).getId().equals(identifier)) {
-					
-					allUsrItems.remove(i);
-					return removed;
-
-				}
-				}
-			}else {
-				ArrayList<Item> allUsrItems = items.get(usr);
-				for(int i = 0; i < allUsrItems.size();i++) {
-				Item current = null;
-				if(allUsrItems.get(i).getId().equals(identifier)) {
-					
-					allUsrItems.remove(i);
-					return removed;
-
-				}
-				}
-			}
-		
-		return removed;
-		
-	}
+//	public static boolean removeMessage(String usr, String identifier, boolean draft) {
+//		boolean removed = false;
+//
+//			if(draft) {
+//				ArrayList<Item> allUsrItems = itemsDraft.get(usr);
+//				for(int i = 0; i < allUsrItems.size();i++) {
+//				Item current = null;
+//				if(allUsrItems.get(i).getId().equals(identifier)) {
+//					
+//					allUsrItems.remove(i);
+//					return removed;
+//
+//				}
+//				}
+//			}else {
+//				ArrayList<Item> allUsrItems = items.get(usr);
+//				for(int i = 0; i < allUsrItems.size();i++) {
+//				Item current = null;
+//				if(allUsrItems.get(i).getId().equals(identifier)) {
+//					
+//					allUsrItems.remove(i);
+//					return removed;
+//
+//				}
+//				}
+//			}
+//		
+//		return removed;
+//		
+//	}
 	
 	
 	
@@ -201,7 +201,7 @@ public  class Server {
 			if(draft) {
 				ArrayList<Item> allUsrItems = itemsDraft.get(usr);
 				for(int i = 0; i < allUsrItems.size();i++) {
-				if(allUsrItems.get(i).getId().equals(identifier)) {
+				if(allUsrItems.get(i).getId()==0) {
 					current = allUsrItems.get(i);
 					allUsrItems.remove(i);
 					return current;
@@ -211,7 +211,7 @@ public  class Server {
 			}else {
 				ArrayList<Item> allUsrItems = items.get(usr);
 				for(int i = 0; i < allUsrItems.size();i++) {
-				if(allUsrItems.get(i).getId().equals(identifier)) {
+				if(allUsrItems.get(i).getId()==0) {
 					current = allUsrItems.get(i);
 					allUsrItems.remove(i);
 					return current;

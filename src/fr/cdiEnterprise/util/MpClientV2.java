@@ -1,8 +1,10 @@
 package fr.cdiEnterprise.util;
 
+
+
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 
 
 
@@ -33,6 +35,10 @@ public class MpClientV2 {
 	
 	
 	
+	public Items getMyMessages() {
+		return myMessages;
+	}
+
 	private static int ID_NUMBER = 0;
 	  
 
@@ -45,8 +51,35 @@ public class MpClientV2 {
 		box = usr;
 		//this.messageDao = server;
 		this.myMessages = new Items();
+		getMaxItems();
+		
+		
 	//	this.myDraft = new  Items();
+		
+		
+		
 
+	}
+
+	/**
+	 * 
+	 */
+	private Items getMaxItems() {
+		Items items = null;
+		if(ID_NUMBER == 0)
+		{
+			int max = 0;
+			items = getMessages(false);
+			for(Item current : items){
+				if(current.getId() > max) {
+					max = current.getId();
+					ID_NUMBER = max;
+				}
+			}
+		}
+		
+		System.out.println("l'email le plus rescent est numero "+ ID_NUMBER);
+		return items;
 	}
 	
 	/**
@@ -61,11 +94,11 @@ public class MpClientV2 {
 	 */
 	public void newEmail(String from, String to, String obj, String bdy )   {
 		
-		String idNumber = null;
+		int idNumber = 0;
 		
 		ID_NUMBER = ID_NUMBER + 1;
 		LocalDateTime timeStamp = LocalDateTime.now();
-		idNumber = ID_NUMBER + "";
+		idNumber = ID_NUMBER;
 		Item itm = new Item(from, to, obj, bdy, timeStamp);
 		System.out.println("Taille du Message : "+bdy.length());
 		itm.setId(idNumber);
@@ -76,45 +109,47 @@ public class MpClientV2 {
 		
 	}
 	
-//	/**
-//	 * This method will be used to reply to an email , draft have to be false, or send a draft email and draft have to be true.
-//	 * @param item
-//	 * @param draft
-//	 * @return
-//	 */
-//	public boolean sendEmail(Item item, boolean draft) {
-//
-//		LocalDateTime timeStamp = LocalDateTime.now();
-//	
-//		Item repliedItem = new Item(item.getSender(), item.getReceiver(), item.getObject(), item.getBody(),  timeStamp);
-//		
-//		repliedItem.setId(item.getId());
-//		if(draft) {
-//			
-//			repliedItem.setDraftEmail(false);
-//			System.out.println(repliedItem.toString());
-//			server.post(repliedItem);
-//			
-//			return true;
-//		}else {
-//			if(item.getObject() != null && item.getBody() != null) {
-//				repliedItem.setObject("re: "+ item.getObject());
-//				repliedItem.setTimeStamp(timeStamp);
-//				String snd = item.getSender();
-//				String rcv = item.getReceiver();
-//				repliedItem.setReceiver(snd);
-//				repliedItem.setSender(rcv);
-//				
-//				
-//				server.post(repliedItem);
-//				return true;
-//			}else {
-//				return false;
-//			}
-//
-//		}
-//
-//	}
+	/**
+	 * This method will be used to reply to an email , draft have to be false, or send a draft email and draft have to be true.
+	 * @param item
+	 * @param draft
+	 * @return
+	 */
+	public boolean sendEmail(Item item, boolean draft) {
+
+		LocalDateTime timeStamp = LocalDateTime.now();
+	
+		Item repliedItem = new Item(item.getSender(), item.getReceiver(), item.getObject(), item.getBody(),  timeStamp);
+		
+		//repliedItem.setId(item.getId()); // old implementation
+		ID_NUMBER = ID_NUMBER + 1;
+		repliedItem.setId(ID_NUMBER);
+		if(draft) {
+			
+			repliedItem.setDraftEmail(false);
+			System.out.println(repliedItem.toString());
+			messageDao.insertItem(repliedItem);
+			
+			return true;
+		}else {
+			if(item.getObject() != null && item.getBody() != null) {
+				repliedItem.setObject("re: "+ item.getObject());
+				repliedItem.setTimeStamp(timeStamp);
+				String snd = item.getSender();
+				String rcv = item.getReceiver();
+				repliedItem.setReceiver(snd);
+				repliedItem.setSender(rcv);
+				
+				
+				messageDao.insertItem(repliedItem);
+				return true;
+			}else {
+				return false;
+			}
+
+		}
+
+	}
 	
 	
 	
@@ -192,13 +227,13 @@ public class MpClientV2 {
 	 * @param identifier to get the requested email removed
 	 * @param draft will indicate if this is a draft email
 	 */
-//	public void removeMessage(String identifier, boolean draft) {
-//		
-//		if(server.removeMessage(this.box, identifier, draft)) {
-//			System.out.println("Message has been removed...");
-//		}
-//	}
-//	
+	public void removeMessage(int identifier, boolean draft) {
+		
+		if(messageDao.removeMessage(this.box, identifier, draft)) {
+			System.out.println("Message has been removed...");
+		}
+	}
+	
 //	/**
 //	 * going to pop one message with particular Id, and draft or not
 //	 * @param identifier 

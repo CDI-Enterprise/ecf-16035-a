@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
  */
 public class Item {
 	
-	private String id;
+	private int id;
 	private String sender;
 	private String receiver;
 	private String object;
@@ -58,7 +58,7 @@ public class Item {
 	 * @param body the body represent the message, should be limited to 1500 caracters.
 	 * @param timeStamp is the time when message has been sent.
 	 */
-	public Item(String id, String sender, String receiver, String object, String body, LocalDateTime timeStamp, boolean draft) {
+	public Item(int id, String sender, String receiver, String object, String body, LocalDateTime timeStamp, boolean draft) {
 		super();
 		this.id = id;
 		this.sender = sender;
@@ -131,10 +131,10 @@ public class Item {
 		return timeStamp;
 	}
 	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	/**

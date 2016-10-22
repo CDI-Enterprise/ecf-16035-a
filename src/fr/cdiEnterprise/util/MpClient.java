@@ -63,7 +63,7 @@ public class MpClient {
 		idNumber = ID_NUMBER + "";
 		Item itm = new Item(from, to, obj, bdy, timeStamp);
 		System.out.println("Taille du Message : "+bdy.length());
-		itm.setId(idNumber);
+	//	itm.setId(idNumber);
 		if(server.post(itm)) {
 			
 			return true;
@@ -151,12 +151,12 @@ public class MpClient {
 	 */
 	public boolean draft(String from, String to, String obj, String bdy) {
 		
-		String idNumber = null;
+		int idNumber = 0;
 		
 		
 		ID_NUMBER = ID_NUMBER + 1;
 		LocalDateTime timeStamp = LocalDateTime.now();
-		idNumber = ID_NUMBER + "";
+		idNumber = ID_NUMBER;
 		Item itm = new Item(from, to, obj, bdy, null);
 		//System.out.println("the id number for " + idNumber);
 		itm.setId(idNumber);
@@ -191,10 +191,8 @@ public class MpClient {
 	 */
 	public void removeMessage(String identifier, boolean draft) {
 		
-		if(server.removeMessage(this.box, identifier, draft)) {
-			System.out.println("Message has been removed...");
-		}
-	}
+		
+			}
 	
 	/**
 	 * going to pop one message with particular Id, and draft or not
