@@ -39,7 +39,7 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 	private User selectedUser;
 	private Trainee selectedTrainee;
 	private FormerTrainee selectedFormerTrainee;
-	private Trainer selectedTrainer;
+//	private Trainer selectedTrainer;
 	private int indexUser;
 
 	// Attributes to create-update a user
@@ -49,7 +49,7 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 	private String alias;
 	private String email;
 	private String afpa;
-	private String trainer;
+//	private String trainer;
 	
 	// Attributes to reset component
 	ArrayList<JTextField> allJTextFields;
@@ -76,7 +76,7 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 		alias = panelUser.getTxtAlias().getText();
 		email = panelUser.getTxtMail().getText();
 		afpa = panelUser.getTxtAfpa().getText();
-		trainer = panelUser.getTxtTrainer().getText();
+//		trainer = panelUser.getTxtTrainer().getText();
 
 		// Clears all fields
 		if (e.getSource() == panelUser.getCmdCancel()) {
@@ -211,7 +211,7 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 
 			case "Formateur" :
 				// Casts User to Trainer
-				selectedTrainer = (Trainer) selectedUser;
+//				selectedTrainer = (Trainer) selectedUser;
 				// Status
 				panelUser.getOptTrainer().setSelected(true);
 				panelUser.getOptTrainee().setEnabled(false);

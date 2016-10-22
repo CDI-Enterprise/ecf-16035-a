@@ -5,6 +5,7 @@ import java.sql.Connection;
 import fr.cdiEnterprise.dao.DBConnection;
 
 /**
+ * Panel test for user CRUD.
  * @author Claire
  * @version 22-10-2016
  *

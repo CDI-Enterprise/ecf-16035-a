@@ -10,18 +10,15 @@ import javax.swing.JScrollPane;
 import fr.cdiEnterprise.view.UserPanel;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.Map.Entry;
 
 /**
- * MainFrame for the CDI Enterprise program with a JMenuBar.
+ * Frame test to only display the panel for user CRUD.
  * @author Claire
- * @version 07-10-2016
+ * @version 22-10-2016
  */
 
 public class UserFrameTest extends JFrame {

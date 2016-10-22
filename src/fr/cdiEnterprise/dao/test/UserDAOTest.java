@@ -6,7 +6,7 @@ package fr.cdiEnterprise.dao.test;
 import java.sql.SQLException;
 
 import fr.cdiEnterprise.dao.UserDAO;
-import fr.cdiEnterprise.model.User;
+//import fr.cdiEnterprise.model.User;
 import fr.cdiEnterprise.service.Users;
 
 /**
