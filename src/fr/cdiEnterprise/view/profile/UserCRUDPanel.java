@@ -1,4 +1,4 @@
-package fr.cdiEnterprise.view;
+package fr.cdiEnterprise.view.profile;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -27,10 +27,11 @@ import net.miginfocom.swing.MigLayout;
 
 /**
  * Panel for a user's profile CRUD.
- * @version 16-10-2016
  * @author Claire
+ * @version 16-10-2016
+ * 
  */
-public class UserPanel extends JPanel {
+public class UserCRUDPanel extends JPanel {
 
 	/**
 	 * 
@@ -124,9 +125,9 @@ public class UserPanel extends JPanel {
 	// ArrayList of components
 	ArrayList<JTextField> allJTextFields;
 	
-	public UserPanel() {
+	public UserCRUDPanel() {
 
-		// Main layout for book creation panel
+		// Main layout for user CRUD panel
 		this.setLayout(new BorderLayout(10, 20));
 
 		
