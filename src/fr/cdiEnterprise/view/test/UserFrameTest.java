@@ -7,7 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import fr.cdiEnterprise.view.UserPanel;
+import fr.cdiEnterprise.view.profile.UserCRUDPanel;
+import fr.cdiEnterprise.view.profile.UserSRPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -28,11 +29,14 @@ public class UserFrameTest extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	protected static JPanel mainPan;
+	protected static JPanel panMain;
 
-	private static UserPanel panelUser;
-	private static JScrollPane scrollUser;
-	
+	// Panels for profile management
+	private static UserCRUDPanel panelUserCRUD;
+	private static UserSRPanel panelUserSR;
+	private static JScrollPane scrollPanelUserCRUD;
+	private static JScrollPane scrollPanelUserSR;
+
 	/**
 	 * MainFrame constructor.
 	 * Constructs a Main Frame with a default panel of 1280*800 resizable
@@ -41,14 +45,14 @@ public class UserFrameTest extends JFrame {
 	 * It opens where the OS windows usually do
 	 * @throws SQLException 
 	 */
-	public UserFrameTest()  {
+	public UserFrameTest() throws SQLException  {
 
 		// Algorithm from stackoverflow.com, set the font by default
 		for (Entry<Object, Object> entry : javax.swing.UIManager.getDefaults().entrySet()) {
 			Object key = entry.getKey();
 			Object value = javax.swing.UIManager.get(key);
 			if (value != null && value instanceof javax.swing.plaf.FontUIResource) {
-//				javax.swing.plaf.FontUIResource fr=(javax.swing.plaf.FontUIResource)value;
+				//				javax.swing.plaf.FontUIResource fr=(javax.swing.plaf.FontUIResource)value;
 				// (String for font name, integer for style, integer for size)
 				javax.swing.plaf.FontUIResource f = new javax.swing.plaf.FontUIResource("Arial", Font.PLAIN, 14);
 				javax.swing.UIManager.put(key, f);
@@ -56,7 +60,7 @@ public class UserFrameTest extends JFrame {
 		}
 
 		// Get the JFrame's default panel
-		mainPan = (JPanel) this.getContentPane();
+		panMain = (JPanel) this.getContentPane();
 
 		// Main frame properties
 		// Title for MainFrame
@@ -69,15 +73,23 @@ public class UserFrameTest extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		// Main content properties
-		mainPan.setPreferredSize(new Dimension (1280,800));
-		mainPan.setLayout(new BorderLayout());
-		
-		// Panel for user CRUD
-		panelUser = new UserPanel();
-		panelUser.setPreferredSize(new Dimension (1260,800));
-		scrollUser = new JScrollPane(panelUser);
-		mainPan.add(scrollUser);
+		panMain.setPreferredSize(new Dimension (1280,800));
+		panMain.setLayout(new BorderLayout());
 
-		
+		// Main menu @see fr.cdiEnterprise.view.Menu
+		this.setJMenuBar(new UserMenuTest());
+
+		// Panel for user CRUD
+		panelUserCRUD = new UserCRUDPanel();
+		panelUserCRUD.setPreferredSize(new Dimension (1260,800));
+		scrollPanelUserCRUD = new JScrollPane(panelUserCRUD);
+		panMain.add(scrollPanelUserCRUD);
+
+		// Panel for users search and display (SR)
+		panelUserSR = new UserSRPanel();
+		panelUserSR.setPreferredSize(new Dimension(1260, 800));
+		scrollPanelUserSR = new JScrollPane(panelUserSR);
+		panMain.add(scrollPanelUserSR);
+
 	}
 }
