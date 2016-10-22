@@ -56,7 +56,7 @@ public class ClientsV2 extends ArrayList<MpClientV2> {
 		ArrayList<Item> itms;
 		try {
 			itms = cli.getMessages(draft);
-			System.out.println("nombre d'emails---" + itms.size());
+			
 			if(itms.isEmpty()) {
 				liste = new String[itms.size()][3];
 			} else  {
@@ -67,8 +67,7 @@ public class ClientsV2 extends ArrayList<MpClientV2> {
 					liste[index][0] = current.getSender();
 					liste[index][1] = current.getObject();
 					liste[index][2] = current.getTimeStamp().toString();
-					System.out.println(liste[index][0]);
-					System.out.println(liste[index][2]);
+
 					
 
 					index++;
@@ -76,7 +75,7 @@ public class ClientsV2 extends ArrayList<MpClientV2> {
 			}
 		
 		} catch (Exception e) {
-			// TODO (Nicolas) Auto-generated catch block
+			// TODO (Nicolas) Excep need to be fixed
 			e.printStackTrace();
 		}
 		

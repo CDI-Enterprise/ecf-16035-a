@@ -80,12 +80,10 @@ public class MessagingMainPanel extends JPanel {
 	public MessagingMainPanel()  {
 		
 		//listModele = new DefaultListModel<>();
-		System.out.println("constructor...");
 		copyUserItems = new Items();
 		this.tiModel = new SpecialTableItemModel();
 		table = new JTable();
-		System.out.println("==========================");
-		System.out.println("Timodel " + this.tiModel);
+
 		MessageListener listener = new MessageListener(this);
 
 		
@@ -105,8 +103,7 @@ public class MessagingMainPanel extends JPanel {
 		
 		JScrollPane scroller = new JScrollPane(table);
 		fillModel();
-		System.out.println("nombre de message ligne 108" +copyUserItems.size());
-
+		
 
 		
 		
@@ -199,7 +196,7 @@ public class MessagingMainPanel extends JPanel {
 	 */
 	private void fillModel() {
 
-		System.out.println(copyUserItems.size() + " " + tiModel);
+		
 		int index = 0;
 		if(copyUserItems.isEmpty()) {
 			
@@ -210,8 +207,7 @@ public class MessagingMainPanel extends JPanel {
 				tableauMsg[index][0] = current.getSender();
 				tableauMsg[index][1] = current.getObject();
 				tableauMsg[index][2] = current.getTimeStamp().toString();
-				System.out.println(tableauMsg[index][0]);
-				System.out.println(tableauMsg[index][2]);
+
 				
 
 				index++;
@@ -219,12 +215,12 @@ public class MessagingMainPanel extends JPanel {
 			
 			
 			
-				
+			 //TODO (nicolas) need to fix this if else	
 			if(tableauMsg == null) {
-				System.out.println("tableauMsg est null" + tableauMsg.length);
+				//System.out.println("tableauMsg est null" + tableauMsg.length);
 			}else {
 				
-				System.out.println("tableauMsg nest pqs null" + tableauMsg.length);
+				//System.out.println("tableauMsg nest pqs null" + tableauMsg.length);
 				tableModele =  new DefaultTableModel(tableauMsg, new String[] {
 						"Sender", "Objet", "Date Reception"
 					});
@@ -243,8 +239,7 @@ public class MessagingMainPanel extends JPanel {
 				tableauMsg[index][0] = current.getSender();
 				tableauMsg[index][1] = current.getObject();
 				tableauMsg[index][2] = current.getTimeStamp().toString();
-				System.out.println(tableauMsg[index][0]);
-				System.out.println(tableauMsg[index][2]);
+
 				
 
 				index++;
@@ -256,22 +251,21 @@ public class MessagingMainPanel extends JPanel {
 		
 			
 		}
-		System.out.println("tableModele est "+tableModele.getRowCount()+ "table " + table);
 		table.setModel(tableModele);
 
 	}
 
 	/**
-	 * 
+	 //TODO need to refactor this method
 	 */
 	private void readTableauModele(String[][] tableauMsg) {
-		System.out.println("--- Verification du tableau ---");
+	
 		for(int i =0; i < tableauMsg.length; i++ ) {
 			for(int j =0; j < 3; j++ ) {
-				System.out.println(tableauMsg[i][j]);
+				//System.out.println("MessagingMain -"+tableauMsg[i][j]);
 			}
 		}
-		System.out.println("--- fin ---");
+	
 	}
 
 	public JButton getBtnNew() {

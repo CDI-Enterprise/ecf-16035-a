@@ -35,9 +35,6 @@ public class MpClientV2 {
 	
 	
 	
-	public Items getMyMessages() {
-		return myMessages;
-	}
 
 	private static int ID_NUMBER = 0;
 	  
@@ -49,39 +46,47 @@ public class MpClientV2 {
 	
 	public MpClientV2(String usr) {
 		box = usr;
-		//this.messageDao = server;
+
 		this.myMessages = new Items();
-		getMaxItems();
-		
-		
-	//	this.myDraft = new  Items();
-		
+		myMessages 	= getMaxItems(false);
+		getMaxItems(true);
+
 		
 		
 
 	}
 
 	/**
-	 * 
+	 * Cette method est utilise pour determiner le numeros de message ID Max provenant de la base de donnee.
 	 */
-	private Items getMaxItems() {
+	private Items getMaxItems(boolean all) {
 		Items items = null;
 		if(ID_NUMBER == 0)
 		{
 			int max = 0;
-			items = getMessages(false);
-			for(Item current : items){
-				if(current.getId() > max) {
-					max = current.getId();
-					ID_NUMBER = max;
+			if(all) {
+				items = getAllMessages();
+				for(Item current : items){
+					if(current.getId() > max) {
+						max = current.getId();
+						ID_NUMBER = max;
+					}
 				}
+			
+			}else {
+				items = getMessages(false);
 			}
+			
 		}
 		
-		System.out.println("l'email le plus rescent est numero "+ ID_NUMBER);
+	//	System.out.println("l'email le plus rescent est numero "+ ID_NUMBER);
 		return items;
 	}
 	
+	private Items getAllMessages() {
+		return messageDao.getAllItems(this.box);
+	}
+
 	/**
 	 * This method is going to send new email to other users.
 	 * 
@@ -93,18 +98,18 @@ public class MpClientV2 {
 	 * @throws SQLException 
 	 */
 	public void newEmail(String from, String to, String obj, String bdy )   {
-		
+		// TODO (nicolas) Penser a modifier la signature pour ne prendre que un objet Item
 		int idNumber = 0;
 		
 		ID_NUMBER = ID_NUMBER + 1;
 		LocalDateTime timeStamp = LocalDateTime.now();
 		idNumber = ID_NUMBER;
 		Item itm = new Item(from, to, obj, bdy, timeStamp);
-		System.out.println("Taille du Message : "+bdy.length());
+	
 		itm.setId(idNumber);
 
 		messageDao.insertItem(itm);
-		System.out.println("Message devrait etre insere");
+
 			
 		
 	}
@@ -118,16 +123,17 @@ public class MpClientV2 {
 	public boolean sendEmail(Item item, boolean draft) {
 
 		LocalDateTime timeStamp = LocalDateTime.now();
-	
+		ID_NUMBER = ID_NUMBER + 1;
+
 		Item repliedItem = new Item(item.getSender(), item.getReceiver(), item.getObject(), item.getBody(),  timeStamp);
 		
 		//repliedItem.setId(item.getId()); // old implementation
-		ID_NUMBER = ID_NUMBER + 1;
+		
 		repliedItem.setId(ID_NUMBER);
 		if(draft) {
-			
+
 			repliedItem.setDraftEmail(false);
-			System.out.println(repliedItem.toString());
+	
 			messageDao.insertItem(repliedItem);
 			
 			return true;
@@ -192,10 +198,10 @@ public class MpClientV2 {
 		ID_NUMBER = ID_NUMBER + 1;		
 		idNumber = ID_NUMBER;
 		Item itm = new Item(idNumber, from, to, obj, bdy, null, draft);
-		System.out.println("Taille du Message : "+bdy.length());
+	
 
 		messageDao.insertItem(itm);
-		System.out.println("Message devrait etre insere");
+	
 	}
 
 	
@@ -224,7 +230,8 @@ public class MpClientV2 {
 	public void removeMessage(int identifier, boolean draft) {
 		
 		if(messageDao.removeMessage(this.box, identifier, draft)) {
-			System.out.println("Message has been removed...");
+			// TODO (nicolas) return a boolean later.
+			//System.out.println("Message has been removed...");
 		}
 	}
 	
@@ -281,6 +288,11 @@ public class MpClientV2 {
 	public  String getBox() {
 		return box;
 	}
+	
+	public Items getMyMessages() {
+		return myMessages;
+	}
+
 //	
 //	
 }

@@ -28,9 +28,11 @@ public class SpecialTableItemModel<Item> extends AbstractTableModel {
 
 
 
-
+    /**
+     * default constructor
+     */
     public SpecialTableItemModel() {
-		// TODO (Nicolas) Auto-generated constructor stub
+		
 	}
 
 
@@ -96,7 +98,12 @@ public class SpecialTableItemModel<Item> extends AbstractTableModel {
      * @return 
      */
     public fr.cdiEnterprise.model.Item getUserAt(int row) {
-        return users.get(row);
+    	if(row >= 0) {
+    		return users.get(row);
+    	}else {
+    		return null;
+    	}
+        
     }
 
 

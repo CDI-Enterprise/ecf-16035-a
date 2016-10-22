@@ -43,7 +43,6 @@ public class messageDao {
 		ResultSet resultSet = null;
 		try {
 			connection = Database.getConnect();
-			
 			statement = connection.createStatement();
 	
 			
@@ -72,7 +71,7 @@ public class messageDao {
 			                TABLE_NAME, //
 			                "identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft");
 	
-			System.out.println(createStatement);
+			
 			
 			statement.executeUpdate(createStatement);
 			
@@ -87,7 +86,7 @@ public class messageDao {
 				statement.close();
 				connection.close();
 			} catch (SQLException e) {
-				// TODO (Nicolas) Auto-generated catch block
+				// TODO (Nicolas) need to fix this
 				e.printStackTrace();
 			}
 			
@@ -139,7 +138,7 @@ public class messageDao {
 		try {
 			statement = connection.createStatement();
 		} catch (SQLException e1) {
-			// TODO (Nicolas) Auto-generated catch block
+			// TODO (Nicolas) 
 			e1.printStackTrace();
 		}
 			
@@ -160,15 +159,15 @@ public class messageDao {
 			                "identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft", TABLE_NAME,"SENDER", box, "DRAFT", 1);
 			}else {
 				createStatement = String
-				        .format("select %s, %s  , %s ,%s , %s ,%s, %s from %s WHERE %s = '%s'", 	
+				        .format("select %s, %s  , %s ,%s , %s ,%s, %s from %s WHERE %s = '%s' AND %s = '%s'", 	
 			                 //
-			                "identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft", TABLE_NAME,"RECEIVER", box);
+			                "identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft", TABLE_NAME,"RECEIVER", box, "DRAFT", 0);
 			}
 			
 			
 //			        		select identity, sender, receiver, subject, messBody, timeStamp, draft from mailbox
 	//		        		WHERE sender = 'claire';
-			System.out.println(createStatement);
+			
 			try {
 				resultSet = statement.executeQuery(createStatement);
 				connection.commit();
@@ -192,7 +191,7 @@ public class messageDao {
 					items.add(item);
 				}
 			} catch (SQLException e) {
-				// TODO (Nicolas) Auto-generated catch block
+				// TODO (Nicolas) need to fix this
 				e.printStackTrace();
 			}
 
@@ -202,7 +201,85 @@ public class messageDao {
 			return items;
 			
 	}
+	
+	/**
+	 * This method is going to return the email for a particular user mailbox or a draft Mailbox.
+	 * box will indicate the mailbox whether draft is false , or draft message if that is true
+	 * @param rcv
+	 * @param draft
+	 * @return
+	 * @throws SQLException
+	 */
+	
+	// TODO (nicolas) methode a revoir
+	public static Items getAllItems(String box)  {
 		
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		Items items = new Items();
+		
+		connection = Database.getConnect();
+		try {
+			statement = connection.createStatement();
+		} catch (SQLException e1) {
+			// TODO (nicolas) need to fix this excp
+			e1.printStackTrace();
+		}
+			
+			//String ident = null;
+			int ident = 0;
+			String sender = null;
+			String receiver =null;
+			String object = null;
+			String body = null;
+			String date = null;
+			int draftMess = 0;
+			
+			String createStatement = null;
+
+				createStatement= String
+				        .format("select %s, %s  , %s ,%s , %s ,%s, %s from %s", 	
+			                 //
+			                "identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft", TABLE_NAME);
+
+			
+
+			try {
+				resultSet = statement.executeQuery(createStatement);
+				connection.commit();
+				
+				while(resultSet.next()) {
+					
+					
+					ident = resultSet.getInt("identity");
+					sender = resultSet.getString("sender");
+					receiver = resultSet.getString("receiver");
+					object = resultSet.getString("subject");
+					body = resultSet.getString("messBody");
+
+					draftMess = resultSet.getInt("draft");
+					if(draftMess==0) {
+						date = resultSet.getString("timeStamp");
+					}
+					
+					
+					Item item = new Item(ident, sender, receiver, object, body, StringToLocalDate(date), intToBoolean(draftMess));
+					items.add(item);
+				}
+			} catch (SQLException e) {
+				// TODO (nicolas) need to fix this
+				e.printStackTrace();
+			}
+
+				
+				
+			
+			return items;
+			
+	}
+	
+	
 //	}
 	
 	// TODO (Nicolas) deleteMessage - public static boolean removeMessage(String usr, String identifier, boolean draft) {
@@ -217,11 +294,11 @@ public class messageDao {
 		try {
 			statement = connection.createStatement();
 			String query = "delete from mailbox where identity = '" + identifier + "'";
-			System.out.println(query);
+		
 			statement.executeUpdate(query);
 			connection.commit();
 		} catch (SQLException e) {
-			// TODO (Nicolas) Auto-generated catch block
+			// TODO (Nicolas) need to fix this excp
 			e.printStackTrace();
 		}
 		
@@ -253,7 +330,7 @@ public class messageDao {
 	 */
 	public static String localDateToString(LocalDateTime input) {
 		
-		System.out.println(input.toString());
+
 		
 		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM uuuu HH:mm:ss");
 		  String text = input.format(formatter);
@@ -271,7 +348,7 @@ public class messageDao {
 	public static LocalDateTime StringToLocalDate( String input ) {
 		LocalDateTime localTime = null;
 		if(input != null) {
-			System.out.println("before transform "+input);
+			
 			  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM uuuu HH:mm:ss");
 			  localTime = LocalDateTime.parse(input, formatter);
 			  

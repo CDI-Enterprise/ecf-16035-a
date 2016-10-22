@@ -192,6 +192,7 @@ public class MessagingDraftPanel extends JPanel {
 	 * @param allItems
 	 * @return
 	 */
+	// TODO (nicolas) Maybe put this method in util class.
 	private void fillModel() {
 
 		
@@ -205,17 +206,14 @@ public class MessagingDraftPanel extends JPanel {
 				tableauMsg[index][0] = current.getSender();
 				tableauMsg[index][1] = current.getObject();
 				tableauMsg[index][2] = current.getTimeStamp().toString();
-				System.out.println(tableauMsg[index][0]);
-				System.out.println(tableauMsg[index][2]);
+		
 				index++;
 			}
 			
 	
 			if(tableauMsg == null) {
-				System.out.println("tableauMsg est null" + tableauMsg.length);
 			}else {
 				
-				System.out.println("tableauMsg nest pas null" + tableauMsg.length);
 				tableModele =  new DefaultTableModel(tableauMsg, new String[] {
 						"Sender", "Objet", "Date Reception"
 					});
@@ -234,8 +232,7 @@ public class MessagingDraftPanel extends JPanel {
 				tableauMsg[index][0] = current.getSender();
 				tableauMsg[index][1] = current.getObject();
 			//	tableauMsg[index][2] = current.getTimeStamp().toString();
-				System.out.println(tableauMsg[index][0]);
-				System.out.println(tableauMsg[index][2]);
+				
 				
 
 				index++;
@@ -247,7 +244,6 @@ public class MessagingDraftPanel extends JPanel {
 		
 			
 		}
-		System.out.println("tableModele est "+tableModele.getRowCount()+ "table " + table);
 		table.setModel(tableModele);
 
 	}
@@ -256,13 +252,13 @@ public class MessagingDraftPanel extends JPanel {
 	 * 
 	 */
 	private void readTableauModele(String[][] tableauMsg) {
-		System.out.println("--- Verification du tableau ---");
+		
 		for(int i =0; i < tableauMsg.length; i++ ) {
 			for(int j =0; j < 3; j++ ) {
-				System.out.println(tableauMsg[i][j]);
+				
 			}
 		}
-		System.out.println("--- fin ---");
+		
 	}
 
 

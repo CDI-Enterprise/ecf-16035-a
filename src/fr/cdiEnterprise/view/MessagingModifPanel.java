@@ -4,20 +4,18 @@
 package fr.cdiEnterprise.view;
 
 import java.awt.BorderLayout;
-import java.awt.event.KeyEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
+
 
 import fr.cdiEnterprise.control.MessageListener;
-
+import fr.cdiEnterprise.dao.OldDatas;
+import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.model.User;
 import fr.cdiEnterprise.service.Users;
 import fr.cdiEnterprise.util.ReadProperties;
@@ -25,25 +23,29 @@ import javafx.scene.control.ComboBox;
 import net.miginfocom.swing.MigLayout;
 
 /**
- * class nouveau message, inclu une combobox qui donne accés aux psuedo des utlisateurs de la class Datas.
+ * Cette class represente la vue d'un message que l'utlidsqteu consulte.
+ * l'utilisateur a la possibilité d'y repondre ou de le supprimer.
  * 
- * 
- * @version 13-10-2016
+ * @version 22-10-2016
  * @author nicolas Tarral
  *
  */
-public class MessagingNewPanel extends JPanel {
+public class MessagingModifPanel extends JPanel {
 	
 	private JButton btnEnv;
-	private JButton btnDraft;
-	private JButton btnReturn;
-	private Border border;
-	private Border borderMessage;
+	private JButton btnDel;
+	private JButton btnRet;
+	private JButton btnSav;
 	
 	private String from;
 	private JLabel receiver;
-	private JLabel lblobject;
+	private JLabel object;
 	private JLabel Message;
+	
+	private JLabel lblReceiver;
+	private JLabel lblObject;
+	private JLabel lblMessage;
+	
 	private JLabel letterCount;
 	private JLabel lblCounter;
 	
@@ -53,16 +55,31 @@ public class MessagingNewPanel extends JPanel {
 	private JTextArea  txtMessage;
 	
 	private Users usersList;
+	private Item itm;
 
 
 	
-	public MessagingNewPanel(Users list) {
+	public MessagingModifPanel(Item item, Users list) {
 		
-		
+		itm = item;
 		MessageListener listener = new MessageListener((JPanel) this);
 		
-		borderMessage = BorderFactory.createTitledBorder(" Nouveau Message ");
-		border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+		
+		
+		receiver = new JLabel(itm.getSender());
+		object = new JLabel(itm.getObject());
+		Message = new JLabel(itm.getBody());
+		
+		txtMessage = new JTextArea(10, 50);
+		/*if(itm != null) {
+			
+			txtMessage.setText("From :/n" +itm.getSender() +"/n");
+			txtMessage.setText("When :/n" +itm.getTimeStamp() +"/n");
+			txtMessage.setText("Objet :/n" +itm.getObject() +"/n");
+			txtMessage.setText("Message :/n" +itm.getBody() +"/n");
+		}*/
+		
+		// TODO (nicolas) needs to be removed
 		usersList = list;
 		from = ReadProperties.getMyAlias();
 		
@@ -76,22 +93,23 @@ public class MessagingNewPanel extends JPanel {
 		panMess.add(panCenter,BorderLayout.CENTER);
 		
 		
-		JLabel lblTitle = new JLabel("- Nouveau Message -");
+		JLabel lblTitle = new JLabel("- Modifier Votre Brouillon -");
 		
-		btnEnv = new JButton("Envoyé");
-		btnDraft = new JButton("Brouillon");
-		btnReturn = new JButton("Retour");
+		btnSav = new JButton("Sauvegarde");
+		btnEnv = new JButton("Envoie");
+		btnDel = new JButton("Effacer");
+		btnRet = new JButton("Retour");
 		
-		btnEnv.setMnemonic(KeyEvent.VK_E);
-		btnDraft.setMnemonic(KeyEvent.VK_B);
-		btnReturn.setMnemonic(KeyEvent.VK_R);
-		
-		receiver = new JLabel("Destinataire");
-		lblobject = new JLabel("Objet");
+	/*	receiver = new JLabel("Destinataire");
+		object = new JLabel("Objet");
 		Message = new JLabel("Texte");
 		letterCount = new JLabel("compteur");
-		lblCounter =   new JLabel();
+		lblCounter =   new JLabel();*/
 		
+		
+		lblReceiver = new JLabel("Destinataire");
+		lblObject = new JLabel("Sujet");
+		lblMessage = new JLabel("Message");
 
 
 		cboReceiver = new JComboBox();
@@ -99,11 +117,12 @@ public class MessagingNewPanel extends JPanel {
 		cboReceiver.setMaximumRowCount(3);
 		//txtReceiver = new JTextField();
 		txtObject = new JTextField(20);
-		
-		txtMessage = new JTextArea(10, 50);
+		txtObject.setText(itm.getObject());
+		txtMessage = new JTextArea(10,50);
+		txtMessage.setText(itm.getBody());
 		txtMessage.setLineWrap(true);
 		txtMessage.setWrapStyleWord(true);
-		txtMessage.setBorder(border);
+		
 	
 		
 		if(usersList != null) {
@@ -119,34 +138,48 @@ public class MessagingNewPanel extends JPanel {
 		
 		panNorth.add(lblTitle);
 		panCenter.setLayout(new MigLayout());
-		panCenter.setBorder(borderMessage);
 		
 		panCenter.add(receiver, "w 200!");
 		panCenter.add(cboReceiver, "wrap");
-		panCenter.add(lblobject, "w 200!");
+		//panCenter.add(receiver, "wrap");
+		//panCenter.add(lblReceiver, "wrap");
+		panCenter.add(lblObject, "w 200!");
 		panCenter.add(txtObject, "wrap");
+	
 		
-		panCenter.add(Message, "w 200!");
 		panCenter.add(txtMessage, "wrap");
+		
+		
+		
+		//panCenter.add(lblMessage, "w 200!");
+		//panCenter.add(txtMessage, "wrap");
 
-		panCenter.add(letterCount, "w 200!");
-		panCenter.add(lblCounter, "wrap");
+		//panCenter.add(letterCount, "w 200!");
+		//panCenter.add(lblCounter, "wrap");
 		
 		
 		panCenter.add(btnEnv, "w 200!");
-		panCenter.add(btnDraft, "w 200!");
-		panCenter.add(btnReturn, "w 200!");
+		panCenter.add(btnSav, "w 200!");
+		panCenter.add(btnDel, "w 200!");
+		panCenter.add(btnRet, "w 200!");
 		
 		
 		btnEnv.addActionListener(listener);
-		btnDraft.addActionListener(listener);
-		btnReturn.addActionListener(listener);
+		btnSav.addActionListener(listener);
+		btnDel.addActionListener(listener);
+		btnRet.addActionListener(listener);
 		
-		txtMessage.addKeyListener(listener);
+//		txtMessage.addKeyListener(listener);
 		
 		
 		
 		
+	}
+
+
+
+	public MessagingModifPanel() {
+	
 	}
 
 
@@ -163,20 +196,17 @@ public class MessagingNewPanel extends JPanel {
 
 
 
-	public JButton getBtnEnv() {
-		return btnEnv;
+
+
+
+	public JButton getBtnDel() {
+		return btnDel;
 	}
 
 
 
-	public JButton getBtnDraft() {
-		return btnDraft;
-	}
-
-
-
-	public JButton getBtnReturn() {
-		return btnReturn;
+	public JButton getBtnRet() {
+		return btnRet;
 	}
 
 
@@ -205,26 +235,26 @@ public class MessagingNewPanel extends JPanel {
 
 
 
-	public JLabel getLblobject() {
-		return lblobject;
+	public Item getItm() {
+		return itm;
 	}
 
 
 
-	public void setLblobject(JLabel lblobject) {
-		this.lblobject = lblobject;
+	public void setItm(Item itm) {
+		this.itm = itm;
 	}
 
 
 
-	public void setTxtObject(JTextField txtObject) {
-		this.txtObject = txtObject;
+	public JButton getBtnEnv() {
+		return btnEnv;
 	}
 
 
 
-	public void setUsersList(Users usersList) {
-		this.usersList = usersList;
+	public JButton getBtnSav() {
+		return btnSav;
 	}
 
 
