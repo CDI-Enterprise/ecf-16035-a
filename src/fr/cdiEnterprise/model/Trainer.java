@@ -8,11 +8,9 @@ package fr.cdiEnterprise.model;
  */
 public class Trainer extends User {
 
-	/**
-	 * 
-	 */
-	public Trainer() {
-		super();
+	// Constructor test for DB
+	public Trainer(int id, String inscriptionDate, String status, String alias, String email, String afpa) {
+		super(id, inscriptionDate, status, alias, email, afpa);
 	}
 
 	/**
@@ -33,5 +31,5 @@ public class Trainer extends User {
 	public String toString() {
 		return super.toString();
 	}
-	
+
 }

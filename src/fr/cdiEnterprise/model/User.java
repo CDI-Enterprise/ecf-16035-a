@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  * @version 13-10-2016
  */
 
-public abstract class User {
+public class User {
 
 	//Auto-generated
 	private static int totalId = 0;							// Auto-generated total user's number since the beginning
@@ -20,17 +20,11 @@ public abstract class User {
 
 	//Compulsory first log-in information
 	private String status;									// Three possible choices: Trainee, FormerTrainee, Trainer
-	private String email;									// User's email (can be use for log-in)
 	private String alias;									// User's nickname for log-in
+	private String email;									// User's email (can be use for log-in)
 //	private String password;								// User's password (minimum 8 characters)
 	private String afpa;									// Name of the AFPA the user go/went to or work for
 
-
-	/**
-	 * Default constructor
-	 */
-	public User(){	
-	}
 	
 	/**
 	 * Constructs a user with compulsory first log-in informations
@@ -43,6 +37,16 @@ public abstract class User {
 	public User(String status, String alias, String email, String afpa) {
 		setId();
 		setInscriptionDate();
+		setStatus(status);
+		setAlias(alias);
+		setEmail(email);
+		setAfpa(afpa);
+	}
+	
+	// Constructor test for DB
+	public User(int id, String inscriptionDate, String status, String alias, String email, String afpa) {
+		this.id = id;
+		this.inscriptionDate = inscriptionDate;
 		setStatus(status);
 		setAlias(alias);
 		setEmail(email);
