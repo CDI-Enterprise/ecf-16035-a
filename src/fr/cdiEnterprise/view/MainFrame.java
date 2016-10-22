@@ -199,12 +199,11 @@ public class MainFrame extends JFrame {
 	}
 	
 	/**
-	 * 
-	 * @param panel
+	 * Cette methode permet le changement de panel sur la JFrame
+	 * @param panel correspond au JPanel que nous desirons afficher.
 	 */
 	public static void SwithPanel(JPanel panel) {
 		
-		System.out.println("in the mainframe " + panel.getName());
 		mainPan.removeAll();
 		mainPan.add(panel);
 		mainPan.validate();

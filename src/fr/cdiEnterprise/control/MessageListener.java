@@ -320,10 +320,13 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 					
 					}
 				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnRet())) {
-					// TODO (nicolas) implementer retour vers les messages brouillon		
+					
+					
+					MainFrame.SwithPanel(panelDraft);		
 					
 				}
-				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnRet())) {
+				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnSav())) {
+					System.out.println("appuis sur sauvegarder");
 					// TODO (nicolas) implementer sauvegarde du brouillon.		
 					
 				}
