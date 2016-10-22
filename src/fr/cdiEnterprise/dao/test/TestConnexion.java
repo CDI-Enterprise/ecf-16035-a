@@ -1,4 +1,4 @@
-package fr.cdiEnterprise.test;
+package fr.cdiEnterprise.dao.test;
 
 
 
