@@ -69,7 +69,7 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 
 		// Calls the status selection method
 		jrButtonGrp = panelUser.getStatusGrp();
-		jrButtonSelected = ControlMethods.getSelectedJRadioButton(jrButtonGrp);
+		jrButtonSelected = MethodsForListeners.getSelectedJRadioButton(jrButtonGrp);
 		status = jrButtonSelected.getText();		
 
 		// Register informations TODO Claire loop method?
@@ -92,7 +92,7 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 			
 			// Calls the method which clears and enables all JTextField 
 			allJTextFields = panelUser.getAllJTextFields();
-			ControlMethods.resetJTextField(allJTextFields);
+			MethodsForListeners.resetJTextField(allJTextFields);
 		}
 
 		// User creation

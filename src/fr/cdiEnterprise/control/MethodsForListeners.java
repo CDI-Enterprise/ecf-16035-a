@@ -15,7 +15,7 @@ import javax.swing.JTextField;
  * @version 16-10-2016
  * @author Claire
  */
-public class ControlMethods {
+public class MethodsForListeners {
 
 	/**
 	 * Takes a group of JRadioButton and searches which one is selected to return it.

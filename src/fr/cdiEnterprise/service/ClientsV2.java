@@ -6,9 +6,8 @@ package fr.cdiEnterprise.service;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import fr.cdiEnterprise.control.MpClientV2;
-
 import fr.cdiEnterprise.model.Item;
+import fr.cdiEnterprise.util.MpClientV2;
 
 /**
  * Class is going to hold all the Users that are registered on the Messaging.

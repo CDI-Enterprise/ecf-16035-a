@@ -2,7 +2,6 @@
  * 
  */
 package fr.cdiEnterprise.dao;
-import fr.cdiEnterprise.control.MpClient;
 //import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Department;
 import fr.cdiEnterprise.model.Favorite;
@@ -20,6 +19,7 @@ import fr.cdiEnterprise.service.Favorites;
 import fr.cdiEnterprise.service.Languages;
 import fr.cdiEnterprise.service.Regions;
 import fr.cdiEnterprise.service.Users;
+import fr.cdiEnterprise.util.MpClient;
 
 /**
  * Temporary database.

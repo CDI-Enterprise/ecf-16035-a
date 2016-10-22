@@ -1,4 +1,4 @@
-package fr.cdiEnterprise.control;
+package fr.cdiEnterprise.util;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;

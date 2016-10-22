@@ -27,12 +27,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import fr.cdiEnterprise.control.MessageListener;
-
-import fr.cdiEnterprise.control.MpClient;
 import fr.cdiEnterprise.dao.Datas;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.service.Clients;
 import fr.cdiEnterprise.service.Items;
+import fr.cdiEnterprise.util.MpClient;
 import fr.cdiEnterprise.util.ReadProperties;
 import net.miginfocom.swing.MigLayout;
 

@@ -23,6 +23,8 @@ import fr.cdiEnterprise.model.Item;
 
 import fr.cdiEnterprise.service.Clients;
 import fr.cdiEnterprise.service.ClientsV2;
+import fr.cdiEnterprise.util.MpClient;
+import fr.cdiEnterprise.util.MpClientV2;
 import fr.cdiEnterprise.util.ReadProperties;
 import fr.cdiEnterprise.view.MainFrame;
 import fr.cdiEnterprise.view.MessagingDraftPanel;

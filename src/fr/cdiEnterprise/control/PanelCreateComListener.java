@@ -79,7 +79,7 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 		
 		// Calls the status selection method
 		btnGrp = panCompCreat.getSizeGrp();
-		btnSelected = ControlMethods.getSelectedJRadioButton(btnGrp);
+		btnSelected = MethodsForListeners.getSelectedJRadioButton(btnGrp);
 		companySize = btnSelected.getText();		
 		
 		//TODO créer excepion nullPointerException Anaïs
@@ -113,7 +113,7 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 			Datas.getCompaniesList().add(company);
 			System.out.println(Datas.getCompaniesList());
 			CompanyCreationPanel.getDlmCompanies().addElement(company);
-			ControlMethods.resetJTextField(panCompCreat.getAllJTextFields());
+			MethodsForListeners.resetJTextField(panCompCreat.getAllJTextFields());
 		}
 		
 		if (e.getSource() == panCompCreat.getBtnCancel()){
