@@ -1,8 +1,8 @@
-package fr.cdiEnterprise.db;
+package fr.cdiEnterprise.dao;
 
 import java.sql.SQLException;
 
-import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.db.DataBase;
 import fr.cdiEnterprise.model.Department;
 
 
