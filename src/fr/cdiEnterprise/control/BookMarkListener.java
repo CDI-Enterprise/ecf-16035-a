@@ -25,7 +25,7 @@ public class BookMarkListener implements ActionListener
 
 	public BookMarkListener(BookMarkPanel bookMarkPanel)
 	{
-		//TODO
+		//TODO (Ismaël)
 		this.bookMarkPanel = bookMarkPanel;
 	}
 	
@@ -44,7 +44,7 @@ public class BookMarkListener implements ActionListener
 		{
 			
 		}
-		// TODO Auto-generated method stub
+		// TODO (Ismaël) Auto-generated method stub
 		
 	}
 

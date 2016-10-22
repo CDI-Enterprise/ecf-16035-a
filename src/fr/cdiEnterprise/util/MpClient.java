@@ -68,7 +68,7 @@ public class MpClient {
 			
 			return true;
 		}
-		// TODO function to generate new thread
+		// TODO (Nicolas) function to generate new thread
 		
 		
 		return false;

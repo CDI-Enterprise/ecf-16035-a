@@ -86,7 +86,7 @@ public class Item {
 
 
 	public Item() {
-		// TODO Auto-generated constructor stub
+		// TODO (Nicolas) Auto-generated constructor stub
 	}
 
 

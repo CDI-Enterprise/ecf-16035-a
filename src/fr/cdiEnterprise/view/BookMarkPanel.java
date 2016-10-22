@@ -108,7 +108,7 @@ public class BookMarkPanel extends JPanel
 		jListBookMarkPan.setBorder(BorderFactory.createTitledBorder("MA LISTE D'ENTREPRISE"));
 		westPan.add(jListBookMarkPan, "wrap, w 550!");
 
-		//TODO remplace it with a ComboBox
+		//TODO (Ismaël) remplace it with a ComboBox
 
 		mdlListCompany = new DefaultListModel<Favorite>();							//Create model of BookMarkList
 
@@ -155,7 +155,7 @@ public class BookMarkPanel extends JPanel
 		mdlListRsult = new DefaultTableModel();
 		bookMarkResult= new JTable(mdlListRsult);
 
-		//TODO LOOP
+		//TODO (Ismaël) LOOP
 
 
 		panListCompanyMarked = new JScrollPane(bookMarkResult);

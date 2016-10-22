@@ -20,7 +20,7 @@ public class Database {
 		try {
 			Class.forName(strNomDriver);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			// TODO (?) Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -50,7 +50,7 @@ public class Database {
 //		try {
 //			databaseMetaData = getConnect().getMetaData();
 //		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
+//			// TODO (?) Auto-generated catch block
 //			e.printStackTrace();
 //		}
 //		
@@ -60,7 +60,7 @@ public class Database {
 //			result = databaseMetaData.getTables(
 //			    catalog, "stag14", tableNamePattern, types );
 //		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
+//			// TODO (?) Auto-generated catch block
 //			e.printStackTrace();
 //		}
 //
@@ -70,7 +70,7 @@ public class Database {
 //			    System.out.println("table :" + tableName);
 //			}
 //		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
+//			// TODO (?) Auto-generated catch block
 //			e.printStackTrace();
 //		}
 //	}

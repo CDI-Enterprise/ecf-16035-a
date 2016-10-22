@@ -31,7 +31,7 @@ public class FormerTrainee extends Trainee {
 		}
 
 	
-	//TODO Claire create input control
+	//TODO (Claire) create input control
 
 	/**
 	 * @see java.lang.Object#toString()

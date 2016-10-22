@@ -87,7 +87,7 @@ public class MainFrame extends JFrame {
 		// Main menu @see fr.cdiEnterprise.view.Menu
 		this.setJMenuBar(new Menu());
 
-		// TODO Home panel for welcoming screen
+		// TODO (Groupe) Home panel for welcoming screen
 		homePan = new JPanel();
 		homePan.setBackground(Color.DARK_GRAY);
 		homePan.setLayout(new FlowLayout());

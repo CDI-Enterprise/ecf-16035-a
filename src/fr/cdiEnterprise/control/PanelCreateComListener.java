@@ -82,7 +82,7 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 		btnSelected = MethodsForListeners.getSelectedJRadioButton(btnGrp);
 		companySize = btnSelected.getText();		
 		
-		//TODO créer excepion nullPointerException Anaïs
+		//TODO (Anaïs) créer excepion nullPointerException Anaïs
 		
 		companySector = panCompCreat.getTxtSector().getText();
 		

@@ -15,7 +15,7 @@ import fr.cdiEnterprise.view.Menu;
  * @author Claire, Anais, Nicolas, Ismael, Olivier
  */
 
-// TODO is this the best listener for a JMenuBar?
+// TODO (Groupe) is this the best listener for a JMenuBar?
 public class MainMenuListener implements ActionListener {
 
 	private Menu menu;

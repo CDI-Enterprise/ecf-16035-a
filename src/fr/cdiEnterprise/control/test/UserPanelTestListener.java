@@ -15,7 +15,7 @@ public class UserPanelTestListener {
 	 * 
 	 */
 	public UserPanelTestListener() {
-		// TODO Auto-generated constructor stub
+	
 	}
 
 }
