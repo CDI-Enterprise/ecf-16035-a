@@ -30,54 +30,62 @@ public class MainMenuListener implements ActionListener {
 	// ACTION LISTENER
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		// Display the panel user
-		if(e.getSource() == menu.getSubProfileCrud()) {
-			
-			MainFrame.getMainPan().removeAll();
-			MainFrame.getMainPan().add(MainFrame.getScrollUser());
-			MainFrame.getMainPan().repaint();
-			MainFrame.getMainPan().validate();
-	
+
+		// Display the panel for User management
+		if(e.getSource() == menu.getSubProfileCRUD()) {
+
+			MainFrame.getPanMain().removeAll();
+			MainFrame.getPanMain().add(MainFrame.getScrollPanelUserCRUD());
+			MainFrame.getPanMain().validate();
+			MainFrame.getPanMain().repaint();
 		}
 		
+		// Display the panel with a list of existing members
+		if(e.getSource() == menu.getSubProfileCRUD()) {
+
+			MainFrame.getPanMain().removeAll();
+			MainFrame.getPanMain().add(MainFrame.getScrollPanelUserSR());
+			MainFrame.getPanMain().validate();
+			MainFrame.getPanMain().repaint();
+		}
+
 		if(e.getSource() == menu.getSubCompanyCreate()){
-			MainFrame.getMainPan().removeAll();
-			MainFrame.getMainPan().add(MainFrame.getScrollCreateCompany());
-			MainFrame.getMainPan().repaint();
-			MainFrame.getMainPan().revalidate();
+			MainFrame.getPanMain().removeAll();
+			MainFrame.getPanMain().add(MainFrame.getScrollCreateCompany());
+			MainFrame.getPanMain().repaint();
+			MainFrame.getPanMain().revalidate();
 		}
-		
+
 		if(e.getSource() == menu.getSubCompanyUpdateDelete()){
-			MainFrame.getMainPan().removeAll();
-			MainFrame.getMainPan().add(MainFrame.getScrollUpdateDeleteCompany());
-			MainFrame.getMainPan().repaint();
-			MainFrame.getMainPan().revalidate();
+			MainFrame.getPanMain().removeAll();
+			MainFrame.getPanMain().add(MainFrame.getScrollUpdateDeleteCompany());
+			MainFrame.getPanMain().repaint();
+			MainFrame.getPanMain().revalidate();
 		}
-		
+
 		if(e.getSource() == menu.getSubMessageDisplay()){
-			MainFrame.getMainPan().removeAll();
-			MainFrame.getMainPan().add(MainFrame.getPanelMessaging());
-			MainFrame.getMainPan().validate();
-			MainFrame.getMainPan().repaint();
-			
+			MainFrame.getPanMain().removeAll();
+			MainFrame.getPanMain().add(MainFrame.getPanelMessaging());
+			MainFrame.getPanMain().validate();
+			MainFrame.getPanMain().repaint();
+
 		}
 		if(e.getSource() == menu.getSubBookMarkRead())
 		{
-			MainFrame.getMainPan().removeAll();
-			MainFrame.getMainPan().add(MainFrame.getPanelBookMark());
-			MainFrame.getMainPan().validate();
-			MainFrame.getMainPan().repaint();
+			MainFrame.getPanMain().removeAll();
+			MainFrame.getPanMain().add(MainFrame.getPanelBookMark());
+			MainFrame.getPanMain().validate();
+			MainFrame.getPanMain().repaint();
 		}
-		
+
 		if(e.getSource() == menu.getSubSearchRechercher())
 		{
-			MainFrame.getMainPan().removeAll();
-			MainFrame.getMainPan().add(MainFrame.getPanelRecherche());
-			MainFrame.getMainPan().validate();
-			MainFrame.getMainPan().repaint();
+			MainFrame.getPanMain().removeAll();
+			MainFrame.getPanMain().add(MainFrame.getPanelRecherche());
+			MainFrame.getPanMain().validate();
+			MainFrame.getPanMain().repaint();
 		}
-		
+
 	}
 
 }
