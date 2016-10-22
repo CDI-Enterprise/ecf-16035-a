@@ -108,9 +108,7 @@ public class OldDatas {
 		OldDatas.companiesList = listeCompanies;
 	}
 	
-	public static Clients getClientBox() {
-		return clientBox;
-	}
+
 	
 	public static Departments getDepartmentsList() {
 		return departmentsList;

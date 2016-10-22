@@ -298,7 +298,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 								
 								
 							} catch (Exception e1) {
-								// TODO Auto-generated catch block
+								// TODO (nicolas) need to fix this excep
 								e1.printStackTrace();
 							}
 
@@ -312,7 +312,12 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 				
 				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnDel())) {
 							
-					// TODO (nicolas) implementer suppression de brouillon
+					client.removeMessage(currentItem.getId(), true);
+
+					panelDraft.setCopyUserItems(client.getMessages(true));
+					panelDraft.refresh();
+					MainFrame.SwithPanel(panelDraft);
+					
 					}
 				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnRet())) {
 					// TODO (nicolas) implementer retour vers les messages brouillon		
