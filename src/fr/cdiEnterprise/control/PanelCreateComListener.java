@@ -117,10 +117,10 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 		}
 		
 		if (e.getSource() == panCompCreat.getBtnCancel()){
-			MainFrame.getMainPan().removeAll();
-			MainFrame.getMainPan().add(MainFrame.getHomePan());
-			MainFrame.getMainPan().repaint();
-			MainFrame.getMainPan().revalidate();
+			MainFrame.getPanMain().removeAll();
+			MainFrame.getPanMain().add(MainFrame.getPanHome());
+			MainFrame.getPanMain().repaint();
+			MainFrame.getPanMain().revalidate();
 		}
 		
 	}

@@ -30,10 +30,10 @@ public class PanelDeletUpdatCompListeners implements ActionListener, ListSelecti
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == panCompDeletUpdat.getBtnCancel()){
-			MainFrame.getMainPan().removeAll();
-			MainFrame.getMainPan().add(MainFrame.getHomePan());
-			MainFrame.getMainPan().repaint();
-			MainFrame.getMainPan().revalidate();
+			MainFrame.getPanMain().removeAll();
+			MainFrame.getPanMain().add(MainFrame.getPanHome());
+			MainFrame.getPanMain().repaint();
+			MainFrame.getPanMain().revalidate();
 		}
 		
 		if (e.getSource() == panCompDeletUpdat.getBtnDelete()){
