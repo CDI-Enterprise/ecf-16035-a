@@ -43,7 +43,6 @@ public class messageDao {
 		ResultSet resultSet = null;
 		try {
 			connection = Database.getConnect();
-			
 			statement = connection.createStatement();
 	
 			
@@ -72,7 +71,7 @@ public class messageDao {
 			                TABLE_NAME, //
 			                "identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft");
 	
-			System.out.println(createStatement);
+			
 			
 			statement.executeUpdate(createStatement);
 			
@@ -87,7 +86,7 @@ public class messageDao {
 				statement.close();
 				connection.close();
 			} catch (SQLException e) {
-				// TODO (Nicolas) Auto-generated catch block
+				// TODO (Nicolas) need to fix this
 				e.printStackTrace();
 			}
 			
@@ -139,7 +138,7 @@ public class messageDao {
 		try {
 			statement = connection.createStatement();
 		} catch (SQLException e1) {
-			// TODO (Nicolas) Auto-generated catch block
+			// TODO (Nicolas) 
 			e1.printStackTrace();
 		}
 			
@@ -168,7 +167,7 @@ public class messageDao {
 			
 //			        		select identity, sender, receiver, subject, messBody, timeStamp, draft from mailbox
 	//		        		WHERE sender = 'claire';
-			System.out.println(createStatement);
+			
 			try {
 				resultSet = statement.executeQuery(createStatement);
 				connection.commit();
@@ -192,7 +191,7 @@ public class messageDao {
 					items.add(item);
 				}
 			} catch (SQLException e) {
-				// TODO (Nicolas) Auto-generated catch block
+				// TODO (Nicolas) need to fix this
 				e.printStackTrace();
 			}
 
@@ -224,7 +223,7 @@ public class messageDao {
 		try {
 			statement = connection.createStatement();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
+			// TODO (nicolas) need to fix this excp
 			e1.printStackTrace();
 		}
 			
@@ -245,10 +244,7 @@ public class messageDao {
 			                "identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft", TABLE_NAME);
 
 			
-			
-//			        		select identity, sender, receiver, subject, messBody, timeStamp, draft from mailbox
-	//		        		WHERE sender = 'claire';
-			System.out.println(createStatement);
+
 			try {
 				resultSet = statement.executeQuery(createStatement);
 				connection.commit();
@@ -272,7 +268,7 @@ public class messageDao {
 					items.add(item);
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				// TODO (nicolas) need to fix this
 				e.printStackTrace();
 			}
 
@@ -298,11 +294,11 @@ public class messageDao {
 		try {
 			statement = connection.createStatement();
 			String query = "delete from mailbox where identity = '" + identifier + "'";
-			System.out.println(query);
+		
 			statement.executeUpdate(query);
 			connection.commit();
 		} catch (SQLException e) {
-			// TODO (Nicolas) Auto-generated catch block
+			// TODO (Nicolas) need to fix this excp
 			e.printStackTrace();
 		}
 		
@@ -334,7 +330,7 @@ public class messageDao {
 	 */
 	public static String localDateToString(LocalDateTime input) {
 		
-		System.out.println(input.toString());
+
 		
 		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM uuuu HH:mm:ss");
 		  String text = input.format(formatter);
@@ -352,7 +348,7 @@ public class messageDao {
 	public static LocalDateTime StringToLocalDate( String input ) {
 		LocalDateTime localTime = null;
 		if(input != null) {
-			System.out.println("before transform "+input);
+			
 			  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM uuuu HH:mm:ss");
 			  localTime = LocalDateTime.parse(input, formatter);
 			  

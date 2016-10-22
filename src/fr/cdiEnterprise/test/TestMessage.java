@@ -62,29 +62,29 @@ public class TestMessage {
 		//Poster message 
 		// note : avant d'envoyer un message veririfer si le destinataire est existe.
 		// TODO (Nicolas) envoyer message derreur.
-		System.out.println("envoie d'emails");
+		//System.out.println("envoie d'emails");
 		
 		
 		if(isPresent("anais", clients)) {
 			nicolas.newEmail("nicolas", "anais", "test1", "message body from anais.");
 		}else {
-			System.out.println("user does not exist  anais");
+			//System.out.println("user does not exist  anais");
 		}
 		
 		if(isPresent("claire", clients)) {
 			nicolas.newEmail("nicolas", "claire", "test1", "message body from claire.");
 		}else {
-			System.out.println("user does not exist: claire");
+			//System.out.println("user does not exist: claire");
 		}
 		if(isPresent("ismael", clients)) {
 			nicolas.newEmail("nicolas", "ismael", "test1", "message body from ismael.");
 		}else {
-			System.out.println("user does not exist: anais");
+			//System.out.println("user does not exist: anais");
 		}
 		if(isPresent("olivier", clients)) {
 			nicolas.newEmail("nicolas", "olivier", "test1", "message body from nicolas.");	
 		}else {
-			System.out.println("user does not exist: olivier");
+			//System.out.println("user does not exist: olivier");
 		}
 		
 		// clqire consulte ses messages et les affichent.
@@ -95,7 +95,7 @@ public class TestMessage {
 		if(isPresent("bernard", clients)) {
 			nicolas.newEmail("nicolas", "bernard", "test", "message body from niocolas.");	
 		} else {
-			System.out.println("there is no user bernard");
+			//System.out.println("there is no user bernard");
 		}
 		
 		
@@ -105,12 +105,12 @@ public class TestMessage {
 		
 		
 		
-		System.out.println("\n**** Nicolas create an email and put it on its draft folder ****\n");
+		//System.out.println("\n**** Nicolas create an email and put it on its draft folder ****\n");
 		
 		if(isPresent("olivier", clients)) {
 			if(nicolas.draft("nicolas", "olivier", "test1", "message body for olivier.")) 
 			{
-				System.out.println("Message saved as a draft ");
+				//System.out.println("Message saved as a draft ");
 				
 			}
 			// affiche les message du brouillon
@@ -118,14 +118,14 @@ public class TestMessage {
 			nicolas.display(true);
 			
 			Items  nickitms = nicolas.getMessages(true);
-			System.out.println("size of draft is : " + nickitms.size());
-			//System.out.println(nickitms.toString());
+			//System.out.println("size of draft is : " + nickitms.size());
+			////System.out.println(nickitms.toString());
 			//simule la selection du message dans une liste et renvoie de l'identifiant de l'email selectionné
 			//exemple ici 5.
 			
 			
 			Item myItm = getMessage("nicolas", "5", nickitms);
-			System.out.println("checking draft message " +myItm.toString());
+			//System.out.println("checking draft message " +myItm.toString());
 			
 			
 			
@@ -133,7 +133,7 @@ public class TestMessage {
 			
 			// edition du message brouillon dans la boite de nicolas
 			
-			System.out.println("\n**** edition du message brouillon ****\n");
+			//System.out.println("\n**** edition du message brouillon ****\n");
 			
 			// on pop le message delah boite draft, et ensuite on l"edite.
 			// le message sera remis.
@@ -142,22 +142,22 @@ public class TestMessage {
 			
 			// now we get the message from the draft queue and send it to the final receipient
 			
-			System.out.println("\n**** sending drafted message to the final user ****\n");
+			//System.out.println("\n**** sending drafted message to the final user ****\n");
 			
 			Item draftMessage = nicolas.popMessage(identity, true);
-			//System.out.println("get message from draft queue..." + draftMessage.getBody());
+			////System.out.println("get message from draft queue..." + draftMessage.getBody());
 			nicolas.sendEmail(draftMessage, true);
 			
-			//System.out.println("Sending message...");
+			////System.out.println("Sending message...");
 			
 			
 		}
 		// checking olivier's Mailbox
 		
-		System.out.println("\n**** checking olivier Mailbox ****\n");
+		//System.out.println("\n**** checking olivier Mailbox ****\n");
 		
 		ArrayList<Item> olivierItems = olivier.getMessages(false);
-		System.out.println(olivierItems.size());
+		//System.out.println(olivierItems.size());
 		olivier.display(false);
 		
 		
@@ -168,18 +168,18 @@ public class TestMessage {
 			e.printStackTrace();
 		}
 		
-		System.out.println("\n**** olivier reply to nicolas ****\n");
+		//System.out.println("\n**** olivier reply to nicolas ****\n");
 		
 		// reply email to nicolas
 		Item oneItem = olivierItems.get(0);
 		oneItem.setObject("test[reply]");
 		oneItem.setBody("Message reçu...\n\n" + oneItem.getBody());
-		System.out.println("Reply to that email " + oneItem.toString());
+		//System.out.println("Reply to that email " + oneItem.toString());
 		if(olivier.sendEmail(oneItem, false)) {
-			System.out.println("email sent out...");
+			//System.out.println("email sent out...");
 		}
 		
-		System.out.println("\n**** checking nicolas's Mailbox ****\n");
+		//System.out.println("\n**** checking nicolas's Mailbox ****\n");
 		
 		nicolas.getMessages(false);
 		nicolas.display(false);

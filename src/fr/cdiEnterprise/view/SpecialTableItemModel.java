@@ -28,9 +28,11 @@ public class SpecialTableItemModel<Item> extends AbstractTableModel {
 
 
 
-
+    /**
+     * default constructor
+     */
     public SpecialTableItemModel() {
-		// TODO (Nicolas) Auto-generated constructor stub
+		
 	}
 
 

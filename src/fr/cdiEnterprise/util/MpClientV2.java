@@ -79,7 +79,7 @@ public class MpClientV2 {
 			
 		}
 		
-		System.out.println("l'email le plus rescent est numero "+ ID_NUMBER);
+	//	System.out.println("l'email le plus rescent est numero "+ ID_NUMBER);
 		return items;
 	}
 	
@@ -105,11 +105,11 @@ public class MpClientV2 {
 		LocalDateTime timeStamp = LocalDateTime.now();
 		idNumber = ID_NUMBER;
 		Item itm = new Item(from, to, obj, bdy, timeStamp);
-		System.out.println("Taille du Message : "+bdy.length());
+	
 		itm.setId(idNumber);
 
 		messageDao.insertItem(itm);
-		System.out.println("Message devrait etre insere");
+
 			
 		
 	}
@@ -123,19 +123,17 @@ public class MpClientV2 {
 	public boolean sendEmail(Item item, boolean draft) {
 
 		LocalDateTime timeStamp = LocalDateTime.now();
-		System.out.println("numero id " + ID_NUMBER);
 		ID_NUMBER = ID_NUMBER + 1;
-		System.out.println("numero id " + ID_NUMBER);
+
 		Item repliedItem = new Item(item.getSender(), item.getReceiver(), item.getObject(), item.getBody(),  timeStamp);
 		
 		//repliedItem.setId(item.getId()); // old implementation
 		
 		repliedItem.setId(ID_NUMBER);
 		if(draft) {
-			System.out.println("numero id " + ID_NUMBER);
-			System.out.println("on message " +repliedItem.getId()); 
+
 			repliedItem.setDraftEmail(false);
-			System.out.println(repliedItem.toString());
+	
 			messageDao.insertItem(repliedItem);
 			
 			return true;
@@ -200,10 +198,10 @@ public class MpClientV2 {
 		ID_NUMBER = ID_NUMBER + 1;		
 		idNumber = ID_NUMBER;
 		Item itm = new Item(idNumber, from, to, obj, bdy, null, draft);
-		System.out.println("Taille du Message : "+bdy.length());
+	
 
 		messageDao.insertItem(itm);
-		System.out.println("Message devrait etre insere");
+	
 	}
 
 	
@@ -232,7 +230,8 @@ public class MpClientV2 {
 	public void removeMessage(int identifier, boolean draft) {
 		
 		if(messageDao.removeMessage(this.box, identifier, draft)) {
-			System.out.println("Message has been removed...");
+			// TODO (nicolas) return a boolean later.
+			//System.out.println("Message has been removed...");
 		}
 	}
 	

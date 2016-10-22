@@ -110,11 +110,10 @@ public class MessagingNewPanel extends JPanel {
 			for(User current : usersList) {
 				if(current != null) {
 					cboReceiver.addItem(current.getAlias());
-					System.out.println("les alias des utilisateurs :"+current.getAlias());
-				}	
+					}	
 			}
 		}else {
-			System.out.println("usersList is null ");
+			//System.out.println("usersList is null ");
 		}
 		
 		

@@ -32,8 +32,7 @@ public class OldDatas {
 	
 	private static Companies companiesList = new Companies();
 	
-	private static Clients clientBox;
-	private static Server exchange;
+
 	
 	private static Departments departmentsList = new Departments();
 	private static Regions regionsList = new Regions();
@@ -61,17 +60,8 @@ public class OldDatas {
 		usersList.add(new Trainee("Stagiaire", "Omy", "omy@mail.fr", "Saint-Jérôme"));
 		usersList.add(new Trainee("Stagiaire", "Oracle", "oracle@mail.fr", "Saint-Jérôme"));
 		usersList.add(new Trainee("Stagiaire", "Dark Swan", "darkswan@mail.fr", "Saint-Jérôme"));
-		
-		
-		// Test du server de messagerie
-		exchange = new Server();
-		clientBox = new Clients();
-		
-		// Creation des boite de Messagerie
-		for(User current : usersList) {
-			MpClient client = new MpClient(exchange, current.getAlias());
-			clientBox.add(client);
-		}
+
+	
 		
 
 		//Departments allStaticDepartment = new Departments();

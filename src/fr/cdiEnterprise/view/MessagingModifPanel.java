@@ -64,7 +64,7 @@ public class MessagingModifPanel extends JPanel {
 		itm = item;
 		MessageListener listener = new MessageListener((JPanel) this);
 		
-		System.out.println(itm.toString());
+		
 		
 		receiver = new JLabel(itm.getSender());
 		object = new JLabel(itm.getObject());
@@ -129,11 +129,10 @@ public class MessagingModifPanel extends JPanel {
 			for(User current : usersList) {
 				if(current != null) {
 					cboReceiver.addItem(current.getAlias());
-					System.out.println("les alias des utilisateurs :"+current.getAlias());
-				}	
+					}	
 			}
 		}else {
-			System.out.println("usersList is null ");
+			//System.out.println("usersList is null ");
 		}
 		
 		
