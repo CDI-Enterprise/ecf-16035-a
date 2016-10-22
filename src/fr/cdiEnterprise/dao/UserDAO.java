@@ -8,6 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import fr.cdiEnterprise.model.FormerTrainee;
+import fr.cdiEnterprise.model.Trainee;
+import fr.cdiEnterprise.model.Trainer;
+import fr.cdiEnterprise.model.User;
+import fr.cdiEnterprise.service.Users;
 
 /**
  * @author Claire
@@ -21,12 +26,16 @@ public class UserDAO {
 	// Prepared statement for SQL request
 	private static PreparedStatement searchUser;
 	private static PreparedStatement createUser;
+	private static PreparedStatement readUsers;
 	private static PreparedStatement updateUser;
 	private static PreparedStatement deleteUser;
 
 	private static int result;
 	private static ResultSet requestRes;
 
+	private static User user;
+	private static Users users;
+	private static int userId;
 	private static String userInscriptionDate;
 	private static String userStatus;
 	private static String userAlias;	
@@ -41,14 +50,12 @@ public class UserDAO {
 	}
 	
 	/**
-	 * Search an author by Id from database and displays it.
-	 * @param authorId
-	 * @return author
+	 * Search an user by Id from database and displays it.
+	 * @param userId
+	 * @return user
 	 * @throws SQLException
 	 */
-	public String search(int userId) throws SQLException {
-
-		String user = "aucun";
+	public User search(int userId) throws SQLException {
 		
 		try {
 			searchUser = connect.prepareStatement("SELECT user_id, user_inscription_date, "
@@ -64,10 +71,29 @@ public class UserDAO {
 				userAlias = requestRes.getString(4);
 				userMail = requestRes.getString(5);
 				userAfpa = requestRes.getString(6);
-				user = "User : " + userId + " " + userInscriptionDate + " " + userStatus + " " + userAlias + " "
-						+ userMail + " " + userAfpa;
+
+				switch (userStatus) {
+				case "Stagiaire" :
+					user = new Trainee(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
+					System.out.println("Switch : " + user);
+					break;
+					
+				case "Ancien" :
+					user = new FormerTrainee(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
+					System.out.println("Switch : " + user);
+					break;
+					
+				case "Formateur" :
+					user = new Trainer(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
+					System.out.println("Switch : " + user);
+					break;
+					
+				default:
+					System.out.println("Aucun utilisateur à afficher.");
+					break;
+				}
 			}
-			System.out.println(user); // Test code
+			System.out.println("Sortie try : " + user); // Test code
 
 		} catch (SQLException e) {
 			// e.printStackTrace();
@@ -126,6 +152,64 @@ public class UserDAO {
 
 		return creationDone;
 		// Fin test code
+	}
+	
+	/**
+	 * Read all users from database.
+	 * @return users
+	 * @throws SQLException
+	 */
+	public Users read() throws SQLException {
+
+		users = new Users();
+
+		try {
+			readUsers = connect.prepareStatement("SELECT user_id, user_inscription_date, "
+					+ "user_status, user_alias, user_mail, user_afpa "
+					+ "FROM cdi_user");
+			requestRes = readUsers.executeQuery();
+
+			while(requestRes.next()){
+				userId = requestRes.getInt(1);
+				userInscriptionDate = requestRes.getString(2);
+				userStatus = requestRes.getString(3);
+				userAlias = requestRes.getString(4);
+				userMail = requestRes.getString(5);
+				userAfpa = requestRes.getString(6);
+	
+				switch (userStatus) {
+				case "Stagiaire" :
+					user = new Trainee(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
+					users.add(user);
+					break;
+					
+				case "Ancien" :
+					user = new FormerTrainee(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
+					users.add(user);
+					break;
+					
+				case "Formateur" :
+					user = new Trainer(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
+					users.add(user);
+					break;
+					
+				default:
+					System.out.println("Aucun utilisateur à afficher.");
+					break;
+				}
+			}
+			System.out.println("DAO : " + users); // Test code
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("Requête incorrecte : la liste des auteurs n'a pu être affichée.");
+		}
+
+		finally {
+			closeRequest(readUsers);
+		}
+
+		return users;
 	}
 	
 	/**
