@@ -20,7 +20,6 @@ import fr.cdiEnterprise.service.Users;
  */
 public class UserDAO {
 
-
 	private Connection connect;
 
 	// Prepared statement for SQL request
@@ -105,6 +104,67 @@ public class UserDAO {
 		}
 
 		return user;
+	}
+	
+	/**
+	 * Search an user by status from database and displays it.
+	 * @param userStatus
+	 * @return user
+	 * @throws SQLException
+	 */
+	public Users search(String userStatus) throws SQLException {
+		
+		users = new Users();
+		
+		try {
+			searchUser = connect.prepareStatement("SELECT user_id, user_inscription_date, "
+					+ "user_status, user_alias, user_mail, user_afpa "
+					+ "FROM cdi_user "
+					+ "WHERE user_status = ?");
+			searchUser.setString(1, userStatus);
+			requestRes = searchUser.executeQuery();
+
+			while(requestRes.next()){
+				userId = requestRes.getInt(1);
+				userInscriptionDate = requestRes.getString(2);
+				userStatus = requestRes.getString(3);
+				userAlias = requestRes.getString(4);
+				userMail = requestRes.getString(5);
+				userAfpa = requestRes.getString(6);
+
+				switch (userStatus) {
+				case "Stagiaire" :
+					user = new Trainee(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
+					users.add(user);
+					break;
+					
+				case "Ancien" :
+					user = new FormerTrainee(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
+					users.add(user);
+					break;
+					
+				case "Formateur" :
+					user = new Trainer(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
+					users.add(user);
+					break;
+					
+				default:
+					System.out.println("Aucun utilisateur à afficher.");
+					break;
+				}
+			}
+			System.out.println("DAO : " + users); // Test code
+
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			System.err.println("Requête incorrecte : aucun auteur n'a pu être affiché.");
+		}
+
+		finally {
+			closeRequest(searchUser);
+		}
+
+		return users;
 	}
 	
 	/**
