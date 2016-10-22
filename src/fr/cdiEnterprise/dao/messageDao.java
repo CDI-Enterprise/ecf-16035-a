@@ -60,8 +60,12 @@ public class messageDao {
 			receiver = item.getReceiver();
 			object = item.getObject();
 			body = item.getBody();
-			date = localDateToString(item.getTimeStamp());
 			draft = booleanToInt(item.isDraftEmail());
+			if(draft==0) {
+				date = localDateToString(item.getTimeStamp());
+			}
+			
+			
 			
 			String createStatement = String
 			        .format("insert into %s (%s  , %s ,%s , %s ,%s, %s , %s ) values ( " + "'" + ident + "' , '" + sender + "' , '" + receiver + "',  '" + object + "', '" + body + "', '" + date + "',  '" + draft + "' )", 	
@@ -106,7 +110,13 @@ public class messageDao {
 
 	
 
-	// TODO (nicolas ) insertDraft - public static boolean postDraft(Item item)
+	// TODO (nicolas ) insertDraft - public static void postDraft(Item item) {
+	
+	public static void postDraft(Item item) {
+		
+	
+
+	}
 
 
 
@@ -142,12 +152,19 @@ public class messageDao {
 			String date = null;
 			int draftMess = 0;
 			
+			String createStatement = null;
+			if(draft) {
+				createStatement= String
+				        .format("select %s, %s  , %s ,%s , %s ,%s, %s from %s WHERE %s = '%s' AND %s = '%s'", 	
+			                 //
+			                "identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft", TABLE_NAME,"SENDER", box, "DRAFT", 1);
+			}else {
+				createStatement = String
+				        .format("select %s, %s  , %s ,%s , %s ,%s, %s from %s WHERE %s = '%s'", 	
+			                 //
+			                "identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft", TABLE_NAME,"RECEIVER", box);
+			}
 			
-			
-			String createStatement = String
-			        .format("select %s, %s  , %s ,%s , %s ,%s, %s from %s WHERE %s = '%s'", 	
-		                 //
-		                "identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft", TABLE_NAME,"RECEIVER", box);
 			
 //			        		select identity, sender, receiver, subject, messBody, timeStamp, draft from mailbox
 	//		        		WHERE sender = 'claire';
@@ -164,8 +181,11 @@ public class messageDao {
 					receiver = resultSet.getString("receiver");
 					object = resultSet.getString("subject");
 					body = resultSet.getString("messBody");
-					date = resultSet.getString("timeStamp");
+
 					draftMess = resultSet.getInt("draft");
+					if(draftMess==0) {
+						date = resultSet.getString("timeStamp");
+					}
 					
 					
 					Item item = new Item(ident, sender, receiver, object, body, StringToLocalDate(date), intToBoolean(draftMess));
@@ -242,12 +262,21 @@ public class messageDao {
 
 	}
 	
+	/**
+	 * Cette methode statique va convertir une date de type String de format "dd MM uuuu HH:mm:ss"
+	 * en type LocalDateTime
+	 * @param input represente la date en String
+	 * @return un objet de type LocalDateTime.
+	 */
 	public static LocalDateTime StringToLocalDate( String input ) {
-		
-		System.out.println("before transform "+input);
-		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM uuuu HH:mm:ss");
-		  LocalDateTime localTime = LocalDateTime.parse(input, formatter);
-		  return localTime;
+		LocalDateTime localTime = null;
+		if(input != null) {
+			System.out.println("before transform "+input);
+			  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM uuuu HH:mm:ss");
+			  localTime = LocalDateTime.parse(input, formatter);
+			  
+		}
+		return localTime;
 	}
 	
 	/**

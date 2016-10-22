@@ -188,16 +188,25 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		}
 		
 		else if ((panelNew != null) && (e.getSource() == panelNew.getBtnDraft())) {
-			
-//	Nicolas code not used		String receiver = (String) panelNew.getCboReceiver()
-//					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
-			
-			
+					
+			boolean DraftMessage = true;
+			String receiver = (String) panelNew.getCboReceiver()
+					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
+
 			if (panelNew.getTxtObject().getText().isEmpty()) {
 				customDialog("le champ Objet doit etre remplie.");
 			} else {
-//					cli.draft(cli.getBox(), receiver, panelNew.getTxtObject().getText(),
-// TODO (nicolas) need to implement draft in MpClientV2//	panelNew.getTxtMessage().getText());
+
+				System.out.println("Envoie d'un message depuis cette utilisateur"+alias);
+				System.out.println(panelNew.getTxtObject().getText()+" - "+
+						panelNew.getTxtMessage().getText());
+				
+				
+				
+				client.draft(alias,receiver, panelNew.getTxtObject().getText(),
+						panelNew.getTxtMessage().getText(), DraftMessage);
+
+
 					System.out.println("Message in Draft.");
 					panelDraft = new MessagingDraftPanel();
 					//MessageListener.panelDraft.setCopyUserItems(cli.getMessages(true));
@@ -258,7 +267,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		}
 
 		
-		else if ((panelDraft != null) && ( e.getSource() == panelDraft.getBtnRet())) {
+		else if ((panelDraft != null) && ( e.getSource() == panelDraft.getBtnMess())) {
 
 			// panelNew = new MessagingNewPanel();
 			//MessageListener.panelMain.setCopyUserItems(cli.getMessages(false)); // Previous imlplementatioons

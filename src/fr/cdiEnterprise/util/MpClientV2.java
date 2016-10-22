@@ -186,24 +186,18 @@ public class MpClientV2 {
 //	 * @param item
 //	 * @return return true if properly drafted.
 //	 */
-//	public boolean draft(String from, String to, String obj, String bdy) {
+	public void draft(String from, String to, String obj, String bdy, boolean draft) {
 //		
-//		String idNumber = null;
-//		
-//		
-//		ID_NUMBER = ID_NUMBER + 1;
-//		LocalDateTime timeStamp = LocalDateTime.now();
-//		idNumber = ID_NUMBER + "";
-//		Item itm = new Item(from, to, obj, bdy, null);
-//		//System.out.println("the id number for " + idNumber);
-//		itm.setId(idNumber);
-//		itm.setDraftEmail(true);
-//		if(server.postDraft(itm)) {
-//			
-//			return true;
-//		}
-//		return false;
-//	}
+		int idNumber = 0;
+		ID_NUMBER = ID_NUMBER + 1;		
+		idNumber = ID_NUMBER;
+		Item itm = new Item(idNumber, from, to, obj, bdy, null, draft);
+		System.out.println("Taille du Message : "+bdy.length());
+
+		messageDao.insertItem(itm);
+		System.out.println("Message devrait etre insere");
+	}
+
 	
 	/**
 	 * THis method is going to get messages , mail or draft email

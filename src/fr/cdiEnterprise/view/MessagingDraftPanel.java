@@ -52,8 +52,10 @@ public class MessagingDraftPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private Border border;
 	private Border	borderTitle;
-	private JButton btnDel;
-	private JButton btnRet;
+
+
+
+	private JButton btnMess;
 	private JButton btnDisplay;
 	
 	private String nombreMessage;
@@ -115,9 +117,9 @@ public class MessagingDraftPanel extends JPanel {
 		panMess.add(panWest, BorderLayout.WEST);
 		
 
-		JLabel lblMess = new JLabel("Nombre de Message(s) :");
+		JLabel lblMess = new JLabel("Nombre de Brouillon(s) :");
 		JLabel lblNombre = new JLabel(tableModele.getRowCount()+"");
-		JLabel lblTitre = new JLabel("Boite de Messagerie de :"+ReadProperties.getMyAlias());
+		JLabel lblTitre = new JLabel("Boite de Brouillon de :"+ReadProperties.getMyAlias());
 		
 		String header = String.format(FORMAT_LIST, HEADER_LIST);
 		JLabel headerLabel = new JLabel(header);
@@ -130,20 +132,20 @@ public class MessagingDraftPanel extends JPanel {
 		
 		
 		
-		btnDel = new JButton("Supprimer");
-		btnRet = new JButton("Retour");
+		
+		btnMess = new JButton("Messages");
 		btnDisplay = new JButton("Refersh");
 		
 		
-		btnDel.setMnemonic(KeyEvent.VK_S);
-		btnRet.setMnemonic(KeyEvent.VK_R);
+
+		btnMess.setMnemonic(KeyEvent.VK_M);
 		btnDisplay.setMnemonic(KeyEvent.VK_D);
 		
 		panNorth.setLayout(new FlowLayout());
 		panWest.setLayout(new MigLayout());
 		
-		panWest.add(btnDel, "wrap");
-		panWest.add(btnRet, "wrap");
+
+		panWest.add(btnMess, "wrap");
 		panWest.add(btnDisplay, "wrap");
 		
 		panNorth.add(lblTitre);
@@ -175,7 +177,7 @@ public class MessagingDraftPanel extends JPanel {
 		table.addMouseListener(listener);
 		//table.getSelectionModel().addListSelectionListener(listener);
 		//btnNew.addActionListener(listener);
-		btnRet.addActionListener(listener);
+		btnMess.addActionListener(listener);
 		btnDisplay.addActionListener(listener);
 	}
 
@@ -263,12 +265,10 @@ public class MessagingDraftPanel extends JPanel {
 		System.out.println("--- fin ---");
 	}
 
-	public JButton getBtnDel() {
-		return btnDel;
-	}
 
-	public JButton getBtnRet() {
-		return btnRet;
+
+	public JButton getbtnMess() {
+		return btnMess;
 	}
 
 	public JButton getBtnDisplay() {
@@ -292,7 +292,9 @@ public class MessagingDraftPanel extends JPanel {
 	}
 
 
-
+	public JButton getBtnMess() {
+		return btnMess;
+	}
 
 
 
