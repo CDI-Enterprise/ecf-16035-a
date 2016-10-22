@@ -82,6 +82,8 @@ public class MainFrame extends JFrame {
 
 		// Main content properties
 		mainPan.setPreferredSize(new Dimension (1280,800));
+	
+		
 		mainPan.setLayout(new BorderLayout());
 
 		// Main menu @see fr.cdiEnterprise.view.Menu

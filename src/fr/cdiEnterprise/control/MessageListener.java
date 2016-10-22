@@ -26,6 +26,7 @@ import fr.cdiEnterprise.util.ReadProperties;
 import fr.cdiEnterprise.view.MainFrame;
 import fr.cdiEnterprise.view.MessagingDraftPanel;
 import fr.cdiEnterprise.view.MessagingMainPanel;
+import fr.cdiEnterprise.view.MessagingModifPanel;
 import fr.cdiEnterprise.view.MessagingNewPanel;
 
 import fr.cdiEnterprise.view.MessagingReadPanel;
@@ -48,6 +49,8 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	private static MessagingDraftPanel panelDraft;
 	private MessagingNewPanel panelNew;
 	private MessagingReadPanel panelRead;
+	private MessagingModifPanel panelMod;
+	private JPanel panelUser;
 //	private JPanel panel;
 	private static final int MESSAGE_MAX_SIZE = 850;
 	// Attribute to create-update a user
@@ -56,6 +59,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	
 	private int nbCaracters;
 	private static Item currentItem;
+	
 	
 	//Previous implementation private static MpClient cli;
 	private static MpClientV2 client;
@@ -70,7 +74,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		
 		this.alias = ReadProperties.getMyAlias();
 		this.client = new MpClientV2(alias);
-		
+		this.panelUser = panelUser;
 		//MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
 		
 		//clients = Datas.getClientBox(); // old implementation.
@@ -85,13 +89,14 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 			MessageListener.panelMain = (MessagingMainPanel) panelUser;
 			Items itms =client.getMyMessages();
+			
 				
 			MessageListener.panelMain.setCopyUserItems(itms);
 			System.out.println("Il ya " + MessageListener.panelMain.getCopyUserItems().size());
 			
 			MessageListener.panelMain.refresh();
 			//MessageListener.panelMain.setCopyUserItems(cli.getMessages(false));//old implementation
-	
+			//MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
 
 
 			
@@ -105,7 +110,9 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		if (panelUser instanceof MessagingReadPanel) {
 			panelRead = (MessagingReadPanel) panelUser;
 		}
-
+		if (panelUser instanceof MessagingModifPanel) {
+			panelMod = (MessagingModifPanel) panelUser;
+		}
 	}
 
 	// ACTION LISTENER
@@ -114,12 +121,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 		if (e.getSource() == panelMain.getBtnNew()) {
 
-			Users usr = OldDatas.getUsersList();
-			for(User current : usr) {
-				String toLowerCase = current.getAlias().toLowerCase();
-				current.setAlias(toLowerCase);
-				
-			}
+			Users usr = aliasInLower();
 			panelNew = new MessagingNewPanel(usr);
 			
 
@@ -146,6 +148,8 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			System.out.println("switch to panel : new message");
 
 		}
+		
+		
 		// PANEL NOUVEAU MESSAGE
 		else if ((panelNew != null) && (e.getSource() == panelNew.getBtnEnv())) {
 
@@ -277,10 +281,77 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			MainFrame.SwithPanel(panelMain);
 		
 		}
-		else {
+		
+		// PANEL MODIFIER BROUILLON
+				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnEnv())) {
+
+					
+					// TODO (nicolas) Penser a refactoriser cette partie en creant une methode pour creation objet Item
+					String receiver = (String) panelMod.getCboReceiver()
+							.getItemAt(panelMod.getCboReceiver().getSelectedIndex());
+
+					if (panelMod.getTxtObject().getText().isEmpty()) {
+						customDialog("le champ Objet doit etre remplie.");
+					} else {
+						System.out.println("Envoie d'un message depuis cette utilisateur"+alias);
+						System.out.println(panelMod.getTxtObject().getText()+" - "+
+								panelMod.getTxtMessage().getText());
+						Item draftToSend = new Item(alias,receiver, panelMod.getTxtObject().getText(),
+								panelMod.getTxtMessage().getText(), null);
+						client.sendEmail(draftToSend, true);
+						System.out.println("Message send out...");
+						
+						
+						// TODO (Nicolas) : need to handle well this exception, maybe in the class client ?
+
+							try {
+								MessageListener.panelDraft.setCopyUserItems(client.getMessages(true));
+								
+								
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+
+						
+						// MessageListener.panelMain.setCopyUserItems(cli.getMessages(false)); // old implementation.
+						panelMain.refresh();
+						System.out.println("switch to panel : Draft message");
+						MainFrame.SwithPanel(panelDraft);
+					}
+
+				}
+				
+				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnDel())) {
+							
+					// TODO (nicolas) implementer suppression de brouillon
+					}
+				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnRet())) {
+					// TODO (nicolas) implementer retour vers les messages brouillon		
+					
+				}
+				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnRet())) {
+					// TODO (nicolas) implementer sauvegarde du brouillon.		
+					
+				}
+				
+				else {
 			System.out.println("nothing correspond to that event...");
 		}
 
+	}
+
+	/**
+	 * @return
+	 */
+	private Users aliasInLower() {
+		Users usr = OldDatas.getUsersList();
+		for(User current : usr) {
+			String toLowerCase = current.getAlias().toLowerCase();
+			current.setAlias(toLowerCase);
+			
+		}
+		return usr;
 	}
 
 	@Override
@@ -318,10 +389,12 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	 * il sera ensuite plus facile a manipuler.
 	 */
 	public void mousePressed(MouseEvent me) {
+
+
 		JTable table = (JTable) me.getSource();
 		Point p = me.getPoint();
 		int row = table.rowAtPoint(p);
-		SpecialTableItemModel<?> spemod = panelMain.getTiModel();
+		
 		//System.out.println("click..." + row );
 		//System.out.println(spemod.getRowCount() -1);
 	/*	if (me.getClickCount() == 1) {
@@ -336,21 +409,56 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			}*/
 
 		if (me.getClickCount() == 2) {
-
-			spemod = panelMain.getTiModel();
+			System.out.println("double clicked ");
+			//spemod =  panelUser.getTiModel();
+			//spemod = panelMain.getTiModel();
 			//System.out.println("double click..." + row );
 			//System.out.println(spemod.getRowCount() -1);
-			if (row > spemod.getRowCount() -1) {
-				System.out.println("hors de la partie");
-			} else {
-				currentItem = spemod.getUserAt(row);
-				Item itmCopy = new Item(currentItem);
-				panelRead = new MessagingReadPanel(itmCopy);
-				System.out.println(itmCopy.toString());
-				MainFrame.SwithPanel(panelRead);
+					SpecialTableItemModel<?> spemod =null;
+					SpecialTableItemModel<?> spemodDraft =null;
+					if (panelUser instanceof MessagingMainPanel) {
+						spemod = panelMain.getTiModel();
+						System.out.println("double click comin from Main Panel");
+						spemod = panelMain.getTiModel();
+						if (row > spemod.getRowCount() -1) {
+							System.out.println("hors de la partie");
+						} else {
+							currentItem = spemod.getUserAt(row);
+							if(currentItem != null) {
+								Item itmCopy = new Item(currentItem);
+								panelRead = new MessagingReadPanel(itmCopy);
+								System.out.println(itmCopy.toString());
+								MainFrame.SwithPanel(panelRead);
+							}	
+						}
+					}
+						else if (panelUser instanceof MessagingDraftPanel) {
+						spemodDraft = panelDraft.getTiModel();
+						System.out.println("double click comin from Draft Panel");
+						spemodDraft = panelDraft.getTiModel();
+						if (row > spemodDraft.getRowCount() -1) {
+							System.out.println("hors de la partie");
+						} else {
+							currentItem = spemodDraft.getUserAt(row);
+							if(currentItem != null) {
+								Item itmCopy = new Item(currentItem);
+								// TODO (nicolas) devrait venir de la classe en static ?
+								panelMod = new MessagingModifPanel(itmCopy, aliasInLower());
+								System.out.println(itmCopy.toString());
+								MainFrame.SwithPanel(panelMod);
+							}
+								
+					}
+					
+					
+
+						
+
+				}
+
 			}
 		}
-		}
+		
 
 	
 	

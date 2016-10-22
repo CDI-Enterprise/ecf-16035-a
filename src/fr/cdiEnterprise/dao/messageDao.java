@@ -160,9 +160,9 @@ public class messageDao {
 			                "identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft", TABLE_NAME,"SENDER", box, "DRAFT", 1);
 			}else {
 				createStatement = String
-				        .format("select %s, %s  , %s ,%s , %s ,%s, %s from %s WHERE %s = '%s'", 	
+				        .format("select %s, %s  , %s ,%s , %s ,%s, %s from %s WHERE %s = '%s' AND %s = '%s'", 	
 			                 //
-			                "identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft", TABLE_NAME,"RECEIVER", box);
+			                "identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft", TABLE_NAME,"RECEIVER", box, "DRAFT", 0);
 			}
 			
 			
@@ -202,7 +202,88 @@ public class messageDao {
 			return items;
 			
 	}
+	
+	/**
+	 * This method is going to return the email for a particular user mailbox or a draft Mailbox.
+	 * box will indicate the mailbox whether draft is false , or draft message if that is true
+	 * @param rcv
+	 * @param draft
+	 * @return
+	 * @throws SQLException
+	 */
+	
+	// TODO (nicolas) methode a revoir
+	public static Items getAllItems(String box)  {
 		
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		Items items = new Items();
+		
+		connection = Database.getConnect();
+		try {
+			statement = connection.createStatement();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+			
+			//String ident = null;
+			int ident = 0;
+			String sender = null;
+			String receiver =null;
+			String object = null;
+			String body = null;
+			String date = null;
+			int draftMess = 0;
+			
+			String createStatement = null;
+
+				createStatement= String
+				        .format("select %s, %s  , %s ,%s , %s ,%s, %s from %s", 	
+			                 //
+			                "identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft", TABLE_NAME);
+
+			
+			
+//			        		select identity, sender, receiver, subject, messBody, timeStamp, draft from mailbox
+	//		        		WHERE sender = 'claire';
+			System.out.println(createStatement);
+			try {
+				resultSet = statement.executeQuery(createStatement);
+				connection.commit();
+				
+				while(resultSet.next()) {
+					
+					
+					ident = resultSet.getInt("identity");
+					sender = resultSet.getString("sender");
+					receiver = resultSet.getString("receiver");
+					object = resultSet.getString("subject");
+					body = resultSet.getString("messBody");
+
+					draftMess = resultSet.getInt("draft");
+					if(draftMess==0) {
+						date = resultSet.getString("timeStamp");
+					}
+					
+					
+					Item item = new Item(ident, sender, receiver, object, body, StringToLocalDate(date), intToBoolean(draftMess));
+					items.add(item);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+				
+				
+			
+			return items;
+			
+	}
+	
+	
 //	}
 	
 	// TODO deleteMessage - public static boolean removeMessage(String usr, String identifier, boolean draft) {
