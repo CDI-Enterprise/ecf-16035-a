@@ -51,7 +51,7 @@ public class OldDatas {
 
 	public static void init(){
 		
-//		// User database
+		// User database
 		usersList = new Users();
 		usersList.add(new Trainer("Formateur", "Domi", "domim@afpa.fr", "Saint-Jérôme"));
 		usersList.add(new FormerTrainee("Ancien", "CDI", "cdi@mail.org", "Saint-Jérôme"));
