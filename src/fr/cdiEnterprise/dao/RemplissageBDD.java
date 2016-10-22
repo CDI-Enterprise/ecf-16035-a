@@ -17,7 +17,7 @@ public class RemplissageBDD {
 		/*Remplissage de la base de données à partir de la dao*/
 //		System.out.println(Datas.getListeAuteursBiblio());
 //		
-		for (Department department : Datas.getDepartmentsList()){
+		for (Department department : OldDatas.getDepartmentsList()){
 //			
 			DataBaseAccess.insertDepartmentData(department);
 		}

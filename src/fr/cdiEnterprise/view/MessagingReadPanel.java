@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 
 
 import fr.cdiEnterprise.control.MessageListener;
-import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.model.User;
 import fr.cdiEnterprise.service.Users;
@@ -79,7 +79,7 @@ public class MessagingReadPanel extends JPanel {
 		}*/
 		
 		
-		usersList = Datas.getUsersList();
+		usersList = OldDatas.getUsersList();
 		from = ReadProperties.getMyAlias();
 		
 		

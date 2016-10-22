@@ -9,7 +9,7 @@ import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.view.CompanyCreationPanel;
 import fr.cdiEnterprise.view.CompanyDeletUpdatPanel;
@@ -37,10 +37,10 @@ public class PanelDeletUpdatCompListeners implements ActionListener, ListSelecti
 		}
 		
 		if (e.getSource() == panCompDeletUpdat.getBtnDelete()){
-			System.out.println(Datas.getCompaniesList());
+			System.out.println(OldDatas.getCompaniesList());
 			System.out.println("*******Suppression*****");
-			Datas.getCompaniesList().remove(selecCompanie);
-			System.out.println(Datas.getCompaniesList());
+			OldDatas.getCompaniesList().remove(selecCompanie);
+			System.out.println(OldDatas.getCompaniesList());
 			CompanyCreationPanel.getDlmCompanies().remove(selecIndex);
 		}
 
@@ -48,8 +48,8 @@ public class PanelDeletUpdatCompListeners implements ActionListener, ListSelecti
 			System.out.println("Modification d'une entreprise");
 			selecCompanie.setAdress(panCompDeletUpdat.getTxtCompanyAdress().getText());			
 			CompanyCreationPanel.getDlmCompanies().set(selecIndex, selecCompanie);
-			Datas.getCompaniesList().set(selecIndex, selecCompanie);
-			System.out.println(Datas.getCompaniesList());
+			OldDatas.getCompaniesList().set(selecIndex, selecCompanie);
+			System.out.println(OldDatas.getCompaniesList());
 		}
 	}
 

@@ -21,7 +21,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import fr.cdiEnterprise.control.BookMarkListener;
-import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Favorite;
 import net.miginfocom.swing.MigLayout;
@@ -114,8 +114,8 @@ public class BookMarkPanel extends JPanel
 
 		JList<Favorite> lstBookMarkCompany = new JList<Favorite>(mdlListCompany);
 		lstBookMarkCompany.setVisibleRowCount(5);
-		if(Datas.getCompaniesList() != null) {
-			for (Favorite favorite : Datas.getFavoritesList()) {
+		if(OldDatas.getCompaniesList() != null) {
+			for (Favorite favorite : OldDatas.getFavoritesList()) {
 				if(favorite != null) {
 					mdlListCompany.addElement(favorite);
 				}

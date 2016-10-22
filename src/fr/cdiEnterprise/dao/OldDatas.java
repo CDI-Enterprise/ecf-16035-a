@@ -26,7 +26,7 @@ import fr.cdiEnterprise.util.MpClient;
  * @author Claire, Anais, Nicolas
  * @version 16-10-2016
  */
-public class Datas {
+public class OldDatas {
 
 	private static Users usersList;
 	
@@ -45,7 +45,7 @@ public class Datas {
 	/**
 	 * 
 	 */
-	public Datas() {
+	public OldDatas() {
 
 	}
 
@@ -115,7 +115,7 @@ public class Datas {
 	}
 
 	public static void setCompaniesList(Companies listeCompanies) {
-		Datas.companiesList = listeCompanies;
+		OldDatas.companiesList = listeCompanies;
 	}
 	
 	public static Clients getClientBox() {
@@ -127,7 +127,7 @@ public class Datas {
 	}
 	
 	public static void setDepartmentsList(Departments listeDepartments) {
-		Datas.departmentsList = listeDepartments;
+		OldDatas.departmentsList = listeDepartments;
 	}
 
 	public static Regions getRegionsList() {
@@ -135,7 +135,7 @@ public class Datas {
 	}
 
 	public static void setRegionsList(Regions listeRegions) {
-		Datas.regionsList = listeRegions;
+		OldDatas.regionsList = listeRegions;
 	}
 
 	public static Languages getLanguagesCompanyList() {
@@ -153,7 +153,7 @@ public class Datas {
 	 * @param favoritesList the favoritesList to set
 	 */
 	public static void setFavoritesList(Favorites favoritesList) {
-		Datas.favoritesList = favoritesList;
+		OldDatas.favoritesList = favoritesList;
 	}
 
 	public static Department getDepartment(String nomDepartment) {

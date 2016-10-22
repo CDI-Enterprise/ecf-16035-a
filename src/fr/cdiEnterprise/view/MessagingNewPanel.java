@@ -17,7 +17,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
 import fr.cdiEnterprise.control.MessageListener;
-import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.User;
 import fr.cdiEnterprise.service.Users;
 import fr.cdiEnterprise.util.ReadProperties;
@@ -63,7 +63,7 @@ public class MessagingNewPanel extends JPanel {
 		
 		borderMessage = BorderFactory.createTitledBorder(" Nouveau Message ");
 		border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
-		usersList = Datas.getUsersList();
+		usersList = OldDatas.getUsersList();
 		from = ReadProperties.getMyAlias();
 		
 		

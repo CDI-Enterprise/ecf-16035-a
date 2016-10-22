@@ -22,7 +22,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 
 import fr.cdiEnterprise.control.PanelDeletUpdatCompListeners;
-import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Department;
 import fr.cdiEnterprise.model.Language;
@@ -147,7 +147,7 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		lblCompanyDepartment = new JLabel("Departement *");
 		cboCompanyDepartment = new JComboBox<String>();
 		
-		for (Department department : Datas.getDepartmentsList()) {
+		for (Department department : OldDatas.getDepartmentsList()) {
 			cboCompanyDepartment.addItem(department.getDepartmentName());
 		}
 		cboCompanyDepartment.setEditable(true);
@@ -157,7 +157,7 @@ public class CompanyDeletUpdatPanel extends JPanel {
 
 		lblCompanyRegion = new JLabel("Région *");
 		cboCompanyRegion = new JComboBox<String>();
-		for (Region region : Datas.getRegionsList()) {
+		for (Region region : OldDatas.getRegionsList()) {
 			cboCompanyRegion.addItem(region.getRegionName());
 		}
 		cboCompanyRegion.setEditable(true);
@@ -178,7 +178,7 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		lblLanguages = new JLabel ("Langages principalement utilisés *");	
 		dlmLanguages = new DefaultListModel<Language>();
 		lstLanguages = new JList<Language>(dlmLanguages);
-		for (Language language : Datas.getLanguagesCompanyList()) {
+		for (Language language : OldDatas.getLanguagesCompanyList()) {
 		dlmLanguages.addElement(language);
 		}
 		languages = new JScrollPane(lstLanguages, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -212,7 +212,7 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		
 //		dlmCompanies = new DefaultListModel<Company>();
 		lstCompanies = new JList<Company>(CompanyCreationPanel.dlmCompanies);
-		for (Company company: Datas.getCompaniesList()){
+		for (Company company: OldDatas.getCompaniesList()){
 			dlmCompanies.addElement(company);
 		}
 		lstCompanies.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

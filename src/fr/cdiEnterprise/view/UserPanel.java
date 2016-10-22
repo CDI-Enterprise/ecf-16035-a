@@ -21,7 +21,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
 import fr.cdiEnterprise.control.UserPanelListeners;
-import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.User;
 import net.miginfocom.swing.MigLayout;
 
@@ -338,8 +338,8 @@ public class UserPanel extends JPanel {
 		lstUsers = new JList<User>(mdlLstUsers);
 		lstUsers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		if(Datas.getUsersList() != null) {
-			for (User user : Datas.getUsersList()) {
+		if(OldDatas.getUsersList() != null) {
+			for (User user : OldDatas.getUsersList()) {
 				if(user != null) {
 					mdlLstUsers.addElement(user);
 				}

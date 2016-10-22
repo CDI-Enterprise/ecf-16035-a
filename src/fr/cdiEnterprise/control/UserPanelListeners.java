@@ -13,7 +13,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.FormerTrainee;
 import fr.cdiEnterprise.model.Trainee;
 import fr.cdiEnterprise.model.Trainer;
@@ -111,19 +111,19 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 			case "Stagiaire" :  
 				user = new Trainee(status, alias, email, afpa, trainer);
 				System.out.println(user); // Test code
-				System.out.println(Datas.getUsersList()); // Test code
+				System.out.println(OldDatas.getUsersList()); // Test code
 				break;
 
 			case "Ancien" :
 				user = new FormerTrainee(status, alias, email, afpa, trainer);
 				System.out.println(user); // Test code
-				System.out.println(Datas.getUsersList()); // Test code
+				System.out.println(OldDatas.getUsersList()); // Test code
 				break;
 
 			case "Formateur" :
 				user = new Trainer(status, alias, email, afpa);
 				System.out.println(user); // Test code
-				System.out.println(Datas.getUsersList()); // Test code
+				System.out.println(OldDatas.getUsersList()); // Test code
 				break;
 
 			default:
@@ -132,9 +132,9 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 
 			}
 
-			Datas.getUsersList().add(user);
+			OldDatas.getUsersList().add(user);
 			panelUser.getMdlListUsers().addElement(user);
-			System.out.println(Datas.getUsersList()); // Test code
+			System.out.println(OldDatas.getUsersList()); // Test code
 
 		}
 
@@ -148,16 +148,16 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 			
 			// TODO Claire change of status and class for Trainee to FormerTrainee
 			
-			System.out.println(Datas.getUsersList()); // Test code
+			System.out.println(OldDatas.getUsersList()); // Test code
 
 		}
 
 		// User removal
 		if (e.getSource() == panelUser.getCmdDelete()) {
 
-			Datas.getUsersList().remove(selectedUser);
+			OldDatas.getUsersList().remove(selectedUser);
 			panelUser.getMdlListUsers().remove(indexUser);
-			System.out.println(Datas.getUsersList()); // Test code
+			System.out.println(OldDatas.getUsersList()); // Test code
 
 		}
 

@@ -7,7 +7,7 @@ import javax.swing.JRadioButton;
 import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Contact;
 import fr.cdiEnterprise.model.Department;
@@ -73,9 +73,9 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 		companyCity = panCompCreat.getTxtCompanyCity().getText().toUpperCase();
 		companyPostalCode = panCompCreat.getTxtPostalCode().getText();
 		nomDepartment = panCompCreat.getCboCompanyDepartment().getSelectedItem().toString();
-		companyDepartment = Datas.getDepartment(nomDepartment);
+		companyDepartment = OldDatas.getDepartment(nomDepartment);
 		nomRegion = panCompCreat.getCboCompanyRegion().getSelectedItem().toString();
-		companyRegion = Datas.getRegion(nomRegion);
+		companyRegion = OldDatas.getRegion(nomRegion);
 		
 		// Calls the status selection method
 		btnGrp = panCompCreat.getSizeGrp();
@@ -110,8 +110,8 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 			System.out.println("Création d'une nouvelle entreprise");					
 			company = new Company(companyName, companyAdress, companyPostalCode, companyCity, companyDepartment, companyRegion,  
 					companySize,companySector, companyLanguages, companyProjets, companyWebSite, contact);
-			Datas.getCompaniesList().add(company);
-			System.out.println(Datas.getCompaniesList());
+			OldDatas.getCompaniesList().add(company);
+			System.out.println(OldDatas.getCompaniesList());
 			CompanyCreationPanel.getDlmCompanies().addElement(company);
 			MethodsForListeners.resetJTextField(panCompCreat.getAllJTextFields());
 		}

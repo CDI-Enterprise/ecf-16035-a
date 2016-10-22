@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 
 
-import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.dao.Server;
 import fr.cdiEnterprise.model.Item;
 
