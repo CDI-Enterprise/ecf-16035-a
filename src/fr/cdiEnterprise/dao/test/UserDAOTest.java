@@ -21,18 +21,20 @@ public class UserDAOTest {
 //		String test = userDAO.search(3);
 //		System.out.println("App : " + test);
 		
-		// Test create a user
-		String creationDone = userDAO.create(10, "22/10/2016", "Ancien", "CDI", "cdi@mail.com", "Saint-Jérôme");
-		System.out.println(creationDone);
+		// CREATE
+//		String creationDone = userDAO.create(10, "22/10/2016", "Ancien", "CDI", "cdi@mail.com", "Saint-Jérôme");
+//		System.out.println(creationDone);
 		
 		// Test read all users
 //		Users users = new Users();
 //		users = userDAO.read();
 //		System.out.println("App : " + users);
 //		
-		// Test update a user
+		// UPDATE
+//		String updateDone = userDAO.update(10, "22/10/2016", "Ancien", "CDI", "cdi@mail.fr", "Saint-J");
+//		System.out.println(updateDone);
 		
-		// Test delete a user
+		// DELETE
 //		String deleteDone = userDAO.delete(10);
 //		System.out.println(deleteDone);
 		

@@ -20,6 +20,7 @@ public class UserDAO {
 
 	// Prepared statement for SQL request
 	private static PreparedStatement createUser;
+	private static PreparedStatement updateUser;
 	private static PreparedStatement deleteUser;
 
 	private static int result;
@@ -37,25 +38,26 @@ public class UserDAO {
 	/**
 	 * Insert a new user in database.
 	 * @param id
-	 * @param date
+	 * @param inscriptionDate
 	 * @param status
 	 * @param alias
-	 * @param email
+	 * @param mail
 	 * @param afpa
 	 * @return creationDone (test code)
 	 * @throws SQLException
 	 */
-	public String create(int id, String date, String status, String alias, String email, String afpa) throws SQLException {
+	public String create(int id, String inscriptionDate,
+			String status, String alias, String mail, String afpa) throws SQLException {
 
 		result = 0;
 
 		try {
 			createUser = connect.prepareStatement("INSERT INTO cdi_user VALUES (?, ?, ?, ?, ?, ?)");
 			createUser.setInt(1, id);
-			createUser.setString(2, date);
+			createUser.setString(2, inscriptionDate);
 			createUser.setString(3, status);
 			createUser.setString(4, alias);
-			createUser.setString(5, email);
+			createUser.setString(5, mail);
 			createUser.setString(6, afpa);
 			result = createUser.executeUpdate();
 		} catch (SQLException e) {
@@ -79,6 +81,56 @@ public class UserDAO {
 		return creationDone;
 		// Fin test code
 	}
+	
+	/**
+	 * Updates an user in database.
+	 * @param id
+	 * @param inscriptionDate
+	 * @param status
+	 * @param alias
+	 * @param mail
+	 * @param afpa
+	 * @return updateDone (test code)
+	 * @throws SQLException
+	 */
+	public String update(int id, String inscriptionDate,
+			String status, String alias, String mail, String afpa) throws SQLException {
+
+		result = 0;
+
+		try {
+			updateUser = connect.prepareStatement("UPDATE cdi_user "
+					+ "SET user_inscription_date = ?, user_status = ?, user_alias = ?, user_mail = ?, user_afpa = ? "
+					+ "WHERE user_id = ?");
+			updateUser.setString(1, inscriptionDate);
+			updateUser.setString(2, status);
+			updateUser.setString(3, alias);
+			updateUser.setString(4, mail);
+			updateUser.setString(5, afpa);
+			updateUser.setInt(6,id);
+			result = updateUser.executeUpdate();
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			System.err.println("Requête incorrecte : l'utilisateur n'a pas pu être modifié.");
+		}
+
+		finally {
+			closeRequest(updateUser);
+		}
+		// Test code
+		String updateDone = null;
+
+		if (result == 0) {
+			updateDone = "Aucune mise à jour effectuée."; 
+		}
+		else {
+			updateDone = result + " mise(s) à jour effectuée(s).";
+		}
+
+		return updateDone;
+		// Fin test code
+	}
+
 
 	/**
 	 * Deletes an user in database.
