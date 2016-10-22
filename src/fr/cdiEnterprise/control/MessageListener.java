@@ -35,7 +35,7 @@ import fr.cdiEnterprise.view.SpecialTableItemModel;
 /**
  * Class for the actionListner dedicated to the Messaging part. This class is
  * able to identify if the user ask to create a new messa, znd return back to
- * the message list.
+ * the message list
  * 
  * 
  * @version 13-10-2016
