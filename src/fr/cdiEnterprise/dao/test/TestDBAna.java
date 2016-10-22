@@ -1,4 +1,4 @@
-package fr.cdiEnterprise.dao;
+package fr.cdiEnterprise.dao.test;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

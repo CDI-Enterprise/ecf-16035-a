@@ -1,9 +1,10 @@
-package fr.cdiEnterprise.dao;
+package fr.cdiEnterprise.dao.test;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 import fr.cdiEnterprise.control.MpClientV2;
+import fr.cdiEnterprise.dao.Database;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.service.Items;
 import fr.cdiEnterprise.util.ReadProperties;
