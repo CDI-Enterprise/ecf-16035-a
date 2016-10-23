@@ -28,8 +28,18 @@ public class SpecialTableItemModel<Item> extends AbstractTableModel {
 
 
 
+    /**
+     * default constructor
+     */
+    public SpecialTableItemModel() {
+		
+	}
 
-    public String getColumnName(int col) {
+
+
+
+
+	public String getColumnName(int col) {
         return columnNames[col];
     }
     
@@ -88,7 +98,12 @@ public class SpecialTableItemModel<Item> extends AbstractTableModel {
      * @return 
      */
     public fr.cdiEnterprise.model.Item getUserAt(int row) {
-        return users.get(row);
+    	if(row >= 0) {
+    		return users.get(row);
+    	}else {
+    		return null;
+    	}
+        
     }
 
 

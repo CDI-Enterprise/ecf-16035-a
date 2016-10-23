@@ -1,8 +1,10 @@
-package fr.cdiEnterprise.control;
+package fr.cdiEnterprise.util;
+
+
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 
 
 
@@ -33,7 +35,9 @@ public class MpClientV2 {
 	
 	
 	
-	private static int ID_NUMBER = 0;
+	private static final int CONST_ZERO = 0;
+	private static final int CONST_ONE = 1;
+	private static int ID_NUMBER = CONST_ZERO;
 	  
 
 	//private Server messageDao;
@@ -43,12 +47,47 @@ public class MpClientV2 {
 	
 	public MpClientV2(String usr) {
 		box = usr;
-		//this.messageDao = server;
+
 		this.myMessages = new Items();
-	//	this.myDraft = new  Items();
+		myMessages 	= getMaxItems(false);
+		getMaxItems(true);
+
+		
+		
 
 	}
+
+	/**
+	 * Cette method est utilise pour determiner le numeros de message ID Max provenant de la base de donnee.
+	 */
+	private Items getMaxItems(boolean all) {
+		Items items = null;
+		if(ID_NUMBER == CONST_ZERO)
+		{
+			int max = CONST_ZERO;
+			if(all) {
+				items = getAllMessages();
+				for(Item current : items){
+					if(current.getId() > max) {
+						max = current.getId();
+						ID_NUMBER = max;
+					}
+				}
+			
+			}else {
+				items = getMessages(false);
+			}
+			
+		}
+		
+	//	System.out.println("l'email le plus rescent est numero "+ ID_NUMBER);
+		return items;
+	}
 	
+	private Items getAllMessages() {
+		return messageDao.getAllItems(this.box);
+	}
+
 	/**
 	 * This method is going to send new email to other users.
 	 * 
@@ -60,89 +99,82 @@ public class MpClientV2 {
 	 * @throws SQLException 
 	 */
 	public void newEmail(String from, String to, String obj, String bdy )   {
+		// TODO (nicolas) Penser a modifier la signature pour ne prendre que un objet Item
+		int idNumber = CONST_ZERO;
 		
-		String idNumber = null;
-		
-		ID_NUMBER = ID_NUMBER + 1;
+		ID_NUMBER = ID_NUMBER + CONST_ONE;
 		LocalDateTime timeStamp = LocalDateTime.now();
-		idNumber = ID_NUMBER + "";
+		idNumber = ID_NUMBER;
 		Item itm = new Item(from, to, obj, bdy, timeStamp);
-		System.out.println("Taille du Message : "+bdy.length());
+	
 		itm.setId(idNumber);
 
 		messageDao.insertItem(itm);
-		System.out.println("Message devrait etre insere");
+
 			
 		
 	}
 	
-//	/**
-//	 * This method will be used to reply to an email , draft have to be false, or send a draft email and draft have to be true.
-//	 * @param item
-//	 * @param draft
-//	 * @return
-//	 */
-//	public boolean sendEmail(Item item, boolean draft) {
-//
-//		LocalDateTime timeStamp = LocalDateTime.now();
-//	
-//		Item repliedItem = new Item(item.getSender(), item.getReceiver(), item.getObject(), item.getBody(),  timeStamp);
-//		
-//		repliedItem.setId(item.getId());
-//		if(draft) {
-//			
-//			repliedItem.setDraftEmail(false);
-//			System.out.println(repliedItem.toString());
-//			server.post(repliedItem);
-//			
-//			return true;
-//		}else {
-//			if(item.getObject() != null && item.getBody() != null) {
-//				repliedItem.setObject("re: "+ item.getObject());
-//				repliedItem.setTimeStamp(timeStamp);
-//				String snd = item.getSender();
-//				String rcv = item.getReceiver();
-//				repliedItem.setReceiver(snd);
-//				repliedItem.setSender(rcv);
-//				
-//				
-//				server.post(repliedItem);
-//				return true;
-//			}else {
-//				return false;
-//			}
-//
-//		}
-//
-//	}
+	/**
+	 * This method will be used to reply to an email , draft have to be false, or send a draft email and draft have to be true.
+	 * @param item
+	 * @param draft
+	 * @return
+	 */
+	public boolean sendEmail(Item item, boolean draft) {
+
+		LocalDateTime timeStamp = LocalDateTime.now();
+		ID_NUMBER = ID_NUMBER + CONST_ONE;
+
+		Item repliedItem = new Item(item.getSender(), item.getReceiver(), item.getObject(), item.getBody(),  timeStamp);
+		
+		//repliedItem.setId(item.getId()); // old implementation
+		
+		repliedItem.setId(ID_NUMBER);
+		if(draft) {
+
+			repliedItem.setDraftEmail(false);
+	
+			messageDao.insertItem(repliedItem);
+			
+			return true;
+		}else {
+			if(item.getObject() != null && item.getBody() != null) {
+				repliedItem.setObject("re: "+ item.getObject());
+				repliedItem.setTimeStamp(timeStamp);
+				String snd = item.getSender();
+				String rcv = item.getReceiver();
+				repliedItem.setReceiver(snd);
+				repliedItem.setSender(rcv);
+				
+				
+				messageDao.insertItem(repliedItem);
+				return true;
+			}else {
+				return false;
+			}
+
+		}
+
+	}
 	
 	
 	
-//	/**
-//	 * This method is going to put the edited draft email back to the draft folder
-//	 * @param item
-//	 * @return return true if properly drafted.
-//	 */
-//	public boolean editDraft(Item toEdit, String to, String obj, String bdy) {	
-//		
-//		
-//		String idNumber = null;
-//		
-//		
-//		ID_NUMBER = ID_NUMBER + 1;
-//		LocalDateTime timeStamp = LocalDateTime.now();
-//		idNumber = ID_NUMBER + "";
-//		Item itm = new Item(toEdit.getSender(), to, obj, bdy, null);
-//		//System.out.println(idNumber);
-//		itm.setId(toEdit.getId());
-//		itm.setDraftEmail(true);
-//		if(server.postDraft(itm)) {  
-//			
-//			return true;
-//		}
-//		return false;
-//	}
-//	
+	/**
+	 * This method is going to put the edited draft email back to the draft folder
+	 * @param item
+	 * @return return true if properly drafted.
+	 * @throws SQLException 
+	 */
+	public void editDraft(Item toEdit) throws SQLException  {	
+		
+		if(toEdit !=null) {
+			messageDao.updateMessage(toEdit);
+		}
+		
+
+	}
+	
 	
 	
 	
@@ -151,24 +183,18 @@ public class MpClientV2 {
 //	 * @param item
 //	 * @return return true if properly drafted.
 //	 */
-//	public boolean draft(String from, String to, String obj, String bdy) {
+	public void draft(String from, String to, String obj, String bdy, boolean draft) {
 //		
-//		String idNumber = null;
-//		
-//		
-//		ID_NUMBER = ID_NUMBER + 1;
-//		LocalDateTime timeStamp = LocalDateTime.now();
-//		idNumber = ID_NUMBER + "";
-//		Item itm = new Item(from, to, obj, bdy, null);
-//		//System.out.println("the id number for " + idNumber);
-//		itm.setId(idNumber);
-//		itm.setDraftEmail(true);
-//		if(server.postDraft(itm)) {
-//			
-//			return true;
-//		}
-//		return false;
-//	}
+		int idNumber = CONST_ZERO;
+		ID_NUMBER = ID_NUMBER + CONST_ONE;		
+		idNumber = ID_NUMBER;
+		Item itm = new Item(idNumber, from, to, obj, bdy, null, draft);
+	
+
+		messageDao.insertItem(itm);
+	
+	}
+
 	
 	/**
 	 * THis method is going to get messages , mail or draft email
@@ -192,13 +218,14 @@ public class MpClientV2 {
 	 * @param identifier to get the requested email removed
 	 * @param draft will indicate if this is a draft email
 	 */
-//	public void removeMessage(String identifier, boolean draft) {
-//		
-//		if(server.removeMessage(this.box, identifier, draft)) {
-//			System.out.println("Message has been removed...");
-//		}
-//	}
-//	
+	public void removeMessage(int identifier, boolean draft) {
+		
+		if(messageDao.removeMessage(this.box, identifier, draft)) {
+			// TODO (nicolas) return a boolean later.
+			//System.out.println("Message has been removed...");
+		}
+	}
+	
 //	/**
 //	 * going to pop one message with particular Id, and draft or not
 //	 * @param identifier 
@@ -252,6 +279,11 @@ public class MpClientV2 {
 	public  String getBox() {
 		return box;
 	}
+	
+	public Items getMyMessages() {
+		return myMessages;
+	}
+
 //	
 //	
 }

@@ -5,9 +5,9 @@ package fr.cdiEnterprise.service;
 
 import java.util.ArrayList;
 
-import fr.cdiEnterprise.control.MpClient;
-import fr.cdiEnterprise.control.MpClientV2;
 import fr.cdiEnterprise.model.Item;
+import fr.cdiEnterprise.util.MpClient;
+import fr.cdiEnterprise.util.MpClientV2;
 
 /**
  * Class is going to hold all the Users that are registered on the Messaging
@@ -50,7 +50,7 @@ public class Clients extends ArrayList<MpClient> {
 		String[][] liste = null;
 		MpClient cli = getClient(box);
 		ArrayList<Item> itms = cli.getMessages(draft);
-		System.out.println("nombre d'emails---" + itms.size());
+		
 		if(itms.isEmpty()) {
 			liste = new String[itms.size()][3];
 		} else  {
@@ -61,8 +61,7 @@ public class Clients extends ArrayList<MpClient> {
 				liste[index][0] = current.getSender();
 				liste[index][1] = current.getObject();
 				liste[index][2] = current.getTimeStamp().toString();
-				System.out.println(liste[index][0]);
-				System.out.println(liste[index][2]);
+			
 				
 
 				index++;

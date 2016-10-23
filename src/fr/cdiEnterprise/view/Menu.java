@@ -15,7 +15,7 @@ import fr.cdiEnterprise.control.MainMenuListener;
 /**
  * Main menu for the CDI Enterprise program, visible on every frame.
  * @author Claire, Anais, Nicolas, Ismael, Olivier
- * @version 07-10-2016
+ * @version 22-10-2016
  */
 
 public class Menu extends JMenuBar {
@@ -32,7 +32,8 @@ public class Menu extends JMenuBar {
 	private JMenu menuQuit;
 
 	// menuProfile : sub item
-	private JMenuItem subProfileCrud;
+	private JMenuItem subProfileCRUD;
+	private JMenuItem subProfileSR;	
 
 	// menuEntreprise : sub item
 	private JMenuItem subCompanyCreate;
@@ -62,10 +63,12 @@ public class Menu extends JMenuBar {
 		// PROFILE
 		menuProfile = new JMenu("Profil");
 		this.add(menuProfile);
-		subProfileCrud = new JMenuItem("Gérer les profils");
-		menuProfile.add(subProfileCrud);
-		subProfileCrud.setMnemonic(KeyEvent.VK_P);
-		subProfileCrud.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
+		subProfileCRUD = new JMenuItem("Administrer les profils");
+		menuProfile.add(subProfileCRUD);
+		subProfileCRUD.setMnemonic(KeyEvent.VK_P);
+		subProfileCRUD.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
+		subProfileSR = new JMenuItem("Liste des membres");
+		menuProfile.add(subProfileSR);
 
 		// COMPANY
 		menuCompany = new JMenu("Entreprise");
@@ -126,7 +129,8 @@ public class Menu extends JMenuBar {
 
 		//LISTENER
 		MainMenuListener listener = new MainMenuListener(this);
-		subProfileCrud.addActionListener(listener);
+		subProfileCRUD.addActionListener(listener);
+		subProfileSR.addActionListener(listener);
 
 		subMessageDisplay.addActionListener(listener);
 
@@ -141,10 +145,17 @@ public class Menu extends JMenuBar {
 	}
 
 	/**
-	 * @return the menuProfile
+	 * @return the subProfileCRUD
 	 */
-	public JMenuItem getSubProfileCrud() {
-		return subProfileCrud;
+	public JMenuItem getSubProfileCRUD() {
+		return subProfileCRUD;
+	}
+	
+	/**
+	 * @return the subProfileSR
+	 */
+	public JMenuItem getSubProfileSR() {
+		return subProfileSR;
 	}
 
 	/**

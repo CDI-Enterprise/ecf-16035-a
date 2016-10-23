@@ -10,7 +10,7 @@ public class Database {
 	
 	
 	final String strNomDriver = "oracle.jdbc.driver.OracleDriver";
-	 static final String dbURL ="jdbc:oracle:thin:stag14/stag14pw@localhost:1521:xe"; // a asuga local a la masion
+	static final String dbURL ="jdbc:oracle:thin:stag14/stag14pw@localhost:1521:xe"; // a asuga local a la masion
 	//static final String dbURL ="jdbc:oracle:thin:stag14/stag14pw@junon:1521:afpa";
 
 	//static Connection conn = null;
@@ -20,7 +20,7 @@ public class Database {
 		try {
 			Class.forName(strNomDriver);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Probleme detecte avec le chargement de la class, verifier que le .jar est lie correctement au projet.");
 			e.printStackTrace();
 		}
 		
@@ -42,38 +42,7 @@ public class Database {
 	
 	
 	
-	
-	
-//	public static void getMeta() {
-//		System.out.println("--- Listes des tables ---");
-//		DatabaseMetaData databaseMetaData = null;
-//		try {
-//			databaseMetaData = getConnect().getMetaData();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		
-//		ResultSet result = null;
-//		try {
-//			result = databaseMetaData.getTables(
-//			    catalog, "stag14", tableNamePattern, types );
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		try {
-//			while(result.next()) {
-//			    String tableName = result.getString(3);
-//			    System.out.println("table :" + tableName);
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+
 	
 	
 

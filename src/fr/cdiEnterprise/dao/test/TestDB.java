@@ -1,13 +1,12 @@
-package fr.cdiEnterprise.db;
+package fr.cdiEnterprise.dao.test;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
-import fr.cdiEnterprise.control.MpClientV2;
 import fr.cdiEnterprise.dao.Database;
-import fr.cdiEnterprise.dao.messageDao;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.service.Items;
+import fr.cdiEnterprise.util.MpClientV2;
 import fr.cdiEnterprise.util.ReadProperties;
 
 /**
@@ -22,7 +21,7 @@ public class TestDB {
 		Database Oracle = new Database();
 		Items items = new Items();
 
-		MpClientV2 client = new MpClientV2(ReadProperties.getMyAlias());
+		MpClientV2 client = new MpClientV2("oracle");
 		
 		// used to be tested with messageDAO  Item message2 = new Item("omy", "oracle", "test2", "This is a test.", LocalDateTime.now());
 		//message2.setDraftEmail(false);
@@ -31,7 +30,7 @@ public class TestDB {
 			client.newEmail("omy", "oracle", "test2", "This is a test.");
 			client.newEmail("claire", "oracle", "test3", "This is a test3.");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			// TODO (Nicolas) Auto-generated catch block
 			e.printStackTrace();
 		}
 		

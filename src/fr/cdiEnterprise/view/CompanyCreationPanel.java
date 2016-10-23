@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import fr.cdiEnterprise.control.PanelCreateComListener;
 import fr.cdiEnterprise.control.BookMarkListener;
-import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Department;
 import fr.cdiEnterprise.model.Language;
@@ -158,7 +158,7 @@ public class CompanyCreationPanel extends JPanel {
 		
 		lblCompanyDepartment = new JLabel("Departement *");
 		cboCompanyDepartment = new JComboBox<String>();
-			for (Department department : Datas.getDepartmentsList()) {
+			for (Department department : OldDatas.getDepartmentsList()) {
 			cboCompanyDepartment.addItem(department.getDepartmentName());
 			}
 		cboCompanyDepartment.setEditable(true);
@@ -166,7 +166,7 @@ public class CompanyCreationPanel extends JPanel {
 
 		lblCompanyRegion = new JLabel("Région *");
 		cboCompanyRegion = new JComboBox<String>();
-		for (Region region : Datas.getRegionsList()) {
+		for (Region region : OldDatas.getRegionsList()) {
 			cboCompanyRegion.addItem(region.getRegionName());
 		}
 		cboCompanyRegion.setEditable(true);
@@ -192,7 +192,7 @@ public class CompanyCreationPanel extends JPanel {
 		lblLanguages = new JLabel ("Langages principalement utilisés *");	
 		dlmLanguages = new DefaultListModel<Language>();
 		lstLanguages = new JList<Language>(dlmLanguages);
-		for (Language language : Datas.getLanguagesCompanyList()) {
+		for (Language language : OldDatas.getLanguagesCompanyList()) {
 		dlmLanguages.addElement(language);
 		}
 		languages = new JScrollPane(lstLanguages, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -228,7 +228,7 @@ public class CompanyCreationPanel extends JPanel {
 		
 		dlmCompanies = new DefaultListModel<Company>();
 		lstCompanies = new JList<Company>(dlmCompanies);
-		for (Company company: Datas.getCompaniesList()){
+		for (Company company: OldDatas.getCompaniesList()){
 			dlmCompanies.addElement(company);
 		}
 		JScrollPane companies = new JScrollPane(lstCompanies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
@@ -310,7 +310,7 @@ public class CompanyCreationPanel extends JPanel {
 		//btnFavoris.addActionListener((ActionListener) this);
 //				
 //				
-//				// TODO Ajout dans favoris 
+//				// TODO (Anaïs) Ajout dans favoris 
 
 
 	}

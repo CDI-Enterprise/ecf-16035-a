@@ -27,12 +27,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import fr.cdiEnterprise.control.MessageListener;
-
-import fr.cdiEnterprise.control.MpClient;
-import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.service.Clients;
 import fr.cdiEnterprise.service.Items;
+import fr.cdiEnterprise.util.MpClient;
 import fr.cdiEnterprise.util.ReadProperties;
 import net.miginfocom.swing.MigLayout;
 
@@ -53,8 +52,10 @@ public class MessagingDraftPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private Border border;
 	private Border	borderTitle;
-	private JButton btnDel;
-	private JButton btnRet;
+
+
+
+	private JButton btnMess;
 	private JButton btnDisplay;
 	
 	private String nombreMessage;
@@ -116,9 +117,9 @@ public class MessagingDraftPanel extends JPanel {
 		panMess.add(panWest, BorderLayout.WEST);
 		
 
-		JLabel lblMess = new JLabel("Nombre de Message(s) :");
+		JLabel lblMess = new JLabel("Nombre de Brouillon(s) :");
 		JLabel lblNombre = new JLabel(tableModele.getRowCount()+"");
-		JLabel lblTitre = new JLabel("Boite de Messagerie de :"+ReadProperties.getMyAlias());
+		JLabel lblTitre = new JLabel("Boite de Brouillon de :"+ReadProperties.getMyAlias());
 		
 		String header = String.format(FORMAT_LIST, HEADER_LIST);
 		JLabel headerLabel = new JLabel(header);
@@ -131,20 +132,20 @@ public class MessagingDraftPanel extends JPanel {
 		
 		
 		
-		btnDel = new JButton("Supprimer");
-		btnRet = new JButton("Retour");
+		
+		btnMess = new JButton("Messages");
 		btnDisplay = new JButton("Refersh");
 		
 		
-		btnDel.setMnemonic(KeyEvent.VK_S);
-		btnRet.setMnemonic(KeyEvent.VK_R);
+
+		btnMess.setMnemonic(KeyEvent.VK_M);
 		btnDisplay.setMnemonic(KeyEvent.VK_D);
 		
 		panNorth.setLayout(new FlowLayout());
 		panWest.setLayout(new MigLayout());
 		
-		panWest.add(btnDel, "wrap");
-		panWest.add(btnRet, "wrap");
+
+		panWest.add(btnMess, "wrap");
 		panWest.add(btnDisplay, "wrap");
 		
 		panNorth.add(lblTitre);
@@ -176,7 +177,7 @@ public class MessagingDraftPanel extends JPanel {
 		table.addMouseListener(listener);
 		//table.getSelectionModel().addListSelectionListener(listener);
 		//btnNew.addActionListener(listener);
-		btnRet.addActionListener(listener);
+		btnMess.addActionListener(listener);
 		btnDisplay.addActionListener(listener);
 	}
 
@@ -191,6 +192,7 @@ public class MessagingDraftPanel extends JPanel {
 	 * @param allItems
 	 * @return
 	 */
+	// TODO (nicolas) Maybe put this method in util class.
 	private void fillModel() {
 
 		
@@ -204,17 +206,14 @@ public class MessagingDraftPanel extends JPanel {
 				tableauMsg[index][0] = current.getSender();
 				tableauMsg[index][1] = current.getObject();
 				tableauMsg[index][2] = current.getTimeStamp().toString();
-				System.out.println(tableauMsg[index][0]);
-				System.out.println(tableauMsg[index][2]);
+		
 				index++;
 			}
 			
 	
 			if(tableauMsg == null) {
-				System.out.println("tableauMsg est null" + tableauMsg.length);
 			}else {
 				
-				System.out.println("tableauMsg nest pas null" + tableauMsg.length);
 				tableModele =  new DefaultTableModel(tableauMsg, new String[] {
 						"Sender", "Objet", "Date Reception"
 					});
@@ -233,8 +232,7 @@ public class MessagingDraftPanel extends JPanel {
 				tableauMsg[index][0] = current.getSender();
 				tableauMsg[index][1] = current.getObject();
 			//	tableauMsg[index][2] = current.getTimeStamp().toString();
-				System.out.println(tableauMsg[index][0]);
-				System.out.println(tableauMsg[index][2]);
+				
 				
 
 				index++;
@@ -246,7 +244,6 @@ public class MessagingDraftPanel extends JPanel {
 		
 			
 		}
-		System.out.println("tableModele est "+tableModele.getRowCount()+ "table " + table);
 		table.setModel(tableModele);
 
 	}
@@ -255,21 +252,19 @@ public class MessagingDraftPanel extends JPanel {
 	 * 
 	 */
 	private void readTableauModele(String[][] tableauMsg) {
-		System.out.println("--- Verification du tableau ---");
+		
 		for(int i =0; i < tableauMsg.length; i++ ) {
 			for(int j =0; j < 3; j++ ) {
-				System.out.println(tableauMsg[i][j]);
+				
 			}
 		}
-		System.out.println("--- fin ---");
+		
 	}
 
-	public JButton getBtnDel() {
-		return btnDel;
-	}
 
-	public JButton getBtnRet() {
-		return btnRet;
+
+	public JButton getbtnMess() {
+		return btnMess;
 	}
 
 	public JButton getBtnDisplay() {
@@ -293,7 +288,9 @@ public class MessagingDraftPanel extends JPanel {
 	}
 
 
-
+	public JButton getBtnMess() {
+		return btnMess;
+	}
 
 
 

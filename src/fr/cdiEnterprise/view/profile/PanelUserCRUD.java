@@ -1,4 +1,4 @@
-package fr.cdiEnterprise.view;
+package fr.cdiEnterprise.view.profile;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -20,24 +20,25 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
-import fr.cdiEnterprise.control.UserPanelListeners;
-import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.control.PanelUserCRUDListener;
+import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.User;
 import net.miginfocom.swing.MigLayout;
 
 /**
  * Panel for a user's profile CRUD.
- * @version 16-10-2016
  * @author Claire
+ * @version 16-10-2016
+ * 
  */
-public class UserPanel extends JPanel {
+public class PanelUserCRUD extends JPanel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	//TODO fake companies list in database!
+	//TODO (Claire) fake companies list in database!
 	String [] company = {"Aucune", "9e compagnie", "Cie", "Comme Pagny", "Autre..."};
 
 //	private JPanel panEast;
@@ -124,9 +125,9 @@ public class UserPanel extends JPanel {
 	// ArrayList of components
 	ArrayList<JTextField> allJTextFields;
 	
-	public UserPanel() {
+	public PanelUserCRUD() {
 
-		// Main layout for book creation panel
+		// Main layout for user CRUD panel
 		this.setLayout(new BorderLayout(10, 20));
 
 		
@@ -224,7 +225,7 @@ public class UserPanel extends JPanel {
 		panPublic.add(optJava, "wrap");
 
 		// List of approached companies
-		// TODO Claire put arraylist in JList?
+		// TODO (Claire) put arraylist in JList?
 		lblApproachedCie = new JLabel("Entreprise(s) démarchée(s)*** : ");
 		panPublic.add(lblApproachedCie);
 		JComboBox<String> approachedCie = new JComboBox<String> ();
@@ -241,7 +242,7 @@ public class UserPanel extends JPanel {
 		panPublic.add(txtJob, "wrap");
 
 		// Current company
-		// TODO Claire cie arraylist
+		// TODO (Claire) cie arraylist
 		lblCurrentCie = new JLabel("Entreprise actuelle*** : ");
 		panPublic.add(lblCurrentCie);
 		JComboBox<String> currentCie = new JComboBox<String> ();
@@ -288,7 +289,7 @@ public class UserPanel extends JPanel {
 		// Other known programming languages
 		lblInfoLang = new JLabel("Autre(s) langage(s) : ");
 		panOptional.add(lblInfoLang, "w 200!");
-		// TODO Claire create language list in dao
+		// TODO (Claire) create language list in dao
 		String [] progLanguage = {"C", "PHP"};
 		JComboBox<String> cboProgLanguage = new JComboBox<String> ();
 		for (int i = 0; i < progLanguage.length; i++) {
@@ -300,7 +301,7 @@ public class UserPanel extends JPanel {
 		// Known graphic API
 		lblApi = new JLabel("API graphique : ");
 		panOptional.add(lblApi);
-		// TODO Claire create api list in dao
+		// TODO (Claire) create api list in dao
 		String [] graphicApi = {"AWT", "JFace", "Swing", "SWT"};
 		JComboBox<String> cboGraphicApi = new JComboBox<String> ();
 		for (int i = 0; i < graphicApi.length; i++) {
@@ -338,8 +339,8 @@ public class UserPanel extends JPanel {
 		lstUsers = new JList<User>(mdlLstUsers);
 		lstUsers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		if(Datas.getUsersList() != null) {
-			for (User user : Datas.getUsersList()) {
+		if(OldDatas.getUsersList() != null) {
+			for (User user : OldDatas.getUsersList()) {
 				if(user != null) {
 					mdlLstUsers.addElement(user);
 				}
@@ -371,7 +372,7 @@ public class UserPanel extends JPanel {
 		allJTextFields.add(txtTrainer);
 		
 		// LISTENERS
-		UserPanelListeners listener = new UserPanelListeners(this);
+		PanelUserCRUDListener listener = new PanelUserCRUDListener(this);
 		cmdCancel.addActionListener(listener);
 		cmdCreate.addActionListener(listener);
 		cmdUpdate.addActionListener(listener);

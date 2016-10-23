@@ -4,8 +4,7 @@
 package fr.cdiEnterprise.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -25,14 +24,13 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 import fr.cdiEnterprise.control.MessageListener;
 
-import fr.cdiEnterprise.control.MpClient;
-import fr.cdiEnterprise.dao.Datas;
+
+
 import fr.cdiEnterprise.model.Item;
-import fr.cdiEnterprise.service.Clients;
+
 import fr.cdiEnterprise.service.Items;
 import fr.cdiEnterprise.util.ReadProperties;
 import net.miginfocom.swing.MigLayout;
@@ -82,13 +80,17 @@ public class MessagingMainPanel extends JPanel {
 	public MessagingMainPanel()  {
 		
 		//listModele = new DefaultListModel<>();
+		copyUserItems = new Items();
+		this.tiModel = new SpecialTableItemModel();
+		table = new JTable();
+
 		MessageListener listener = new MessageListener(this);
-		
+
 		
 		borderTitle = BorderFactory.createTitledBorder("Message");
 		border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		
-		table = new JTable(tiModel);
+		
 		table.setFillsViewportHeight(true);
 		table.setEnabled(true);
 		table.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 16));
@@ -102,7 +104,6 @@ public class MessagingMainPanel extends JPanel {
 		JScrollPane scroller = new JScrollPane(table);
 		fillModel();
 		
-
 
 		
 		
@@ -125,8 +126,8 @@ public class MessagingMainPanel extends JPanel {
 		String header = String.format(FORMAT_LIST, HEADER_LIST);
 		JLabel headerLabel = new JLabel(header);
 		
-		tiModel = new SpecialTableItemModel(copyUserItems);
 		
+		tiModel.setUsers(copyUserItems);
 		tableModele =  new DefaultTableModel(tableauMsg, new String[] {
 				"Sender", "Objet", "Date Reception"
 			});
@@ -206,8 +207,7 @@ public class MessagingMainPanel extends JPanel {
 				tableauMsg[index][0] = current.getSender();
 				tableauMsg[index][1] = current.getObject();
 				tableauMsg[index][2] = current.getTimeStamp().toString();
-				System.out.println(tableauMsg[index][0]);
-				System.out.println(tableauMsg[index][2]);
+
 				
 
 				index++;
@@ -215,12 +215,12 @@ public class MessagingMainPanel extends JPanel {
 			
 			
 			
-				
+			 //TODO (nicolas) need to fix this if else	
 			if(tableauMsg == null) {
-				System.out.println("tableauMsg est null" + tableauMsg.length);
+				//System.out.println("tableauMsg est null" + tableauMsg.length);
 			}else {
 				
-				System.out.println("tableauMsg nest pqs null" + tableauMsg.length);
+				//System.out.println("tableauMsg nest pqs null" + tableauMsg.length);
 				tableModele =  new DefaultTableModel(tableauMsg, new String[] {
 						"Sender", "Objet", "Date Reception"
 					});
@@ -239,8 +239,7 @@ public class MessagingMainPanel extends JPanel {
 				tableauMsg[index][0] = current.getSender();
 				tableauMsg[index][1] = current.getObject();
 				tableauMsg[index][2] = current.getTimeStamp().toString();
-				System.out.println(tableauMsg[index][0]);
-				System.out.println(tableauMsg[index][2]);
+
 				
 
 				index++;
@@ -252,22 +251,21 @@ public class MessagingMainPanel extends JPanel {
 		
 			
 		}
-		System.out.println("tableModele est "+tableModele.getRowCount()+ "table " + table);
 		table.setModel(tableModele);
 
 	}
 
 	/**
-	 * 
+	 //TODO need to refactor this method
 	 */
 	private void readTableauModele(String[][] tableauMsg) {
-		System.out.println("--- Verification du tableau ---");
+	
 		for(int i =0; i < tableauMsg.length; i++ ) {
 			for(int j =0; j < 3; j++ ) {
-				System.out.println(tableauMsg[i][j]);
+				//System.out.println("MessagingMain -"+tableauMsg[i][j]);
 			}
 		}
-		System.out.println("--- fin ---");
+	
 	}
 
 	public JButton getBtnNew() {

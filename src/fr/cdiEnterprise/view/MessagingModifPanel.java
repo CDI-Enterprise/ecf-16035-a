@@ -26,15 +26,16 @@ import net.miginfocom.swing.MigLayout;
  * Cette class represente la vue d'un message que l'utlidsqteu consulte.
  * l'utilisateur a la possibilité d'y repondre ou de le supprimer.
  * 
- * @version 15-10-2016
+ * @version 22-10-2016
  * @author nicolas Tarral
  *
  */
-public class MessagingReadPanel extends JPanel {
+public class MessagingModifPanel extends JPanel {
 	
-	private JButton btnRep;
+	private JButton btnEnv;
 	private JButton btnDel;
 	private JButton btnRet;
+	private JButton btnSav;
 	
 	private String from;
 	private JLabel receiver;
@@ -58,12 +59,12 @@ public class MessagingReadPanel extends JPanel {
 
 
 	
-	public MessagingReadPanel(Item item) {
+	public MessagingModifPanel(Item item, Users list) {
 		
 		itm = item;
 		MessageListener listener = new MessageListener((JPanel) this);
 		
-		System.out.println(itm.toString());
+		
 		
 		receiver = new JLabel(itm.getSender());
 		object = new JLabel(itm.getObject());
@@ -78,8 +79,8 @@ public class MessagingReadPanel extends JPanel {
 			txtMessage.setText("Message :/n" +itm.getBody() +"/n");
 		}*/
 		
-		
-		usersList = OldDatas.getUsersList();
+		// TODO (nicolas) needs to be removed
+		usersList = list;
 		from = ReadProperties.getMyAlias();
 		
 		
@@ -92,9 +93,10 @@ public class MessagingReadPanel extends JPanel {
 		panMess.add(panCenter,BorderLayout.CENTER);
 		
 		
-		JLabel lblTitle = new JLabel("- Votre Message -");
+		JLabel lblTitle = new JLabel("- Modifier Votre Brouillon -");
 		
-		btnRep = new JButton("Repondre");
+		btnSav = new JButton("Sauvegarde");
+		btnEnv = new JButton("Envoie");
 		btnDel = new JButton("Effacer");
 		btnRet = new JButton("Retour");
 		
@@ -102,17 +104,17 @@ public class MessagingReadPanel extends JPanel {
 		object = new JLabel("Objet");
 		Message = new JLabel("Texte");
 		letterCount = new JLabel("compteur");
-		lblCounter =   new JLabel();
+		lblCounter =   new JLabel();*/
 		
 		
-		lblReceiver = new JLabel();
-		lblObject = new JLabel();*/
-		lblMessage = new JLabel();
+		lblReceiver = new JLabel("Destinataire");
+		lblObject = new JLabel("Sujet");
+		lblMessage = new JLabel("Message");
 
 
-		//cboReceiver = new JComboBox();
-		//cboReceiver.setEditable(true);
-		//cboReceiver.setMaximumRowCount(3);
+		cboReceiver = new JComboBox();
+		cboReceiver.setEditable(true);
+		cboReceiver.setMaximumRowCount(3);
 		//txtReceiver = new JTextField();
 		txtObject = new JTextField(20);
 		txtObject.setText(itm.getObject());
@@ -123,26 +125,27 @@ public class MessagingReadPanel extends JPanel {
 		
 	
 		
-		/*if(usersList != null) {
+		if(usersList != null) {
 			for(User current : usersList) {
 				if(current != null) {
 					cboReceiver.addItem(current.getAlias());
-					System.out.println("les alias des utilisateurs :"+current.getAlias());
-				}	
+					}	
 			}
 		}else {
-			System.out.println("usersList is null ");
-		}*/
+			//System.out.println("usersList is null ");
+		}
 		
 		
 		panNorth.add(lblTitle);
 		panCenter.setLayout(new MigLayout());
 		
-		
-		panCenter.add(receiver, "wrap");
+		panCenter.add(receiver, "w 200!");
+		panCenter.add(cboReceiver, "wrap");
+		//panCenter.add(receiver, "wrap");
 		//panCenter.add(lblReceiver, "wrap");
+		panCenter.add(lblObject, "w 200!");
 		panCenter.add(txtObject, "wrap");
-		//panCenter.add(lblObject, "wrap");*/
+	
 		
 		panCenter.add(txtMessage, "wrap");
 		
@@ -155,12 +158,14 @@ public class MessagingReadPanel extends JPanel {
 		//panCenter.add(lblCounter, "wrap");
 		
 		
-		panCenter.add(btnRep, "w 200!");
+		panCenter.add(btnEnv, "w 200!");
+		panCenter.add(btnSav, "w 200!");
 		panCenter.add(btnDel, "w 200!");
 		panCenter.add(btnRet, "w 200!");
 		
 		
-		btnRep.addActionListener(listener);
+		btnEnv.addActionListener(listener);
+		btnSav.addActionListener(listener);
 		btnDel.addActionListener(listener);
 		btnRet.addActionListener(listener);
 		
@@ -173,7 +178,7 @@ public class MessagingReadPanel extends JPanel {
 
 
 
-	public MessagingReadPanel() {
+	public MessagingModifPanel() {
 	
 	}
 
@@ -191,9 +196,6 @@ public class MessagingReadPanel extends JPanel {
 
 
 
-	public JButton getBtnRep() {
-		return btnRep;
-	}
 
 
 
@@ -241,6 +243,18 @@ public class MessagingReadPanel extends JPanel {
 
 	public void setItm(Item itm) {
 		this.itm = itm;
+	}
+
+
+
+	public JButton getBtnEnv() {
+		return btnEnv;
+	}
+
+
+
+	public JButton getBtnSav() {
+		return btnSav;
 	}
 
 

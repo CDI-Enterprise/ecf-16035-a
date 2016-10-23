@@ -1,4 +1,4 @@
-package fr.cdiEnterprise.test;
+package fr.cdiEnterprise.view.test;
 
 import fr.cdiEnterprise.view.CompanyFrameAllCompanies;
 import fr.cdiEnterprise.view.CompanyCreationPanel;

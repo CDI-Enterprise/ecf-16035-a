@@ -9,7 +9,7 @@ import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import fr.cdiEnterprise.dao.Datas;
+import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.view.CompanyCreationPanel;
 import fr.cdiEnterprise.view.CompanyDeletUpdatPanel;
@@ -30,17 +30,17 @@ public class PanelDeletUpdatCompListeners implements ActionListener, ListSelecti
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == panCompDeletUpdat.getBtnCancel()){
-			MainFrame.getMainPan().removeAll();
-			MainFrame.getMainPan().add(MainFrame.getHomePan());
-			MainFrame.getMainPan().repaint();
-			MainFrame.getMainPan().revalidate();
+			MainFrame.getPanMain().removeAll();
+			MainFrame.getPanMain().add(MainFrame.getPanHome());
+			MainFrame.getPanMain().repaint();
+			MainFrame.getPanMain().revalidate();
 		}
 		
 		if (e.getSource() == panCompDeletUpdat.getBtnDelete()){
-			System.out.println(Datas.getCompaniesList());
+			System.out.println(OldDatas.getCompaniesList());
 			System.out.println("*******Suppression*****");
-			Datas.getCompaniesList().remove(selecCompanie);
-			System.out.println(Datas.getCompaniesList());
+			OldDatas.getCompaniesList().remove(selecCompanie);
+			System.out.println(OldDatas.getCompaniesList());
 			CompanyCreationPanel.getDlmCompanies().remove(selecIndex);
 		}
 
@@ -48,8 +48,8 @@ public class PanelDeletUpdatCompListeners implements ActionListener, ListSelecti
 			System.out.println("Modification d'une entreprise");
 			selecCompanie.setAdress(panCompDeletUpdat.getTxtCompanyAdress().getText());			
 			CompanyCreationPanel.getDlmCompanies().set(selecIndex, selecCompanie);
-			Datas.getCompaniesList().set(selecIndex, selecCompanie);
-			System.out.println(Datas.getCompaniesList());
+			OldDatas.getCompaniesList().set(selecIndex, selecCompanie);
+			System.out.println(OldDatas.getCompaniesList());
 		}
 	}
 
@@ -67,7 +67,7 @@ public class PanelDeletUpdatCompListeners implements ActionListener, ListSelecti
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		// TODO (Anaïs) Auto-generated method stub
 //		JList list = (JList)e.getSource();
 //
 //		if (e.getClickCount() == 2) {
@@ -92,26 +92,23 @@ public class PanelDeletUpdatCompListeners implements ActionListener, ListSelecti
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		// TODO (Anaïs) Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		// TODO (Anaïs) Auto-generated method stub		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		// TODO (Anaïs) Auto-generated method stub		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		// TODO (Anaïs) Auto-generated method stub		
 	}
 
 }

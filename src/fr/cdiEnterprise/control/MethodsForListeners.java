@@ -6,7 +6,6 @@ import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
-import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -15,7 +14,7 @@ import javax.swing.JTextField;
  * @version 16-10-2016
  * @author Claire
  */
-public class ControlMethods {
+public class MethodsForListeners {
 
 	/**
 	 * Takes a group of JRadioButton and searches which one is selected to return it.
@@ -81,7 +80,7 @@ public class ControlMethods {
 		}
 		return fieldReturn;
 		
-		//TODO méthode pour controler si un textfield est null @Anaïs
+		//TODO (Anaïs) méthode pour controler si un textfield est null
 	}
 	
 

@@ -16,8 +16,7 @@ public class TestProperties {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		ReadProperties myProperties = new ReadProperties();
-		myProperties.toString();
+		
 
 	}
 
