@@ -18,7 +18,7 @@ import fr.cdiEnterprise.model.FormerTrainee;
 import fr.cdiEnterprise.model.Trainee;
 import fr.cdiEnterprise.model.Trainer;
 import fr.cdiEnterprise.model.User;
-import fr.cdiEnterprise.view.profile.UserCRUDPanel;
+import fr.cdiEnterprise.view.profile.PanelUserCRUD;
 
 /**
  * Listeners for users CRUD
@@ -26,10 +26,10 @@ import fr.cdiEnterprise.view.profile.UserCRUDPanel;
  * @author Claire
  *
  */
-public class UserPanelListeners implements ActionListener, MouseListener {
+public class PanelUserCRUDListener implements ActionListener, MouseListener {
 
 	// Given attribute
-	private UserCRUDPanel panelUser;
+	private PanelUserCRUD panelUser;
 
 	// Attributes do define the selected status
 	ButtonGroup jrButtonGrp;
@@ -57,7 +57,7 @@ public class UserPanelListeners implements ActionListener, MouseListener {
 	/**
 	 * Constructs a listener taking a panel for attribute
 	 */
-	public UserPanelListeners(UserCRUDPanel panelUser) {
+	public PanelUserCRUDListener(PanelUserCRUD panelUser) {
 
 		this.panelUser = panelUser;
 

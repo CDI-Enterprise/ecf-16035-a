@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
-import fr.cdiEnterprise.control.UserPanelListeners;
+import fr.cdiEnterprise.control.PanelUserCRUDListener;
 import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.User;
 import net.miginfocom.swing.MigLayout;
@@ -31,7 +31,7 @@ import net.miginfocom.swing.MigLayout;
  * @version 16-10-2016
  * 
  */
-public class UserCRUDPanel extends JPanel {
+public class PanelUserCRUD extends JPanel {
 
 	/**
 	 * 
@@ -125,7 +125,7 @@ public class UserCRUDPanel extends JPanel {
 	// ArrayList of components
 	ArrayList<JTextField> allJTextFields;
 	
-	public UserCRUDPanel() {
+	public PanelUserCRUD() {
 
 		// Main layout for user CRUD panel
 		this.setLayout(new BorderLayout(10, 20));
@@ -372,7 +372,7 @@ public class UserCRUDPanel extends JPanel {
 		allJTextFields.add(txtTrainer);
 		
 		// LISTENERS
-		UserPanelListeners listener = new UserPanelListeners(this);
+		PanelUserCRUDListener listener = new PanelUserCRUDListener(this);
 		cmdCancel.addActionListener(listener);
 		cmdCreate.addActionListener(listener);
 		cmdUpdate.addActionListener(listener);

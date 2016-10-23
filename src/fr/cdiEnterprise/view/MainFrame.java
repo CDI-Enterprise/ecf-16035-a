@@ -13,8 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import fr.cdiEnterprise.view.profile.UserCRUDPanel;
-import fr.cdiEnterprise.view.profile.UserSRPanel;
+import fr.cdiEnterprise.view.profile.PanelUserCRUD;
+import fr.cdiEnterprise.view.profile.PanelUserSR;
 
 /**
  * MainFrame for the CDI Enterprise program with a JMenuBar.
@@ -33,8 +33,8 @@ public class MainFrame extends JFrame {
 	private static JPanel panHome;
 
 	// Panels for profile management
-	private static UserCRUDPanel panelUserCRUD;
-	private static UserSRPanel panelUserSR;
+	private static PanelUserCRUD panelUserCRUD;
+	private static PanelUserSR panelUserSR;
 	private static JScrollPane scrollPanelUserCRUD;
 	private static JScrollPane scrollPanelUserSR;
 
@@ -101,15 +101,14 @@ public class MainFrame extends JFrame {
 
 
 		// Panel for user CRUD
-		panelUserCRUD = new UserCRUDPanel();
+		panelUserCRUD = new PanelUserCRUD();
 		panelUserCRUD.setPreferredSize(new Dimension (1260,800));
 		scrollPanelUserCRUD = new JScrollPane(panelUserCRUD);
 
 		// Panel for users search and display (SR)
-		panelUserSR = new UserSRPanel();
+		panelUserSR = new PanelUserSR();
 		panelUserSR.setPreferredSize(new Dimension(1260, 800));
 		scrollPanelUserSR = new JScrollPane(panelUserSR);
-		panMain.add(scrollPanelUserSR);
 
 		// Panel CreatCompany
 		panelCreatCompany = new CompanyCreationPanel();

@@ -26,7 +26,7 @@ import net.miginfocom.swing.MigLayout;
  * @author Claire
  * @version 22-10-2016
  */
-public class UserSRPanel extends JPanel {
+public class PanelUserSR extends JPanel {
 
 	/**
 	 * 
@@ -60,7 +60,7 @@ public class UserSRPanel extends JPanel {
 	 * Constructs a panel which display a list of Users.
 	 * @throws SQLException 
 	 */
-	public UserSRPanel() throws SQLException {
+	public PanelUserSR() throws SQLException {
 
 		// Main layout for users display panel
 		this.setLayout(new BorderLayout(10, 20));
