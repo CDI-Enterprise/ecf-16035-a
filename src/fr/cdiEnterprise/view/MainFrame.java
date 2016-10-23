@@ -213,8 +213,8 @@ public class MainFrame extends JFrame {
 	}
 
 	/**
-	 * 
-	 * @param panel
+	 * Cette methode permet le changement de panel sur la JFrame
+	 * @param panel correspond au JPanel que nous desirons afficher.
 	 */
 	public static void SwithPanel(JPanel panel) {
 

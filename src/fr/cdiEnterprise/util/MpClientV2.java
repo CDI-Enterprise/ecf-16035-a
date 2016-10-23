@@ -35,8 +35,9 @@ public class MpClientV2 {
 	
 	
 	
-
-	private static int ID_NUMBER = 0;
+	private static final int CONST_ZERO = 0;
+	private static final int CONST_ONE = 1;
+	private static int ID_NUMBER = CONST_ZERO;
 	  
 
 	//private Server messageDao;
@@ -61,9 +62,9 @@ public class MpClientV2 {
 	 */
 	private Items getMaxItems(boolean all) {
 		Items items = null;
-		if(ID_NUMBER == 0)
+		if(ID_NUMBER == CONST_ZERO)
 		{
-			int max = 0;
+			int max = CONST_ZERO;
 			if(all) {
 				items = getAllMessages();
 				for(Item current : items){
@@ -99,9 +100,9 @@ public class MpClientV2 {
 	 */
 	public void newEmail(String from, String to, String obj, String bdy )   {
 		// TODO (nicolas) Penser a modifier la signature pour ne prendre que un objet Item
-		int idNumber = 0;
+		int idNumber = CONST_ZERO;
 		
-		ID_NUMBER = ID_NUMBER + 1;
+		ID_NUMBER = ID_NUMBER + CONST_ONE;
 		LocalDateTime timeStamp = LocalDateTime.now();
 		idNumber = ID_NUMBER;
 		Item itm = new Item(from, to, obj, bdy, timeStamp);
@@ -123,7 +124,7 @@ public class MpClientV2 {
 	public boolean sendEmail(Item item, boolean draft) {
 
 		LocalDateTime timeStamp = LocalDateTime.now();
-		ID_NUMBER = ID_NUMBER + 1;
+		ID_NUMBER = ID_NUMBER + CONST_ONE;
 
 		Item repliedItem = new Item(item.getSender(), item.getReceiver(), item.getObject(), item.getBody(),  timeStamp);
 		
@@ -159,31 +160,21 @@ public class MpClientV2 {
 	
 	
 	
-//	/**
-//	 * This method is going to put the edited draft email back to the draft folder
-//	 * @param item
-//	 * @return return true if properly drafted.
-//	 */
-//	public boolean editDraft(Item toEdit, String to, String obj, String bdy) {	
-//		
-//		
-//		String idNumber = null;
-//		
-//		
-//		ID_NUMBER = ID_NUMBER + 1;
-//		LocalDateTime timeStamp = LocalDateTime.now();
-//		idNumber = ID_NUMBER + "";
-//		Item itm = new Item(toEdit.getSender(), to, obj, bdy, null);
-//		//System.out.println(idNumber);
-//		itm.setId(toEdit.getId());
-//		itm.setDraftEmail(true);
-//		if(server.postDraft(itm)) {  
-//			
-//			return true;
-//		}
-//		return false;
-//	}
-//	
+	/**
+	 * This method is going to put the edited draft email back to the draft folder
+	 * @param item
+	 * @return return true if properly drafted.
+	 * @throws SQLException 
+	 */
+	public void editDraft(Item toEdit) throws SQLException  {	
+		
+		if(toEdit !=null) {
+			messageDao.updateMessage(toEdit);
+		}
+		
+
+	}
+	
 	
 	
 	
@@ -194,8 +185,8 @@ public class MpClientV2 {
 //	 */
 	public void draft(String from, String to, String obj, String bdy, boolean draft) {
 //		
-		int idNumber = 0;
-		ID_NUMBER = ID_NUMBER + 1;		
+		int idNumber = CONST_ZERO;
+		ID_NUMBER = ID_NUMBER + CONST_ONE;		
 		idNumber = ID_NUMBER;
 		Item itm = new Item(idNumber, from, to, obj, bdy, null, draft);
 	

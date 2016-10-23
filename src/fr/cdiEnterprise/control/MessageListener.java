@@ -35,7 +35,7 @@ import fr.cdiEnterprise.view.SpecialTableItemModel;
 /**
  * Class for the actionListner dedicated to the Messaging part. This class is
  * able to identify if the user ask to create a new messa, znd return back to
- * the message list.
+ * the message list
  * 
  * 
  * @version 13-10-2016
@@ -282,23 +282,18 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 					if (panelMod.getTxtObject().getText().isEmpty()) {
 						customDialog("le champ Objet doit etre remplie.");
 					} else {
-						
-						
-						
+
 						Item draftToSend = new Item(alias,receiver, panelMod.getTxtObject().getText(),
 								panelMod.getTxtMessage().getText(), null);
-						
-
-						
-						
 						// TODO (Nicolas) : need to handle well this exception, maybe in the class client ?
 
+							client.sendEmail(draftToSend, true);
 							try {
-								MessageListener.panelDraft.setCopyUserItems(client.getMessages(true));
+								MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
 								
 								
 							} catch (Exception e1) {
-								// TODO Auto-generated catch block
+								// TODO (nicolas) need to fix this excep
 								e1.printStackTrace();
 							}
 
@@ -312,13 +307,40 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 				
 				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnDel())) {
 							
-					// TODO (nicolas) implementer suppression de brouillon
+					client.removeMessage(currentItem.getId(), true);
+
+					panelDraft.setCopyUserItems(client.getMessages(true));
+					panelDraft.refresh();
+					MainFrame.SwithPanel(panelDraft);
+					
 					}
 				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnRet())) {
-					// TODO (nicolas) implementer retour vers les messages brouillon		
+					
+					
+					MainFrame.SwithPanel(panelDraft);		
 					
 				}
-				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnRet())) {
+				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnSav())) {
+					System.out.println("appuis sur sauvegarder");
+					
+					String receiver = (String) panelMod.getCboReceiver()
+							.getItemAt(panelMod.getCboReceiver().getSelectedIndex());
+
+					Item draftToSend = new Item(alias,receiver, panelMod.getTxtObject().getText(),
+								panelMod.getTxtMessage().getText(), null);
+					System.out.println(panelMod.getTxtMessage().getText());
+					
+					try {
+						client.editDraft(draftToSend);
+					} catch (SQLException e1) {
+						//TODO gerer cet exception
+						e1.printStackTrace();
+					}
+					
+					panelDraft.setCopyUserItems(client.getMessages(true));
+					panelDraft.refresh();
+					MainFrame.SwithPanel(panelDraft);
+					
 					// TODO (nicolas) implementer sauvegarde du brouillon.		
 					
 				}
