@@ -280,9 +280,14 @@ public class messageDao {
 
 	// }
 
-	// TODO (Nicolas) deleteMessage - public static boolean removeMessage(String
-	// usr, String identifier, boolean draft) {
 
+	/**
+	 * 
+	 * @param usr
+	 * @param identifier
+	 * @param draft
+	 * @return
+	 */
 	public static boolean removeMessage(String usr, int identifier, boolean draft) {
 
 		Connection connection = null;
