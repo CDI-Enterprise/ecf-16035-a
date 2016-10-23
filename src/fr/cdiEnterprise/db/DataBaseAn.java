@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class DataBase {
+public class DataBaseAn {
 
 	final static String strNomDriver = "oracle.jdbc.driver.OracleDriver"; // Driver
 																	// pour
@@ -18,7 +18,7 @@ public class DataBase {
 																				// données
 	static Connection conn = null;
 
-	public DataBase() {
+	public DataBaseAn() {
 
 		try {
 			Class.forName(strNomDriver);
