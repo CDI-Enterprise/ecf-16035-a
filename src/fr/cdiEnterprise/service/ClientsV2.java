@@ -55,32 +55,6 @@ public class ClientsV2 extends ArrayList<MpClientV2> {
 	 * @return an array of message.
 	 * @throws SQLException
 	 */
-	public String[][] getMsgTableFormat(String box, boolean draft) {
-		int index = CONST_ZERO;
-		String[][] liste = null;
-		MpClientV2 cli = getClient(box);
-		ArrayList<Item> itms;
-		try {
-			itms = cli.getMessages(draft);
-			if (itms.isEmpty()) {
-				liste = new String[itms.size()][COL_SIZE];
-			} else {
-				liste = new String[itms.size() + CONST_ONE][COL_SIZE];
 
-				for (Item current : itms) {
-					liste[index][CONST_ZERO] = current.getSender();
-					liste[index][CONST_ONE] = current.getObject();
-					liste[index][CONST_TWO] = current.getTimeStamp().toString();
-					index++;
-				}
-			}
-
-		} catch (Exception e) {
-			// TODO (Nicolas) Excep need to be fixed
-			e.printStackTrace();
-		}
-
-		return liste;
-	}
 
 }

@@ -26,13 +26,7 @@ public class TestDB {
 		// used to be tested with messageDAO  Item message2 = new Item("omy", "oracle", "test2", "This is a test.", LocalDateTime.now());
 		//message2.setDraftEmail(false);
 		//messageDao.insertItem(message2);
-		try {
-			client.newEmail("omy", "oracle", "test2", "This is a test.");
-			client.newEmail("claire", "oracle", "test3", "This is a test3.");
-		} catch (Exception e) {
-			// TODO (Nicolas) Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		
 
 

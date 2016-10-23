@@ -15,8 +15,10 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 
 import fr.cdiEnterprise.dao.OldDatas;
+import fr.cdiEnterprise.exceptions.CustomMessagingException;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.model.User;
 import fr.cdiEnterprise.service.Items;
@@ -52,7 +54,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	private MessagingModifPanel panelMod;
 	private JPanel panelUser;
 
-	private static final int MESSAGE_MAX_SIZE = 850;
+	private static final int MESSAGE_MAX_SIZE = 440;
 
 	private String alias;
 	
@@ -114,7 +116,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 	// ACTION LISTENER
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e)  {
 
 		if (e.getSource() == panelMain.getBtnNew()) {
 
@@ -149,39 +151,28 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		
 		// PANEL NOUVEAU MESSAGE
 		else if ((panelNew != null) && (e.getSource() == panelNew.getBtnEnv())) {
-
-			
 			String receiver = (String) panelNew.getCboReceiver()
 					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
 
 			if (panelNew.getTxtObject().getText().isEmpty()) {
 				customDialog("le champ Objet doit etre remplie.");
 			} else {
+				if(panelNew.getTxtMessage().getText().length() > MESSAGE_MAX_SIZE) {
+					customDialog("Your message is too long : "+ panelNew.getTxtMessage().getText().length() +"  max is " +MESSAGE_MAX_SIZE);
 
+				}else {
+					System.out.println(panelNew.getTxtMessage().getText().length());
+					client.newEmail(alias,receiver, panelNew.getTxtObject().getText(),
+							panelNew.getTxtMessage().getText());
 				
-				
-				client.newEmail(alias,receiver, panelNew.getTxtObject().getText(),
-						panelNew.getTxtMessage().getText());
-				
-				
-				
-				
-				// TODO (Nicolas) : need to handle well this exception, maybe in the class client ?
+					MessageListener.panelMain.setCopyUserItems(client.getMessages(false));	
 
-					try {
-						MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
-						
-						
-					} catch (Exception e1) {
-						// TODO (Nicolas) Auto-generated catch block
-						e1.printStackTrace();
-					}
-
+					// MessageListener.panelMain.setCopyUserItems(cli.getMessages(false)); // old implementation.
+					panelMain.refresh();
+					
+					MainFrame.SwithPanel(panelMain);
+				}
 				
-				// MessageListener.panelMain.setCopyUserItems(cli.getMessages(false)); // old implementation.
-				panelMain.refresh();
-				
-				MainFrame.SwithPanel(panelMain);
 			}
 
 		}
@@ -288,14 +279,9 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 						// TODO (Nicolas) : need to handle well this exception, maybe in the class client ?
 
 							client.sendEmail(draftToSend, true);
-							try {
-								MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
-								
-								
-							} catch (Exception e1) {
-								// TODO (nicolas) need to fix this excep
-								e1.printStackTrace();
-							}
+
+							MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
+
 
 						
 						// MessageListener.panelMain.setCopyUserItems(cli.getMessages(false)); // old implementation.
@@ -323,11 +309,12 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnSav())) {
 					System.out.println("appuis sur sauvegarder");
 					
+					int identity = panelMod.getItm().getId();
 					String receiver = (String) panelMod.getCboReceiver()
 							.getItemAt(panelMod.getCboReceiver().getSelectedIndex());
 
-					Item draftToSend = new Item(alias,receiver, panelMod.getTxtObject().getText(),
-								panelMod.getTxtMessage().getText(), null);
+					Item draftToSend = new Item(identity, alias,receiver, panelMod.getTxtObject().getText(),
+								panelMod.getTxtMessage().getText(), null, true);
 					System.out.println(panelMod.getTxtMessage().getText());
 					
 					try {
@@ -366,9 +353,24 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-
+		JTextArea text = panelNew.getTxtMessage();
+		if(nbCaracters == MESSAGE_MAX_SIZE) {
+			System.out.println(e.getKeyChar());
+			if(e.getKeyChar() != '\b' || KeyEvent.VK_DELETE != e.getKeyChar()) {
+				
+				text.setEditable(false);
+			}else {
+				System.out.println("effacement...");
+				text.setEditable(true);
+			}
+			
+		}
+		
 		int nb = 0;
 		if(e.getKeyChar() == '\b' || KeyEvent.VK_DELETE == e.getKeyChar()) {
+			nb--;
+			
+			nbCaracters += nb;
 			//System.out.println("lettre tapée : " + e.getKeyChar());
 			
 		}else {
@@ -449,6 +451,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 							currentItem = spemodDraft.getUserAt(row);
 							if(currentItem != null) {
 								Item itmCopy = new Item(currentItem);
+								
 								// TODO (nicolas) devrait venir de la classe en static ?
 								panelMod = new MessagingModifPanel(itmCopy, aliasInLower());
 								MainFrame.SwithPanel(panelMod);

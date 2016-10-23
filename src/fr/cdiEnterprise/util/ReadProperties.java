@@ -41,7 +41,12 @@ public class ReadProperties {
 		} catch (IOException e) {
 			System.exit(-1);
 		}
+		
+		String myAlias = properties.getProperty(ALIAS);
+		if(myAlias.isEmpty()) {
+		//	TODO (nicolas) Implement my own exception. 
+		}
 
-		return properties.getProperty(ALIAS);
+		return myAlias;
 	}
 }
