@@ -11,9 +11,9 @@ import javax.swing.event.ListSelectionListener;
 
 import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.Company;
-import fr.cdiEnterprise.view.CompanyCreationPanel;
-import fr.cdiEnterprise.view.CompanyDeletUpdatPanel;
 import fr.cdiEnterprise.view.MainFrame;
+import fr.cdiEnterprise.view.company.CompanyCreationPanel;
+import fr.cdiEnterprise.view.company.CompanyDeletUpdatPanel;
 
 
 public class PanelDeletUpdatCompListeners implements ActionListener, ListSelectionListener, MouseListener {

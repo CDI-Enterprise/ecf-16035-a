@@ -1,4 +1,4 @@
-package fr.cdiEnterprise.view;
+package fr.cdiEnterprise.view.company;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

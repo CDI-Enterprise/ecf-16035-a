@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import fr.cdiEnterprise.view.company.CompanyCreationPanel;
+import fr.cdiEnterprise.view.company.CompanyDeletUpdatPanel;
 import fr.cdiEnterprise.view.profile.PanelUserCRUD;
 
 /**

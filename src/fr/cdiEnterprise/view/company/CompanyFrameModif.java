@@ -1,6 +1,8 @@
-package fr.cdiEnterprise.view;
+package fr.cdiEnterprise.view.company;
 
 import java.sql.SQLException;
+
+import fr.cdiEnterprise.view.MainFrame;
 
 public class CompanyFrameModif extends MainFrame {
 
