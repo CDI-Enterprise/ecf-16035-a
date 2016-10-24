@@ -36,17 +36,17 @@ public class MainMenuListener implements ActionListener {
 
 			MainFrame.getPanMain().removeAll();
 			MainFrame.getPanMain().add(MainFrame.getScrollPanelUserCRUD());
-			MainFrame.getPanMain().validate();
 			MainFrame.getPanMain().repaint();
+			MainFrame.getPanMain().validate();
 		}
-		
+
 		// Display the panel with a list of existing members
-		if(e.getSource() == menu.getSubProfileCRUD()) {
+		if(e.getSource() == menu.getSubProfileSR()) {
 
 			MainFrame.getPanMain().removeAll();
 			MainFrame.getPanMain().add(MainFrame.getScrollPanelUserSR());
-			MainFrame.getPanMain().validate();
 			MainFrame.getPanMain().repaint();
+			MainFrame.getPanMain().validate();
 		}
 
 		if(e.getSource() == menu.getSubCompanyCreate()){
