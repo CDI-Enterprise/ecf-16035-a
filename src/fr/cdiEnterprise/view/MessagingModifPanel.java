@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
+import javax.swing.text.AbstractDocument;
 
 import fr.cdiEnterprise.control.MessageListener;
 import fr.cdiEnterprise.dao.OldDatas;
@@ -56,7 +56,7 @@ public class MessagingModifPanel extends JPanel {
 	
 	private Users usersList;
 	private Item itm;
-
+	private static final int MAX_CHARACTERS = 450;
 
 	
 	public MessagingModifPanel(Item item, Users list) {
@@ -123,7 +123,9 @@ public class MessagingModifPanel extends JPanel {
 		txtMessage.setLineWrap(true);
 		txtMessage.setWrapStyleWord(true);
 		
-	
+		AbstractDocument doc = (AbstractDocument) txtMessage.getDocument();
+		
+	    doc.setDocumentFilter(new DocumentSizeFilter(MAX_CHARACTERS));
 		
 		if(usersList != null) {
 			for(User current : usersList) {

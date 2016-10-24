@@ -45,7 +45,7 @@ public class messageDao {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try {
-			connection = Database.getConnect();
+			connection = DBConnection.getConnect();
 					
 			
 
@@ -144,7 +144,7 @@ public class messageDao {
 		ResultSet resultSet = null;
 		Items items = new Items();
 
-		connection = Database.getConnect();
+		connection = DBConnection.getConnect();
 		try {
 			statement = connection.createStatement();
 
@@ -225,7 +225,7 @@ public class messageDao {
 		ResultSet resultSet = null;
 		Items items = new Items();
 
-		connection = Database.getConnect();
+		connection = DBConnection.getConnect();
 		try {
 			statement = connection.createStatement();
 		} catch (SQLException e1) {
@@ -294,7 +294,7 @@ public class messageDao {
 		Statement statement = null;
 		ResultSet resultSet = null;
 
-		connection = Database.getConnect();
+		connection = DBConnection.getConnect();
 		try {
 			statement = connection.createStatement();
 			String query = "delete from mailbox where identity = '" + identifier + "'";
@@ -321,7 +321,7 @@ public class messageDao {
 		Statement statement = null;
 		ResultSet resultSet = null;
 
-		connection = Database.getConnect();
+		connection = DBConnection.getConnect();
 		try {
 			statement = connection.createStatement();
 			int ident = 0;

@@ -196,7 +196,6 @@ public class MessagingMainPanel extends JPanel {
 	 */
 	private void fillModel() {
 
-		
 		int index = 0;
 		if(copyUserItems.isEmpty()) {
 			
@@ -224,10 +223,8 @@ public class MessagingMainPanel extends JPanel {
 				tableModele =  new DefaultTableModel(tableauMsg, new String[] {
 						"Sender", "Objet", "Date Reception"
 					});
-				
 			}
-			
-			
+
 		}else {
 			
 			tiModel.setUsers(copyUserItems);

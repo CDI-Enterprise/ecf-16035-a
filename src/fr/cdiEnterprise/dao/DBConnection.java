@@ -10,9 +10,10 @@ import java.sql.SQLException;
 /**
  * Create a single object Connection to link this program to the database.
  * 
- * @author Claire
+ * @author Claire, Olivier
  * @version 2016-10-19
  */
+
 //TODO (Groupe) separate driver loading from connection?
 public class DBConnection {
 

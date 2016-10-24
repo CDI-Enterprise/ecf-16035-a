@@ -128,16 +128,13 @@ public class MessagingNewPanel extends JPanel {
 		cboReceiver = new JComboBox();
 		cboReceiver.setEditable(true);
 		cboReceiver.setMaximumRowCount(3);
-		//txtReceiver = new JTextField();
-		txtObject = new JTextField(20);
-		
+		txtObject = new JTextField(20);		
 		txtMessage = new JTextArea(10, 50);
 		txtMessage.setLineWrap(true);
 		txtMessage.setWrapStyleWord(true);
 		txtMessage.setBorder(border);
 		
 		AbstractDocument doc = (AbstractDocument) txtMessage.getDocument();
-		
 	    doc.setDocumentFilter(new DocumentSizeFilter(MAX_CHARACTERS));
 		
 		if(usersList != null) {
