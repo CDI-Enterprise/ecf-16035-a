@@ -14,6 +14,7 @@ public class DBConnectionTest {
 	public static void main(String[] args){
 
 		// If connection is done, you should have "Connexion établie" in your console.
+		// If you try two connections, you should have the same so just one message.
 		DBConnection.getConnect();
 		
 	}
