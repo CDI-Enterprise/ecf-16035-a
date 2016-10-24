@@ -132,6 +132,7 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		txtCompanyName = new JTextField();
 		txtCompanyName.setColumns(30);
 		txtCompanyName.setBorder(border);
+		txtCompanyName.setEditable(false);
 
 		lblCompanyAdress = new JLabel("Adresse (rue et numéro)");
 		txtCompanyAdress = new JTextField();
@@ -141,10 +142,12 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		txtCompanyCity = new JTextField();
 		txtCompanyCity.setColumns(30);
 		txtCompanyCity.setBorder(border);
+		txtCompanyCity.setEditable(false);
 
 		lblPostalCode = new JLabel("Code postal *");
 		txtPostalCode = new JTextField();
 		txtPostalCode.setColumns(5);
+		txtPostalCode.setEditable(false);
 		
 		lblCompanyDepartment = new JLabel("Departement *");
 		cboCompanyDepartment = new JComboBox<String>();
@@ -175,7 +178,7 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		lblSector = new JLabel("Secteur");
 		txtSector = new JTextField();
 		txtSector.setColumns(20);
-		
+		txtSector.setEditable(false);
 		
 		lblLanguages = new JLabel ("Langages principalement utilisés *");	
 		dlmLanguages = new DefaultListModel<Language>();
@@ -194,25 +197,29 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		txtProjets.setColumns(30);
 		txtProjets.setRows(3);
 		txtProjets.setBorder(border);
+		txtProjets.setEditable(false);
 		
 		lblWebSite = new JLabel("Site Web *");
 		txtWebSite = new JTextField();
 		txtWebSite.setColumns(20);
+		txtWebSite.setEditable(false);
 		
 		lblContactName = new JLabel("Nom du contact ");
 		txtContactName = new JTextField();
 		txtContactName.setColumns(20);
+		txtContactName.setEditable(false);
 		
 		lblContactPhone = new JLabel("Téléphone");
 		txtContactPhone = new JTextField();
 		txtContactPhone.setColumns(20);
-		
+		txtContactPhone.setEditable(false);
 		
 		lblContactMail = new JLabel("Adresse mail");
 		txtContactMail = new JTextField();
 		txtContactMail.setColumns(20);
+		txtContactMail.setEditable(false);
 		
-//		dlmCompanies = new DefaultListModel<Company>();
+		dlmCompanies = new DefaultListModel<Company>();
 		lstCompanies = new JList<Company>(CompanyCreationPanel.dlmCompanies);
 		for(Company company: OldDatas.getCompaniesList()){
 		//for (Company company: DataBaseCompany.getCompaniesData()){

@@ -400,7 +400,7 @@ public class DataBaseCompany {
 	}
 	
 	
-	public static void updateCompanyData(Company company, String newNom) throws SQLException {
+	public static void updateCompanyData(Company company, String newAdress) throws SQLException {
 		Connection connexion = null;
 		Statement stmt = null;
 		String reqSql = null;
@@ -409,10 +409,10 @@ public class DataBaseCompany {
 		connexion = DBConnection.getConnect();
 		stmt = connexion.createStatement();
 		
-		reqSql = "UPDATE company set nomCompany= ? where companyId = " + company.getIdEnterprise();
+		reqSql = "UPDATE company set adressCompany= ? where companyId = " + company.getIdEnterprise();
 
 		PreparedStatement updateCompany = connexion.prepareStatement(reqSql);
-		updateCompany.setString(1, newNom); 
+		updateCompany.setString(1, newAdress); 
 //		System.out.println(rqSql);
 
 		updateCompany.executeUpdate();

@@ -56,7 +56,7 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 	private String contactMail;
 
 	
-	// Attributes do define the selected status
+	// Attributes do define the selected size
 	ButtonGroup btnGrp;
 	JRadioButton btnSelected;	
 	
