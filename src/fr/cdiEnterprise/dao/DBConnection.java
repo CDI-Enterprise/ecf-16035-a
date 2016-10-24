@@ -9,9 +9,9 @@ import java.sql.SQLException;
 
 /**
  * Create a single object Connection to link this program to the database.
+ * 
  * @author Claire
  * @version 2016-10-19
- *
  */
 //TODO (Groupe) separate driver loading from connection?
 public class DBConnection {
@@ -19,9 +19,8 @@ public class DBConnection {
 	// Defines a JDBC driver
 	private final static String ORACLE_DRIVER = "oracle.jdbc.driver.OracleDriver";
 	// Defines a connection string
-//	private final static String JUNON_URL = "jdbc:oracle:thin:stag16/stag16pw@junon:1521:AFPA";
-	// Our local connections, don't forget to change the URL!
-	private final static String CLAIRE_URL = "jdbc:oracle:thin:claire/5Q1D3V@localhost:1521:XE";
+	private final static String JUNON_URL = "jdbc:oracle:thin:cdi_enterprise/stagpw@junon:1521:AFPA";
+
 	// New connection
 	private static Connection connect;
 
@@ -41,7 +40,7 @@ public class DBConnection {
 			Class.forName(ORACLE_DRIVER);
 			// Asks for a new connection
 			if (connect == null) {
-				connect = DriverManager.getConnection(CLAIRE_URL);
+				connect = DriverManager.getConnection(JUNON_URL);
 				System.out.println("Connexion établie.");
 			}
 			else {
