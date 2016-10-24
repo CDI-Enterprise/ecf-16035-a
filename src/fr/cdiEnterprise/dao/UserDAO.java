@@ -122,7 +122,7 @@ public class UserDAO {
 	 * @version 22-10-2016
 	 * 
 	 */
-	public Users search(String userStatus) throws SQLException {
+	private Users search(String userStatus) throws SQLException {
 		
 		users = new Users();
 		
@@ -412,7 +412,22 @@ public class UserDAO {
 	}
 	
 	/**
-	 * Public method to initiate an SQL request, calling the UserDAO.read(); private method.
+	 * Public method to initiate a SELECT WHERE SQL request, calling the UserDAO.search(String) private method.
+	 * 
+	 * @author Claire
+	 * @param userStatut
+	 * @return users
+	 * @throws SQLException
+	 * @version 23-10-2016
+	 * 
+	 */
+	public Users getUsersByStatusList(String userStatut) throws SQLException {
+		Users users = search(userStatut);
+		return users;
+	}
+	
+	/**
+	 * Public method to initiate a SELECT SQL request, calling the UserDAO.read() private method.
 	 * 
 	 * @author Claire
 	 * @return users
