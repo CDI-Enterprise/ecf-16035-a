@@ -44,7 +44,7 @@ public class DBConnection {
 			Class.forName(ORACLE_DRIVER);
 			// Asks for a new connection
 			if (connect == null) {
-				connect = DriverManager.getConnection(NICOLAS_URL);
+				connect = DriverManager.getConnection(JUNON_URL);
 				System.out.println("Connexion établie.");
 			}
 			else {
