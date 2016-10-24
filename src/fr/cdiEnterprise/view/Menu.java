@@ -63,10 +63,12 @@ public class Menu extends JMenuBar {
 		// PROFILE
 		menuProfile = new JMenu("Profil");
 		this.add(menuProfile);
+		
 		subProfileCRUD = new JMenuItem("Administrer les profils");
 		menuProfile.add(subProfileCRUD);
 		subProfileCRUD.setMnemonic(KeyEvent.VK_P);
 		subProfileCRUD.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
+	
 		subProfileSR = new JMenuItem("Liste des membres");
 		menuProfile.add(subProfileSR);
 
