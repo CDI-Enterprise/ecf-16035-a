@@ -88,7 +88,7 @@ public class MessagingReadPanel extends JPanel {
 		
 		
 		usersList = OldDatas.getUsersList();
-		from = ReadProperties.getMyAlias();
+		from = MessageListener.alias;
 		
 		
 		JPanel panMess = new JPanel();

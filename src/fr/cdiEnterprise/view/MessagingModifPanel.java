@@ -88,7 +88,7 @@ public class MessagingModifPanel extends JPanel {
 		
 		// TODO (nicolas) needs to be removed
 		usersList = list;
-		from = ReadProperties.getMyAlias();
+		from = MessageListener.alias;
 		
 		
 		JPanel panMess = new JPanel();
@@ -122,6 +122,7 @@ public class MessagingModifPanel extends JPanel {
 		cboReceiver = new JComboBox();
 		cboReceiver.setEditable(true);
 		cboReceiver.setMaximumRowCount(3);
+	
 		//txtReceiver = new JTextField();
 		txtObject = new JTextField(20);
 		txtObject.setText(itm.getObject());
@@ -146,6 +147,8 @@ public class MessagingModifPanel extends JPanel {
 			//System.out.println("usersList is null ");
 		}
 		
+		cboReceiver.setSelectedItem(itm.getReceiver());
+        
 		
 		panNorth.add(lblTitle);
 		panCenter.setLayout(new MigLayout());
@@ -268,6 +271,8 @@ public class MessagingModifPanel extends JPanel {
 	public JButton getBtnSav() {
 		return btnSav;
 	}
+
+	
 
 
 

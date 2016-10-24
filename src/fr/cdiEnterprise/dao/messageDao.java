@@ -97,14 +97,7 @@ public class messageDao {
 		} catch (SQLException e) {
 			System.out.println("SQL Error In the insertMessage...");
 			e.printStackTrace();
-		} finally {
-			try {
-				statement.close();
-				connection.close();
-			} catch (SQLException e) {
-				// TODO (Nicolas) need to fix this
-				e.printStackTrace();
-			}
+		
 
 		}
 

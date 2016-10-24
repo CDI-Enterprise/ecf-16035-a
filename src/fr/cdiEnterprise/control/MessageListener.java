@@ -56,7 +56,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 	private static final int MESSAGE_MAX_SIZE = 440;
 
-	private String alias;
+	public static String alias;
 	
 	private int nbCaracters;
 	private static Item currentItem;
@@ -73,7 +73,14 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	public MessageListener(JPanel panelUser)  {
 		
 		
-		this.alias 		= ReadProperties.getMyAlias();
+		try {
+			this.alias 		= ReadProperties.getMyAlias();
+		} catch (CustomMessagingException e1) {
+			customDialog(e1.getMessage());
+			customDialog("sortie du programme");
+			System.exit(-1);
+			//e1.printStackTrace();
+		}
 		try {
 			this.client 	= new MpClientV2(alias);
 		} catch (SQLException e) {
@@ -97,6 +104,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 			MessageListener.panelMain = (MessagingMainPanel) panelUser;
 			Items itms =client.getMyMessages();
+			System.out.println(itms.size());
 			
 				
 			MessageListener.panelMain.setCopyUserItems(itms);
@@ -352,6 +360,8 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 					int identity = panelMod.getItm().getId();
 					String receiver = (String) panelMod.getCboReceiver()
 							.getItemAt(panelMod.getCboReceiver().getSelectedIndex());
+					
+					
 
 					Item draftToSend = new Item(identity, alias,receiver, panelMod.getTxtObject().getText(),
 								panelMod.getTxtMessage().getText(), null, true);
@@ -384,11 +394,16 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	 */
 	private Users aliasInLower() {
 		Users usr = OldDatas.getUsersList();
-		for(User current : usr) {
-			String toLowerCase = current.getAlias().toLowerCase();
-			current.setAlias(toLowerCase);
-			
+		if(usr != null) {
+			for(User current : usr) {
+				String toLowerCase = current.getAlias().toLowerCase();
+				current.setAlias(toLowerCase);
+				
+			}
+		}else {
+			System.out.println("usr est null ");
 		}
+		
 		return usr;
 	}
 
@@ -498,6 +513,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 								
 								// TODO (nicolas) devrait venir de la classe en static ?
 								panelMod = new MessagingModifPanel(itmCopy, aliasInLower());
+								
 								MainFrame.SwithPanel(panelMod);
 							}
 								

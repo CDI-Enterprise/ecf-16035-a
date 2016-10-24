@@ -119,7 +119,7 @@ public class MessagingDraftPanel extends JPanel {
 
 		JLabel lblMess = new JLabel("Nombre de Brouillon(s) :");
 		JLabel lblNombre = new JLabel(tableModele.getRowCount()+"");
-		JLabel lblTitre = new JLabel("Boite de Brouillon de :"+ReadProperties.getMyAlias());
+		JLabel lblTitre = new JLabel("Boite de Brouillon de :"+ MessageListener.alias);
 		
 		String header = String.format(FORMAT_LIST, HEADER_LIST);
 		JLabel headerLabel = new JLabel(header);
