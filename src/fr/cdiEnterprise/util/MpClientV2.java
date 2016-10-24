@@ -234,6 +234,16 @@ public class MpClientV2 {
 		}
 	}
 	
+	public Items searchMessage(String input) {
+		Items items = new Items();
+		if(input != null) {
+			items = messageDao.searchMessage(input);
+		}
+		
+		return items;
+		
+	}
+	
 //	/**
 //	 * going to pop one message with particular Id, and draft or not
 //	 * @param identifier 

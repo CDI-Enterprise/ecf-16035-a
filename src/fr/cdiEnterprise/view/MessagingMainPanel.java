@@ -27,9 +27,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import fr.cdiEnterprise.control.MessageListener;
-
-
-
+import fr.cdiEnterprise.exceptions.CustomMessagingException;
 import fr.cdiEnterprise.model.Item;
 
 import fr.cdiEnterprise.service.Items;
@@ -82,9 +80,10 @@ public class MessagingMainPanel extends JPanel {
 	
 	/**
 	 * Default constructor 
+	 * @throws CustomMessagingException 
 	 * @throws SQLException 
 	 */
-	public MessagingMainPanel()  {
+	public MessagingMainPanel()   {
 		
 		//listModele = new DefaultListModel<>();
 		copyUserItems = new Items();
@@ -135,7 +134,7 @@ public class MessagingMainPanel extends JPanel {
 
 		JLabel lblMess = new JLabel("Nombre de Message(s) :");
 		JLabel lblNombre = new JLabel(tableModele.getRowCount()+"");
-		JLabel lblTitre = new JLabel("Boite de Messagerie de :"+ReadProperties.getMyAlias());
+		JLabel lblTitre = new JLabel("Boite de Messagerie de :"+MessageListener.alias);
 		lblSch = new JLabel("Recherche par sujet");
 		lblCsg = new JLabel("inscrivez un mot contenue dans le sujet d'un message (au moins 4 caracteres)");
 		Font italFont = new Font("Arial", Font.ITALIC, 13);

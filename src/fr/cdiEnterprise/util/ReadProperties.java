@@ -10,6 +10,7 @@ import java.util.Properties;
 
 import javax.swing.JOptionPane;
 
+import fr.cdiEnterprise.exceptions.CustomMessagingException;
 import fr.cdiEnterprise.view.MainFrame;
 
 /**
@@ -28,7 +29,7 @@ public class ReadProperties {
 	public  ReadProperties() {
 	}
 
-	public static String getMyAlias() {
+	public static String getMyAlias() throws CustomMessagingException {
 		Properties properties = new Properties();
 		try {
 			FileInputStream in = new FileInputStream(FILENAME);
@@ -44,7 +45,7 @@ public class ReadProperties {
 		
 		String myAlias = properties.getProperty(ALIAS);
 		if(myAlias.isEmpty()) {
-		//	TODO (nicolas) Implement my own exception. 
+			throw new CustomMessagingException("[MonIdentite] Alias manquant dans le fichier properties");
 		}
 
 		return myAlias;

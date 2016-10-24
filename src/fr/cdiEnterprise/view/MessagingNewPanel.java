@@ -74,7 +74,7 @@ public class MessagingNewPanel extends JPanel {
 		borderMessage = BorderFactory.createTitledBorder(" Nouveau Message ");
 		border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		usersList = list;
-		from = ReadProperties.getMyAlias();
+		from = MessageListener.alias;
 		
 		
 		JPanel panMess = new JPanel();
