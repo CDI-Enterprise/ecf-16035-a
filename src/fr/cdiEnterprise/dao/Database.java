@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+// TODO (groupe) A SUPPRIMER
 public class Database {
 	
 	

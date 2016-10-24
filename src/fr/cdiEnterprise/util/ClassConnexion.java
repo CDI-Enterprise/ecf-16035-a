@@ -2,6 +2,8 @@ package fr.cdiEnterprise.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+
+// TODO (groupe) A SUPPRIMER
 /**
  * 
  * @author Olivier 20-10-2016

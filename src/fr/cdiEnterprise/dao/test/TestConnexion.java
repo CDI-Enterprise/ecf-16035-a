@@ -16,6 +16,7 @@ import fr.cdiEnterprise.util.ClassConnexion;
  *
  */
 
+// TODO (groupe) A SUPPRIMER
 public class TestConnexion {
 
 	public static void main(String[] args) {
