@@ -27,8 +27,11 @@ public class Department {
 			"Haute-Vienne", "Vosges", "Yonne", "Territoire-de-Belfort", "Essonne", "Hauts-de-Seine", "Seine-Saint-Denis", "Val-de-Marne",
 			"Val-d'Oise" };
 	
-	public Department() {
+	public Department(String name, int number) {
 
+		this.departmentName = name;
+		this.departmentNumber = number;
+		
 	}
 
 	public Department(String name) {

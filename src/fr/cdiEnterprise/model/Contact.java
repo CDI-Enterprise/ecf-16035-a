@@ -10,21 +10,29 @@ package fr.cdiEnterprise.model;
 
 public class Contact {
 
+	private int idContact;
 	private String name;
 	private String phoneNumber;
 	private String email;
+	
 
 	
 	public Contact(){
 		
 	}
 	
-	public Contact (String name, String phoneNumber, String email){
+	public Contact (int idContact, String name, String phoneNumber, String email){
+		this.idContact= idContact;
 		this.setName(name);
 		this.setPhoneNumber(phoneNumber);
 		this.setEmail(email);
 	}
 
+	public Contact (String name, String phoneNumber, String email){
+		this.setName(name);
+		this.setPhoneNumber(phoneNumber);
+		this.setEmail(email);
+	}
 	
 	public String getName() {
 		return name;

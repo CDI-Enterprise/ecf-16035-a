@@ -22,6 +22,7 @@ public class Company {
 	private String sector;
 	private String size;
 	private Languages languages;
+	private Language language;
 	private String projets;
 	private String webSite;
 	private Contact contact;
@@ -33,7 +34,7 @@ public class Company {
 	}
 
 	public Company(String companyName, String adress, String postalCode, String city, Department department) {
-		id++;
+	
 		this.companyName = companyName;
 		this.adress = adress;
 		this.postalCode = postalCode;
@@ -58,7 +59,7 @@ public class Company {
 	 */
 	public Company(String companyName, String adress, String postalCode, String city, Department department, Region region, String size,
 			String sector,  Languages languages,String projets, String webSite, Contact contact) {
-		id++;
+		
 		this.companyName = companyName;
 		this.adress = adress;
 		this.postalCode = postalCode;
@@ -74,6 +75,42 @@ public class Company {
 		this.idEnterprise = id;
 	}
 
+	
+	public Company(String companyName, String adress, String postalCode, String city, Department department, Region region, String size,
+			String sector,  Language language,String projets, String webSite, Contact contact) {
+		
+		this.companyName = companyName;
+		this.adress = adress;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.department = department;
+		this.region = region;
+		this.sector = sector;
+		this.size = size;
+		this.setLanguage(language);
+		this.projets=projets;
+		this.webSite = webSite;
+		this.contact = contact;
+		this.idEnterprise = id;
+	}
+	
+//	public Company(int idEntreprise,String companyName, String adress, String postalCode, String city, Department department, Region region, String size,
+//			String sector,  Language language,String projets, String webSite, Contact contact) {
+//		
+//		this.companyName = companyName;
+//		this.adress = adress;
+//		this.postalCode = postalCode;
+//		this.city = city;
+//		this.department = department;
+//		this.region = region;
+//		this.sector = sector;
+//		this.size = size;
+//		this.setLanguage(language);
+//		this.projets=projets;
+//		this.webSite = webSite;
+//		this.contact = contact;
+//		this.idEnterprise = idEntreprise;
+//	}
 	/**
 	 * Ensemble des getters de la clase Company
 	 */
@@ -270,6 +307,14 @@ public class Company {
 		this.idEnterprise = idEnterprise;
 	}
 
+	public Language getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(Language language) {
+		this.language = language;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -278,8 +323,10 @@ public class Company {
 	@Override
 	public String toString() {
 		return "Entreprise [companyName=" + companyName + ", adress=" + adress + ", postalCode=" + postalCode
-				+ ", city=" + city + ", department=" + department + ", region=" + region +", langages=" + languages.toString() + ", size=" + size + ", sector= " + sector 
-				+ ", webSite=" + webSite + ", contact=" + contact + "]";
+			+ ", city=" + city + ", department=" + department;
+//		return "Entreprise [companyName=" + companyName + ", adress=" + adress + ", postalCode=" + postalCode
+//				+ ", city=" + city + ", department=" + department + ", region=" + region +", langages=" + languages.toString() + ", size=" + size + ", sector= " + sector 
+//				+ ", webSite=" + webSite + ", contact=" + contact + "]";
 	}
 
 	@Override

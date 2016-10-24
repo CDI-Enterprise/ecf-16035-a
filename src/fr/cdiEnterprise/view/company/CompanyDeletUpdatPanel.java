@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -22,6 +23,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 
 import fr.cdiEnterprise.control.PanelDeletUpdatCompListeners;
+import fr.cdiEnterprise.dao.DataBaseCompany;
 import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Department;
@@ -92,7 +94,7 @@ public class CompanyDeletUpdatPanel extends JPanel {
 	private JButton btnCancel;
 	private PanelDeletUpdatCompListeners clic;
 	
-	public CompanyDeletUpdatPanel() {
+	public CompanyDeletUpdatPanel() throws SQLException {
 		panneau = this;
 		panneau.setLayout(new BorderLayout(5,5));
 		
@@ -147,20 +149,20 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		lblCompanyDepartment = new JLabel("Departement *");
 		cboCompanyDepartment = new JComboBox<String>();
 		
-		for (Department department : OldDatas.getDepartmentsList()) {
+		for (Department department : DataBaseCompany.getDepartmentListData()){	
 			cboCompanyDepartment.addItem(department.getDepartmentName());
-		}
-		cboCompanyDepartment.setEditable(true);
+				}
+		cboCompanyDepartment.setEditable(false);
 		cboCompanyDepartment.setMaximumRowCount(5);
 		
 		lblSelcDepartment = new JLabel();
 
 		lblCompanyRegion = new JLabel("Région *");
 		cboCompanyRegion = new JComboBox<String>();
-		for (Region region : OldDatas.getRegionsList()) {
+		for (Region region : DataBaseCompany.getRegionsListData()) {
 			cboCompanyRegion.addItem(region.getRegionName());
 		}
-		cboCompanyRegion.setEditable(true);
+		cboCompanyRegion.setEditable(false);
 		cboCompanyRegion.setMaximumRowCount(5);
 		
 		lblSelcRegion = new JLabel();
@@ -178,7 +180,7 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		lblLanguages = new JLabel ("Langages principalement utilisés *");	
 		dlmLanguages = new DefaultListModel<Language>();
 		lstLanguages = new JList<Language>(dlmLanguages);
-		for (Language language : OldDatas.getLanguagesCompanyList()) {
+		for (Language language : DataBaseCompany.getLanguagesListData()) {
 		dlmLanguages.addElement(language);
 		}
 		languages = new JScrollPane(lstLanguages, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -212,7 +214,8 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		
 //		dlmCompanies = new DefaultListModel<Company>();
 		lstCompanies = new JList<Company>(CompanyCreationPanel.dlmCompanies);
-		for (Company company: OldDatas.getCompaniesList()){
+		for(Company company: OldDatas.getCompaniesList()){
+		//for (Company company: DataBaseCompany.getCompaniesData()){
 			dlmCompanies.addElement(company);
 		}
 		lstCompanies.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
