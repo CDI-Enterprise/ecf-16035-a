@@ -104,24 +104,22 @@ public class MessagingNewPanel extends JPanel {
 		
 	
 		
-		textPane = new JTextPane();
-		textPane.setCaretPosition(0);
-		textPane.setBounds(0, 0, 200, 200);
-        textPane.setMargin(new Insets(5,5,5,5));
+//		textPane = new JTextPane();
+//		textPane.setCaretPosition(0);
+//		textPane.setBounds(0, 0, 200, 200);
+//        textPane.setMargin(new Insets(5,5,5,5));
         
-        JScrollPane scrollPane = new JScrollPane(textPane);
-        scrollPane.setPreferredSize(new Dimension(200, 200));
+       // JScrollPane scrollPane = new JScrollPane(textPane);
+      //  scrollPane.setPreferredSize(new Dimension(200, 200));
 
         
 	
-		StyledDocument styledDoc = textPane.getStyledDocument();
+		//StyledDocument styledDoc = textPane.getStyledDocument();
 		
-		if (styledDoc instanceof AbstractDocument) {
-			AbstractDocument doc = (AbstractDocument) styledDoc;
-			
-		    doc.setDocumentFilter(new DocumentSizeFilter(MAX_CHARACTERS));
-		}
-		textPane.setBorder(border);
+		//if (styledDoc instanceof AbstractDocument) {
+
+	//	}
+		//textPane.setBorder(border);
 		
 		
 		
@@ -138,7 +136,9 @@ public class MessagingNewPanel extends JPanel {
 		txtMessage.setWrapStyleWord(true);
 		txtMessage.setBorder(border);
 		
-	
+		AbstractDocument doc = (AbstractDocument) txtMessage.getDocument();
+		
+	    doc.setDocumentFilter(new DocumentSizeFilter(MAX_CHARACTERS));
 		
 		if(usersList != null) {
 			for(User current : usersList) {
@@ -161,7 +161,7 @@ public class MessagingNewPanel extends JPanel {
 		panCenter.add(txtObject, "wrap");
 		
 		panCenter.add(Message, "w 200!");
-		panCenter.add(scrollPane, "wrap");
+		panCenter.add(txtMessage, "wrap");
 
 		panCenter.add(letterCount, "w 200!");
 		panCenter.add(lblCounter, "wrap");
@@ -176,7 +176,7 @@ public class MessagingNewPanel extends JPanel {
 		btnDraft.addActionListener(listener);
 		btnReturn.addActionListener(listener);
 		
-		txtMessage.addKeyListener(listener);
+		//txtMessage.addKeyListener(listener);
 		
 		
 		
