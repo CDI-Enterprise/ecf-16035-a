@@ -27,6 +27,7 @@ import net.miginfocom.swing.MigLayout;
 
 /**
  * Panel for a user's profile CRUD.
+ * 
  * @author Claire
  * @version 16-10-2016
  * 
@@ -430,7 +431,21 @@ public class PanelUserCRUD extends JPanel {
 	public void setOptTrainer(JRadioButton optTrainer) {
 		this.optTrainer = optTrainer;
 	}
+	
+	/**
+	 * @return the lblAlias
+	 */
+	public JLabel getLblAlias() {
+		return lblAlias;
+	}
 
+	/**
+	 * @param lblAlias the lblAlias to set
+	 */
+	public void setLblAlias(JLabel lblAlias) {
+		this.lblAlias = lblAlias;
+	}
+	
 	/**
 	 * @return the txtAlias
 	 */
@@ -444,7 +459,6 @@ public class PanelUserCRUD extends JPanel {
 	public JTextField getTxtMail() {
 		return txtMail;
 	}
-	
 
 	/**
 	 * @return the txtAfpa
