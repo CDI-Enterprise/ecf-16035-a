@@ -108,14 +108,14 @@ public class MainFrame extends JFrame {
 		scrollPanelUserCRUD = new JScrollPane(panelUserCRUD);
 
 		// Panel for users search and display (SR)
-		panelUserSR = new PanelUserSR();
-		panelUserSR.setPreferredSize(new Dimension(1260, 800));
+		//panelUserSR = new PanelUserSR();
+		//panelUserSR.setPreferredSize(new Dimension(1260, 800));
 		scrollPanelUserSR = new JScrollPane(panelUserSR);
 
 		// Panel CreatCompany
-		panelCreatCompany = new CompanyCreationPanel();
+		//panelCreatCompany = new CompanyCreationPanel();
 		scrollCreateCompany = new JScrollPane(panelCreatCompany);
-		panelUpdateDeleteCompany = new CompanyDeletUpdatPanel();
+		//panelUpdateDeleteCompany = new CompanyDeletUpdatPanel();
 		scrollUpdateDeleteCompany = new JScrollPane(panelUpdateDeleteCompany);
 
 		// Panel Search

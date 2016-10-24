@@ -158,6 +158,13 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 				customDialog("veillez donner un mot plus long pour la recherche");
 			}else {
 				System.out.println("le mot a chercher est "+recherche);
+				Items itemsMatch = client.searchMessage(recherche);
+				MessageListener.panelMain.setCopyUserItems(itemsMatch);
+				panelMain.refresh();
+				
+				MainFrame.SwithPanel(panelMain);
+				
+			
 			}
 			
 		}

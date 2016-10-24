@@ -20,6 +20,8 @@ public class DBConnection {
 	// Defines a JDBC driver
 	private final static String ORACLE_DRIVER = "oracle.jdbc.driver.OracleDriver";
 	private final static String JUNON_URL = "jdbc:oracle:thin:cdi_enterprise/stagpw@junon:1521:AFPA";
+	private static final String NICOLAS_URL ="jdbc:oracle:thin:stag14/stag14pw@localhost:1521:xe"; // a asuga local a la masion
+	
 	// Defines a connection string
 	//private final static String JUNON_URL = "jdbc:oracle:thin:cdi_enterprise/stagpw@junon:1521:AFPA";
 
@@ -42,7 +44,7 @@ public class DBConnection {
 			Class.forName(ORACLE_DRIVER);
 			// Asks for a new connection
 			if (connect == null) {
-				connect = DriverManager.getConnection(JUNON_URL);
+				connect = DriverManager.getConnection(NICOLAS_URL);
 				System.out.println("Connexion établie.");
 			}
 			else {

@@ -12,8 +12,8 @@ public class Database {
 	
 	
 	final String strNomDriver = "oracle.jdbc.driver.OracleDriver";
-	//static final String dbURL ="jdbc:oracle:thin:stag14/stag14pw@localhost:1521:xe"; // a asuga local a la masion
-	private final static String JUNON_URL = "jdbc:oracle:thin:cdi_enterprise/stagpw@junon:1521:AFPA";
+	static final String dbURL ="jdbc:oracle:thin:stag14/stag14pw@localhost:1521:xe"; // a asuga local a la masion
+	//private final static String JUNON_URL = "jdbc:oracle:thin:cdi_enterprise/stagpw@junon:1521:AFPA";
 	
 	
 	//static final String dbURL ="jdbc:oracle:thin:stag14/stag14pw@junon:1521:afpa";
@@ -35,7 +35,7 @@ public class Database {
 	public static Connection getConnect() {
 		Connection conn = null;
 		try {
-			conn       = DriverManager.getConnection(JUNON_URL);
+			conn       = DriverManager.getConnection(dbURL);
 		} catch (SQLException e) {
 			System.out.println("Erreur de connection a la base de donnée !");
 			e.printStackTrace();

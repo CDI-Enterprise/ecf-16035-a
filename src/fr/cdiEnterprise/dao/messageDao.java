@@ -45,7 +45,7 @@ public class messageDao {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try {
-			connection = Database.getConnect();
+			connection = DBConnection.getConnect();
 					
 			
 
@@ -144,7 +144,7 @@ public class messageDao {
 		ResultSet resultSet = null;
 		Items items = new Items();
 
-		connection = Database.getConnect();
+		connection = DBConnection.getConnect();
 		try {
 			statement = connection.createStatement();
 
@@ -225,7 +225,7 @@ public class messageDao {
 		ResultSet resultSet = null;
 		Items items = new Items();
 
-		connection = Database.getConnect();
+		connection = DBConnection.getConnect();
 		try {
 			statement = connection.createStatement();
 		} catch (SQLException e1) {
@@ -294,7 +294,7 @@ public class messageDao {
 
 		try {
 		
-			connection = Database.getConnect();
+			connection = DBConnection.getConnect();
 			statement = connection.createStatement();
 			
 			int ident = 0;
@@ -305,8 +305,9 @@ public class messageDao {
 			String date = null;
 			int draftMess = 0;
 
-			String query =  String.format("SELECT  %s, %s  , %s ,%s , %s ,%s, %s FROM %s WHERE SUBJECT LIKE '%%s%'",
+			String query =  String.format("SELECT  %s, %s  , %s ,%s , %s ,%s, %s FROM %s WHERE SUBJECT LIKE '%%%s%%'",
 					IDENTITY, SENDER, RECEIVER, SUBJECT, MESSBODY, TIMESTAMP, DRAFT, TABLE_NAME, word);
+			System.out.println(query);
 			resultSet = statement.executeQuery(query);
 			connection.commit();
 
@@ -353,7 +354,7 @@ public class messageDao {
 		Statement statement = null;
 		ResultSet resultSet = null;
 
-		connection = Database.getConnect();
+		connection = DBConnection.getConnect();
 		try {
 			statement = connection.createStatement();
 			String query = "delete from mailbox where identity = '" + identifier + "'";
@@ -380,7 +381,7 @@ public class messageDao {
 		Statement statement = null;
 		ResultSet resultSet = null;
 
-		connection = Database.getConnect();
+		connection = DBConnection.getConnect();
 		try {
 			statement = connection.createStatement();
 			int ident = 0;
