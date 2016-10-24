@@ -56,6 +56,7 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 	// Attribute to create a company
 	Company company;
 
+	
 	public PanelCreateComListener(CompanyCreationPanel panCompCreat) {
 		this.panCompCreat = panCompCreat;
 	}

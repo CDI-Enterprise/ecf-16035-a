@@ -12,17 +12,11 @@ import fr.cdiEnterprise.model.Region;
 import fr.cdiEnterprise.service.Companies;
 import fr.cdiEnterprise.service.Regions;
 
-public class DataBaseAccess {
 
-	// private static String tableAuteurs = "auteurs";
-	// private static String tableEditeurs = "editeurs";
-	// private static String tableThemes = "themes";
-	// private static String tableLivres = "livres";
-	// private static String tableLivreAuteur = "livreauteur";
-	// private static String tableLivresEditeur = "livresediteur";
-	// private static String tableLivreTheme = "livretheme";
-	//
-	//
+
+public class DataBaseCompany {
+
+	
 	public static void insertDepartmentData(Department department) throws SQLException {
 		//
 		////

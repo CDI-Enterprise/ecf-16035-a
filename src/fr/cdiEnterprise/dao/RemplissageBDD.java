@@ -21,7 +21,7 @@ public class RemplissageBDD {
 				
 				for (Department department : OldDatas.getDepartmentsList()){
 //					
-					DataBaseAccess.insertDepartmentData(department);
+					DataBaseCompany.insertDepartmentData(department);
 				}
 				
 
@@ -29,7 +29,7 @@ public class RemplissageBDD {
 				/*Region*/
 				for (Region region : OldDatas.getRegionsList()){
 					
-					DataBaseAccess.insertRegionData(region);
+					DataBaseCompany.insertRegionData(region);
 				}
 				
 

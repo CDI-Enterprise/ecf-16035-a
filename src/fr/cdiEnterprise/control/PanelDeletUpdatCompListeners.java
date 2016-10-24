@@ -15,10 +15,21 @@ import fr.cdiEnterprise.view.MainFrame;
 import fr.cdiEnterprise.view.company.CompanyCreationPanel;
 import fr.cdiEnterprise.view.company.CompanyDeletUpdatPanel;
 
+/**
+*Listeners for panel "Company Delete and update"
+*
+* @version 21-10-2016
+* @author Anaïs
+* 
+*
+*/
 
 public class PanelDeletUpdatCompListeners implements ActionListener, ListSelectionListener, MouseListener {
 
-	private CompanyDeletUpdatPanel panCompDeletUpdat;
+	/* Given attributes*/
+	private CompanyDeletUpdatPanel panCompDeletUpdat;		
+	
+	/*Attributes for delete and update company */
 	private Company selecCompanie;
 	private int selecIndex;
 	
@@ -29,6 +40,9 @@ public class PanelDeletUpdatCompListeners implements ActionListener, ListSelecti
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		/* */
+		
 		if (e.getSource() == panCompDeletUpdat.getBtnCancel()){
 			MainFrame.getPanMain().removeAll();
 			MainFrame.getPanMain().add(MainFrame.getPanHome());
