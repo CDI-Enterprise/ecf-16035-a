@@ -90,6 +90,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 			MessageListener.panelMain = (MessagingMainPanel) panelUser;
 			Items itms =client.getMyMessages();
+			System.out.println("appel de lmain panel");
 			
 				
 			MessageListener.panelMain.setCopyUserItems(itms);
@@ -106,6 +107,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		}		
 		if (panelUser instanceof MessagingNewPanel) {
 			panelNew = (MessagingNewPanel) panelUser;
+			System.out.println("appel de new panel");
 		}
 		if (panelUser instanceof MessagingReadPanel) {
 			panelRead = (MessagingReadPanel) panelUser;
@@ -119,10 +121,12 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	@Override
 	public void actionPerformed(ActionEvent e)  {
 
+		
+		System.out.println("une action c'est produite "+ e.getSource().toString());
 		if (e.getSource() == panelMain.getBtnNew()) {
 
-			// TODO (nicolas) TO TEST exception seulement Users usr 	= aliasInLower();
-			 Users usr = null;
+			  Users usr 	= aliasInLower();
+			// TODO (nicolas) TO TEST exception seulement Users usr = null;
 			try {
 				panelNew 	= new MessagingNewPanel(usr);
 				MainFrame.SwithPanel(panelNew);
@@ -150,13 +154,15 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		}
 		else if  (e.getSource() == panelMain.getBtnDisplay()) {
 
-			
+			System.out.println("to refresh");
 
 		}
 		
 		
 		// PANEL NOUVEAU MESSAGE
+		
 		else if ((panelNew != null) && (e.getSource() == panelNew.getBtnEnv())) {
+			System.out.println("ligne 163 "+e.getSource().toString());
 			String receiver = (String) panelNew.getCboReceiver()
 					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
 
@@ -168,6 +174,8 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 				}else {
 					System.out.println(panelNew.getTxtMessage().getText().length());
+					
+					System.out.println("-- Envoie message a MpClientV2 --");
 					client.newEmail(alias,receiver, panelNew.getTxtObject().getText(),
 							panelNew.getTxtMessage().getText());
 				
@@ -338,7 +346,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 					try {
 						client.editDraft(draftToSend);
 					} catch (SQLException e1) {
-						//TODO gerer cet exception
+						customDialog(e1.getMessage());
 						e1.printStackTrace();
 					}
 					

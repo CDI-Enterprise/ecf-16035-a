@@ -140,11 +140,12 @@ public class MpClientV2 {
 		if(draft) {
 
 			repliedItem.setDraftEmail(false);
-	
+			System.out.println("message envoye a la base");
 			messageDao.insertItem(repliedItem);
 			
 			return true;
 		}else {
+			System.out.println("message envoye a la base");
 			if(item.getObject() != null && item.getBody() != null) {
 				repliedItem.setObject("re: "+ item.getObject());
 				repliedItem.setTimeStamp(timeStamp);

@@ -46,7 +46,7 @@ public class messageDao {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try {
-			connection = Database.getConnect();
+			connection = DBConnection.getConnect();
 					
 			
 
@@ -98,18 +98,11 @@ public class messageDao {
 		} catch (SQLException e) {
 			System.out.println("SQL Error In the insertMessage...");
 			e.printStackTrace();
-		} finally {
-			try {
-				statement.close();
-				connection.close();
-			} catch (SQLException e) {
-				// TODO (Nicolas) need to fix this
-				e.printStackTrace();
-			}
+		} 
 
 		}
 
-	}
+	
 	// if (item != null) {
 	//
 	// mess.add(item);
@@ -145,7 +138,7 @@ public class messageDao {
 		ResultSet resultSet = null;
 		Items items = new Items();
 
-		connection = Database.getConnect();
+		connection = DBConnection.getConnect();
 		try {
 			statement = connection.createStatement();
 
@@ -226,7 +219,7 @@ public class messageDao {
 		ResultSet resultSet = null;
 		Items items = new Items();
 
-		connection = Database.getConnect();
+		connection = DBConnection.getConnect();
 		try {
 			statement = connection.createStatement();
 
@@ -269,9 +262,7 @@ public class messageDao {
 			}
 		} catch (SQLException e) {
 			throw new SQLException("[READ] Erreur SQL suivante : " + e.getMessage());
-		} finally {
-			connection.close();
-		}
+		} 
 
 		return items;
 
@@ -297,7 +288,7 @@ public class messageDao {
 		Statement statement 	= null;
 		ResultSet resultSet 	= null;
 
-		connection = Database.getConnect();
+		connection = DBConnection.getConnect();
 		try {
 			statement = connection.createStatement();
 			String query = "delete from mailbox where identity = '" + identifier + "'";
@@ -324,7 +315,7 @@ public class messageDao {
 		Statement statement = null;
 		ResultSet resultSet = null;
 
-		connection = Database.getConnect();
+		connection = DBConnection.getConnect();
 		try {
 			statement = connection.createStatement();
 			int ident = 0;
@@ -350,11 +341,9 @@ public class messageDao {
 			connection.commit();
 
 		} catch (SQLException e) {
-			System.out.println("SQL Error in update Method.");
-			e.printStackTrace();
-		} finally {
-			connection.close();
-		}
+			throw new SQLException("[UPDATE] Erreur SQL suivante : " + e.getMessage());
+			//e.printStackTrace();
+		} 
 
 	}
 

@@ -171,7 +171,8 @@ public class MessagingNewPanel extends JPanel {
 					}	
 			}
 		}else {
-			throw new CustomMessagingException("Attention la liste des utilisateur est vide...");
+			// TODO (nicolas) besoin de revoir lorsque les userrlist seront d'une table.
+			throw new CustomMessagingException("[NEWPANEL] la liste des utilisateur est vide...");
 		}
 
 		
