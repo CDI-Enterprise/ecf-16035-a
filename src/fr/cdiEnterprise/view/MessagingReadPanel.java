@@ -4,14 +4,17 @@
 package fr.cdiEnterprise.view;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 
 import fr.cdiEnterprise.control.MessageListener;
 import fr.cdiEnterprise.dao.OldDatas;
@@ -36,13 +39,17 @@ public class MessagingReadPanel extends JPanel {
 	private JButton btnDel;
 	private JButton btnRet;
 	
+	private Border border;
+	private Border borderMessage;
+	
 	private String from;
 	private JLabel receiver;
 	private JLabel object;
 	private JLabel Message;
 	
-	private JLabel lblReceiver;
+	private JLabel lblSender;
 	private JLabel lblObject;
+	private JLabel lblDate;
 	private JLabel lblMessage;
 	
 	private JLabel letterCount;
@@ -62,8 +69,9 @@ public class MessagingReadPanel extends JPanel {
 		
 		itm = item;
 		MessageListener listener = new MessageListener((JPanel) this);
-		
-		System.out.println(itm.toString());
+		borderMessage = BorderFactory.createTitledBorder(" Message ");
+		border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+	
 		
 		receiver = new JLabel(itm.getSender());
 		object = new JLabel(itm.getObject());
@@ -90,9 +98,10 @@ public class MessagingReadPanel extends JPanel {
 		add(panMess);
 		panMess.add(panNorth,BorderLayout.NORTH);
 		panMess.add(panCenter,BorderLayout.CENTER);
-		
-		
-		JLabel lblTitle = new JLabel("- Votre Message -");
+	
+		Font boldFont = new Font("Arial", Font.PLAIN, 18);
+		JLabel lblTitle = new JLabel(" Votre Message ");
+		//lblTitle.setFont(boldFont);
 		
 		btnRep = new JButton("Repondre");
 		btnDel = new JButton("Effacer");
@@ -103,11 +112,12 @@ public class MessagingReadPanel extends JPanel {
 		Message = new JLabel("Texte");
 		letterCount = new JLabel("compteur");
 		lblCounter =   new JLabel();
+		*/
 		
-		
-		lblReceiver = new JLabel();
-		lblObject = new JLabel();*/
-		lblMessage = new JLabel();
+		lblSender = new JLabel("Message De :");
+		lblObject = new JLabel("Sujet :");
+		lblDate   = new JLabel("reçu le :");
+		lblMessage = new JLabel("Message :");
 
 
 		//cboReceiver = new JComboBox();
@@ -137,13 +147,16 @@ public class MessagingReadPanel extends JPanel {
 		
 		panNorth.add(lblTitle);
 		panCenter.setLayout(new MigLayout());
+		panCenter.setBorder(borderMessage);
 		
 		
+		panCenter.add(lblSender, "w 200!");
 		panCenter.add(receiver, "wrap");
-		//panCenter.add(lblReceiver, "wrap");
-		panCenter.add(txtObject, "wrap");
-		//panCenter.add(lblObject, "wrap");*/
 		
+		panCenter.add(lblObject, "w 200!");
+		panCenter.add(txtObject, "wrap");
+		
+		panCenter.add(lblMessage, "w 200!");
 		panCenter.add(txtMessage, "wrap");
 		
 		

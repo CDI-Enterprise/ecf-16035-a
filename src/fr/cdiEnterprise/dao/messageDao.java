@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import fr.cdiEnterprise.exceptions.CustomMessagingException;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.service.Items;
 
@@ -37,7 +36,7 @@ public class messageDao {
 	private static final String SUBJECT  = "SUBJECT";
 	private static final String MESSBODY = "MESSBODY";
 	private static final String TIMESTAMP  = "TIMESTAMP";
-	private static final String DRTAFT  = "DRAFT";
+	private static final String DRAFT  = "DRAFT";
 	
 	
 	public static void insertItem(Item item) {
@@ -46,7 +45,7 @@ public class messageDao {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try {
-			connection = DBConnection.getConnect();
+			connection = Database.getConnect();
 					
 			
 
@@ -98,11 +97,18 @@ public class messageDao {
 		} catch (SQLException e) {
 			System.out.println("SQL Error In the insertMessage...");
 			e.printStackTrace();
-		} 
+		} finally {
+			try {
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+				// TODO (Nicolas) need to fix this
+				e.printStackTrace();
+			}
 
 		}
 
-	
+	}
 	// if (item != null) {
 	//
 	// mess.add(item);
@@ -138,7 +144,7 @@ public class messageDao {
 		ResultSet resultSet = null;
 		Items items = new Items();
 
-		connection = DBConnection.getConnect();
+		connection = Database.getConnect();
 		try {
 			statement = connection.createStatement();
 
@@ -219,10 +225,13 @@ public class messageDao {
 		ResultSet resultSet = null;
 		Items items = new Items();
 
-		connection = DBConnection.getConnect();
+		connection = Database.getConnect();
 		try {
 			statement = connection.createStatement();
-
+		} catch (SQLException e1) {
+			// TODO (nicolas) need to fix this excp
+			e1.printStackTrace();
+		}
 
 		// String ident = null;
 		int ident = 0;
@@ -239,7 +248,7 @@ public class messageDao {
 				//
 				"identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft", TABLE_NAME);
 
-		
+		try {
 			resultSet = statement.executeQuery(createStatement);
 			connection.commit();
 
@@ -262,19 +271,75 @@ public class messageDao {
 			}
 		} catch (SQLException e) {
 			throw new SQLException("[READ] Erreur SQL suivante : " + e.getMessage());
-		} 
+			
+		}
 
 		return items;
 
 	}
 
 	// }
+	
+	
+	public static Items searchMessage(String word) {
+		
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+
+		Items items = new Items();
+		
+		
+		
+
+		try {
+		
+			connection = Database.getConnect();
+			statement = connection.createStatement();
+			
+			int ident = 0;
+			String sender = null;
+			String receiver = null;
+			String object = null;
+			String body = null;
+			String date = null;
+			int draftMess = 0;
+
+			String query =  String.format("SELECT  %s, %s  , %s ,%s , %s ,%s, %s FROM %s WHERE SUBJECT LIKE '%%s%'",
+					IDENTITY, SENDER, RECEIVER, SUBJECT, MESSBODY, TIMESTAMP, DRAFT, TABLE_NAME, word);
+			resultSet = statement.executeQuery(query);
+			connection.commit();
+
+			while (resultSet.next()) {
+
+				ident = resultSet.getInt("identity");
+				sender = resultSet.getString("sender");
+				receiver = resultSet.getString("receiver");
+				object = resultSet.getString("subject");
+				body = resultSet.getString("messBody");
+
+				draftMess = resultSet.getInt("draft");
+				if (draftMess == 0) {
+					date = resultSet.getString("timeStamp");
+				}
+
+				Item item = new Item(ident, sender, receiver, object, body, StringToLocalDate(date),
+						intToBoolean(draftMess));
+				items.add(item);
+			}
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return items;
+		
+	}
 
 
 	/**
-	 * Cette methode va supprimer un message pour un utilisateur donné ainsi qu'un type de message (brouillon ou pas).
-	 * 
-	 // TODO (nicolas) s'assurer que le usr n'est pas null.... ici ou plus haut ?
 	 * 
 	 * @param usr
 	 * @param identifier
@@ -284,11 +349,11 @@ public class messageDao {
 	 */
 	public static boolean removeMessage(String usr, int identifier, boolean draft) throws SQLException {
 
-		Connection connection 	= null;
-		Statement statement 	= null;
-		ResultSet resultSet 	= null;
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
 
-		connection = DBConnection.getConnect();
+		connection = Database.getConnect();
 		try {
 			statement = connection.createStatement();
 			String query = "delete from mailbox where identity = '" + identifier + "'";
@@ -315,7 +380,7 @@ public class messageDao {
 		Statement statement = null;
 		ResultSet resultSet = null;
 
-		connection = DBConnection.getConnect();
+		connection = Database.getConnect();
 		try {
 			statement = connection.createStatement();
 			int ident = 0;
@@ -342,7 +407,6 @@ public class messageDao {
 
 		} catch (SQLException e) {
 			throw new SQLException("[UPDATE] Erreur SQL suivante : " + e.getMessage());
-			//e.printStackTrace();
 		} 
 
 	}

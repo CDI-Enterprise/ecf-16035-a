@@ -51,7 +51,7 @@ public class MpClientV2 {
 	 * @param usr represente la Boite de messagerie de l'utilsateur, aillant ouvert l'application.
 	 * @throws SQLException 
 	 */
-	public MpClientV2(String usr) throws SQLException {
+	public MpClientV2(String usr) throws SQLException   {
 		box = usr;
 		this.myMessages = new Items();
 		myMessages 	= getMaxItems(false);
@@ -66,7 +66,7 @@ public class MpClientV2 {
 	 * Cette method est utilise pour determiner le numeros de message ID Max provenant de la base de donnee.
 	 * @throws SQLException 
 	 */
-	private Items getMaxItems(boolean all) throws SQLException {
+	private Items getMaxItems(boolean all) throws SQLException   {
 		Items items = null;
 		if(ID_NUMBER == CONST_ZERO)
 		{
@@ -90,7 +90,7 @@ public class MpClientV2 {
 		return items;
 	}
 	
-	private Items getAllMessages() throws SQLException {
+	private Items getAllMessages() throws SQLException   {
 		return messageDao.getAllItems(this.box);
 	}
 
@@ -226,7 +226,7 @@ public class MpClientV2 {
 	 * @param draft will indicate if this is a draft email
 	 * @throws SQLException 
 	 */
-	public void removeMessage(int identifier, boolean draft) throws SQLException {
+	public void removeMessage(int identifier, boolean draft) throws SQLException  {
 		
 		if(messageDao.removeMessage(this.box, identifier, draft)) {
 			// TODO (nicolas) return a boolean later.

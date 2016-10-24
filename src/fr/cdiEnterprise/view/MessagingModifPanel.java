@@ -5,17 +5,19 @@ package fr.cdiEnterprise.view;
 
 import java.awt.BorderLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.text.AbstractDocument;
 
 import fr.cdiEnterprise.control.MessageListener;
 import fr.cdiEnterprise.dao.OldDatas;
-import fr.cdiEnterprise.exceptions.CustomMessagingException;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.model.User;
 import fr.cdiEnterprise.service.Users;
@@ -37,6 +39,9 @@ public class MessagingModifPanel extends JPanel {
 	private JButton btnDel;
 	private JButton btnRet;
 	private JButton btnSav;
+	
+	private Border border;
+	private Border borderMessage;
 	
 	private String from;
 	private JLabel receiver;
@@ -60,11 +65,12 @@ public class MessagingModifPanel extends JPanel {
 	private static final int MAX_CHARACTERS = 450;
 
 	
-	public MessagingModifPanel(Item item, Users list) throws CustomMessagingException {
+	public MessagingModifPanel(Item item, Users list) {
 		
 		itm = item;
 		MessageListener listener = new MessageListener((JPanel) this);
-		
+		borderMessage = BorderFactory.createTitledBorder(" Message Brouillon ");
+		border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		
 		
 		receiver = new JLabel(itm.getSender());
@@ -120,6 +126,8 @@ public class MessagingModifPanel extends JPanel {
 		txtObject = new JTextField(20);
 		txtObject.setText(itm.getObject());
 		txtMessage = new JTextArea(10,50);
+		txtMessage.setBorder(border);
+		
 		txtMessage.setText(itm.getBody());
 		txtMessage.setLineWrap(true);
 		txtMessage.setWrapStyleWord(true);
@@ -132,42 +140,48 @@ public class MessagingModifPanel extends JPanel {
 			for(User current : usersList) {
 				if(current != null) {
 					cboReceiver.addItem(current.getAlias());
-					panNorth.add(lblTitle);
-					panCenter.setLayout(new MigLayout());
-					
-					panCenter.add(receiver, "w 200!");
-					panCenter.add(cboReceiver, "wrap");
-					panCenter.add(lblObject, "w 200!");
-					panCenter.add(txtObject, "wrap");
-				
-					
-					panCenter.add(txtMessage, "wrap");
-					
-					
-					
-					
-					
-					panCenter.add(btnEnv, "w 200!");
-					panCenter.add(btnSav, "w 200!");
-					panCenter.add(btnDel, "w 200!");
-					panCenter.add(btnRet, "w 200!");
-					
-					
-					btnEnv.addActionListener(listener);
-					btnSav.addActionListener(listener);
-					btnDel.addActionListener(listener);
-					btnRet.addActionListener(listener);
 					}	
 			}
 		}else {
-			throw new CustomMessagingException("Attention la liste des utilisateur est vide...");
-			
+			//System.out.println("usersList is null ");
 		}
 		
 		
-	
+		panNorth.add(lblTitle);
+		panCenter.setLayout(new MigLayout());
+		panCenter.setBorder(borderMessage);
 		
+		panCenter.add(lblReceiver, "w 200!");
+		panCenter.add(cboReceiver, "wrap");
+		//panCenter.add(receiver, "wrap");
+		//panCenter.add(lblReceiver, "wrap");
+		panCenter.add(lblObject, "w 200!");
+		panCenter.add(txtObject, "wrap");
+	
+		panCenter.add(Message, "w 200!");
+		panCenter.add(txtMessage, "wrap");
+		
+		
+		
+		//panCenter.add(lblMessage, "w 200!");
+		//panCenter.add(txtMessage, "wrap");
 
+		//panCenter.add(letterCount, "w 200!");
+		//panCenter.add(lblCounter, "wrap");
+		
+		
+		panCenter.add(btnEnv, "w 200!");
+		panCenter.add(btnSav, "w 200!");
+		panCenter.add(btnDel, "w 200!");
+		panCenter.add(btnRet, "w 200!");
+		
+		
+		btnEnv.addActionListener(listener);
+		btnSav.addActionListener(listener);
+		btnDel.addActionListener(listener);
+		btnRet.addActionListener(listener);
+		
+//		txtMessage.addKeyListener(listener);
 		
 		
 		

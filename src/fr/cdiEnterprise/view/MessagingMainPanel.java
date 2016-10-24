@@ -12,13 +12,14 @@ import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
-
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
@@ -55,6 +56,12 @@ public class MessagingMainPanel extends JPanel {
 	private JButton btnNew;
 	private JButton btnDraft;
 	private JButton btnDisplay;
+	private JButton btnSch;
+	
+	private JLabel lblSch;
+	private JLabel lblCsg;
+	private JTextField txtSch;
+	
 	
 	private String nombreMessage;
 	private Items allItems;
@@ -109,9 +116,14 @@ public class MessagingMainPanel extends JPanel {
 		
 		JPanel panMess = new JPanel();
 		
-		JPanel panNorth = new JPanel();
-		JPanel panWest = new JPanel();
-		JPanel panCenter = new JPanel();
+		
+		JPanel panNorth 	= new JPanel();
+		JPanel panSubNorth 	= new JPanel();
+		JPanel panSubSouth  = new JPanel();
+		JPanel panWest 		= new JPanel();
+		JPanel panCenter 	= new JPanel();
+		
+		
 		
 		panMess.setLayout(new BorderLayout());
 		add(panMess);
@@ -119,12 +131,15 @@ public class MessagingMainPanel extends JPanel {
 		panMess.add(panCenter,BorderLayout.CENTER);
 		panMess.add(panWest, BorderLayout.WEST);
 		
+		
 
 		JLabel lblMess = new JLabel("Nombre de Message(s) :");
 		JLabel lblNombre = new JLabel(tableModele.getRowCount()+"");
 		JLabel lblTitre = new JLabel("Boite de Messagerie de :"+ReadProperties.getMyAlias());
-
-		
+		lblSch = new JLabel("Recherche par sujet");
+		lblCsg = new JLabel("inscrivez un mot contenue dans le sujet d'un message (au moins 4 caracteres)");
+		Font italFont = new Font("Arial", Font.ITALIC, 13);
+		lblCsg.setFont(italFont);
 		
 		
 		tiModel.setUsers(copyUserItems);
@@ -134,23 +149,40 @@ public class MessagingMainPanel extends JPanel {
 		
 		
 		
-		btnNew = new JButton("Nouveau");
-		btnDraft = new JButton("Brouillon");
-		btnDisplay = new JButton("Refersh");
+		btnNew 		= new JButton("Nouveau");
+		btnDraft 	= new JButton("Brouillon");
+		btnDisplay 	= new JButton("Refersh");
+		btnSch		= new JButton("Recherche");
+		
+		txtSch		= new JTextField();
+		txtSch.setPreferredSize(new Dimension(100, 25));
 		
 		
 		btnNew.setMnemonic(KeyEvent.VK_N);
 		btnDraft.setMnemonic(KeyEvent.VK_S);
 		btnDisplay.setMnemonic(KeyEvent.VK_D);
 		
-		panNorth.setLayout(new FlowLayout());
+		panNorth.setLayout(new BorderLayout());
 		panWest.setLayout(new MigLayout());
+		
+		panSubNorth.setLayout(new FlowLayout());
+		panSubSouth.setLayout(new FlowLayout());
+		panNorth.add(lblTitre,BorderLayout.NORTH);
+		panNorth.add(panSubNorth,BorderLayout.CENTER);
+		panNorth.add(panSubSouth,BorderLayout.SOUTH);
+		
+		
+		panSubNorth.setLayout(new FlowLayout());
+		panSubNorth.add(lblSch);
+		panSubNorth.add(txtSch);
+		panSubNorth.add(btnSch);
+		panSubSouth.add(lblCsg);
 		
 		panWest.add(btnNew, "wrap");
 		panWest.add(btnDraft, "wrap");
 		panWest.add(btnDisplay, "wrap");
 		
-		panNorth.add(lblTitre);
+		
 
 		//JList<Item> list = new JList<Item>(listModele);
 		
@@ -178,6 +210,7 @@ public class MessagingMainPanel extends JPanel {
 		
 		table.addMouseListener(listener);
 		//table.getSelectionModel().addListSelectionListener(listener);
+		btnSch.addActionListener(listener);
 		btnNew.addActionListener(listener);
 		btnDraft.addActionListener(listener);
 		btnDisplay.addActionListener(listener);
@@ -291,6 +324,14 @@ public class MessagingMainPanel extends JPanel {
 
 	public void setCopyUserItems(Items copyUserItems) {
 		this.copyUserItems = copyUserItems;
+	}
+
+	public JButton getBtnSch() {
+		return btnSch;
+	}
+
+	public JTextField getTxtSch() {
+		return txtSch;
 	}
 
 

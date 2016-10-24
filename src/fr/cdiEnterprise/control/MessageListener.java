@@ -72,6 +72,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	 */
 	public MessageListener(JPanel panelUser)  {
 		
+		
 		this.alias 		= ReadProperties.getMyAlias();
 		try {
 			this.client 	= new MpClientV2(alias);
@@ -83,6 +84,12 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			// TODO (nicolas) garder le stackTrace ou pas ? e.printStackTrace();
 		}
 		this.panelUser 	= panelUser;
+		
+//		this.alias 		= ReadProperties.getMyAlias();
+//		this.client 	= new MpClientV2(alias);
+//		this.panelUser 	= panelUser;
+
+		
 
 		
 		
@@ -90,7 +97,6 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 			MessageListener.panelMain = (MessagingMainPanel) panelUser;
 			Items itms =client.getMyMessages();
-			System.out.println("appel de lmain panel");
 			
 				
 			MessageListener.panelMain.setCopyUserItems(itms);
@@ -107,7 +113,6 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		}		
 		if (panelUser instanceof MessagingNewPanel) {
 			panelNew = (MessagingNewPanel) panelUser;
-			System.out.println("appel de new panel");
 		}
 		if (panelUser instanceof MessagingReadPanel) {
 			panelRead = (MessagingReadPanel) panelUser;
@@ -121,23 +126,12 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	@Override
 	public void actionPerformed(ActionEvent e)  {
 
-		
-		System.out.println("une action c'est produite "+ e.getSource().toString());
 		if (e.getSource() == panelMain.getBtnNew()) {
 
-			  Users usr 	= aliasInLower();
-			// TODO (nicolas) TO TEST exception seulement Users usr = null;
-			try {
-				panelNew 	= new MessagingNewPanel(usr);
-				MainFrame.SwithPanel(panelNew);
-			} catch (CustomMessagingException e1) {
-				System.out.println(e1.getMessage());
-				customDialog(e1.getMessage());
-				MainFrame.SwithPanel(panelMain);
-				//e1.printStackTrace();
-			}
+			Users usr 	= aliasInLower();
+			panelNew 	= new MessagingNewPanel(usr);
 
-			
+			MainFrame.SwithPanel(panelNew);
 
 		}
 		else if  (e.getSource() == panelMain.getBtnDraft()) {
@@ -154,15 +148,22 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		}
 		else if  (e.getSource() == panelMain.getBtnDisplay()) {
 
-			System.out.println("to refresh");
+			
 
 		}
-		
+		else if  (e.getSource() == panelMain.getBtnSch()) {
+			String recherche = new String();
+			recherche = panelMain.getTxtSch().getText();
+			if(recherche.isEmpty() || recherche.length() < 4) {
+				customDialog("veillez donner un mot plus long pour la recherche");
+			}else {
+				System.out.println("le mot a chercher est "+recherche);
+			}
+			
+		}
 		
 		// PANEL NOUVEAU MESSAGE
-		
 		else if ((panelNew != null) && (e.getSource() == panelNew.getBtnEnv())) {
-			System.out.println("ligne 163 "+e.getSource().toString());
 			String receiver = (String) panelNew.getCboReceiver()
 					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
 
@@ -174,8 +175,6 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 				}else {
 					System.out.println(panelNew.getTxtMessage().getText().length());
-					
-					System.out.println("-- Envoie message a MpClientV2 --");
 					client.newEmail(alias,receiver, panelNew.getTxtObject().getText(),
 							panelNew.getTxtMessage().getText());
 				
@@ -251,20 +250,24 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			
 			MainFrame.SwithPanel(panelMain);
 		} else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnDel())) {
+
 			try {
 				client.removeMessage(currentItem.getId(), false);
 			} catch (SQLException e1) {
 				System.out.println(e1.getMessage());
 				customDialog(e1.getMessage());
-				MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
-				panelMain.refresh();
-				MainFrame.SwithPanel(panelMain);
+				
 				// TODO (nicolas) need to be here ?e1.printStackTrace();
 			}
-			
-			//cli.numberOfMessages(false);
-			
-		
+			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
+			panelMain.refresh();
+			MainFrame.SwithPanel(panelMain);
+//			client.removeMessage(currentItem.getId(), false);
+//
+//			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
+//			panelMain.refresh();
+//			MainFrame.SwithPanel(panelMain);
+//		
 		// LISTE DES BROUILLONS
 		} else if ((panelDraft != null) && (e.getSource() == panelDraft.getBtnDisplay())) {
 			
@@ -313,17 +316,21 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 				}
 				
 				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnDel())) {
-							
+					
 					try {
 						client.removeMessage(currentItem.getId(), true);
+						
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						System.out.println(e1.getMessage());
+						customDialog(e1.getMessage());
+						
+						
 					}
-
 					panelDraft.setCopyUserItems(client.getMessages(true));
 					panelDraft.refresh();
 					MainFrame.SwithPanel(panelDraft);
+
+					
 					
 					}
 				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnRet())) {
@@ -347,12 +354,13 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 						client.editDraft(draftToSend);
 					} catch (SQLException e1) {
 						customDialog(e1.getMessage());
-						e1.printStackTrace();
-					}
-					
+
+					} 
 					panelDraft.setCopyUserItems(client.getMessages(true));
 					panelDraft.refresh();
 					MainFrame.SwithPanel(panelDraft);
+					
+					
 					
 					// TODO (nicolas) implementer sauvegarde du brouillon.		
 					
@@ -369,14 +377,11 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	 */
 	private Users aliasInLower() {
 		Users usr = OldDatas.getUsersList();
-		if(usr != null) {
-			for(User current : usr) {
-				String toLowerCase = current.getAlias().toLowerCase();
-				current.setAlias(toLowerCase);
-				
-			}
+		for(User current : usr) {
+			String toLowerCase = current.getAlias().toLowerCase();
+			current.setAlias(toLowerCase);
+			
 		}
-
 		return usr;
 	}
 
@@ -481,16 +486,12 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 							if(currentItem != null) {
 								Item itmCopy = new Item(currentItem);
 								
-								// TODO (nicolas) devrait venir de la classe en static ?
-								try {
-									panelMod = new MessagingModifPanel(itmCopy, aliasInLower());
-								} catch (CustomMessagingException e) {
-									System.out.println(e.getMessage());
-									customDialog(e.getMessage());
-									MainFrame.SwithPanel(panelMod);
-									e.printStackTrace();
-								}
 								
+								
+								
+								// TODO (nicolas) devrait venir de la classe en static ?
+								panelMod = new MessagingModifPanel(itmCopy, aliasInLower());
+								MainFrame.SwithPanel(panelMod);
 							}
 								
 					}
