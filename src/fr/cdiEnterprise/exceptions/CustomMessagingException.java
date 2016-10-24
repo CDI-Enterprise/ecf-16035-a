@@ -66,11 +66,13 @@ public class CustomMessagingException extends Exception {
 	 * the second choice of that method will be to display a sentence if an invalid email address has been provided on one of the array elements.
 	 */
 	public String getMessage() {
-		if (this.size > 0 && this.incorrectSize > 0) {
-			return "Expected " + this.size + " elements but got " + this.incorrectSize;
-		} else {
-			return this.message + " is an invalid email address";
-		}
+		
+		return "l'Erreur suivante c'est produite :"+this.message + " pas de données trouvés";
+//		if (this.size > 0 && this.incorrectSize > 0) {
+//			return "Expected " + this.size + " elements but got " + this.incorrectSize;
+//		} else {
+//			return this.message + " is an invalid email address";
+//		}
 
 	}
 

@@ -19,8 +19,9 @@ public class DBConnection {
 
 	// Defines a JDBC driver
 	private final static String ORACLE_DRIVER = "oracle.jdbc.driver.OracleDriver";
-	// Defines a connection string
 	private final static String JUNON_URL = "jdbc:oracle:thin:cdi_enterprise/stagpw@junon:1521:AFPA";
+	// Defines a connection string
+	//private final static String JUNON_URL = "jdbc:oracle:thin:cdi_enterprise/stagpw@junon:1521:AFPA";
 
 	// New connection
 	private static Connection connect;

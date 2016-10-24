@@ -73,15 +73,16 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	public MessageListener(JPanel panelUser)  {
 		
 		this.alias 		= ReadProperties.getMyAlias();
-		this.client 	= new MpClientV2(alias);
-		this.panelUser 	= panelUser;
-		//MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
-		
-		//clients = Datas.getClientBox(); // old implementation.
+		try {
+			this.client 	= new MpClientV2(alias);
+		} catch (SQLException e) {
+			customDialog(e.getMessage());
+			customDialog("sortie du programme");
+			System.exit(-1);
 			
-				//cli = clients.getClient(ReadProperties.getMyAlias());// commented line to avoid calling old implementation.
-		//client = clientsV2.getClient(ReadProperties.getMyAlias());
-		
+			// TODO (nicolas) garder le stackTrace ou pas ? e.printStackTrace();
+		}
+		this.panelUser 	= panelUser;
 
 		
 		
@@ -120,14 +121,19 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 		if (e.getSource() == panelMain.getBtnNew()) {
 
-			Users usr 	= aliasInLower();
-			panelNew 	= new MessagingNewPanel(usr);
-			
+			// TODO (nicolas) TO TEST exception seulement Users usr 	= aliasInLower();
+			 Users usr = null;
+			try {
+				panelNew 	= new MessagingNewPanel(usr);
+				MainFrame.SwithPanel(panelNew);
+			} catch (CustomMessagingException e1) {
+				System.out.println(e1.getMessage());
+				customDialog(e1.getMessage());
+				MainFrame.SwithPanel(panelMain);
+				//e1.printStackTrace();
+			}
 
 			
-			
-		
-			MainFrame.SwithPanel(panelNew);
 
 		}
 		else if  (e.getSource() == panelMain.getBtnDraft()) {
@@ -237,12 +243,19 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			
 			MainFrame.SwithPanel(panelMain);
 		} else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnDel())) {
-			client.removeMessage(currentItem.getId(), false);
+			try {
+				client.removeMessage(currentItem.getId(), false);
+			} catch (SQLException e1) {
+				System.out.println(e1.getMessage());
+				customDialog(e1.getMessage());
+				MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
+				panelMain.refresh();
+				MainFrame.SwithPanel(panelMain);
+				// TODO (nicolas) need to be here ?e1.printStackTrace();
+			}
 			
 			//cli.numberOfMessages(false);
-			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
-			panelMain.refresh();
-			MainFrame.SwithPanel(panelMain);
+			
 		
 		// LISTE DES BROUILLONS
 		} else if ((panelDraft != null) && (e.getSource() == panelDraft.getBtnDisplay())) {
@@ -293,7 +306,12 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 				
 				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnDel())) {
 							
-					client.removeMessage(currentItem.getId(), true);
+					try {
+						client.removeMessage(currentItem.getId(), true);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 
 					panelDraft.setCopyUserItems(client.getMessages(true));
 					panelDraft.refresh();
@@ -343,11 +361,14 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 	 */
 	private Users aliasInLower() {
 		Users usr = OldDatas.getUsersList();
-		for(User current : usr) {
-			String toLowerCase = current.getAlias().toLowerCase();
-			current.setAlias(toLowerCase);
-			
+		if(usr != null) {
+			for(User current : usr) {
+				String toLowerCase = current.getAlias().toLowerCase();
+				current.setAlias(toLowerCase);
+				
+			}
 		}
+
 		return usr;
 	}
 
@@ -453,8 +474,15 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 								Item itmCopy = new Item(currentItem);
 								
 								// TODO (nicolas) devrait venir de la classe en static ?
-								panelMod = new MessagingModifPanel(itmCopy, aliasInLower());
-								MainFrame.SwithPanel(panelMod);
+								try {
+									panelMod = new MessagingModifPanel(itmCopy, aliasInLower());
+								} catch (CustomMessagingException e) {
+									System.out.println(e.getMessage());
+									customDialog(e.getMessage());
+									MainFrame.SwithPanel(panelMod);
+									e.printStackTrace();
+								}
+								
 							}
 								
 					}

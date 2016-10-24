@@ -23,7 +23,7 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.StyledDocument;
 
 import fr.cdiEnterprise.control.MessageListener;
-
+import fr.cdiEnterprise.exceptions.CustomMessagingException;
 import fr.cdiEnterprise.model.User;
 import fr.cdiEnterprise.service.Users;
 import fr.cdiEnterprise.util.ReadProperties;
@@ -50,7 +50,7 @@ public class MessagingNewPanel extends JPanel {
 	private String from;
 	private JLabel receiver;
 	private JLabel lblobject;
-	private JLabel Message;
+	private JLabel lblmessage;
 	private JLabel letterCount;
 	private JLabel lblCounter;
 	private JTextPane textPane;
@@ -66,7 +66,7 @@ public class MessagingNewPanel extends JPanel {
 
 
 	
-	public MessagingNewPanel(Users list) {
+	public MessagingNewPanel(Users list) throws CustomMessagingException {
 		
 		
 		MessageListener listener = new MessageListener((JPanel) this);
@@ -98,7 +98,7 @@ public class MessagingNewPanel extends JPanel {
 		
 		receiver = new JLabel("Destinataire");
 		lblobject = new JLabel("Objet");
-		Message = new JLabel("Texte");
+		lblmessage = new JLabel("Texte");
 		letterCount = new JLabel("compteur");
 		lblCounter =   new JLabel();
 		
@@ -141,39 +141,39 @@ public class MessagingNewPanel extends JPanel {
 			for(User current : usersList) {
 				if(current != null) {
 					cboReceiver.addItem(current.getAlias());
+					
+					panNorth.add(lblTitle);
+					panCenter.setLayout(new MigLayout());
+					panCenter.setBorder(borderMessage);
+					
+					panCenter.add(receiver, "w 200!");
+					panCenter.add(cboReceiver, "wrap");
+					panCenter.add(lblobject, "w 200!");
+					panCenter.add(txtObject, "wrap");
+					
+					panCenter.add(lblmessage, "w 200!");
+					panCenter.add(txtMessage, "wrap");
+
+					panCenter.add(letterCount, "w 200!");
+					panCenter.add(lblCounter, "wrap");
+					
+					
+					panCenter.add(btnEnv, "w 200!");
+					panCenter.add(btnDraft, "w 200!");
+					panCenter.add(btnReturn, "w 200!");
+					
+					
+					btnEnv.addActionListener(listener);
+					btnDraft.addActionListener(listener);
+					btnReturn.addActionListener(listener);
+					
+					
 					}	
 			}
 		}else {
-			//System.out.println("usersList is null ");
+			throw new CustomMessagingException("Attention la liste des utilisateur est vide...");
 		}
-		
-		
-		panNorth.add(lblTitle);
-		panCenter.setLayout(new MigLayout());
-		panCenter.setBorder(borderMessage);
-		
-		panCenter.add(receiver, "w 200!");
-		panCenter.add(cboReceiver, "wrap");
-		panCenter.add(lblobject, "w 200!");
-		panCenter.add(txtObject, "wrap");
-		
-		panCenter.add(Message, "w 200!");
-		panCenter.add(txtMessage, "wrap");
 
-		panCenter.add(letterCount, "w 200!");
-		panCenter.add(lblCounter, "wrap");
-		
-		
-		panCenter.add(btnEnv, "w 200!");
-		panCenter.add(btnDraft, "w 200!");
-		panCenter.add(btnReturn, "w 200!");
-		
-		
-		btnEnv.addActionListener(listener);
-		btnDraft.addActionListener(listener);
-		btnReturn.addActionListener(listener);
-		
-		//txtMessage.addKeyListener(listener);
 		
 		
 		

@@ -21,7 +21,7 @@ public class TestDB {
 		Database Oracle = new Database();
 		Items items = new Items();
 
-		MpClientV2 client = new MpClientV2("oracle");
+		
 		
 		// used to be tested with messageDAO  Item message2 = new Item("omy", "oracle", "test2", "This is a test.", LocalDateTime.now());
 		//message2.setDraftEmail(false);

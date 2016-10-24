@@ -15,6 +15,7 @@ import javax.swing.text.AbstractDocument;
 
 import fr.cdiEnterprise.control.MessageListener;
 import fr.cdiEnterprise.dao.OldDatas;
+import fr.cdiEnterprise.exceptions.CustomMessagingException;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.model.User;
 import fr.cdiEnterprise.service.Users;
@@ -59,7 +60,7 @@ public class MessagingModifPanel extends JPanel {
 	private static final int MAX_CHARACTERS = 450;
 
 	
-	public MessagingModifPanel(Item item, Users list) {
+	public MessagingModifPanel(Item item, Users list) throws CustomMessagingException {
 		
 		itm = item;
 		MessageListener listener = new MessageListener((JPanel) this);
@@ -131,47 +132,42 @@ public class MessagingModifPanel extends JPanel {
 			for(User current : usersList) {
 				if(current != null) {
 					cboReceiver.addItem(current.getAlias());
+					panNorth.add(lblTitle);
+					panCenter.setLayout(new MigLayout());
+					
+					panCenter.add(receiver, "w 200!");
+					panCenter.add(cboReceiver, "wrap");
+					panCenter.add(lblObject, "w 200!");
+					panCenter.add(txtObject, "wrap");
+				
+					
+					panCenter.add(txtMessage, "wrap");
+					
+					
+					
+					
+					
+					panCenter.add(btnEnv, "w 200!");
+					panCenter.add(btnSav, "w 200!");
+					panCenter.add(btnDel, "w 200!");
+					panCenter.add(btnRet, "w 200!");
+					
+					
+					btnEnv.addActionListener(listener);
+					btnSav.addActionListener(listener);
+					btnDel.addActionListener(listener);
+					btnRet.addActionListener(listener);
 					}	
 			}
 		}else {
-			//System.out.println("usersList is null ");
+			throw new CustomMessagingException("Attention la liste des utilisateur est vide...");
+			
 		}
 		
 		
-		panNorth.add(lblTitle);
-		panCenter.setLayout(new MigLayout());
-		
-		panCenter.add(receiver, "w 200!");
-		panCenter.add(cboReceiver, "wrap");
-		//panCenter.add(receiver, "wrap");
-		//panCenter.add(lblReceiver, "wrap");
-		panCenter.add(lblObject, "w 200!");
-		panCenter.add(txtObject, "wrap");
 	
 		
-		panCenter.add(txtMessage, "wrap");
-		
-		
-		
-		//panCenter.add(lblMessage, "w 200!");
-		//panCenter.add(txtMessage, "wrap");
 
-		//panCenter.add(letterCount, "w 200!");
-		//panCenter.add(lblCounter, "wrap");
-		
-		
-		panCenter.add(btnEnv, "w 200!");
-		panCenter.add(btnSav, "w 200!");
-		panCenter.add(btnDel, "w 200!");
-		panCenter.add(btnRet, "w 200!");
-		
-		
-		btnEnv.addActionListener(listener);
-		btnSav.addActionListener(listener);
-		btnDel.addActionListener(listener);
-		btnRet.addActionListener(listener);
-		
-//		txtMessage.addKeyListener(listener);
 		
 		
 		
