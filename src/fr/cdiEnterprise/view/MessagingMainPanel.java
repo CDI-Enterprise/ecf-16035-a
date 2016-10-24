@@ -112,6 +112,7 @@ public class MessagingMainPanel extends JPanel {
 		JPanel panNorth = new JPanel();
 		JPanel panWest = new JPanel();
 		JPanel panCenter = new JPanel();
+		
 		panMess.setLayout(new BorderLayout());
 		add(panMess);
 		panMess.add(panNorth,BorderLayout.NORTH);
@@ -122,9 +123,8 @@ public class MessagingMainPanel extends JPanel {
 		JLabel lblMess = new JLabel("Nombre de Message(s) :");
 		JLabel lblNombre = new JLabel(tableModele.getRowCount()+"");
 		JLabel lblTitre = new JLabel("Boite de Messagerie de :"+ReadProperties.getMyAlias());
+
 		
-		String header = String.format(FORMAT_LIST, HEADER_LIST);
-		JLabel headerLabel = new JLabel(header);
 		
 		
 		tiModel.setUsers(copyUserItems);
@@ -196,7 +196,6 @@ public class MessagingMainPanel extends JPanel {
 	 */
 	private void fillModel() {
 
-		
 		int index = 0;
 		if(copyUserItems.isEmpty()) {
 			
@@ -224,10 +223,8 @@ public class MessagingMainPanel extends JPanel {
 				tableModele =  new DefaultTableModel(tableauMsg, new String[] {
 						"Sender", "Objet", "Date Reception"
 					});
-				
 			}
-			
-			
+
 		}else {
 			
 			tiModel.setUsers(copyUserItems);

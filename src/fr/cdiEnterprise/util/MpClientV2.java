@@ -45,9 +45,14 @@ public class MpClientV2 {
 	private Items myMessages;
 	//private Items myDraft;
 	
-	public MpClientV2(String usr) {
+	/**
+	 * Ce constructeur vq d('abord charger tous les messages contenu dans la base pour l'utilisateur donné en parametre.
+	 * par la suite il va charger seuelement les messages dans son attribu d'items.
+	 * @param usr represente la Boite de messagerie de l'utilsateur, aillant ouvert l'application.
+	 * @throws SQLException 
+	 */
+	public MpClientV2(String usr) throws SQLException {
 		box = usr;
-
 		this.myMessages = new Items();
 		myMessages 	= getMaxItems(false);
 		getMaxItems(true);
@@ -59,8 +64,9 @@ public class MpClientV2 {
 
 	/**
 	 * Cette method est utilise pour determiner le numeros de message ID Max provenant de la base de donnee.
+	 * @throws SQLException 
 	 */
-	private Items getMaxItems(boolean all) {
+	private Items getMaxItems(boolean all) throws SQLException {
 		Items items = null;
 		if(ID_NUMBER == CONST_ZERO)
 		{
@@ -84,7 +90,7 @@ public class MpClientV2 {
 		return items;
 	}
 	
-	private Items getAllMessages() {
+	private Items getAllMessages() throws SQLException {
 		return messageDao.getAllItems(this.box);
 	}
 
@@ -134,11 +140,12 @@ public class MpClientV2 {
 		if(draft) {
 
 			repliedItem.setDraftEmail(false);
-	
+			System.out.println("message envoye a la base");
 			messageDao.insertItem(repliedItem);
 			
 			return true;
 		}else {
+			System.out.println("message envoye a la base");
 			if(item.getObject() != null && item.getBody() != null) {
 				repliedItem.setObject("re: "+ item.getObject());
 				repliedItem.setTimeStamp(timeStamp);
@@ -217,8 +224,9 @@ public class MpClientV2 {
 	 * this is going to remove a message or a draft message, and with a particular id.
 	 * @param identifier to get the requested email removed
 	 * @param draft will indicate if this is a draft email
+	 * @throws SQLException 
 	 */
-	public void removeMessage(int identifier, boolean draft) {
+	public void removeMessage(int identifier, boolean draft) throws SQLException {
 		
 		if(messageDao.removeMessage(this.box, identifier, draft)) {
 			// TODO (nicolas) return a boolean later.

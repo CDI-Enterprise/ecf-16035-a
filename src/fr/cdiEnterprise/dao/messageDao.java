@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import fr.cdiEnterprise.exceptions.CustomMessagingException;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.service.Items;
 
@@ -45,7 +46,7 @@ public class messageDao {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try {
-			connection = Database.getConnect();
+			connection = DBConnection.getConnect();
 					
 			
 
@@ -97,18 +98,11 @@ public class messageDao {
 		} catch (SQLException e) {
 			System.out.println("SQL Error In the insertMessage...");
 			e.printStackTrace();
-		} finally {
-			try {
-				statement.close();
-				connection.close();
-			} catch (SQLException e) {
-				// TODO (Nicolas) need to fix this
-				e.printStackTrace();
-			}
+		} 
 
 		}
 
-	}
+	
 	// if (item != null) {
 	//
 	// mess.add(item);
@@ -144,7 +138,7 @@ public class messageDao {
 		ResultSet resultSet = null;
 		Items items = new Items();
 
-		connection = Database.getConnect();
+		connection = DBConnection.getConnect();
 		try {
 			statement = connection.createStatement();
 
@@ -218,20 +212,17 @@ public class messageDao {
 	 */
 
 	// TODO (nicolas) methode a revoir
-	public static Items getAllItems(String box) {
+	public static Items getAllItems(String box) throws SQLException {
 
 		Connection connection = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
 		Items items = new Items();
 
-		connection = Database.getConnect();
+		connection = DBConnection.getConnect();
 		try {
 			statement = connection.createStatement();
-		} catch (SQLException e1) {
-			// TODO (nicolas) need to fix this excp
-			e1.printStackTrace();
-		}
+
 
 		// String ident = null;
 		int ident = 0;
@@ -248,7 +239,7 @@ public class messageDao {
 				//
 				"identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft", TABLE_NAME);
 
-		try {
+		
 			resultSet = statement.executeQuery(createStatement);
 			connection.commit();
 
@@ -270,9 +261,8 @@ public class messageDao {
 				items.add(item);
 			}
 		} catch (SQLException e) {
-			// TODO (nicolas) need to fix this
-			e.printStackTrace();
-		}
+			throw new SQLException("[READ] Erreur SQL suivante : " + e.getMessage());
+		} 
 
 		return items;
 
@@ -282,19 +272,23 @@ public class messageDao {
 
 
 	/**
+	 * Cette methode va supprimer un message pour un utilisateur donné ainsi qu'un type de message (brouillon ou pas).
+	 * 
+	 // TODO (nicolas) s'assurer que le usr n'est pas null.... ici ou plus haut ?
 	 * 
 	 * @param usr
 	 * @param identifier
 	 * @param draft
 	 * @return
+	 * @throws SQLException 
 	 */
-	public static boolean removeMessage(String usr, int identifier, boolean draft) {
+	public static boolean removeMessage(String usr, int identifier, boolean draft) throws SQLException {
 
-		Connection connection = null;
-		Statement statement = null;
-		ResultSet resultSet = null;
+		Connection connection 	= null;
+		Statement statement 	= null;
+		ResultSet resultSet 	= null;
 
-		connection = Database.getConnect();
+		connection = DBConnection.getConnect();
 		try {
 			statement = connection.createStatement();
 			String query = "delete from mailbox where identity = '" + identifier + "'";
@@ -302,8 +296,8 @@ public class messageDao {
 			statement.executeUpdate(query);
 			connection.commit();
 		} catch (SQLException e) {
-			// TODO (Nicolas) need to fix this excp
-			e.printStackTrace();
+			throw new SQLException("[DEL] Erreur SQL suivante : " + e.getMessage());
+			
 		}
 
 		return true;
@@ -321,7 +315,7 @@ public class messageDao {
 		Statement statement = null;
 		ResultSet resultSet = null;
 
-		connection = Database.getConnect();
+		connection = DBConnection.getConnect();
 		try {
 			statement = connection.createStatement();
 			int ident = 0;
@@ -347,11 +341,9 @@ public class messageDao {
 			connection.commit();
 
 		} catch (SQLException e) {
-			System.out.println("SQL Error in update Method.");
-			e.printStackTrace();
-		} finally {
-			connection.close();
-		}
+			throw new SQLException("[UPDATE] Erreur SQL suivante : " + e.getMessage());
+			//e.printStackTrace();
+		} 
 
 	}
 
