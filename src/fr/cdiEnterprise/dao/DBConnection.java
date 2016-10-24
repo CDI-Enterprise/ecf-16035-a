@@ -52,16 +52,14 @@ public class DBConnection {
 		// If exception, JDBC driver is not linked to the Java project
 		catch(ClassNotFoundException e){
 			System.err.println("Oracle : Le driver n'a pas été trouvé."); 
-		}
-		// If connection doesn't work
-		catch (SQLException s){
-			System.err.println("Junon : Erreur lors de la connexion : "
-					+ s.getSQLState() + " , "
-					+ " (" + s + ")" );
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
 	public static Connection getConnect() {
+
 		return connect;
 	}
 	

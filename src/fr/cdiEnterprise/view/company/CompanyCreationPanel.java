@@ -9,6 +9,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -27,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import fr.cdiEnterprise.control.PanelCreateComListener;
 import fr.cdiEnterprise.control.BookMarkListener;
+import fr.cdiEnterprise.dao.DataBaseCompany;
 import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Department;
@@ -109,7 +111,7 @@ public class CompanyCreationPanel extends JPanel {
 
 	private Component BookMarkPanel;
 	
-	public CompanyCreationPanel() {
+	public CompanyCreationPanel() throws SQLException {
 		
 		Container panneau = this;
 		panneau.setLayout(new BorderLayout(5,5));
@@ -171,18 +173,20 @@ public class CompanyCreationPanel extends JPanel {
 		
 		lblCompanyDepartment = new JLabel("Departement *");
 		cboCompanyDepartment = new JComboBox<String>();
-			for (Department department : OldDatas.getDepartmentsList()) {
-			cboCompanyDepartment.addItem(department.getDepartmentName());
+		//for (Department department : OldDatas.getDepartmentsList()) {
+		for (Department department : DataBaseCompany.getDepartmentListData()){	
+		cboCompanyDepartment.addItem(department.getDepartmentName());
 			}
-		cboCompanyDepartment.setEditable(true);
+		cboCompanyDepartment.setEditable(false);
 		cboCompanyDepartment.setMaximumRowCount(5);
 
 		lblCompanyRegion = new JLabel("Région *");
 		cboCompanyRegion = new JComboBox<String>();
-		for (Region region : OldDatas.getRegionsList()) {
+		//for (Region region : OldDatas.getRegionsList()) 
+		for (Region region: DataBaseCompany.getRegionsListData()){
 			cboCompanyRegion.addItem(region.getRegionName());
 		}
-		cboCompanyRegion.setEditable(true);
+		cboCompanyRegion.setEditable(false);
 		cboCompanyRegion.setMaximumRowCount(5);
 				
 		lblSize= new JLabel("Taille entreprise");
@@ -205,7 +209,7 @@ public class CompanyCreationPanel extends JPanel {
 		lblLanguages = new JLabel ("Langages principalement utilisés *");	
 		dlmLanguages = new DefaultListModel<Language>();
 		lstLanguages = new JList<Language>(dlmLanguages);
-		for (Language language : OldDatas.getLanguagesCompanyList()) {
+		for (Language language : DataBaseCompany.getLanguagesListData()) {
 		dlmLanguages.addElement(language);
 		}
 		languages = new JScrollPane(lstLanguages, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -241,7 +245,7 @@ public class CompanyCreationPanel extends JPanel {
 		
 		dlmCompanies = new DefaultListModel<Company>();
 		lstCompanies = new JList<Company>(dlmCompanies);
-		for (Company company: OldDatas.getCompaniesList()){
+		for (Company company: DataBaseCompany.getCompaniesData()){
 			dlmCompanies.addElement(company);
 		}
 		JScrollPane companies = new JScrollPane(lstCompanies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
@@ -335,12 +339,7 @@ public class CompanyCreationPanel extends JPanel {
 		return btnCreate;
 	}
 
-	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+	
 
 	/**
 	 * @return the border

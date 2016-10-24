@@ -2,12 +2,19 @@ package fr.cdiEnterprise.control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
 import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import fr.cdiEnterprise.dao.DataBaseCompany;
 import fr.cdiEnterprise.dao.OldDatas;
+import fr.cdiEnterprise.exceptions.CompanyCreationException;
 import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Contact;
 import fr.cdiEnterprise.model.Department;
@@ -56,6 +63,7 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 	// Attribute to create a company
 	Company company;
 
+	private JFrame popupError;
 	
 	public PanelCreateComListener(CompanyCreationPanel panCompCreat) {
 		this.panCompCreat = panCompCreat;
@@ -63,58 +71,81 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(panCompCreat.getTxtCompanyName().getText()==null){
-//			panCompCreat.getTxtCompanyName().setBorder(new Border());
-		}
-		else {
-			companyName = panCompCreat.getTxtCompanyName().getText();	
-		}
-		companyAdress = panCompCreat.getTxtCompanyAdress().getText();
 		
-		companyCity = panCompCreat.getTxtCompanyCity().getText().toUpperCase();
-		companyPostalCode = panCompCreat.getTxtPostalCode().getText();
-		nomDepartment = panCompCreat.getCboCompanyDepartment().getSelectedItem().toString();
-		companyDepartment = OldDatas.getDepartment(nomDepartment);
-		nomRegion = panCompCreat.getCboCompanyRegion().getSelectedItem().toString();
-		companyRegion = OldDatas.getRegion(nomRegion);
-		
-		// Calls the status selection method
-		btnGrp = panCompCreat.getSizeGrp();
-		btnSelected = MethodsForListeners.getSelectedJRadioButton(btnGrp);
-		companySize = btnSelected.getText();		
-		
-		//TODO (Anaïs) créer excepion nullPointerException Anaïs
-		
-		companySector = panCompCreat.getTxtSector().getText();
-		
-		companyLanguages = new Languages();
-		int[] indSel = panCompCreat.getLstLanguages().getSelectedIndices();
-		try {
-			for (int i = 0; i < indSel.length; i++) {
-				companyLanguages.add(panCompCreat.getDlmLanguages().get(indSel[i]));
-			}
-		} catch (IndexOutOfBoundsException excep) {
-			companyLanguages = null;
-		}
-		System.out.println(companyLanguages);
-		
-		companyProjets= panCompCreat.getTxtProjets().getText();
-		companyWebSite = panCompCreat.getTxtWebSite().getText();
-		contactName = panCompCreat.getTxtContactName().getText();
-		contactPhone = panCompCreat.getTxtContactPhone().getText();
-		contactMail = panCompCreat.getTxtContactMail().getText();
-		
-		contact = new Contact (contactName, contactPhone, contactMail);
 		
 		
 		if (e.getSource() == panCompCreat.getBtnCreate()) {
-			System.out.println("Création d'une nouvelle entreprise");					
-			company = new Company(companyName, companyAdress, companyPostalCode, companyCity, companyDepartment, companyRegion,  
-					companySize,companySector, companyLanguages, companyProjets, companyWebSite, contact);
-			OldDatas.getCompaniesList().add(company);
-			System.out.println(OldDatas.getCompaniesList());
-			CompanyCreationPanel.getDlmCompanies().addElement(company);
-			MethodsForListeners.resetJTextField(panCompCreat.getAllJTextFields());
+			try {
+				btnGrp = panCompCreat.getSizeGrp();
+				btnSelected = MethodsForListeners.getSelectedJRadioButton(btnGrp);
+				companySize = btnSelected.getText();	
+			}catch(NullPointerException excep){
+				companySize = null;
+			}
+			
+			try{
+				System.out.println("Création d'une nouvelle entreprise");	
+	
+				companyName = MethodsForListeners.nullField(panCompCreat.getTxtCompanyName().getText());
+				companyAdress = panCompCreat.getTxtCompanyAdress().getText();
+				companyCity = MethodsForListeners.nullField(panCompCreat.getTxtCompanyCity().getText().toUpperCase());
+				companyPostalCode = MethodsForListeners.nullField(panCompCreat.getTxtPostalCode().getText());
+				nomDepartment = panCompCreat.getCboCompanyDepartment().getSelectedItem().toString();
+				companyDepartment = DataBaseCompany.getDepartmentId(nomDepartment);
+				
+				nomRegion = panCompCreat.getCboCompanyRegion().getSelectedItem().toString();
+				companyRegion = OldDatas.getRegion(nomRegion);				
+				companySector = panCompCreat.getTxtSector().getText();
+				
+				
+				companyLanguages = new Languages();
+							
+				int[] indSel = panCompCreat.getLstLanguages().getSelectedIndices();
+				try {
+					for (int i = 0; i < indSel.length; i++) {
+						companyLanguages.add(panCompCreat.getDlmLanguages().get(indSel[i]));
+					}
+				} catch (IndexOutOfBoundsException excep) {
+					companyLanguages = null;
+				}
+				System.out.println(companyLanguages);
+				
+				companyProjets= panCompCreat.getTxtProjets().getText();
+				companyWebSite = MethodsForListeners.nullField(panCompCreat.getTxtWebSite().getText());
+				contactName = panCompCreat.getTxtContactName().getText();
+				contactPhone = panCompCreat.getTxtContactPhone().getText();
+				contactMail = panCompCreat.getTxtContactMail().getText();
+
+				contact = new Contact (contactName, contactPhone, contactMail);
+				
+				
+				company = new Company(companyName, companyAdress, companyPostalCode, companyCity, companyDepartment, companyRegion,  
+						companySize,companySector, companyLanguages, companyProjets, companyWebSite, contact);
+				System.out.println(company);
+				
+				
+				CompanyCreationPanel.getDlmCompanies().addElement(company);
+				MethodsForListeners.resetJTextField(panCompCreat.getAllJTextFields());
+				
+			}catch (CompanyCreationException | SQLException exception){
+				JOptionPane.showMessageDialog(popupError, "Veuillez renseigner les champs obligatoires");
+			}
+	
+			
+	
+			
+			
+			
+			
+			
+			//TODO (Anaïs) créer excepion nullPointerException Anaïs
+			
+			
+			
+			
+			
+			//OldDatas.getCompaniesList().add(company);
+
 		}
 		
 		if (e.getSource() == panCompCreat.getBtnCancel()){

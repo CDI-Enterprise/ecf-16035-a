@@ -32,6 +32,11 @@ public class Region {
 	}
 
 
+	public Region(String name, int regionId) {
+		this.regionName = name;
+		this.codeRegion = regionId;
+	}
+
 	public String getRegionName() {
 		return regionName;
 	}
