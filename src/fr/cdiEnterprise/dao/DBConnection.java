@@ -13,6 +13,7 @@ import java.sql.SQLException;
  * @author Claire
  * @version 2016-10-19
  */
+
 //TODO (Groupe) separate driver loading from connection?
 public class DBConnection {
 
