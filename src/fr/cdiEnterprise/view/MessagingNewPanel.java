@@ -4,6 +4,8 @@
 package fr.cdiEnterprise.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
@@ -11,10 +13,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.StyledDocument;
 
 import fr.cdiEnterprise.control.MessageListener;
 
@@ -23,6 +29,7 @@ import fr.cdiEnterprise.service.Users;
 import fr.cdiEnterprise.util.ReadProperties;
 import javafx.scene.control.ComboBox;
 import net.miginfocom.swing.MigLayout;
+
 
 /**
  * class nouveau message, inclu une combobox qui donne accés aux psuedo des utlisateurs de la class Datas.
@@ -46,12 +53,15 @@ public class MessagingNewPanel extends JPanel {
 	private JLabel Message;
 	private JLabel letterCount;
 	private JLabel lblCounter;
+	private JTextPane textPane;
 	
 	private JComboBox cboReceiver;
 	private JTextField txtReceiver;
 	private JTextField txtObject;
 	private JTextArea  txtMessage;
+	private JScrollPane scroll;
 	
+	private static final int MAX_CHARACTERS = 450;
 	private Users usersList;
 
 
@@ -92,7 +102,28 @@ public class MessagingNewPanel extends JPanel {
 		letterCount = new JLabel("compteur");
 		lblCounter =   new JLabel();
 		
+	
+		
+//		textPane = new JTextPane();
+//		textPane.setCaretPosition(0);
+//		textPane.setBounds(0, 0, 200, 200);
+//        textPane.setMargin(new Insets(5,5,5,5));
+        
+       // JScrollPane scrollPane = new JScrollPane(textPane);
+      //  scrollPane.setPreferredSize(new Dimension(200, 200));
 
+        
+	
+		//StyledDocument styledDoc = textPane.getStyledDocument();
+		
+		//if (styledDoc instanceof AbstractDocument) {
+
+	//	}
+		//textPane.setBorder(border);
+		
+		
+		
+		
 
 		cboReceiver = new JComboBox();
 		cboReceiver.setEditable(true);
@@ -104,7 +135,10 @@ public class MessagingNewPanel extends JPanel {
 		txtMessage.setLineWrap(true);
 		txtMessage.setWrapStyleWord(true);
 		txtMessage.setBorder(border);
-	
+		
+		AbstractDocument doc = (AbstractDocument) txtMessage.getDocument();
+		
+	    doc.setDocumentFilter(new DocumentSizeFilter(MAX_CHARACTERS));
 		
 		if(usersList != null) {
 			for(User current : usersList) {
@@ -142,7 +176,7 @@ public class MessagingNewPanel extends JPanel {
 		btnDraft.addActionListener(listener);
 		btnReturn.addActionListener(listener);
 		
-		txtMessage.addKeyListener(listener);
+		//txtMessage.addKeyListener(listener);
 		
 		
 		

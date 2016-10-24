@@ -1,4 +1,4 @@
-package fr.cdiEnterprise.view;
+package fr.cdiEnterprise.view.company;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -37,15 +37,28 @@ import net.miginfocom.swing.MigLayout;
 public class CompanyCreationPanel extends JPanel {
 
 	/**
+	 * Panel for company's creation
+	 * @author Anaïs
+	 * @version 16-10-2016
 	 * 
 	 */
+
 	private static final long serialVersionUID = 1L;
 
+	//Border
 	private Border border;
+	
+	//Panel North 
 	private JPanel panNorth;
+	
+	
+	//Panel west
 	private JPanel panWest;
+	//Panel contact of company
 	private JPanel panContact;
+	//
 	private JPanel panCompany;
+	
 	private JPanel panCenter;
 	private JPanel panSouth;
 	private JLabel lblTitle;

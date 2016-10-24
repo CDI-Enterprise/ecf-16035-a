@@ -13,8 +13,8 @@ import fr.cdiEnterprise.model.Contact;
 import fr.cdiEnterprise.model.Department;
 import fr.cdiEnterprise.model.Region;
 import fr.cdiEnterprise.service.Languages;
-import fr.cdiEnterprise.view.CompanyCreationPanel;
 import fr.cdiEnterprise.view.MainFrame;
+import fr.cdiEnterprise.view.company.CompanyCreationPanel;
 
 /**
  *Listeners for panel "Company Creation"
@@ -56,6 +56,7 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 	// Attribute to create a company
 	Company company;
 
+	
 	public PanelCreateComListener(CompanyCreationPanel panCompCreat) {
 		this.panCompCreat = panCompCreat;
 	}

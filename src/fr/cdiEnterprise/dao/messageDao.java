@@ -1,6 +1,7 @@
 package fr.cdiEnterprise.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -29,17 +30,26 @@ import fr.cdiEnterprise.service.Items;
 public class messageDao {
 
 	private static String TABLE_NAME = "mailbox";
-
+	private static final String IDENTITY = "IDENTITY";
+	private static final String SENDER = "SENDER";
+	private static final String RECEIVER = "RECEIVER";
+	private static final String SUBJECT  = "SUBJECT";
+	private static final String MESSBODY = "MESSBODY";
+	private static final String TIMESTAMP  = "TIMESTAMP";
+	private static final String DRTAFT  = "DRAFT";
+	
+	
 	public static void insertItem(Item item) {
 
 		Connection connection = null;
-		Statement statement = null;
+		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try {
 			connection = Database.getConnect();
-			statement = connection.createStatement();
+					
+			
 
-			int ident = 0;
+			int ref = 0;
 			String sender = null;
 			String receiver = null;
 			String object = null;
@@ -47,7 +57,7 @@ public class messageDao {
 			String date = null;
 			int draft = 0; // 0 for draft
 
-			ident = item.getId();
+			ref = item.getId();
 			sender = item.getSender();
 			receiver = item.getReceiver();
 			object = item.getObject();
@@ -56,15 +66,31 @@ public class messageDao {
 			if (draft == 0) {
 				date = localDateToString(item.getTimeStamp());
 			}
-
-			String createStatement = String.format(
-					"insert into %s (%s  , %s ,%s , %s ,%s, %s , %s ) values ( " + "'" + ident + "' , '" + sender
-							+ "' , '" + receiver + "',  '" + object + "', '" + body + "', '" + date + "',  '" + draft
-							+ "' )",
-					TABLE_NAME, //
-					"identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft");
-
-			statement.executeUpdate(createStatement);
+			
+			statement = connection
+					.prepareStatement("insert into mailbox (IDENTITY, SENDER, RECEIVER, SUBJECT, MESSBODY, TIMESTAMP, DRAFT) values (?, ?, ?, ?, ?, ?, ?)");
+			
+			
+			statement.setInt(1, ref);
+			statement.setString(2, sender);
+			statement.setString(3, receiver);
+			statement.setString(4, object);
+			statement.setString(5, body);
+			statement.setString(6, date);
+			statement.setInt(7, draft);
+			System.out.println(statement.toString());
+			statement.executeUpdate();
+			
+			
+//			String createStatement = String.format(
+//					"insert into %s (%s  , %s ,%s , %s ,%s, %s , %s ) values ( " + "'" + ident + "' , '" + sender
+//							+ "' , '" + receiver + "',  '" + object + "', '" + body + "', '" + date + "',  '" + draft
+//							+ "' )",
+//					TABLE_NAME, //
+//					"identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft");
+//			System.out.println(createStatement);
+//			
+//			statement.executeUpdate(createStatement);
 
 			connection.commit();
 
@@ -111,7 +137,7 @@ public class messageDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static Items getAllItems(String box, boolean draft) {
+	public static Items getAllItems(String box, boolean draft){
 
 		Connection connection = null;
 		Statement statement = null;
@@ -121,10 +147,7 @@ public class messageDao {
 		connection = Database.getConnect();
 		try {
 			statement = connection.createStatement();
-		} catch (SQLException e1) {
-			// TODO (Nicolas)
-			e1.printStackTrace();
-		}
+
 
 		// String ident = null;
 		int ident = 0;
@@ -154,7 +177,7 @@ public class messageDao {
 		// draft from mailbox
 		// WHERE sender = 'claire';
 
-		try {
+
 			resultSet = statement.executeQuery(createStatement);
 			connection.commit();
 
@@ -175,11 +198,10 @@ public class messageDao {
 						intToBoolean(draftMess));
 				items.add(item);
 			}
-		} catch (SQLException e) {
-			// TODO (Nicolas) need to fix this
-			e.printStackTrace();
+		} catch (SQLException e1) {
+			System.out.println(" an issue happen with the SQL to getAll items");
+			e1.printStackTrace();
 		}
-
 		return items;
 
 	}
@@ -258,9 +280,14 @@ public class messageDao {
 
 	// }
 
-	// TODO (Nicolas) deleteMessage - public static boolean removeMessage(String
-	// usr, String identifier, boolean draft) {
 
+	/**
+	 * 
+	 * @param usr
+	 * @param identifier
+	 * @param draft
+	 * @return
+	 */
 	public static boolean removeMessage(String usr, int identifier, boolean draft) {
 
 		Connection connection = null;

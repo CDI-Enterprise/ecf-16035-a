@@ -1,5 +1,14 @@
 package fr.cdiEnterprise.model;
 
+/**
+* Class for region creation for company and user
+* 
+* @author Anaïs
+* @version 23-10-2016
+*
+*/
+
+
 public class Region {
 
 	public static final String[] REGIONS = {"Auvergne-Rhône-Alpes", "Bourgogne Franche Comté", "Bretagne", "Centre-Val de Loire", 
@@ -10,6 +19,7 @@ public class Region {
 	private int codeRegion;
 	static int ind;
 
+	
 	public Region() {
 
 	}

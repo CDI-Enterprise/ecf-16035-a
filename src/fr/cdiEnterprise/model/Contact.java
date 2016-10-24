@@ -1,10 +1,10 @@
 package fr.cdiEnterprise.model;
 
 /**
-* Cette classe représente un contact qui sera renseigné par un utilisateur et affiché dans la fiche entreprise.
+* Class for company's contact creation.
 * 
 * @author Anaïs
-* @version 30-09-2016
+* @version 23-10-2016
 *
 */
 

@@ -4,6 +4,17 @@ import java.util.ArrayList;
 
 import fr.cdiEnterprise.model.Region;
 
+/*
+ * *
+ * ArrayList of regions
+ * 
+ * @author: Anaïs
+ * @version: 24/10/2016
+ */
+
+
+
+
 public class Regions extends ArrayList<Region> {
 
 	private static final long serialVersionUID = 1L;

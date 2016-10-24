@@ -1,10 +1,10 @@
 package fr.cdiEnterprise.model;
 
 /**
- * Cette classe représente un langage de programmation informatique.
+ * Class for language creation for company and user
  * 
  * @author Anaïs
- * @version 13-10-2016
+ * @version 23-10-2016
  *
  */
 

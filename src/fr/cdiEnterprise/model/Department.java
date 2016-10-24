@@ -1,5 +1,12 @@
 package fr.cdiEnterprise.model;
 
+/*
+ * Class for department creation company and user 
+ * @ author: Anaïs
+ * @version 23-10-2016
+ * 
+ */
+
 public class Department {
 
 	
