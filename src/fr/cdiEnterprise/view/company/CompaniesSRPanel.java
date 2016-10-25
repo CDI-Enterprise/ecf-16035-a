@@ -92,6 +92,7 @@ public class CompaniesSRPanel extends JPanel {
 	private JScrollPane allCompanies;
 	private JButton btnValider;
 	private JButton btnCancel;
+	private JButton btnFavoris;
 	private PanelSRCompaniesListeners clic;
 	private Border border;
 	
@@ -247,7 +248,7 @@ public class CompaniesSRPanel extends JPanel {
 		
 		btnValider = new JButton("Valider");
 		btnCancel = new JButton("Annuler");
-		
+		btnFavoris = new JButton("Ajouter aux favoris");
 		
 		panNorth.add(lblTitle);
 		panWest.add(panSearch, "wrap");
@@ -294,7 +295,9 @@ public class CompaniesSRPanel extends JPanel {
 		panContact.add(lblContactMail);
 		panContact.add(txtContactMail, "wrap 20");
 		panSouth.add(btnValider);
+		panSouth.add(btnFavoris);
 		panSouth.add(btnCancel);
+		
 	
 		clic = new PanelSRCompaniesListeners(this);
 		btnValider.addActionListener(clic);
@@ -306,42 +309,12 @@ public class CompaniesSRPanel extends JPanel {
 	}
 
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * @return the panSearch
 	 */
 	public JPanel getPanSearch() {
 		return panSearch;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	/**
@@ -352,42 +325,12 @@ public class CompaniesSRPanel extends JPanel {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * @return the panRead
 	 */
 	public JPanel getPanRead() {
 		return panRead;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	/**
@@ -398,21 +341,6 @@ public class CompaniesSRPanel extends JPanel {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * @return the panCompany
 	 */
@@ -421,42 +349,12 @@ public class CompaniesSRPanel extends JPanel {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * @param panCompany the panCompany to set
 	 */
 	public void setPanCompany(JPanel panCompany) {
 		this.panCompany = panCompany;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	/**
@@ -468,41 +366,12 @@ public class CompaniesSRPanel extends JPanel {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * @param panContact the panContact to set
 	 */
 	public void setPanContact(JPanel panContact) {
 		this.panContact = panContact;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	/**
@@ -513,43 +382,12 @@ public class CompaniesSRPanel extends JPanel {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * @param lblTitle the lblTitle to set
 	 */
 	public void setLblTitle(JLabel lblTitle) {
 		this.lblTitle = lblTitle;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	/**
 	 * @return the lblCompanyName
@@ -559,43 +397,12 @@ public class CompaniesSRPanel extends JPanel {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * @param lblCompanyName the lblCompanyName to set
 	 */
 	public void setLblCompanyName(JLabel lblCompanyName) {
 		this.lblCompanyName = lblCompanyName;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	/**
 	 * @return the txtCompanyName
@@ -604,22 +411,6 @@ public class CompaniesSRPanel extends JPanel {
 		return txtCompanyName;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * @param txtCompanyName the txtCompanyName to set
 	 */
@@ -627,43 +418,12 @@ public class CompaniesSRPanel extends JPanel {
 		this.txtCompanyName = txtCompanyName;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * @return the lblCompanyAdress
 	 */
 	public JLabel getLblCompanyAdress() {
 		return lblCompanyAdress;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	/**
@@ -674,43 +434,12 @@ public class CompaniesSRPanel extends JPanel {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * @return the txtCompanyAdress
 	 */
 	public JTextField getTxtCompanyAdress() {
 		return txtCompanyAdress;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	/**
 	 * @param txtCompanyAdress the txtCompanyAdress to set
@@ -719,43 +448,12 @@ public class CompaniesSRPanel extends JPanel {
 		this.txtCompanyAdress = txtCompanyAdress;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * @return the lblCompanyCity
 	 */
 	public JLabel getLblCompanyCity() {
 		return lblCompanyCity;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	/**
@@ -766,43 +464,12 @@ public class CompaniesSRPanel extends JPanel {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * @return the txtCompanyCity
 	 */
 	public JTextField getTxtCompanyCity() {
 		return txtCompanyCity;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	/**
 	 * @param txtCompanyCity the txtCompanyCity to set
@@ -811,44 +478,12 @@ public class CompaniesSRPanel extends JPanel {
 		this.txtCompanyCity = txtCompanyCity;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * @return the lblPostalCode
 	 */
 	public JLabel getLblPostalCode() {
 		return lblPostalCode;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	/**
 	 * @param lblPostalCode the lblPostalCode to set
@@ -857,22 +492,6 @@ public class CompaniesSRPanel extends JPanel {
 		this.lblPostalCode = lblPostalCode;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * @return the txtPostalCode
 	 */
@@ -880,44 +499,12 @@ public class CompaniesSRPanel extends JPanel {
 		return txtPostalCode;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * @param txtPostalCode the txtPostalCode to set
 	 */
 	public void setTxtPostalCode(JTextField txtPostalCode) {
 		this.txtPostalCode = txtPostalCode;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	/**
 	 * @return the lblCompanyDepartment
@@ -927,43 +514,12 @@ public class CompaniesSRPanel extends JPanel {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * @param lblCompanyDepartment the lblCompanyDepartment to set
 	 */
 	public void setLblCompanyDepartment(JLabel lblCompanyDepartment) {
 		this.lblCompanyDepartment = lblCompanyDepartment;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	/**
 	 * @return the cboCompanyDepartment
@@ -972,44 +528,12 @@ public class CompaniesSRPanel extends JPanel {
 		return cboCompanyDepartment;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * @param cboCompanyDepartment the cboCompanyDepartment to set
 	 */
 	public void setCboCompanyDepartment(JComboBox<String> cboCompanyDepartment) {
 		this.cboCompanyDepartment = cboCompanyDepartment;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	/**
 	 * @return the lblSelcDepartment
@@ -1018,44 +542,12 @@ public class CompaniesSRPanel extends JPanel {
 		return lblSelcDepartment;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * @param lblSelcDepartment the lblSelcDepartment to set
 	 */
 	public void setLblSelcDepartment(JLabel lblSelcDepartment) {
 		this.lblSelcDepartment = lblSelcDepartment;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	/**
 	 * @return the lblCompanyRegion
@@ -1064,44 +556,12 @@ public class CompaniesSRPanel extends JPanel {
 		return lblCompanyRegion;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * @param lblCompanyRegion the lblCompanyRegion to set
 	 */
 	public void setLblCompanyRegion(JLabel lblCompanyRegion) {
 		this.lblCompanyRegion = lblCompanyRegion;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	/**
 	 * @return the cboCompanyRegion
@@ -2379,6 +1839,22 @@ public class CompaniesSRPanel extends JPanel {
 
 	public void setReadGrp(ButtonGroup readGrp) {
 		this.readGrp = readGrp;
+	}
+
+
+	/**
+	 * @return the btnFavoris
+	 */
+	public JButton getBtnFavoris() {
+		return btnFavoris;
+	}
+
+
+	/**
+	 * @param btnFavoris the btnFavoris to set
+	 */
+	public void setBtnFavoris(JButton btnFavoris) {
+		this.btnFavoris = btnFavoris;
 	}
 
 }
