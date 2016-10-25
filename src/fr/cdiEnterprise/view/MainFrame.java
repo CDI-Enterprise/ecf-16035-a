@@ -33,7 +33,7 @@ public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	protected static JPanel panMain;
-	private static JPanel panHome;
+	private static HomePanel panHome;
 
 	// Panels for profile management
 	private static PanelUserCRUD panelUserCRUD;
@@ -99,9 +99,9 @@ public class MainFrame extends JFrame {
 		this.setJMenuBar(new Menu());
 
 		// TODO (Groupe) Home panel for welcoming screen
-		panHome = new JPanel();
-		panHome.setBackground(Color.DARK_GRAY);
-		panHome.setLayout(new FlowLayout());
+		panHome = new HomePanel();
+//		panHome.setBackground(Color.DARK_GRAY);
+//		panHome.setLayout(new FlowLayout());
 		panMain.add(panHome);
 
 
