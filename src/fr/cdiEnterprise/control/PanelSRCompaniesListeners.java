@@ -2,6 +2,7 @@ package fr.cdiEnterprise.control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
@@ -15,52 +16,52 @@ import fr.cdiEnterprise.view.company.CompanyCreationPanel;
 import fr.cdiEnterprise.view.company.CompanyDeletUpdatPanel;
 
 public class PanelSRCompaniesListeners implements ActionListener {
-	
-	/* Given attributes*/
-	private CompaniesSRPanel panCompaniesSR;		
 
-	
-	// Attributes do define the selected 
-		ButtonGroup btnGrp;
-		JRadioButton btnSelected;	
-	
+	/* Given attributes */
+	private CompaniesSRPanel panCompaniesSR;
+
+	// Attributes do define the selected
+	private ButtonGroup btnGrp;
+	private JRadioButton btnSelected;
+
+	private Company company;
+	private String companySelec;
+
 	public PanelSRCompaniesListeners(CompaniesSRPanel panCompaniesSR) {
 		this.panCompaniesSR = panCompaniesSR;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		if (e.getSource() == panCompaniesSR.getBtnCancel()){
+
+		if (e.getSource() == panCompaniesSR.getBtnCancel()) {
 			MainFrame.getPanMain().removeAll();
 			MainFrame.getPanMain().add(MainFrame.getPanHome());
 			MainFrame.getPanMain().repaint();
 			MainFrame.getPanMain().revalidate();
 		}
-		
-		if (e.getSource() == panCompaniesSR.getBtnValider()){
+
+		if (e.getSource() == panCompaniesSR.getBtnValider()) {
 			try {
 				btnGrp = panCompaniesSR.getReadGrp();
-				btnSelected = MethodsForListeners.getSelectedJRadioButton(btnGrp);					
-			}catch(NullPointerException excep){		
+				btnSelected = MethodsForListeners.getSelectedJRadioButton(btnGrp);
+			} catch (NullPointerException excep) {
 				btnSelected = panCompaniesSR.getOptAffiche();
 			}
-//			if(btnSelected == panCompaniesSR.getOptAffiche()){
-//				for(Company company: OldDatas.getCompaniesList()){
-//					//for (Company company: DataBaseCompany.getCompaniesData()){
-//						panCompaniesSR.getDlmCompanies().addElement(company);
-//					}
-//			}else{
-//				for (Company company : DataBaseCompany.getDepartmentId(departmentName))
-//			}
-//			
-			//			System.out.println(OldDatas.getCompaniesList());
-//			System.out.println("*******Suppression*****");
-//			OldDatas.getCompaniesList().remove(selecCompanie);
-//			System.out.println(OldDatas.getCompaniesList());
-//			CompanyCreationPanel.getDlmCompanies().remove(selecIndex);
+			
+			try {
+				if (btnSelected == panCompaniesSR.getOptAffiche()) {
+					for (Company company : DataBaseCompany.getCompaniesData()) {
+						panCompaniesSR.getDlmCompanies().addElement(company);
+					}
+				} else {
+					companySelec = panCompaniesSR.getTxtSearchByName().getText();
+					company = DataBaseCompany.getCompaniesId(companySelec);
+					panCompaniesSR.getDlmCompanies().addElement(company);
+				}
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
-	
-	
 }

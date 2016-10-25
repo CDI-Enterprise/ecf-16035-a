@@ -1,10 +1,14 @@
 package fr.cdiEnterprise.model;
 
+import fr.cdiEnterprise.control.exceptions.ZeroLenghtStringException;
+
 /**
  * Class for Trainee creation.
+ * 
  * @author Claire
  * @see fr.cdiEnterprise.model.User
  * @version 13-10-2016 
+ * 
  */
 
 public class Trainee extends User {
@@ -20,7 +24,7 @@ public class Trainee extends User {
 
 	//Optional profile information
 	private String graphicAPI;								// Known graphic API
-	private Company approachedCompany;						// Name of company approach by trainee
+//	private Company approachedCompany;						// Name of company approach by trainee
 	private String webSite;									// Website's trainee
 	private String linkedIn;								// LinkedIn address profile
 
@@ -31,8 +35,9 @@ public class Trainee extends User {
 	 * @param alias 
 	 * @param email 
 	 * @param afpa
+	 * @throws ZeroLenghtStringException 
 	 */
-	public Trainee(String status, String alias, String email, String afpa){
+	public Trainee(String status, String alias, String email, String afpa) {
 		super(status, alias, email, afpa);
 	}
 	
@@ -138,19 +143,19 @@ public class Trainee extends User {
 		this.graphicAPI = graphicAPI;
 	}
 
-	/**
-	 * @return the approachedCompany
-	 */
-	public Company getApproachedCompany() {
-		return approachedCompany;
-	}
-
-	/**
-	 * @param approachedCompany the approachedCompany to set
-	 */
-	public void setApproachedCompany(Company approachedCompany) {
-		this.approachedCompany = approachedCompany;
-	}
+//	/**
+//	 * @return the approachedCompany
+//	 */
+//	public Company getApproachedCompany() {
+//		return approachedCompany;
+//	}
+//
+//	/**
+//	 * @param approachedCompany the approachedCompany to set
+//	 */
+//	public void setApproachedCompany(Company approachedCompany) {
+//		this.approachedCompany = approachedCompany;
+//	}
 
 	/**
 	 * @return the webSite

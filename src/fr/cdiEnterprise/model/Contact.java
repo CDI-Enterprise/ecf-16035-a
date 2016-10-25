@@ -28,6 +28,7 @@ public class Contact {
 		this.setEmail(email);
 	}
 
+	
 	public Contact (String name, String phoneNumber, String email){
 		this.setName(name);
 		this.setPhoneNumber(phoneNumber);
@@ -58,6 +59,21 @@ public class Contact {
 	public void setEmail(String email){
 		this.email=email;
 	}
+	
+	/**
+	 * @return the idContact
+	 */
+	public int getIdContact() {
+		return idContact;
+	}
+
+	/**
+	 * @param idContact the idContact to set
+	 */
+	public void setIdContact(int idContact) {
+		this.idContact = idContact;
+	}
+
 		
 	@Override
 	public String toString() {

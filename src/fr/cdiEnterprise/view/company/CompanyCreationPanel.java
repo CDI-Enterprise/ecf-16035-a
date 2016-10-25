@@ -48,6 +48,8 @@ public class CompanyCreationPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
+	
+	private Container panneau;
 	//Border
 	private Border border;
 	
@@ -59,7 +61,6 @@ public class CompanyCreationPanel extends JPanel {
 	private JPanel panWest;
 	//Panel contact of company
 	private JPanel panContact;
-	//
 	private JPanel panCompany;
 	
 	private JPanel panCenter;
@@ -114,7 +115,7 @@ public class CompanyCreationPanel extends JPanel {
 	
 	public CompanyCreationPanel() throws SQLException {
 		
-		Container panneau = this;
+		panneau = this;
 		panneau.setLayout(new BorderLayout(5,5));
 		
 		

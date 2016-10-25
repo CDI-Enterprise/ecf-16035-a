@@ -130,7 +130,7 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 						companySize,companySector, companyLanguage, companyProjets, companyWebSite, contact);
 				//System.out.println(company);
 				
-				DataBaseCompany.insertCompanyData(company);
+				DataBaseCompany.insertCompanyData(company, contact);
 				CompanyCreationPanel.getDlmCompanies().addElement(company);
 				MethodsForListeners.resetJTextField(panCompCreat.getAllJTextFields());
 				

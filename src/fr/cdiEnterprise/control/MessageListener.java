@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 
 import fr.cdiEnterprise.dao.OldDatas;
+import fr.cdiEnterprise.dao.UserDAO;
 import fr.cdiEnterprise.exceptions.CustomMessagingException;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.model.User;
@@ -407,9 +408,17 @@ public class MessageListener implements ActionListener, MouseListener {
 
 	/**
 	 * @return
+	 * @throws SQLException 
 	 */
-	private Users aliasInLower() {
-		Users usr = OldDatas.getUsersList();
+	private Users aliasInLower()  {
+		//Users usr = OldDatas.getUsersList();
+		Users usr = null;
+		try {
+			usr = UserDAO.getUsersList();
+		} catch (SQLException e) {
+			customDialog(e.getMessage());
+			
+		}
 		if(usr != null) {
 			for(User current : usr) {
 				String toLowerCase = current.getAlias().toLowerCase();
