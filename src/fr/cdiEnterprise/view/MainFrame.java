@@ -100,7 +100,7 @@ public class MainFrame extends JFrame {
 
 		// TODO (Groupe) Home panel for welcoming screen
 		panHome = new HomePanel();
-//		panHome.setBackground(Color.DARK_GRAY);
+		panHome.setBackground(Color.WHITE);
 //		panHome.setLayout(new FlowLayout());
 		panMain.add(panHome);
 

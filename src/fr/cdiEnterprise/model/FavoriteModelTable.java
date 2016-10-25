@@ -25,7 +25,7 @@ public class FavoriteModelTable  extends AbstractTableModel
 
 	private static final long serialVersionUID = 1L;
 	private final Object [][] datas;
-	private final String[] HEADER_LIST ={ "City", "Size", "Sector", "WebSite", "contactMail"};
+	private final String[] HEADER_LIST ={ "Ville", "Taille", "Secteur", "WebSite", "ContactMail"};
 
 
 

@@ -5,7 +5,7 @@ package fr.cdiEnterprise.dao;
 
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,35 +27,31 @@ import fr.cdiEnterprise.service.Favorites;
 public class FavoriteDao 
 {
 
-
-	private final static String strNomDriver 	= "oracle.jdbc.driver.OracleDriver";
-	private final static String dbURL			= "jdbc:oracle:thin:cdi_enterprise/stagpw@junon:1521:AFPA";
-
-	private Connection conn;
+	private Connection conn = DBConnection.getConnect();
 	private Statement stmt;
 
 	/**
 /	 * 
 	 */
-	public FavoriteDao() 
-	{
-		try
-		{
-			Class.forName(strNomDriver);
-			conn = DriverManager.getConnection(dbURL);
-			stmt = conn.createStatement();
-		}
-		catch (SQLException e)
-		{
-			//TODO SQLException dbURL
-			e.printStackTrace();
-		}
-		catch (ClassNotFoundException e)
-		{
-			//TODO ClassNotFoundException Class.forName
-			e.printStackTrace();
-		}
-	}
+//	public FavoriteDao() 
+//	{
+//		try
+//		{
+//			Class.forName(strNomDriver);
+//			conn = DriverManager.getConnection(dbURL);
+//			stmt = conn.createStatement();
+//		}
+//		catch (SQLException e)
+//		{
+//			//TODO SQLException dbURL
+//			e.printStackTrace();
+//		}
+//		catch (ClassNotFoundException e)
+//		{
+//			//TODO ClassNotFoundException Class.forName
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Exemple add favorite
