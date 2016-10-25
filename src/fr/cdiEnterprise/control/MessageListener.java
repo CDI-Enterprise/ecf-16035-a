@@ -191,8 +191,13 @@ public class MessageListener implements ActionListener, MouseListener {
 
 				}else {
 					System.out.println(panelNew.getTxtMessage().getText().length());
-					client.newEmail(alias,receiver, panelNew.getTxtObject().getText(),
-							panelNew.getTxtMessage().getText());
+					try {
+						client.newEmail(alias,receiver, panelNew.getTxtObject().getText(),
+								panelNew.getTxtMessage().getText());
+					} catch (CustomMessagingException e1) {
+						customDialog(e1.getMessage());
+						//e1.printStackTrace();
+					}
 				
 					MessageListener.panelMain.setCopyUserItems(client.getMessages(false));	
 
