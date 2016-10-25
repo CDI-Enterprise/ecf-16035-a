@@ -208,7 +208,7 @@ public class UserDAO {
 			createUser.setString(6, afpa);
 			result = createUser.executeUpdate();
 		} catch (SQLException e) {
-			//			e.printStackTrace();
+			//e.printStackTrace();
 			System.err.println("Requête incorrecte : l'utilisateur n'a pas pu être créé.");
 		}
 
