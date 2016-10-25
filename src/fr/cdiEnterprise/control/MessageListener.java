@@ -257,7 +257,12 @@ public class MessageListener implements ActionListener, MouseListener {
 			currentItem.setObject(panelRead.getTxtObject().getText());
 			currentItem.setBody(panelRead.getTxtMessage().getText());
 			
-			client.sendEmail(currentItem, false);
+			try {
+				client.sendEmail(panelRead.getItm().getSender(), panelRead.getItm().getReceiver(),panelRead.getTxtObject().getText(), panelRead.getTxtMessage().getText() , false);
+			} catch (CustomMessagingException e1) {
+				customDialog(e1.getMessage());
+				e1.printStackTrace();
+			}
 			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
 			//client.display(false);
 		
@@ -319,11 +324,17 @@ public class MessageListener implements ActionListener, MouseListener {
 						customDialog("le champ Objet doit etre remplie.");
 					} else {
 
-						Item draftToSend = new Item(alias,receiver, panelMod.getTxtObject().getText(),
-								panelMod.getTxtMessage().getText(), null);
+						//Item draftToSend = new Item(alias,receiver, panelMod.getTxtObject().getText(),
+								//panelMod.getTxtMessage().getText(), null);
 						// TODO (Nicolas) : need to handle well this exception, maybe in the class client ?
 
-							client.sendEmail(draftToSend, true);
+							try {
+								client.sendEmail(alias, receiver, panelMod.getTxtObject().getText(),
+										panelMod.getTxtMessage().getText(), true);
+							} catch (CustomMessagingException e1) {
+								customDialog(e1.getMessage());
+								e1.printStackTrace();
+							}
 
 							MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
 

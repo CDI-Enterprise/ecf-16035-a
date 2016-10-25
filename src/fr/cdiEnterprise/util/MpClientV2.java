@@ -136,41 +136,47 @@ public class MpClientV2 {
 	 * @param item
 	 * @param draft
 	 * @return
+	 * @throws CustomMessagingException 
 	 */
-	public boolean sendEmail(Item item, boolean draft) {
+	public void sendEmail(String from, String to, String object, String body, boolean draft) throws CustomMessagingException {
 
 		LocalDateTime timeStamp = LocalDateTime.now();
 		ID_NUMBER = ID_NUMBER + CONST_ONE;
 
-		Item repliedItem = new Item(item.getSender(), item.getReceiver(), item.getObject(), item.getBody(),  timeStamp);
+		if(from != null && to != null && object != null && body != null) {
+			if(!to.isEmpty() && !object.isEmpty()) {
+		
+				Item repliedItem = new Item(from, to, object, body,  timeStamp);
 		
 		//repliedItem.setId(item.getId()); // old implementation
 		
-		repliedItem.setId(ID_NUMBER);
+				repliedItem.setId(ID_NUMBER);
 		if(draft) {
 
 			repliedItem.setDraftEmail(false);
 			System.out.println("message envoye a la base");
 			messageDao.insertItem(repliedItem);
-			
-			return true;
+
 		}else {
 			System.out.println("message envoye a la base");
-			if(item.getObject() != null && item.getBody() != null) {
-				repliedItem.setObject("re: "+ item.getObject());
+			
+				repliedItem.setObject("re: "+ object);
 				repliedItem.setTimeStamp(timeStamp);
-				String snd = item.getSender();
-				String rcv = item.getReceiver();
+				String snd = from;
+				String rcv = to;
 				repliedItem.setReceiver(snd);
 				repliedItem.setSender(rcv);
 				
 				
 				messageDao.insertItem(repliedItem);
-				return true;
-			}else {
-				return false;
-			}
+				
 
+
+		}
+			}else {
+				throw new CustomMessagingException("le Destinataire ou le sujet sont vide.");
+
+			}
 		}
 
 	}
