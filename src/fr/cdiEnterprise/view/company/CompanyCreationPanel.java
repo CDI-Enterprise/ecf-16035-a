@@ -25,6 +25,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 import fr.cdiEnterprise.control.PanelCreateComListener;
 import fr.cdiEnterprise.control.BookMarkListener;
@@ -212,6 +213,9 @@ public class CompanyCreationPanel extends JPanel {
 		for (Language language : DataBaseCompany.getLanguagesListData()) {
 		dlmLanguages.addElement(language);
 		}
+		
+		//Pour la première version de l'application on autorisera qu'une seule sélection sur le choix des languages
+		lstLanguages.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		languages = new JScrollPane(lstLanguages, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		languages.setPreferredSize(new Dimension(150, 60));
@@ -244,10 +248,12 @@ public class CompanyCreationPanel extends JPanel {
 		
 		
 		dlmCompanies = new DefaultListModel<Company>();
+		
 		lstCompanies = new JList<Company>(dlmCompanies);
 		for (Company company: DataBaseCompany.getCompaniesData()){
 			dlmCompanies.addElement(company);
 		}
+		
 		JScrollPane companies = new JScrollPane(lstCompanies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		companies.setPreferredSize(new Dimension(300, 50));
@@ -320,7 +326,6 @@ public class CompanyCreationPanel extends JPanel {
 		btnCreate.addActionListener(clic);
 		cboCompanyDepartment.addActionListener(clic);
 		btnCancel.addActionListener(clic);
-		
 		//listeners
 		//BookMarkListener btnFavoris = new BookMarkListener(null);
 

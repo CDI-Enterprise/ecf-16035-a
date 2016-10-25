@@ -39,7 +39,7 @@ public class RemplissageBDD {
 //				/*Language*/	
 				for (Language language : OldDatas.getLanguagesCompanyList()){
 					
-					DataBaseCompany.insertLanguageData(language);
+					DataBaseCompany.insertLanguageData(language.getLanguageName());
 				}
 //				
 

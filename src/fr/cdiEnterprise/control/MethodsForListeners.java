@@ -1,17 +1,19 @@
 package fr.cdiEnterprise.control;
 
 import java.awt.Component;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import fr.cdiEnterprise.dao.DataBaseCompany;
 import fr.cdiEnterprise.exceptions.CompanyCreationException;
+import fr.cdiEnterprise.model.Company;
+import fr.cdiEnterprise.view.company.CompanyCreationPanel;
 
 /**
  * Methods for the control package
@@ -85,12 +87,18 @@ public class MethodsForListeners {
 		int fieldLength = field.length();
 		String fieldReturn;
 
-		if (fieldLength == 0) {
-			throw new CompanyCreationException();
-		} else {
+		if (fieldLength != 0) {
 			fieldReturn = field;
+		} else {
+			throw new CompanyCreationException();
 		}
 		return fieldReturn;
 	}
 
+	public static void refreshListCompanies() throws SQLException{
+		CompanyCreationPanel.getDlmCompanies().clear();
+		for(Company company : DataBaseCompany.getCompaniesData()){
+			CompanyCreationPanel.getDlmCompanies().addElement(company);
+		}
+	}
 }

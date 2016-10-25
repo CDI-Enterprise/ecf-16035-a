@@ -11,8 +11,8 @@ import fr.cdiEnterprise.service.Languages;
  */
 public class Company {
 
-	private static int id;
-	private int idEnterprise;
+//	private static int id;
+	private int companyId;
 	private String companyName;
 	private String adress;
 	private String postalCode;
@@ -33,19 +33,20 @@ public class Company {
 	public Company() {
 	}
 
-	public Company(String companyName, String adress, String postalCode, String city, Department department) {
+	public Company(int idCompany, String companyName, String adress, String postalCode, String city, Department department) {
 	
 		this.companyName = companyName;
 		this.adress = adress;
 		this.postalCode = postalCode;
 		this.city = city;
 		this.department = department;
-		this.idEnterprise = id;
+		this.companyId = idCompany;
 	}
 
 	/**
 	 * Constructeur avec attributs
 	 * 
+	 * @param companyId
 	 * @param companyName
 	 * @param adress
 	 * @param postalCode
@@ -57,7 +58,7 @@ public class Company {
 	 * @param webSite
 	 * @param contact
 	 */
-	public Company(String companyName, String adress, String postalCode, String city, Department department, Region region, String size,
+	public Company(int companyId, String companyName, String adress, String postalCode, String city, Department department, Region region, String size,
 			String sector,  Languages languages,String projets, String webSite, Contact contact) {
 		
 		this.companyName = companyName;
@@ -72,11 +73,11 @@ public class Company {
 		this.projets=projets;
 		this.webSite = webSite;
 		this.contact = contact;
-		this.idEnterprise = id;
+		this.companyId = companyId;
 	}
 
 	
-	public Company(String companyName, String adress, String postalCode, String city, Department department, Region region, String size,
+	public Company(int companyId,String companyName, String adress, String postalCode, String city, Department department, Region region, String size,
 			String sector,  Language language,String projets, String webSite, Contact contact) {
 		
 		this.companyName = companyName;
@@ -91,7 +92,7 @@ public class Company {
 		this.projets=projets;
 		this.webSite = webSite;
 		this.contact = contact;
-		this.idEnterprise = id;
+		this.companyId = companyId;
 	}
 	
 //	public Company(int idEntreprise,String companyName, String adress, String postalCode, String city, Department department, Region region, String size,
@@ -114,6 +115,7 @@ public class Company {
 	/**
 	 * Ensemble des getters de la clase Company
 	 */
+
 
 	/**
 	 * @return the companyName
@@ -195,8 +197,8 @@ public class Company {
 	/**
 	 * @return the idEnterprise
 	 */
-	public int getIdEnterprise() {
-		return idEnterprise;
+	public int getCompanyId() {
+		return companyId;
 	}
 
 	/**
@@ -304,7 +306,7 @@ public class Company {
 	 *            the idEnterprise to set
 	 */
 	public void setIdEnterprise(int idEnterprise) {
-		this.idEnterprise = idEnterprise;
+		this.companyId = idEnterprise;
 	}
 
 	public Language getLanguage() {
@@ -323,10 +325,8 @@ public class Company {
 	@Override
 	public String toString() {
 		return "Entreprise [companyName=" + companyName + ", adress=" + adress + ", postalCode=" + postalCode
-			+ ", city=" + city + ", department=" + department;
-//		return "Entreprise [companyName=" + companyName + ", adress=" + adress + ", postalCode=" + postalCode
-//				+ ", city=" + city + ", department=" + department + ", region=" + region +", langages=" + languages.toString() + ", size=" + size + ", sector= " + sector 
-//				+ ", webSite=" + webSite + ", contact=" + contact + "]";
+				+ ", city=" + city + ", department=" + department + ", region=" + region +", langage=" + language + ", size=" + size + ", sector= " + sector 
+				+ ", webSite=" + webSite + ", contact=" + contact + "]";
 	}
 
 	@Override

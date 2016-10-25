@@ -82,7 +82,7 @@ public class Menu extends JMenuBar {
 		menuCompany.add(subCompanyCreate);
 		subCompanyUpdateDelete = new JMenuItem("Modifier / Supprimer une fiche");
 		menuCompany.add(subCompanyUpdateDelete);
-		subCompanyRead = new JMenuItem("Afficher toutes les fiches entreprises");
+		subCompanyRead = new JMenuItem("Afficher et rechercher des fiches entreprises");
 		menuCompany.add(subCompanyRead);
 
 		// SEARCH
@@ -138,6 +138,7 @@ public class Menu extends JMenuBar {
 
 		subCompanyCreate.addActionListener(listener);
 		subCompanyUpdateDelete.addActionListener(listener);
+		subCompanyRead.addActionListener(listener);
 		
 		subSearchRechercher.addActionListener(listener);
 		subSearchDeleteRecherche.addActionListener(listener);
@@ -195,6 +196,20 @@ public class Menu extends JMenuBar {
 
 	public JMenuItem getSubMessageDisplay() {
 		return subMessageDisplay;
+	}
+
+	/**
+	 * @return the subCompanyRead
+	 */
+	public JMenuItem getSubCompanyRead() {
+		return subCompanyRead;
+	}
+
+	/**
+	 * @param subCompanyRead the subCompanyRead to set
+	 */
+	public void setSubCompanyRead(JMenuItem subCompanyRead) {
+		this.subCompanyRead = subCompanyRead;
 	}
 
 }

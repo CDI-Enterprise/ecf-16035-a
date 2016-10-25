@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import fr.cdiEnterprise.view.company.CompaniesSRPanel;
 import fr.cdiEnterprise.view.company.CompanyCreationPanel;
 import fr.cdiEnterprise.view.company.CompanyDeletUpdatPanel;
 import fr.cdiEnterprise.view.profile.PanelUserCRUD;
@@ -44,6 +45,8 @@ public class MainFrame extends JFrame {
 	private static JScrollPane scrollCreateCompany;
 	private static JScrollPane scrollUpdateDeleteCompany;
 	private static CompanyDeletUpdatPanel panelUpdateDeleteCompany;
+	private static CompaniesSRPanel	panelSRCompanies;
+	private static JScrollPane scrollSRCompanies;
 	private static RechercheAvanceePanel panelRecherche;
 
 	private static JPanel panelMessaging;
@@ -112,11 +115,13 @@ public class MainFrame extends JFrame {
 		panelUserSR.setPreferredSize(new Dimension(1260, 800));
 		scrollPanelUserSR = new JScrollPane(panelUserSR);
 
-		// Panel CreatCompany
+		// Panel Company
 		panelCreatCompany = new CompanyCreationPanel();
 		scrollCreateCompany = new JScrollPane(panelCreatCompany);
 		panelUpdateDeleteCompany = new CompanyDeletUpdatPanel();
 		scrollUpdateDeleteCompany = new JScrollPane(panelUpdateDeleteCompany);
+		panelSRCompanies = new CompaniesSRPanel();
+		scrollSRCompanies = new JScrollPane(panelSRCompanies);
 
 		// Panel Search
 		panelRecherche = new RechercheAvanceePanel();
@@ -135,6 +140,34 @@ public class MainFrame extends JFrame {
 	 */
 	public static JPanel getPanMain() {
 		return panMain;
+	}
+
+	/**
+	 * @return the panelSRCompanies
+	 */
+	public static CompaniesSRPanel getPanelSRCompanies() {
+		return panelSRCompanies;
+	}
+
+	/**
+	 * @param panelSRCompanies the panelSRCompanies to set
+	 */
+	public static void setPanelSRCompanies(CompaniesSRPanel panelSRCompanies) {
+		MainFrame.panelSRCompanies = panelSRCompanies;
+	}
+
+	/**
+	 * @return the scrollSRCompanies
+	 */
+	public static JScrollPane getScrollSRCompanies() {
+		return scrollSRCompanies;
+	}
+
+	/**
+	 * @param scrollSRCompanies the scrollSRCompanies to set
+	 */
+	public static void setScrollSRCompanies(JScrollPane scrollSRCompanies) {
+		MainFrame.scrollSRCompanies = scrollSRCompanies;
 	}
 
 	/**
