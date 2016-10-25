@@ -143,7 +143,7 @@ public class MessagingMainPanel extends JPanel {
 		
 		tiModel.setUsers(copyUserItems);
 		tableModele =  new DefaultTableModel(tableauMsg, new String[] {
-				"Sender", "Objet", "Date Reception"
+				"Reçu de", "Sujet", "Date Reception"
 			});
 		
 		

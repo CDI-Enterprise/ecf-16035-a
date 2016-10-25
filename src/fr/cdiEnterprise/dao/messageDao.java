@@ -393,7 +393,7 @@ public class messageDao {
 
 			String createStatement = String.format(
 					"UPDATE mailbox SET SENDER=" + "'" + sender + "',RECEIVER= " + "'" + receiver + "', SUBJECT = "
-							+ "'" + object + "', MESSBODY = " + "'" + body + "' WHERE identity= " + "'" + ident + "'");
+							+ "'" + object + "', MESSBODY = " + "'" + body + "' WHERE receiver = 'receiver' AND identity= " + "'" + ident + "'");
 			System.out.println(createStatement);
 			statement.executeUpdate(createStatement);
 

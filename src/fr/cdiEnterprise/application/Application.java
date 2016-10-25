@@ -14,6 +14,7 @@ public class Application {
 		MainFrame mainFrame = new MainFrame();
 		mainFrame.setVisible(true);
 		mainFrame.pack();
+		
 
 	}
 
