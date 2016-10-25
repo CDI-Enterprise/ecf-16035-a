@@ -15,11 +15,10 @@ import fr.cdiEnterprise.model.User;
 import fr.cdiEnterprise.service.Users;
 
 /**
- * Handle the request and result to and from database for models: User, Trainee, Trainer and FormerTrainee.
+ * Handle the basic SQL request for the CDI_USER table in database.
  * 
  * @author Claire
- * @version 22-10-2016
- *
+ * @version 24-10-2016
  */
 public class UserDAO {
 
@@ -43,14 +42,16 @@ public class UserDAO {
 	private static String userAlias;	
 	private static String userMail;
 	private static String userAfpa;
-	
+
+	// TODO class DTO which gonna instantiate a UserDAO object.
+
 	/**
 	 * Asks for the connection to DB.
 	 */
 	public UserDAO() {
 		this.connect = DBConnection.getConnect();
 	}
-	
+
 	/**
 	 * Search an user by Id from database and displays it.
 	 * 
@@ -61,8 +62,8 @@ public class UserDAO {
 	 * @version 22-10-2016
 	 * 
 	 */
-	public User search(int userId) throws SQLException {
-		
+	protected User search(int userId) throws SQLException {
+
 		try {
 			searchUser = connect.prepareStatement("SELECT user_id, user_inscription_date, "
 					+ "user_status, user_alias, user_mail, user_afpa "
@@ -83,17 +84,17 @@ public class UserDAO {
 					user = new Trainee(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
 					System.out.println("Switch : " + user);
 					break;
-					
+
 				case "Ancien" :
 					user = new FormerTrainee(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
 					System.out.println("Switch : " + user);
 					break;
-					
+
 				case "Formateur" :
 					user = new Trainer(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
 					System.out.println("Switch : " + user);
 					break;
-					
+
 				default:
 					System.out.println("Aucun utilisateur à afficher.");
 					break;
@@ -112,7 +113,7 @@ public class UserDAO {
 
 		return user;
 	}
-	
+
 	/**
 	 * Search an user by status from database and displays it.
 	 * 
@@ -122,10 +123,10 @@ public class UserDAO {
 	 * @version 22-10-2016
 	 * 
 	 */
-	private Users search(String userStatus) throws SQLException {
-		
+	protected Users search(String userStatus) throws SQLException {
+
 		users = new Users();
-		
+
 		try {
 			searchUser = connect.prepareStatement("SELECT user_id, user_inscription_date, "
 					+ "user_status, user_alias, user_mail, user_afpa "
@@ -147,17 +148,17 @@ public class UserDAO {
 					user = new Trainee(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
 					users.add(user);
 					break;
-					
+
 				case "Ancien" :
 					user = new FormerTrainee(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
 					users.add(user);
 					break;
-					
+
 				case "Formateur" :
 					user = new Trainer(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
 					users.add(user);
 					break;
-					
+
 				default:
 					System.out.println("Aucun utilisateur à afficher.");
 					break;
@@ -176,7 +177,7 @@ public class UserDAO {
 
 		return users;
 	}
-	
+
 	/**
 	 * Insert a new user in database.
 	 * 
@@ -192,7 +193,7 @@ public class UserDAO {
 	 * @version 22-10-2016
 	 * 
 	 */
-	public String create(int id, String inscriptionDate,
+	protected int create(int id, String inscriptionDate,
 			String status, String alias, String mail, String afpa) throws SQLException {
 
 		result = 0;
@@ -214,20 +215,9 @@ public class UserDAO {
 		finally {
 			closeRequest(createUser);
 		}
-		// Test code
-		String creationDone = null;
-
-		if (result == 0) {
-			creationDone = "Aucune création effectuée.";
-		}
-		else {
-			creationDone = result + " création(s) effectuée(s).";
-		}
-
-		return creationDone;
-		// Fin test code
+		return result;
 	}
-	
+
 	/**
 	 * Read all users from database.
 	 * 
@@ -237,7 +227,7 @@ public class UserDAO {
 	 * @version 22-10-2016
 	 * 
 	 */
-	private Users read() throws SQLException {
+	protected Users read() throws SQLException {
 
 		users = new Users();
 
@@ -254,23 +244,23 @@ public class UserDAO {
 				userAlias = requestRes.getString(4);
 				userMail = requestRes.getString(5);
 				userAfpa = requestRes.getString(6);
-	
+
 				switch (userStatus) {
 				case "Stagiaire" :
 					user = new Trainee(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
 					users.add(user);
 					break;
-					
+
 				case "Ancien" :
 					user = new FormerTrainee(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
 					users.add(user);
 					break;
-					
+
 				case "Formateur" :
 					user = new Trainer(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
 					users.add(user);
 					break;
-					
+
 				default:
 					System.out.println("Aucun utilisateur à afficher.");
 					break;
@@ -289,7 +279,7 @@ public class UserDAO {
 
 		return users;
 	}
-	
+
 	/**
 	 * Updates an user in database.
 	 * 
@@ -305,21 +295,17 @@ public class UserDAO {
 	 * @version 22-10-2016
 	 * 
 	 */
-	public String update(int id, String inscriptionDate,
-			String status, String alias, String mail, String afpa) throws SQLException {
+	protected int update(int id, String status, String mail) throws SQLException {
 
 		result = 0;
 
 		try {
 			updateUser = connect.prepareStatement("UPDATE cdi_user "
-					+ "SET user_inscription_date = ?, user_status = ?, user_alias = ?, user_mail = ?, user_afpa = ? "
+					+ "SET user_status = ?, user_mail = ? "
 					+ "WHERE user_id = ?");
-			updateUser.setString(1, inscriptionDate);
-			updateUser.setString(2, status);
-			updateUser.setString(3, alias);
-			updateUser.setString(4, mail);
-			updateUser.setString(5, afpa);
-			updateUser.setInt(6,id);
+			updateUser.setString(1, status);
+			updateUser.setString(2, mail);
+			updateUser.setInt(3,id);
 			result = updateUser.executeUpdate();
 		} catch (SQLException e) {
 			// e.printStackTrace();
@@ -329,18 +315,7 @@ public class UserDAO {
 		finally {
 			closeRequest(updateUser);
 		}
-		// Test code
-		String updateDone = null;
-
-		if (result == 0) {
-			updateDone = "Aucune mise à jour effectuée."; 
-		}
-		else {
-			updateDone = result + " mise(s) à jour effectuée(s).";
-		}
-
-		return updateDone;
-		// Fin test code
+		return result;
 	}
 
 
@@ -354,7 +329,7 @@ public class UserDAO {
 	 * @version 22-10-2016
 	 * 
 	 */
-	public String delete(int id) throws SQLException {
+	protected int delete(int id) throws SQLException {
 
 		result = 0;
 
@@ -370,18 +345,7 @@ public class UserDAO {
 		finally {
 			closeRequest(deleteUser);
 		}
-		// Test code
-		String deleteDone = null;
-
-		if (result == 0) {
-			deleteDone = "Aucune suppression effecutée."; // Test code
-		}
-		else {
-			deleteDone = result + " suppression(s) effectuée(s)."; // Test code
-		}
-
-		return deleteDone;
-		// Fin test code
+		return result;
 	}
 
 	/**
@@ -395,6 +359,9 @@ public class UserDAO {
 	 * 
 	 */
 	private void closeRequest(PreparedStatement prepStatmt) throws SQLException {
+
+		connect.commit();
+		
 		if (prepStatmt != null) {
 			prepStatmt.close();
 			// Test code
@@ -410,34 +377,138 @@ public class UserDAO {
 			// Fin test code
 		}	
 	}
-	
+
+
+	// TODO (Claire) In DTO Static or not static, that is the question!
 	/**
-	 * Public method to initiate a SELECT WHERE SQL request, calling the UserDAO.search(String) private method.
+	 * Public method to initiate a SELECT WHERE SQL request, calling the UserDAO.search(String) protected method.
 	 * 
 	 * @author Claire
 	 * @param userStatut
 	 * @return users
 	 * @throws SQLException
 	 * @version 23-10-2016
-	 * 
 	 */
-	public Users getUsersByStatusList(String userStatut) throws SQLException {
-		Users users = search(userStatut);
+	public static Users getUsersByStatusList(String userStatut) throws SQLException {
+		UserDAO userDAO = new UserDAO();
+		Users users = userDAO.search(userStatut);
 		return users;
 	}
-	
+
 	/**
-	 * Public method to initiate a SELECT SQL request, calling the UserDAO.read() private method.
+	 * Public method to initiate a CREATE SQL request, calling the UserDAO.create protected method.
+	 * 
+	 * @author Claire
+	 * @param user
+	 * @return creationDone
+	 * @throws SQLException
+	 * @version 24-10-2016
+	 */
+	public static String createUser(User user) throws SQLException {
+
+		int id = user.getId();
+		String inscriptionDate = user.getInscriptionDate();
+		String status = user.getStatus();
+		String alias = user.getAlias();
+		String mail = user.getEmail();
+		String afpa = user.getAfpa();
+
+		UserDAO userDAO = new UserDAO();
+
+		// int for test code
+		int result = userDAO.create(id, inscriptionDate, status, alias, mail, afpa);
+
+		// Test code
+		String creationDone = null;
+
+		if (result == 0) {
+			creationDone = "Aucune création effectuée.";
+		}
+		else {
+			creationDone = result + " création(s) effectuée(s).";
+		}
+
+		return creationDone;
+		// Fin test code
+	}
+
+	/**
+	 * Public method to initiate a SELECT SQL request, calling the UserDAO.read() protected method.
 	 * 
 	 * @author Claire
 	 * @return users
 	 * @throws SQLException
 	 * @version 22-10-2016
-	 * 
 	 */
-	public Users getUsersList() throws SQLException {
-		Users users = read();
+	public static Users getUsersList() throws SQLException {
+
+		UserDAO userDAO = new UserDAO();
+
+		Users users = userDAO.read();
 		return users;
 	}
-	
+
+	/**
+	 * Public method to initiate an UPDATE SQL request, calling the UserDAO.update() protected method.
+	 * 
+	 * @author Claire
+	 * @param user
+	 * @return updateDone
+	 * @throws SQLException 
+	 * @version 25-10-2016
+	 */
+	public static String updateUser(User selectedUser) throws SQLException {
+
+		int id = selectedUser.getId();
+		String status = selectedUser.getStatus();
+		String mail = selectedUser.getEmail();
+
+		UserDAO userDAO = new UserDAO();
+
+		// int for test code
+		int result = userDAO.update(id, status, mail);
+
+		// Test code
+		String updateDone = null;
+
+		if (result == 0) {
+			updateDone = "Aucune mise à jour effectuée."; 
+		}
+		else {
+			updateDone = result + " mise(s) à jour effectuée(s).";
+		}
+
+		return updateDone;
+		// Fin test code
+	}
+
+	/**
+	 * Public method to initiate a DELETE SQL request, calling the UserDAO.delete() protected method.
+	 * 
+	 * @author Claire
+	 * @param id
+	 * @return deleteDone
+	 * @throws SQLException
+	 * @version 24-10-2016
+	 */
+	public static String deleteUser(int id) throws SQLException {
+
+		UserDAO userDAO = new UserDAO();
+
+		// int for test code
+		int result = userDAO.delete(id);
+
+		// Test code
+		String deleteDone = null;
+
+		if (result == 0) {
+			deleteDone = "Aucune suppression effecutée."; // Test code
+		}
+		else {
+			deleteDone = result + " suppression(s) effectuée(s)."; // Test code
+		}
+
+		return deleteDone;
+		// Fin test code
+	}
 }
