@@ -62,6 +62,13 @@ public class MainMenuListener implements ActionListener {
 			MainFrame.getPanMain().repaint();
 			MainFrame.getPanMain().revalidate();
 		}
+		
+		if(e.getSource() == menu.getSubCompanyRead()){
+			MainFrame.getPanMain().removeAll();
+			MainFrame.getPanMain().add(MainFrame.getScrollSRCompanies());
+			MainFrame.getPanMain().repaint();
+			MainFrame.getPanMain().revalidate();
+		}
 
 		if(e.getSource() == menu.getSubMessageDisplay()){
 			MainFrame.getPanMain().removeAll();

@@ -8,18 +8,17 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
-import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import fr.cdiEnterprise.dao.DataBaseCompany;
-import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.exceptions.CompanyCreationException;
 import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Contact;
 import fr.cdiEnterprise.model.Department;
+import fr.cdiEnterprise.model.Language;
 import fr.cdiEnterprise.model.Region;
-import fr.cdiEnterprise.service.Languages;
+//import fr.cdiEnterprise.service.Languages;
 import fr.cdiEnterprise.view.MainFrame;
 import fr.cdiEnterprise.view.company.CompanyCreationPanel;
 
@@ -36,7 +35,8 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 	// Given attribute
 	private CompanyCreationPanel panCompCreat;
 
-	// Attributes 
+	// Attributes for creation company
+	private int idCompany;
 	private String companyName;
 	private String companyAdress;
 	private String companyCity;
@@ -47,14 +47,17 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 	private String nomRegion;
 	private String companySize;
 	private String companySector;
-	private Languages companyLanguages;
+//	private Languages companyLanguages;					Sera utilisé dans la deuxième version => sélection multiple de langages informatiques
+	private Language companyLanguage;
 	private String companyProjets;
 	private String companyWebSite;
 	private Contact contact;
 	private String contactName;
 	private String contactPhone;
 	private String contactMail;
-
+	
+	// Attributes to give select language
+	String languageSelect;
 	
 	// Attributes do define the selected size
 	ButtonGroup btnGrp;
@@ -92,60 +95,51 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 				companyPostalCode = MethodsForListeners.nullField(panCompCreat.getTxtPostalCode().getText());
 				nomDepartment = panCompCreat.getCboCompanyDepartment().getSelectedItem().toString();
 				companyDepartment = DataBaseCompany.getDepartmentId(nomDepartment);
-				
 				nomRegion = panCompCreat.getCboCompanyRegion().getSelectedItem().toString();
-				companyRegion = OldDatas.getRegion(nomRegion);				
+				companyRegion = DataBaseCompany.getRegionId(nomRegion);				
 				companySector = panCompCreat.getTxtSector().getText();
 				
-				
-				companyLanguages = new Languages();
-							
-				int[] indSel = panCompCreat.getLstLanguages().getSelectedIndices();
-				try {
-					for (int i = 0; i < indSel.length; i++) {
-						companyLanguages.add(panCompCreat.getDlmLanguages().get(indSel[i]));
-					}
-				} catch (IndexOutOfBoundsException excep) {
-					companyLanguages = null;
+				try{
+				languageSelect = panCompCreat.getLstLanguages().getSelectedValue().toString();
+				}catch(NullPointerException except){
+					languageSelect = "JAVA";
 				}
-				System.out.println(companyLanguages);
+				companyLanguage= DataBaseCompany.getLanguageId(languageSelect);
+
+				//companyLanguages = new Languages();      Pour la première version, seulement une sélection est autorisée
+//				int[] indSel = panCompCreat.getLstLanguages().getSelectedIndices();
+//				try {
+//					for (int i = 0; i < indSel.length; i++) {
+//						companyLanguages.add(panCompCreat.getDlmLanguages().get(indSel[i]));
+//					}
+//				} catch (IndexOutOfBoundsException excep) {
+//					companyLanguages = null;
+//				}
 				
 				companyProjets= panCompCreat.getTxtProjets().getText();
-				companyWebSite = MethodsForListeners.nullField(panCompCreat.getTxtWebSite().getText());
+				companyWebSite = panCompCreat.getTxtWebSite().getText();
 				contactName = panCompCreat.getTxtContactName().getText();
 				contactPhone = panCompCreat.getTxtContactPhone().getText();
-				contactMail = panCompCreat.getTxtContactMail().getText();
+				contactMail = panCompCreat.getTxtContactMail().getText();		
 
 				contact = new Contact (contactName, contactPhone, contactMail);
 				
+				idCompany = DataBaseCompany.getIdMax("company") + 1;
+	//			System.out.println(idCompany);
+				company = new Company(idCompany, companyName, companyAdress, companyPostalCode, companyCity, companyDepartment, companyRegion,  
+						companySize,companySector, companyLanguage, companyProjets, companyWebSite, contact);
+				//System.out.println(company);
 				
-				company = new Company(companyName, companyAdress, companyPostalCode, companyCity, companyDepartment, companyRegion,  
-						companySize,companySector, companyLanguages, companyProjets, companyWebSite, contact);
-				System.out.println(company);
-				
-				
+				DataBaseCompany.insertCompanyData(company);
 				CompanyCreationPanel.getDlmCompanies().addElement(company);
 				MethodsForListeners.resetJTextField(panCompCreat.getAllJTextFields());
 				
-			}catch (CompanyCreationException | SQLException exception){
+			}catch (CompanyCreationException ev){
 				JOptionPane.showMessageDialog(popupError, "Veuillez renseigner les champs obligatoires");
+			} catch (SQLException e2) {
+				e2.printStackTrace();
 			}
 	
-			
-	
-			
-			
-			
-			
-			
-			//TODO (Anaïs) créer excepion nullPointerException Anaïs
-			
-			
-			
-			
-			
-			//OldDatas.getCompaniesList().add(company);
-
 		}
 		
 		if (e.getSource() == panCompCreat.getBtnCancel()){

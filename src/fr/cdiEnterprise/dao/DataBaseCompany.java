@@ -15,10 +15,17 @@ import fr.cdiEnterprise.service.Departments;
 import fr.cdiEnterprise.service.Languages;
 import fr.cdiEnterprise.service.Regions;
 
-
-
 public class DataBaseCompany {
 
+	/**
+	 * Méthode pour insérer un départment dans la base de données Utiliser
+	 * uniquement par le développeur de l'application
+	 * 
+	 * @author Anaïs
+	 * @version : 21/10/2016
+	 * @param department
+	 * @throws SQLException
+	 */
 	public static void insertDepartmentData(Department department) throws SQLException {
 		// Statement stmt = null;
 		Connection connexion = null;
@@ -42,12 +49,20 @@ public class DataBaseCompany {
 		insertDepartment.setString(2, department.getDepartmentName());
 
 		res = insertDepartment.executeUpdate();
-		System.out.println("insérer " + res);
 		connexion.commit();
-		connexion.close();
 		// stmt.close();
 
 	}
+
+	/**
+	 * Méthode qui permet de fournir la liste des départments de la base de
+	 * données
+	 *
+	 * @author Anaïs
+	 * @version: 21/10/2016
+	 * @return: departments
+	 * @throws SQLException
+	 */
 
 	public static Departments getDepartmentListData() throws SQLException {
 		Departments departments = new Departments();
@@ -69,6 +84,16 @@ public class DataBaseCompany {
 		return departments;
 	}
 
+	/**
+	 * Méthode qui permet de supprimer un départment de la base de données
+	 * Utilisée uniquement par le développeur de l'application
+	 *
+	 * @author Anaïs
+	 * @version: 21/10/2016
+	 * @param :
+	 *            Department
+	 * @throws SQLException
+	 */
 	public static void deleteDepartmentData(Department department) throws SQLException {
 
 		Statement stmt = null;
@@ -86,9 +111,19 @@ public class DataBaseCompany {
 
 		deleteDepartment.executeUpdate();
 
+		connexion.commit();
 		stmt.close();
 	}
 
+	/**
+	 * Méthode permettant de retourner un départment à partir de son numéro
+	 * 
+	 * @author Anaïs
+	 * @version: 21/10/2016
+	 * @param departmentNumber
+	 * @return Department
+	 * @throws SQLException
+	 */
 	public static Department getDepartmentName(int departmentNumber) throws SQLException {
 
 		Department department = null;
@@ -116,6 +151,15 @@ public class DataBaseCompany {
 		return department;
 	}
 
+	/**
+	 * Méthode permettant de retourner un départment à partir de son nom
+	 * 
+	 * @author Anaïs
+	 * @version: 21/10/2016
+	 * @param departmentName
+	 * @return Department
+	 * @throws SQLException
+	 */
 	public static Department getDepartmentId(String departmentName) throws SQLException {
 
 		Department department = null;
@@ -143,6 +187,15 @@ public class DataBaseCompany {
 		return department;
 	}
 
+	/**
+	 * Méthode permettant d'insérer une nouvelle région dans la base de données
+	 * Utilisée uniquement par le développeur de l'application
+	 * 
+	 * @author Anaïs
+	 * @version: 21/10/2016
+	 * @param region
+	 * @throws SQLException
+	 */
 	public static void insertRegionData(Region region) throws SQLException {
 		Statement stmt = null;
 		Connection connexion = null;
@@ -154,11 +207,20 @@ public class DataBaseCompany {
 		reqSql = "insert into regions values('" + region.getRegionName() + "'," + region.getCodeRegion() + ")";
 		System.out.println(reqSql);
 		stmt.executeUpdate(reqSql);
+		
 		connexion.commit();
 		stmt.close();
 
 	}
 
+	/**
+	 * Méthode permettant de renvoyer la liste des régions de la base de données
+	 * 
+	 * @author Anaïs
+	 * @version: 21/10/2016
+	 * @return Regions
+	 * @throws SQLException
+	 */
 	public static Regions getRegionsListData() throws SQLException {
 
 		Regions regions = new Regions();
@@ -180,11 +242,15 @@ public class DataBaseCompany {
 		return regions;
 	}
 
-	/*
-	 * Méthode pour récupérer le nom de la région dont le numéro est porté en
-	 * paramètre
+	/**
 	 * 
-	 * @Author : Anaïs
+	 * Méthode permettant de retourner une région en fonction de son numéro
+	 * 
+	 * @author : Anaïs
+	 * @version: 21/10/2016
+	 * @param: int
+	 * @return: Region
+	 * 
 	 */
 	public static Region getRegionName(int regionId) throws SQLException {
 
@@ -213,11 +279,16 @@ public class DataBaseCompany {
 		return region;
 	}
 
-	/*
+	/**
+	 * 
 	 * Méthode permettant de fournir le numéro de région correspondant à la
 	 * région portée en paramètre
 	 * 
 	 * @author : Anaïs
+	 * @version: 21/10/2016
+	 * @return Region
+	 * @param: String
+	 * 
 	 */
 
 	public static Region getRegionId(String regionName) throws SQLException {
@@ -247,27 +318,44 @@ public class DataBaseCompany {
 		return region;
 	}
 
-	public static void insertLanguageData(Language language) throws SQLException {
+	/**
+	 * Méthode permettant d'insérer un nouveau langage informatique dans la base
+	 * de données
+	 * 
+	 * @author Anaïs
+	 * @version 21/10/2016
+	 * @param language
+	 * @throws SQLException
+	 */
+
+	public static void insertLanguageData(String languageName) throws SQLException {
 		Connection connexion = null;
 		Statement stmt = null;
-		String reqSql = null;
 		int res;
 
 		connexion = DBConnection.getConnect();
 		stmt = connexion.createStatement();
 
-		reqSql = "insert into languages values (" + language.getId() + " , '" + language.getLanguageName() + "' );";
 		PreparedStatement insertLanguage = connexion.prepareStatement("insert into languages values (?,?)");
-		System.out.println(reqSql);
-		insertLanguage.setInt(1, language.getId());
-		insertLanguage.setString(2, language.getLanguageName());
+		insertLanguage.setInt(1, DataBaseCompany.getIdMax("language"));
+		insertLanguage.setString(2, languageName);
 
 		res = insertLanguage.executeUpdate();
 		System.out.println(res);
 
+		connexion.commit();
 		stmt.close();
 	}
 
+	/**
+	 * Méthode permettant de retourner la liste des langages informatiques de la
+	 * base de données
+	 * 
+	 * @author Anaïs
+	 * @version 21/10/2016
+	 * @return Languages
+	 * @throws SQLException
+	 */
 	public static Languages getLanguagesListData() throws SQLException {
 
 		Languages languages = new Languages();
@@ -289,6 +377,52 @@ public class DataBaseCompany {
 		return languages;
 	}
 
+	/**
+	 * Méthode permettant de retourner le langage à partir de son nom
+	 * 
+	 * @author Anaïs
+	 * @version 21/10/2016
+	 * @param languageSelect
+	 * @return Language
+	 * @throws SQLException
+	 */
+	public static Language getLanguageId(String languageSelect) throws SQLException {
+		Language language = null;
+		Statement stmt = null;
+		Connection connexion = null;
+		String reqSql = null;
+		ResultSet res;
+
+		connexion = DBConnection.getConnect();
+		stmt = connexion.createStatement();
+
+		reqSql = "select languageId, languageName from languages where languageName = ?";
+		PreparedStatement getLanguageId = connexion.prepareStatement(reqSql);
+		// System.out.println(reqSql);
+		getLanguageId.setString(1, languageSelect);
+
+		res = getLanguageId.executeQuery();
+		// System.out.println("modifier");
+		while (res.next()) {
+			int number = res.getInt("languageId");
+			language = new Language(languageSelect, number);
+		}
+		stmt.close();
+
+		return language;
+
+	}
+
+	/**
+	 * Méthode permettant de retourner la liste des entreprises de la base de
+	 * données
+	 * 
+	 * @author Anaïs
+	 * @version 25/10/2016
+	 * @return Companies
+	 * @throws SQLException
+	 */
+
 	public static Companies getCompaniesData() throws SQLException {
 
 		Companies companies = new Companies();
@@ -308,9 +442,9 @@ public class DataBaseCompany {
 				+ "and departments.departmentNumber = companydepartment.departmentNumber "
 				+ "and regions.regionId = companyregion.regionId "
 				+ "and languages.languageId = companylanguage.LANGUAGEID");
-
+		
 		while (rs.next()) {
-			// int idCompany = rs.getInt("idCompany");
+			int companyId = rs.getInt("companyId");
 			String companyName = rs.getString("companyName");
 			String companyAdress = rs.getString("companyAdress");
 			String postalcode = rs.getString("companyCodepostal");
@@ -319,31 +453,43 @@ public class DataBaseCompany {
 
 			Department department = DataBaseCompany.getDepartmentId(departmentN);
 
-			companies.add(new Company(companyName, companyAdress, postalcode, city, department));
+			companies.add(new Company(companyId,companyName, companyAdress, postalcode, city, department));
 
 		}
-//		stmt.close();
+		stmt.close();
 		return companies;
-		
-
 	}
 
+	/**
+	 * Méthode permettant de créer une nouvelle entreprise dans la base de
+	 * données
+	 * 
+	 * @author Anaïs
+	 * @version 24/10/2016
+	 * @param company
+	 * @throws SQLException
+	 */
 	public static void insertCompanyData(Company company) throws SQLException {
 
 		Connection connexion = null;
 		Statement stmt = null;
+//		int companyId = DataBaseCompany.getIdMax("company");
 		String reqSqla;
 		String reqSqlb;
 		String reqSqlc;
 		String reqSqld;
-
+		int rsa;
+		int rsb;
+		int rsc;
+		int rsd;
+		
 		connexion = DBConnection.getConnect();
 		stmt = connexion.createStatement();
 
 		reqSqla = "insert into company values (?,?,?,?,?,?,?,?,?)";
 		PreparedStatement insertCompany = connexion.prepareStatement(reqSqla);
 
-		insertCompany.setInt(1, company.getIdEnterprise());
+		insertCompany.setInt(1, company.getCompanyId());
 		insertCompany.setString(2, company.getCompanyName());
 		insertCompany.setString(3, company.getAdress());
 		insertCompany.setString(4, company.getPostalCode());
@@ -355,86 +501,132 @@ public class DataBaseCompany {
 
 		reqSqlb = "insert into companyregion values (?,?)";
 		PreparedStatement insertCompanyRegion = connexion.prepareStatement(reqSqlb);
-		insertCompanyRegion.setInt(1, company.getIdEnterprise());
+		insertCompanyRegion.setInt(1, company.getCompanyId());
 		insertCompanyRegion.setInt(2, company.getRegion().getCodeRegion());
 
 		reqSqlc = "insert into companydepartment values (?,?)";
 		PreparedStatement insertCompanyDepartment = connexion.prepareStatement(reqSqlc);
-		insertCompanyDepartment.setInt(1, company.getIdEnterprise());
+		insertCompanyDepartment.setInt(1, company.getCompanyId());
 		insertCompanyDepartment.setInt(2, company.getDepartment().getDepartmentNumber());
 
 		reqSqld = "insert into companylanguage values (?,?)";
 		PreparedStatement insertCompanyLanguage = connexion.prepareStatement(reqSqld);
-		insertCompanyLanguage.setInt(1, company.getIdEnterprise());
+		insertCompanyLanguage.setInt(1, company.getCompanyId());
 		insertCompanyLanguage.setInt(2, company.getLanguage().getId());
 
-		insertCompany.executeUpdate();
-		insertCompanyRegion.executeUpdate();
-		insertCompanyDepartment.executeUpdate();
-		insertCompanyLanguage.executeUpdate();
+		rsa = insertCompany.executeUpdate();
+		rsb = insertCompanyRegion.executeUpdate();
+		rsc = insertCompanyDepartment.executeUpdate();
+		rsd = insertCompanyLanguage.executeUpdate();
 
+		System.out.println("rsa" + rsa + "rsb" + rsb + "rsc" + rsc + "rsd" + rsd);
+		
+		connexion.commit();
 		stmt.close();
 
 	}
-	
-	public static void deleteCompanyData(Company company) throws SQLException {
+
+	/**
+	 * Méthode permettant de supprimer une entreprise de la base de données
+	 * 
+	 * @author Anaïs
+	 * @version 25/10/2016
+	 * @param company
+	 * @throws SQLException
+	 */
+
+	public static void deleteCompanyData(int selecId) throws SQLException {
 		Connection connexion = null;
 		Statement stmt = null;
-		String reqSql = null;
-		int res;
-
+		String reqSqla;
+		String reqSqlb;
+		String reqSqlc;
+		String reqSqld;
+		int rsa;
+		int rsb;
+		int rsc;
+		int rsd;
+		
 		connexion = DBConnection.getConnect();
 		stmt = connexion.createStatement();
-		reqSql = "delete from " + company + " where companyId = ?";
+				
+		reqSqla = "delete from company where companyId = ?";
+		PreparedStatement deleteCompany = connexion.prepareStatement(reqSqla);
+		deleteCompany.setInt(1, selecId);
 
-		PreparedStatement deleteCompany = connexion.prepareStatement(reqSql);
+		reqSqlb = "delete from companyregion where companyId = ?";
+		PreparedStatement deleteCompanyRegion = connexion.prepareStatement(reqSqlb);
+		deleteCompanyRegion.setInt(1, selecId);
 
-		deleteCompany.setInt(1, company.getIdEnterprise());
-//		System.out.println(rqSql);
+		reqSqlc = "delete from companydepartment where companyId = ?";
+		PreparedStatement deleteCompanyDepartment = connexion.prepareStatement(reqSqlc);
+		deleteCompanyDepartment.setInt(1, selecId);
 
-		deleteCompany.executeUpdate();
-//		System.out.println("effacer");
+		reqSqld = "delete from companylanguage where companyId = ?";
+		PreparedStatement deleteCompanyLanguage = connexion.prepareStatement(reqSqld);
+		deleteCompanyLanguage.setInt(1, selecId);
 
-
+		rsa = deleteCompany.executeUpdate();
+		rsb = deleteCompanyRegion.executeUpdate();
+		rsc = deleteCompanyDepartment.executeUpdate();
+		rsd = deleteCompanyLanguage.executeUpdate();
+		
+		System.out.println("rsa" + rsa + "rsb" + rsb + "rsc" + rsc + "rsd" + rsd);
+		
+		connexion.commit();
 		stmt.close();
+		
 	}
-	
-	
-	public static void updateCompanyData(Company company, String newAdress) throws SQLException {
+
+	/**
+	 * Méthode permettant de modifier une entreprise contenue dans la base de
+	 * données (pour le moment uniquement l'adresse)
+	 * 
+	 * @author Anaïs
+	 * @version 25/10/2016
+	 * @param company
+	 * @param newAdress
+	 * @throws SQLException
+	 */
+	public static void updateCompanyData(int selecId, String newAdress) throws SQLException {
 		Connection connexion = null;
 		Statement stmt = null;
 		String reqSql = null;
-		int res;
+		int rs;
 		
 		connexion = DBConnection.getConnect();
 		stmt = connexion.createStatement();
-		
-		reqSql = "UPDATE company set adressCompany= ? where companyId = " + company.getIdEnterprise();
+
+		reqSql = "UPDATE company set companyAdress = ? where companyId = ?";
 
 		PreparedStatement updateCompany = connexion.prepareStatement(reqSql);
-		updateCompany.setString(1, newAdress); 
-//		System.out.println(rqSql);
+		updateCompany.setString(1, newAdress);
+		updateCompany.setInt(2, selecId);
+		// System.out.println(rqSql);
 
-		updateCompany.executeUpdate();
-//		System.out.println("modifier");
-
-		connexion.close();
+		rs = updateCompany.executeUpdate();
+		System.out.println(rs);
+	
 		stmt.close();
 	}
 
+	/**
+	 * Méthode qui permet de créer un nouveau contact dans la base de données
+	 * 
+	 * @author Anaïs
+	 * @version 25/10/2016
+	 * @param contact
+	 * @throws SQLException
+	 */
 	public static void insertContact(Contact contact) throws SQLException {
 		Connection connexion = null;
 		Statement stmt = null;
-		String reqSql = null;
 		int res;
 		String table = "contactComp";
 		int idContact = getIdMax(table);
 
 		connexion = DBConnection.getConnect();
 		stmt = connexion.createStatement();
-
-		reqSql = "insert into contactComp values (" + idContact + " , '" + contact.getName() + "', "
-				+ contact.getPhoneNumber() + ", " + contact.getEmail() + ")";
 
 		PreparedStatement insertContact = connexion.prepareStatement("insert into contactComp values (?,?,?,?)");
 
@@ -449,7 +641,16 @@ public class DataBaseCompany {
 		stmt.close();
 	}
 
-	
+	/**
+	 * Méthode permettant de fournir l'id max d'une table de la base de données
+	 * fournie en paramètre
+	 * 
+	 * @author Anaïs
+	 * @version 25/10/2016
+	 * @param table
+	 * @return int
+	 * @throws SQLException
+	 */
 	public static int getIdMax(String table) throws SQLException {
 		Connection connexion;
 		Statement stmt;
@@ -457,7 +658,7 @@ public class DataBaseCompany {
 		connexion = DBConnection.getConnect();
 		stmt = connexion.createStatement();
 
-		ResultSet rsMax = stmt.executeQuery("select max (id) from " + table);
+		ResultSet rsMax = stmt.executeQuery("select max (" + table + "id) from " + table);
 		int idMax = 0;
 
 		while (rsMax.next())

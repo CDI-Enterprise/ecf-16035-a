@@ -24,6 +24,11 @@ public class Language {
 		this.languageName = languageName;
 		}
 
+	public Language(String languageSelect, int number) {
+		this.id = number;
+		this.languageName = languageSelect;
+	}
+
 	public String getLanguageName() {
 		return languageName;
 	}

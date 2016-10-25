@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 
 import fr.cdiEnterprise.dao.messageDao;
+import fr.cdiEnterprise.exceptions.CustomMessagingException;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.service.Items;
 
@@ -95,27 +96,36 @@ public class MpClientV2 {
 	}
 
 	/**
-	 * This method is going to send new email to other users.
+	 * Cette methode va s'occuper de la verification des informations avant de l'envoyer  a la base de donnée sous forme d'objet.
 	 * 
 	 * @param from this is to indicate the user who send the email
 	 * @param to this is to indicate the user who receive the email
 	 * @param obj this is to provide the email's object
 	 * @param bdy the body of the message.
 	 * @return this will return true if the message was correctly sent out
+	 * @throws CustomMessagingException cette exception  est executé si le destinataire ou le sujet sont manquant.
 	 * @throws SQLException 
 	 */
-	public void newEmail(String from, String to, String obj, String bdy )   {
+	public void newEmail(String from, String to, String object, String body ) throws CustomMessagingException   {
 		// TODO (nicolas) Penser a modifier la signature pour ne prendre que un objet Item
-		int idNumber = CONST_ZERO;
 		
-		ID_NUMBER = ID_NUMBER + CONST_ONE;
-		LocalDateTime timeStamp = LocalDateTime.now();
-		idNumber = ID_NUMBER;
-		Item itm = new Item(from, to, obj, bdy, timeStamp);
-	
-		itm.setId(idNumber);
-
-		messageDao.insertItem(itm);
+		int idNumber = CONST_ZERO;
+		if(from != null && to != null && object != null && body != null) {
+			if(!to.isEmpty() && !object.isEmpty()) {
+				ID_NUMBER = ID_NUMBER + CONST_ONE;
+				LocalDateTime timeStamp = LocalDateTime.now();
+				idNumber = ID_NUMBER;
+				Item itm = new Item(from, to, object, body, timeStamp);
+				itm.setId(idNumber);
+				messageDao.insertItem(itm);
+			} else {
+				throw new CustomMessagingException("le Destinataire ou le sujet sont vide.");
+			}
+			
+		}
+		
+		
+		
 
 			
 		
@@ -126,41 +136,47 @@ public class MpClientV2 {
 	 * @param item
 	 * @param draft
 	 * @return
+	 * @throws CustomMessagingException 
 	 */
-	public boolean sendEmail(Item item, boolean draft) {
+	public void sendEmail(String from, String to, String object, String body, boolean draft) throws CustomMessagingException {
 
 		LocalDateTime timeStamp = LocalDateTime.now();
 		ID_NUMBER = ID_NUMBER + CONST_ONE;
 
-		Item repliedItem = new Item(item.getSender(), item.getReceiver(), item.getObject(), item.getBody(),  timeStamp);
+		if(from != null && to != null && object != null && body != null) {
+			if(!to.isEmpty() && !object.isEmpty()) {
+		
+				Item repliedItem = new Item(from, to, object, body,  timeStamp);
 		
 		//repliedItem.setId(item.getId()); // old implementation
 		
-		repliedItem.setId(ID_NUMBER);
+				repliedItem.setId(ID_NUMBER);
 		if(draft) {
 
 			repliedItem.setDraftEmail(false);
 			System.out.println("message envoye a la base");
 			messageDao.insertItem(repliedItem);
-			
-			return true;
+
 		}else {
 			System.out.println("message envoye a la base");
-			if(item.getObject() != null && item.getBody() != null) {
-				repliedItem.setObject("re: "+ item.getObject());
+			
+				repliedItem.setObject("re: "+ object);
 				repliedItem.setTimeStamp(timeStamp);
-				String snd = item.getSender();
-				String rcv = item.getReceiver();
+				String snd = from;
+				String rcv = to;
 				repliedItem.setReceiver(snd);
 				repliedItem.setSender(rcv);
 				
 				
 				messageDao.insertItem(repliedItem);
-				return true;
-			}else {
-				return false;
-			}
+				
 
+
+		}
+			}else {
+				throw new CustomMessagingException("le Destinataire ou le sujet sont vide.");
+
+			}
 		}
 
 	}
