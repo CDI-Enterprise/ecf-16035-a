@@ -2,24 +2,14 @@ package fr.cdiEnterprise.view;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.FlowLayout;
+
 import java.sql.SQLException;
 
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.border.Border;
 
-import fr.cdiEnterprise.model.Company;
-import fr.cdiEnterprise.model.Language;
+
 
 public class HomePanel extends JPanel {
 
@@ -30,58 +20,22 @@ public class HomePanel extends JPanel {
 
 	
 	private Container panneau;
-	private JPanel panNorth;
-	private JPanel panSouth;
-	private JPanel panCenter;
-	private JPanel panWest;
-	private JLabel lblTitle;
+//	private JPanel panNorth;
+//	private JPanel panSouth;
+//	private JPanel panCenter;
+//	private JPanel panWest;
+//	private JLabel lblTitle;
 	private JLabel lblImage;
-//	private JPanel panCompany;
-//	private JPanel panContact;
-//	private Border border;
-//
-//	private JLabel lblCompanyName;
-//	private JTextField txtCompanyName;
-//	private JLabel lblCompanyAdress;
-//	private JTextField txtCompanyAdress;
-//	private JLabel lblCompanyCity;
-//	private JTextField txtCompanyCity;
-//	private JLabel lblPostalCode;
-//	private JTextField txtPostalCode;
-//	private JLabel lblCompanyDepartment;
-//	private JComboBox<String> cboCompanyDepartment;
-//	private JLabel lblSelcDepartment;
-//	private JLabel lblCompanyRegion;
-//	private JComboBox<String> cboCompanyRegion;
-//	private JLabel lblSelcRegion;
-//	private JLabel lblSize;
-//	private JRadioButton optMicroEnt;
-//	private JRadioButton optPME;
-//	private JRadioButton optETI;
-//	private JRadioButton optGrdEnt;
-//	private JLabel lblSector;
-//	private JTextField txtSector;
-//	private JLabel lblLanguages;
-//	private DefaultListModel<Language> dlmLanguages;
-//	private JList<Language> lstLanguages;
-//	private JScrollPane languages;
-//	private JLabel lblSelcLanguages;
-//	private JLabel lblWebSite;
-//	private JTextField txtWebSite;
-//	private JLabel lblProjets;
-//	private JTextArea txtProjets;
-//	private JLabel lblContactName;
-//	private JTextField txtContactName;
-//	private JLabel lblContactPhone;
-//	private JTextField txtContactPhone;
-//	private JLabel lblContactMail;
-//	private JTextField txtContactMail;
-//	private DefaultListModel<Company> dlmCompanies; 
-//	private JList <Company> lstCompanies;
-//	private JScrollPane companies;
-//	private JButton btnDelete;
-//	private JButton btnUpdate;
-//	private JButton btnCancel;
+//	private JLabel lblInfo1;
+//	private JLabel lblInfo2;
+//	private JLabel lblInfo3;
+//	private JLabel lblInfo4;
+//	private JLabel lblInfo5;
+//	private JLabel lblInfo6;
+//	private JLabel lblInfo7;
+//	private JLabel lblInfo8;
+//	private JLabel lblInfo9;
+//	private JPanel panInfo;
 	
 	
 	public HomePanel() throws SQLException {
@@ -89,25 +43,52 @@ public class HomePanel extends JPanel {
 		panneau = this;
 		panneau.setLayout(new BorderLayout(5,5));
 		
-		panNorth = new JPanel();
-		panWest = new JPanel();
-		panCenter = new JPanel();
-		panSouth = new JPanel();
-		
-		panneau.add(panNorth, BorderLayout.NORTH);
-		panneau.add(panWest,BorderLayout.WEST);
-		panneau.add(panCenter, BorderLayout.CENTER);
-		panneau.add(panSouth, BorderLayout.SOUTH);
-		
-		panNorth.setLayout(new FlowLayout());
-		lblTitle = new JLabel("Bienvenue sur l'application CDI Enterprise");
-		lblTitle.setAlignmentX(JPanel.CENTER_ALIGNMENT);
-		lblTitle.setVisible(true);
-		
-		lblImage = new JLabel (new ImageIcon("star-trek.png"));
-		
-		panNorth.add(lblTitle);
-		panCenter.add(lblImage);
+		lblImage = new JLabel (new ImageIcon("Capture.png"));
+//		panNorth = new JPanel();
+//		panWest = new JPanel();
+//		panCenter = new JPanel();
+//		panSouth = new JPanel();
+//		
+//		panneau.add(panNorth, BorderLayout.NORTH);
+//		panneau.add(panWest,BorderLayout.WEST);
+//		panneau.add(panCenter, BorderLayout.CENTER);
+//		panneau.add(panSouth, BorderLayout.SOUTH);
+//		
+//		
+//		panNorth.setLayout(new FlowLayout());
+//		lblTitle = new JLabel("Bienvenue sur l'application CDI Enterprise");
+//		lblTitle.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+//		lblTitle.setVisible(true);
+//		
+//		panInfo = new JPanel();
+//		panInfo.setLayout(new MigLayout());
+//		lblInfo1 = new JLabel("Participez à la création d'une base de données commune de fiches entreprises ");
+//		lblInfo2 = new JLabel("STAGIAIRES, ancien ou nouveau ");
+//		lblInfo3 = new JLabel("Trouvez les entreprises qui vous conviennent avec le module de recherche avancée ");
+//		lblInfo4 = new JLabel("Gérez vos compagnies et recherches favorites ");
+//		lblInfo5 = new JLabel("Dialoguez avec d'autres stagiaires et des anciens de la formation ");
+//		lblInfo6 = new JLabel("Maintenez un profil public et technique à jour ");
+//		lblInfo7 = new JLabel("FORMATEURS ");
+//		lblInfo8 = new JLabel("Gardez contact avec vos anciens stagiaires");
+//		lblInfo9 = new JLabel("Suivez leur carrière ");
+//		
+//		panCenter.add(panInfo);
+//		
+//		lblImage = new JLabel (new ImageIcon("star-trek.png"));
+//		
+		panneau.add(lblImage);
+//		panNorth.add(lblTitle);
+//		panWest.add(lblImage);
+//		panInfo.add(lblInfo1, "wrap");
+//		panInfo.add(lblInfo2, "wrap");
+//		panInfo.add(lblInfo3, "wrap");
+//		panInfo.add(lblInfo4, "wrap");
+//		panInfo.add(lblInfo5, "wrap");
+//		panInfo.add(lblInfo6, "wrap");
+//		panInfo.add(lblInfo7, "wrap");
+//		panInfo.add(lblInfo8, "wrap");
+//		panInfo.add(lblInfo9, "wrap");
+
 	
 	}
 }
