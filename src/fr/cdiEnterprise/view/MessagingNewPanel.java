@@ -5,6 +5,7 @@ package fr.cdiEnterprise.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 
@@ -48,11 +49,11 @@ public class MessagingNewPanel extends JPanel {
 	private Border borderMessage;
 	
 	private String from;
-	private JLabel receiver;
+	private JLabel lblreceiver;
 	private JLabel lblobject;
-	private JLabel Message;
-	private JLabel letterCount;
-	private JLabel lblCounter;
+	private JLabel lblMessage;
+	private JLabel lblLimite;
+
 	private JTextPane textPane;
 	
 	private JComboBox cboReceiver;
@@ -62,6 +63,11 @@ public class MessagingNewPanel extends JPanel {
 	private JScrollPane scroll;
 	
 	private static final int MAX_CHARACTERS = 450;
+	private static final String ENVOIE 		= "Envoyé";
+	private static final String DRAFT 		= "Brouillon";
+	private static final String RETURN 		= "Retour";	
+	private static final String CONSIGNE 	= "Le texte est limité a 450 caractères.";
+	private static final String LABEL_TITLE = " Nouveau Message ";
 	private Users usersList;
 
 
@@ -71,7 +77,7 @@ public class MessagingNewPanel extends JPanel {
 		
 		MessageListener listener = new MessageListener((JPanel) this);
 		
-		borderMessage = BorderFactory.createTitledBorder(" Nouveau Message ");
+		borderMessage = BorderFactory.createTitledBorder(LABEL_TITLE);
 		border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		usersList = list;
 		from = MessageListener.alias;
@@ -80,28 +86,27 @@ public class MessagingNewPanel extends JPanel {
 		JPanel panMess = new JPanel();
 		JPanel panNorth = new JPanel();
 		JPanel panCenter = new JPanel();
+		JPanel panSouth = new JPanel();
 		panMess.setLayout(new BorderLayout());
 		add(panMess);
 		panMess.add(panNorth,BorderLayout.NORTH);
 		panMess.add(panCenter,BorderLayout.CENTER);
+		panMess.add(panSouth, BorderLayout.SOUTH);
 		
 		
-		JLabel lblTitle = new JLabel("- Nouveau Message -");
 		
-		btnEnv = new JButton("Envoyé");
-		btnDraft = new JButton("Brouillon");
-		btnReturn = new JButton("Retour");
+		btnEnv = new JButton(ENVOIE);
+		btnDraft = new JButton(DRAFT);
+		btnReturn = new JButton(RETURN);
 		
 		btnEnv.setMnemonic(KeyEvent.VK_E);
 		btnDraft.setMnemonic(KeyEvent.VK_B);
 		btnReturn.setMnemonic(KeyEvent.VK_R);
 		
-		receiver = new JLabel("Destinataire");
-		lblobject = new JLabel("Objet");
-		Message = new JLabel("Texte");
-		letterCount = new JLabel("compteur");
-		lblCounter =   new JLabel();
-		
+		lblreceiver = new JLabel("Destinataire");
+		lblobject 	= new JLabel("Sujet");
+		lblMessage 	= new JLabel("Texte");
+		lblLimite	= new JLabel(CONSIGNE);
 	
 		
 //		textPane = new JTextPane();
@@ -151,26 +156,27 @@ public class MessagingNewPanel extends JPanel {
 		}
 		
 		
-		panNorth.add(lblTitle);
+	
 		panCenter.setLayout(new MigLayout());
 		panCenter.setBorder(borderMessage);
 		
-		panCenter.add(receiver, "w 200!");
+		panCenter.add(lblreceiver, "w 200!");
 		panCenter.add(cboReceiver, "wrap");
 		panCenter.add(lblobject, "w 200!");
 		panCenter.add(txtObject, "wrap");
 		
-		panCenter.add(Message, "w 200!");
+		panCenter.add(lblMessage, "w 200!");
 		panCenter.add(txtMessage, "wrap");
 
-		panCenter.add(letterCount, "w 200!");
-		panCenter.add(lblCounter, "wrap");
 		
 		
 		panCenter.add(btnEnv, "w 200!");
 		panCenter.add(btnDraft, "w 200!");
 		panCenter.add(btnReturn, "w 200!");
 		
+		
+		panSouth.setLayout(new FlowLayout());
+		panSouth.add(lblLimite);
 		
 		btnEnv.addActionListener(listener);
 		btnDraft.addActionListener(listener);
@@ -185,15 +191,6 @@ public class MessagingNewPanel extends JPanel {
 
 
 
-	public JLabel getLblCounter() {
-		return lblCounter;
-	}
-
-
-
-	public void setLblCounter(JLabel lblCounter) {
-		this.lblCounter = lblCounter;
-	}
 
 
 

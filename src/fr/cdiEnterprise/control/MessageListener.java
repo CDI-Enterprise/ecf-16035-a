@@ -44,7 +44,7 @@ import fr.cdiEnterprise.view.SpecialTableItemModel;
  * @author Nicolas Tarral
  *
  */
-public class MessageListener implements ActionListener, KeyListener, MouseListener {
+public class MessageListener implements ActionListener, MouseListener {
 
 
 	private static MessagingMainPanel panelMain;
@@ -156,7 +156,8 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		}
 		else if  (e.getSource() == panelMain.getBtnDisplay()) {
 
-			
+			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));	
+			panelMain.refresh();
 
 		}
 		else if  (e.getSource() == panelMain.getBtnSch()) {
@@ -190,8 +191,13 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 
 				}else {
 					System.out.println(panelNew.getTxtMessage().getText().length());
-					client.newEmail(alias,receiver, panelNew.getTxtObject().getText(),
-							panelNew.getTxtMessage().getText());
+					try {
+						client.newEmail(alias,receiver, panelNew.getTxtObject().getText(),
+								panelNew.getTxtMessage().getText());
+					} catch (CustomMessagingException e1) {
+						customDialog(e1.getMessage());
+						//e1.printStackTrace();
+					}
 				
 					MessageListener.panelMain.setCopyUserItems(client.getMessages(false));	
 
@@ -251,7 +257,12 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 			currentItem.setObject(panelRead.getTxtObject().getText());
 			currentItem.setBody(panelRead.getTxtMessage().getText());
 			
-			client.sendEmail(currentItem, false);
+			try {
+				client.sendEmail(panelRead.getItm().getSender(), panelRead.getItm().getReceiver(),panelRead.getTxtObject().getText(), panelRead.getTxtMessage().getText() , false);
+			} catch (CustomMessagingException e1) {
+				customDialog(e1.getMessage());
+				e1.printStackTrace();
+			}
 			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
 			//client.display(false);
 		
@@ -313,11 +324,17 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 						customDialog("le champ Objet doit etre remplie.");
 					} else {
 
-						Item draftToSend = new Item(alias,receiver, panelMod.getTxtObject().getText(),
-								panelMod.getTxtMessage().getText(), null);
+						//Item draftToSend = new Item(alias,receiver, panelMod.getTxtObject().getText(),
+								//panelMod.getTxtMessage().getText(), null);
 						// TODO (Nicolas) : need to handle well this exception, maybe in the class client ?
 
-							client.sendEmail(draftToSend, true);
+							try {
+								client.sendEmail(alias, receiver, panelMod.getTxtObject().getText(),
+										panelMod.getTxtMessage().getText(), true);
+							} catch (CustomMessagingException e1) {
+								customDialog(e1.getMessage());
+								e1.printStackTrace();
+							}
 
 							MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
 
@@ -363,8 +380,7 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 					
 					
 
-					Item draftToSend = new Item(identity, alias,receiver, panelMod.getTxtObject().getText(),
-								panelMod.getTxtMessage().getText(), null, true);
+					Item draftToSend = new Item(identity, alias,receiver, panelMod.getTxtObject().getText(),panelMod.getTxtMessage().getText(), null, true);
 					System.out.println(panelMod.getTxtMessage().getText());
 					
 					try {
@@ -407,49 +423,49 @@ public class MessageListener implements ActionListener, KeyListener, MouseListen
 		return usr;
 	}
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-		JTextArea text = panelNew.getTxtMessage();
-		if(nbCaracters == MESSAGE_MAX_SIZE) {
-			System.out.println(e.getKeyChar());
-			if(e.getKeyChar() != '\b' || KeyEvent.VK_DELETE != e.getKeyChar()) {
-				
-				text.setEditable(false);
-			}else {
-				System.out.println("effacement...");
-				text.setEditable(true);
-			}
-			
-		}
-		
-		int nb = 0;
-		if(e.getKeyChar() == '\b' || KeyEvent.VK_DELETE == e.getKeyChar()) {
-			nb--;
-			
-			nbCaracters += nb;
-			//System.out.println("lettre tapée : " + e.getKeyChar());
-			
-		}else {
-			//System.out.println("lettre tapée : " + e.getKeyChar());
-			nb++;
-			nbCaracters += nb;
-		}
-
-
-		panelNew.getLblCounter().setText((MESSAGE_MAX_SIZE - nbCaracters) + "");
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		
-
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		
-
-	}
+//	@Override
+//	public void keyTyped(KeyEvent e) {
+//		JTextArea text = panelNew.getTxtMessage();
+//		if(nbCaracters == MESSAGE_MAX_SIZE) {
+//			System.out.println(e.getKeyChar());
+//			if(e.getKeyChar() != '\b' || KeyEvent.VK_DELETE != e.getKeyChar()) {
+//				
+//				text.setEditable(false);
+//			}else {
+//				System.out.println("effacement...");
+//				text.setEditable(true);
+//			}
+//			
+//		}
+//		
+//		int nb = 0;
+//		if(e.getKeyChar() == '\b' || KeyEvent.VK_DELETE == e.getKeyChar()) {
+//			nb--;
+//			
+//			nbCaracters += nb;
+//			//System.out.println("lettre tapée : " + e.getKeyChar());
+//			
+//		}else {
+//			//System.out.println("lettre tapée : " + e.getKeyChar());
+//			nb++;
+//			nbCaracters += nb;
+//		}
+//
+//
+//		panelNew.getLblCounter().setText((MESSAGE_MAX_SIZE - nbCaracters) + "");
+//	}
+//
+//	@Override
+//	public void keyPressed(KeyEvent e) {
+//		
+//
+//	}
+//
+//	@Override
+//	public void keyReleased(KeyEvent e) {
+//		
+//
+//	}
 
 	/**
 	 * Cette Method va trouvé l'objet Item selectionné dans la table et

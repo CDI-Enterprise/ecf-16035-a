@@ -2,7 +2,7 @@ package fr.cdiEnterprise.application;
 
 import java.sql.SQLException;
 
-import fr.cdiEnterprise.dao.OldDatas;
+//import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.view.MainFrame;
 
 public class Application {
@@ -14,6 +14,7 @@ public class Application {
 		MainFrame mainFrame = new MainFrame();
 		mainFrame.setVisible(true);
 		mainFrame.pack();
+		
 
 	}
 

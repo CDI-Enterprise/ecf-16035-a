@@ -127,7 +127,7 @@ public class MessagingDraftPanel extends JPanel {
 		tiModel = new SpecialTableItemModel(copyUserItems);
 		
 		tableModele =  new DefaultTableModel(tableauMsg, new String[] {
-				"Sender", "Objet", "Date Reception"
+				"Reçu de", "Sujet", "Date Reception"
 			});
 		
 		
