@@ -298,7 +298,9 @@ public class MessageListener implements ActionListener, MouseListener {
 		// LISTE DES BROUILLONS
 		} else if ((panelDraft != null) && (e.getSource() == panelDraft.getBtnDisplay())) {
 			
-			
+			MessageListener.panelDraft.setCopyUserItems(client.getMessages(true));	
+			panelDraft.refresh();
+
 		}
 
 		
@@ -307,8 +309,6 @@ public class MessageListener implements ActionListener, MouseListener {
 			// panelNew = new MessagingNewPanel();
 			//MessageListener.panelMain.setCopyUserItems(cli.getMessages(false)); // Previous imlplementatioons
 			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
-			
-
 			MainFrame.SwithPanel(panelMain);
 		
 		}
@@ -347,6 +347,7 @@ public class MessageListener implements ActionListener, MouseListener {
 					}
 
 				}
+
 				
 				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnDel())) {
 					
@@ -368,7 +369,8 @@ public class MessageListener implements ActionListener, MouseListener {
 					}
 				else if ((panelMod != null) && (e.getSource() == panelMod.getBtnRet())) {
 					
-					
+					MessageListener.panelDraft.setCopyUserItems(client.getMessages(true));	
+					panelDraft.refresh();
 					MainFrame.SwithPanel(panelDraft);		
 					
 				}
