@@ -23,10 +23,6 @@ import javax.swing.table.DefaultTableModel;
 
 import fr.cdiEnterprise.control.BookMarkListener;
 import fr.cdiEnterprise.model.FavoriteModelTable;
-//import fr.cdiEnterprise.model.ModelTable;
-//import fr.cdiEnterprise.dao.Datas;
-//import fr.cdiEnterprise.model.Company;
-//import fr.cdiEnterprise.model.Favorite;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -46,7 +42,6 @@ public class BookMarkPanel extends JPanel
 
 	private static final long serialVersionUID = 1L;
 
-
 	//Panel
 	private JPanel contentBookMarkPan;				//Main panel
 	private JPanel panelMarkLeft;					//left's panel
@@ -54,7 +49,6 @@ public class BookMarkPanel extends JPanel
 
 	//Label
 	private JLabel lblMyNote;						//Title of txtNoteUser part
-
 
 	private JComboBox <String> lstMyFavorites;		//List of enterprises recorded
 
@@ -64,7 +58,7 @@ public class BookMarkPanel extends JPanel
 	private DefaultTableModel tabFieldInfo;	
 
 	private JScrollPane noteUserPane;				//Add scrollbar to the txtNoteUser
-
+	private JScrollPane favoriteScrollTable;		//Add scrollbar to the bookMarkResult
 
 	//Button	
 	private JButton btnBookMarkSee;					//Button to show company's information
@@ -76,15 +70,10 @@ public class BookMarkPanel extends JPanel
 
 	private BookMarkListener listener = new BookMarkListener(this);					//Creation of actionListener 
 
-	//TEST
-	private final String[] HEADER_LIST ={ "City", "Size", "Sector", "WebSite", "contactMail"};
-	private String [][] tabMark;
-	//Fin TEST
-
-
 	/**
 	 * 
 	 */
+	
 	public BookMarkPanel()
 	{
 		//		//Main
@@ -152,10 +141,17 @@ public class BookMarkPanel extends JPanel
 		contentBookMarkPan.add(listCompanyResultPan, BorderLayout.CENTER);
 
 		//Load list's table
-		//tabFieldInfo = (DefaultTableModel) bookMarkResult.getModel();
 
+//		private JTable bookMarkResult;					//Company's information
+//		private DefaultTableModel tabFieldInfo;	
+		
+		bookMarkResult = new JTable();
+		tabFieldInfo = (DefaultTableModel) bookMarkResult.getModel();
 		bookMarkResult = new JTable(new FavoriteModelTable());
-		listCompanyResultPan.add(bookMarkResult, "cell 2 1,grow");
+		bookMarkResult.setPreferredScrollableViewportSize(new Dimension(460,200));
+		favoriteScrollTable =new JScrollPane(bookMarkResult);
+		listCompanyResultPan.add(favoriteScrollTable, "cell 2 1,grow");
+		//listCompanyResultPan.add(bookMarkResult, "cell 2 1,grow");
 
 
 		btnGoCompanySheet = new JButton("Fiche complete de l'entreprise");
@@ -192,7 +188,6 @@ public class BookMarkPanel extends JPanel
 	public JTextArea getTxtNoteUser() {
 		return txtNoteUser;
 	}
-
 
 	/**
 	 * @return the txtSearchBookMark
@@ -234,5 +229,12 @@ public class BookMarkPanel extends JPanel
 	 */
 	public JButton getBtnGoCompanySheet() {
 		return btnGoCompanySheet;
+	}
+
+	/**
+	 * @return the tabFieldInfo
+	 */
+	public DefaultTableModel getTabFieldInfo() {
+		return tabFieldInfo;
 	}
 }
