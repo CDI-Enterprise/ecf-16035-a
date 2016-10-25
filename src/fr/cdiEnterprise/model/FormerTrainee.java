@@ -2,17 +2,19 @@ package fr.cdiEnterprise.model;
 
 /**
  * Class for FormerTrainee creation.
+ * 
  * @author Claire
  * @see fr.cdiEnterprise.model.User, fr.cdiEnterprise.model.Trainee
  * @version 13-10-2016
+ * 
  */
 
 public class FormerTrainee extends Trainee {
 
 	//Compulsory profile (public/protected) information (approacheCompany from super-class compulsory here)
 	private String currentProfession;						// Actual occupation, job-seeker possible
-	private Company currentCompany;							// Actual company where former trainee works, none possible
-	private Company formerCompany;							// Former companies where former trainee worked, none possible
+//	private Company currentCompany;							// Actual company where former trainee works, none possible
+//	private Company formerCompany;							// Former companies where former trainee worked, none possible
 
 
 	// Constructor test for DB
@@ -38,8 +40,7 @@ public class FormerTrainee extends Trainee {
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + "FormerTrainee [currentProfession=" + currentProfession + ", currentCompany=" + currentCompany
-				+ ", formerCompany=" + formerCompany + "]";
+		return super.toString() + "FormerTrainee [currentProfession=" + currentProfession + "]";
 	}
 
 
@@ -57,32 +58,32 @@ public class FormerTrainee extends Trainee {
 		this.currentProfession = currentProfession;
 	}
 
-	/**
-	 * @return the currentCompany
-	 */
-	public Company getCurrentCompany() {
-		return currentCompany;
-	}
-
-	/**
-	 * @param currentCompany the currentCompany to set
-	 */
-	public void setCurrentCompany(Company currentCompany) {
-		this.currentCompany = currentCompany;
-	}
-
-	/**
-	 * @return the formerCompany
-	 */
-	public Company getFormerCompany() {
-		return formerCompany;
-	}
-
-	/**
-	 * @param formerCompany the formerCompany to set
-	 */
-	public void setFormerCompany(Company formerCompany) {
-		this.formerCompany = formerCompany;
-	}
+//	/**
+//	 * @return the currentCompany
+//	 */
+//	public Company getCurrentCompany() {
+//		return currentCompany;
+//	}
+//
+//	/**
+//	 * @param currentCompany the currentCompany to set
+//	 */
+//	public void setCurrentCompany(Company currentCompany) {
+//		this.currentCompany = currentCompany;
+//	}
+//
+//	/**
+//	 * @return the formerCompany
+//	 */
+//	public Company getFormerCompany() {
+//		return formerCompany;
+//	}
+//
+//	/**
+//	 * @param formerCompany the formerCompany to set
+//	 */
+//	public void setFormerCompany(Company formerCompany) {
+//		this.formerCompany = formerCompany;
+//	}
 
 }
