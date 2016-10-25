@@ -26,7 +26,13 @@ create table company(
     companyWeb varchar(200)
    );
 
-
+drop table contactComp;
+create table contact (
+  idContact number,
+  contactName varchar(100),
+  contactPhone varchar(20),
+  contactMail varchar(50)
+  );
 
 create table companyregion(
   companyId number,
@@ -43,6 +49,10 @@ create table companyLanguage(
   companyId number,
   languageId number
   );
+
+create table companyContact(
+  companyId number,
+  contactId number);
 
 drop table regions;
 drop table departments; 
@@ -193,16 +203,28 @@ select  * from companydepartment;
 select * from companyregion;
 select * from companylanguage;
 
-select company.companyId, companyName,companyAdress, companyCODEPOSTAL, companyCity, companySize , companySector , companyProjects , companyWeb, departmentname, departmentnumber, regionName, languagename
+select company.companyId, companyName,companyAdress, companyCODEPOSTAL, companyCity, companySize , companySector , companyProjects , companyWeb, departmentname, regionName, languagename
 from company, languages, departments, regions, companydepartment, companyregion, companylanguage
 where company.companyId = companyregion.companyId
 and company.companyId = companydepartment.companyId
 and company.companyId = companyLanguage.companyId
 and departments.departmentNumber = companydepartment.departmentNumber
-and regions.regionId = companyregion.regionId;
+and regions.regionId = companyregion.regionId
+and languages.languageId = companylanguage.LANGUAGEID;
 
 
+select company.companyId, companyName,companyAdress, companyCODEPOSTAL, companyCity, companySize , companySector , companyProjects , companyWeb, departmentname, regionName, languagename 
+from company, languages, departments, regions, companydepartment, companyregion, companylanguage 
+where company.companyId = companyregion.companyId 
+and company.companyId = companydepartment.companyId 
+and company.companyId = companyLanguage.companyId 
+and departments.departmentNumber = companydepartment.departmentNumber 
+and regions.regionId = companyregion.regionId 
+and languages.languageId = companylanguage.LANGUAGEID;
 
-
+delete from company where companyId = 2;
+delete from companyregion where companyId = 6;
+delete from companydepartment where companyId = 6;
+delete from companylanguage where companyId = 6;
 
 commit;
