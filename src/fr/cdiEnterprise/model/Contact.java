@@ -1,47 +1,47 @@
 package fr.cdiEnterprise.model;
 
 /**
-* Cette classe représente un contact qui sera renseigné par un utilisateur et affiché dans la fiche entreprise.
+* Class for company's contact creation.
 * 
 * @author Anaïs
-* @version 30-09-2016
+* @version 23-10-2016
 *
 */
 
 public class Contact {
 
-	private String lastName;
-	private String firstName;
+	private int idContact;
+	private String name;
 	private String phoneNumber;
 	private String email;
+	
 
 	
 	public Contact(){
 		
 	}
 	
-	public Contact (String lastName,String firstName, String phoneNumber, String email){
-		this.setLastName(lastName);
-		this.setFirstName(firstName);
+	public Contact (int idContact, String name, String phoneNumber, String email){
+		this.idContact= idContact;
+		this.setName(name);
 		this.setPhoneNumber(phoneNumber);
 		this.setEmail(email);
 	}
 
-	public String getLastName() {
-		return lastName;
+	public Contact (String name, String phoneNumber, String email){
+		this.setName(name);
+		this.setPhoneNumber(phoneNumber);
+		this.setEmail(email);
 	}
 	
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public String getName() {
+		return name;
 	}
 	
-	public String getFirstName(){
-		return firstName;
+	public void setName(String name){
+		this.name=name;
 	}
 	
-	public void setFirstName(String firstName){
-		this.firstName=firstName;
-	}
 	
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -58,11 +58,10 @@ public class Contact {
 	public void setEmail(String email){
 		this.email=email;
 	}
-	
-	
+		
 	@Override
 	public String toString() {
-		return "Contact: " + firstName + lastName + phoneNumber + email;
+		return "Contact: " + name + phoneNumber + email;
 	}
 		
 }

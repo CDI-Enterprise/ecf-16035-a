@@ -1,11 +1,12 @@
-package fr.cdiEnterprise.control;
+package fr.cdiEnterprise.util;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+
 
 import fr.cdiEnterprise.dao.Server;
 import fr.cdiEnterprise.model.Item;
+import fr.cdiEnterprise.service.Items;
 
 
 
@@ -29,17 +30,18 @@ import fr.cdiEnterprise.model.Item;
 public class MpClient {
 	
 	private static int ID_NUMBER = 0;
+	  
 
 	private Server server;
 	private String box;
-	private ArrayList<Item> myMessages;
-	private ArrayList<Item> myDraft;
+	private Items myMessages;
+	//private Items myDraft;
 	
-	public MpClient(Server server, String usr) {
+	public MpClient(Server s, String usr) {
 		box = usr;
-		this.server = server;
-		this.myMessages = new  ArrayList<Item>();
-		this.myDraft = new  ArrayList<Item>();
+		this.server = s;
+		this.myMessages = new Items();
+	//	this.myDraft = new  Items();
 
 	}
 	
@@ -61,12 +63,12 @@ public class MpClient {
 		idNumber = ID_NUMBER + "";
 		Item itm = new Item(from, to, obj, bdy, timeStamp);
 		System.out.println("Taille du Message : "+bdy.length());
-		itm.setId(idNumber);
+	//	itm.setId(idNumber);
 		if(server.post(itm)) {
 			
 			return true;
 		}
-		// TODO function to generate new thread
+		// TODO (Nicolas) function to generate new thread
 		
 		
 		return false;
@@ -82,27 +84,27 @@ public class MpClient {
 
 		LocalDateTime timeStamp = LocalDateTime.now();
 	
-		Item itm = new Item(item.getSender(), item.getReceiver(), item.getObject(), item.getBody(),  timeStamp);
+		Item repliedItem = new Item(item.getSender(), item.getReceiver(), item.getObject(), item.getBody(),  timeStamp);
 		
-		itm.setId(item.getId());
+		repliedItem.setId(item.getId());
 		if(draft) {
 			
-			itm.setDraftEmail(false);
-			System.out.println(itm.toString());
-			server.post(itm);
+			repliedItem.setDraftEmail(false);
+			System.out.println(repliedItem.toString());
+			server.post(repliedItem);
 			
 			return true;
 		}else {
 			if(item.getObject() != null && item.getBody() != null) {
-				item.setObject("re: "+ item.getObject());
-				item.setTimeStamp(timeStamp);
+				repliedItem.setObject("re: "+ item.getObject());
+				repliedItem.setTimeStamp(timeStamp);
 				String snd = item.getSender();
 				String rcv = item.getReceiver();
-				item.setReceiver(snd);
-				item.setSender(rcv);
+				repliedItem.setReceiver(snd);
+				repliedItem.setSender(rcv);
 				
 				
-				server.post(item);
+				server.post(repliedItem);
 				return true;
 			}else {
 				return false;
@@ -149,12 +151,12 @@ public class MpClient {
 	 */
 	public boolean draft(String from, String to, String obj, String bdy) {
 		
-		String idNumber = null;
+		int idNumber = 0;
 		
 		
 		ID_NUMBER = ID_NUMBER + 1;
 		LocalDateTime timeStamp = LocalDateTime.now();
-		idNumber = ID_NUMBER + "";
+		idNumber = ID_NUMBER;
 		Item itm = new Item(from, to, obj, bdy, null);
 		//System.out.println("the id number for " + idNumber);
 		itm.setId(idNumber);
@@ -172,7 +174,7 @@ public class MpClient {
 	 * @param draft true will indicate to return the draft email
 	 * @return an arrayList of items
 	 */
-	public ArrayList<Item> getMessages(boolean draft) {
+	public Items getMessages(boolean draft) {
 
 		
 		myMessages = server.getAllItems(this.box, draft);
@@ -185,14 +187,12 @@ public class MpClient {
 	/**
 	 * this is going to remove a message or a draft message, and with a particular id.
 	 * @param identifier to get the requested email removed
-	 * @param draft will indicate if this is a drfaft email
+	 * @param draft will indicate if this is a draft email
 	 */
 	public void removeMessage(String identifier, boolean draft) {
 		
-		if(server.removeMessage(this.box, identifier, draft)) {
-			//System.out.println("Message has been removed...");
-		}
-	}
+		
+			}
 	
 	/**
 	 * going to pop one message with particular Id, and draft or not
@@ -242,6 +242,10 @@ public class MpClient {
 			System.out.println("Message : "+current.getBody());
 			System.out.println("Message ID: "+current.getId());
 		}
+	}
+
+	public String getBox() {
+		return box;
 	}
 	
 	

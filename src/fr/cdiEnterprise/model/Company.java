@@ -3,11 +3,10 @@ package fr.cdiEnterprise.model;
 import fr.cdiEnterprise.service.Languages;
 
 /**
- * Cette classe représente une fiche entreprise qui sera renseignée par un
- * utilisateur.
+ * Class for company creation 
  * 
  * @author Anaïs
- * @version 07-10-2016
+ * @version 23-10-2016
  *
  */
 public class Company {
@@ -23,6 +22,8 @@ public class Company {
 	private String sector;
 	private String size;
 	private Languages languages;
+	private Language language;
+	private String projets;
 	private String webSite;
 	private Contact contact;
 
@@ -30,6 +31,16 @@ public class Company {
 	 * Constructeur par défaut, ne prend pas de paramètres
 	 */
 	public Company() {
+	}
+
+	public Company(String companyName, String adress, String postalCode, String city, Department department) {
+	
+		this.companyName = companyName;
+		this.adress = adress;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.department = department;
+		this.idEnterprise = id;
 	}
 
 	/**
@@ -46,9 +57,9 @@ public class Company {
 	 * @param webSite
 	 * @param contact
 	 */
-	public Company(String companyName, String adress, String postalCode, String city, Department department, Region region,
-			String sector, String size, Languages languages, String webSite, Contact contact) {
-		id++;
+	public Company(String companyName, String adress, String postalCode, String city, Department department, Region region, String size,
+			String sector,  Languages languages,String projets, String webSite, Contact contact) {
+		
 		this.companyName = companyName;
 		this.adress = adress;
 		this.postalCode = postalCode;
@@ -58,11 +69,48 @@ public class Company {
 		this.sector = sector;
 		this.size = size;
 		this.languages = languages;
+		this.projets=projets;
 		this.webSite = webSite;
 		this.contact = contact;
 		this.idEnterprise = id;
 	}
 
+	
+	public Company(String companyName, String adress, String postalCode, String city, Department department, Region region, String size,
+			String sector,  Language language,String projets, String webSite, Contact contact) {
+		
+		this.companyName = companyName;
+		this.adress = adress;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.department = department;
+		this.region = region;
+		this.sector = sector;
+		this.size = size;
+		this.setLanguage(language);
+		this.projets=projets;
+		this.webSite = webSite;
+		this.contact = contact;
+		this.idEnterprise = id;
+	}
+	
+//	public Company(int idEntreprise,String companyName, String adress, String postalCode, String city, Department department, Region region, String size,
+//			String sector,  Language language,String projets, String webSite, Contact contact) {
+//		
+//		this.companyName = companyName;
+//		this.adress = adress;
+//		this.postalCode = postalCode;
+//		this.city = city;
+//		this.department = department;
+//		this.region = region;
+//		this.sector = sector;
+//		this.size = size;
+//		this.setLanguage(language);
+//		this.projets=projets;
+//		this.webSite = webSite;
+//		this.contact = contact;
+//		this.idEnterprise = idEntreprise;
+//	}
 	/**
 	 * Ensemble des getters de la clase Company
 	 */
@@ -127,6 +175,9 @@ public class Company {
 		return getLanguages();
 	}
 
+	public String getProjets(){
+		return projets;
+	}
 	/**
 	 * @return the webSite
 	 */
@@ -224,6 +275,15 @@ public class Company {
 	}
 
 	/**
+	 * @param projets
+	 *            the projets to set
+	 */
+	public void setProjets(String projets) {
+		this.projets = projets;
+	}
+	
+	
+	/**
 	 * @param webSite
 	 *            the webSite to set
 	 */
@@ -247,6 +307,14 @@ public class Company {
 		this.idEnterprise = idEnterprise;
 	}
 
+	public Language getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(Language language) {
+		this.language = language;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -255,8 +323,10 @@ public class Company {
 	@Override
 	public String toString() {
 		return "Entreprise [companyName=" + companyName + ", adress=" + adress + ", postalCode=" + postalCode
-				+ ", city=" + city + ", department=" + department + ", region=" + region + ", domaine=" + sector + ", size= " + size 
-				+ ", webSite=" + webSite + ", contact=" + contact + "]";
+			+ ", city=" + city + ", department=" + department;
+//		return "Entreprise [companyName=" + companyName + ", adress=" + adress + ", postalCode=" + postalCode
+//				+ ", city=" + city + ", department=" + department + ", region=" + region +", langages=" + languages.toString() + ", size=" + size + ", sector= " + sector 
+//				+ ", webSite=" + webSite + ", contact=" + contact + "]";
 	}
 
 	@Override

@@ -6,21 +6,17 @@ package fr.cdiEnterprise.control;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
-
-import fr.cdiEnterprise.view.Menu;
 import fr.cdiEnterprise.view.MainFrame;
+import fr.cdiEnterprise.view.Menu;
 
 /**
  * Listeners for menu of the main frame
- * Last update: 20161007
- * @version 0.1
- * @author Claire
- *
+ * @version 07-10-2016
+ * @author Claire, Anais, Nicolas, Ismael, Olivier
  */
-// TODO is this the best listener for a JMenuBar?
-public class MainMenuListener implements ActionListener, MenuListener {
+
+// TODO (Groupe) is this the best listener for a JMenuBar?
+public class MainMenuListener implements ActionListener {
 
 	private Menu menu;
 
@@ -34,74 +30,62 @@ public class MainMenuListener implements ActionListener, MenuListener {
 	// ACTION LISTENER
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		
+
+		// Display the panel for User management
+		if(e.getSource() == menu.getSubProfileCRUD()) {
+
+			MainFrame.getPanMain().removeAll();
+			MainFrame.getPanMain().add(MainFrame.getScrollPanelUserCRUD());
+			MainFrame.getPanMain().repaint();
+			MainFrame.getPanMain().validate();
+		}
+
+		// Display the panel with a list of existing members
+		if(e.getSource() == menu.getSubProfileSR()) {
+
+			MainFrame.getPanMain().removeAll();
+			MainFrame.getPanMain().add(MainFrame.getScrollPanelUserSR());
+			MainFrame.getPanMain().repaint();
+			MainFrame.getPanMain().validate();
+		}
+
 		if(e.getSource() == menu.getSubCompanyCreate()){
-			MainFrame.getMainPan().removeAll();
-			MainFrame.getMainPan().add(MainFrame.getPanelCreatCompany());
-			MainFrame.getMainPan().repaint();
-			MainFrame.getMainPan().revalidate();
+			MainFrame.getPanMain().removeAll();
+			MainFrame.getPanMain().add(MainFrame.getScrollCreateCompany());
+			MainFrame.getPanMain().repaint();
+			MainFrame.getPanMain().revalidate();
 		}
-		
+
 		if(e.getSource() == menu.getSubCompanyUpdateDelete()){
-			MainFrame.getMainPan().removeAll();
-			MainFrame.getMainPan().add(MainFrame.getPanelDeletUpdatCompany());
-			MainFrame.getMainPan().repaint();
-			MainFrame.getMainPan().revalidate();
+			MainFrame.getPanMain().removeAll();
+			MainFrame.getPanMain().add(MainFrame.getScrollUpdateDeleteCompany());
+			MainFrame.getPanMain().repaint();
+			MainFrame.getPanMain().revalidate();
 		}
-		
+
 		if(e.getSource() == menu.getSubMessageDisplay()){
-			MainFrame.getMainPan().removeAll();
-			MainFrame.getMainPan().add(MainFrame.getPanelMessaging());
-			MainFrame.getMainPan().validate();
-			MainFrame.getMainPan().repaint();
-			
+			MainFrame.getPanMain().removeAll();
+			MainFrame.getPanMain().add(MainFrame.getPanelMessaging());
+			MainFrame.getPanMain().validate();
+			MainFrame.getPanMain().repaint();
+
 		}
-		if(e.getSource() == menu.getMenuBookmark())
+		if(e.getSource() == menu.getSubBookMarkRead())
 		{
-			MainFrame.getMainPan().removeAll();
-			MainFrame.getMainPan().add(MainFrame.getPanelBookMark());
-			MainFrame.getMainPan().validate();
-			MainFrame.getMainPan().repaint();
+			MainFrame.getPanMain().removeAll();
+			MainFrame.getPanMain().add(MainFrame.getPanelBookMark());
+			MainFrame.getPanMain().validate();
+			MainFrame.getPanMain().repaint();
 		}
-		
-	}
 
-
-	// MENU LISTENER
-	@Override
-	public void menuCanceled(MenuEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void menuDeselected(MenuEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	// TODO deselected menu
-	@Override
-	public void menuSelected(MenuEvent e) {
-		
-		if(e.getSource() == menu.getMenuHome()) {
-			MainFrame.getMainPan().removeAll();
-			MainFrame.getMainPan().add(MainFrame.getHomePan());
-			MainFrame.getMainPan().repaint();
-			MainFrame.getMainPan().revalidate();
-	
+		if(e.getSource() == menu.getSubSearchRechercher())
+		{
+			MainFrame.getPanMain().removeAll();
+			MainFrame.getPanMain().add(MainFrame.getPanelRecherche());
+			MainFrame.getPanMain().validate();
+			MainFrame.getPanMain().repaint();
 		}
-		
-		if(e.getSource() == menu.getMenuProfile()) {
-			MainFrame.getMainPan().removeAll();
-			MainFrame.getMainPan().add(MainFrame.getScrollUser());
-			MainFrame.getMainPan().repaint();
-			MainFrame.getMainPan().revalidate();
-	
-		}
-		
+
 	}
 
 }

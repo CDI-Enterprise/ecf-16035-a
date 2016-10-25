@@ -1,17 +1,21 @@
 package fr.cdiEnterprise.view;
 
 import javax.swing.JMenuBar;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 
 import fr.cdiEnterprise.control.MainMenuListener;
 
 
 /**
  * Main menu for the CDI Enterprise program, visible on every frame.
- * Last update: 20161007 * 
- * @version 0.2
- * @author Claire, Anais
+ * @author Claire, Anais, Nicolas, Ismael, Olivier
+ * @version 22-10-2016
  */
 
 public class Menu extends JMenuBar {
@@ -19,7 +23,6 @@ public class Menu extends JMenuBar {
 	private static final long serialVersionUID = 1L;
 
 	// Main menu creation
-	private JMenu menuHome;
 	private JMenu menuProfile;
 	private JMenu menuCompany;
 	private JMenu menuSearch;
@@ -28,12 +31,24 @@ public class Menu extends JMenuBar {
 	private JMenu menuHelp;
 	private JMenu menuQuit;
 
+	// menuProfile : sub item
+	private JMenuItem subProfileCRUD;
+	private JMenuItem subProfileSR;	
+
 	// menuEntreprise : sub item
 	private JMenuItem subCompanyCreate;
 	private JMenuItem subCompanyUpdateDelete;
 	private JMenuItem subCompanyRead;
-	private JMenuItem subMessageDisplay;
 	
+	// menuSearch : sub item
+	private JMenuItem subSearchRechercher;
+	private JMenuItem subSearchDeleteRecherche;
+	
+	private JMenuItem subMessageDisplay;
+
+	//menuBokkMark : sub item
+	private JMenuItem subBookMarkRead;
+
 	// menuHelp : sub item
 	private JMenuItem subHelpDoc;
 	private JMenuItem subHelpShortcut;
@@ -45,17 +60,17 @@ public class Menu extends JMenuBar {
 	 */
 	public Menu() {
 
-		// TODO shortcuts - use of char obsolete?
-		
-		// HOME
-		menuHome = new JMenu("Accueil");
-		this.add(menuHome);
-		
 		// PROFILE
 		menuProfile = new JMenu("Profil");
 		this.add(menuProfile);
-		// Shortcut for Profile
-		//menuProfile.setMnemonic('P');
+		
+		subProfileCRUD = new JMenuItem("Administrer les profils");
+		menuProfile.add(subProfileCRUD);
+		subProfileCRUD.setMnemonic(KeyEvent.VK_P);
+		subProfileCRUD.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
+	
+		subProfileSR = new JMenuItem("Liste des membres");
+		menuProfile.add(subProfileSR);
 
 		// COMPANY
 		menuCompany = new JMenu("Entreprise");
@@ -73,20 +88,31 @@ public class Menu extends JMenuBar {
 		// SEARCH
 		menuSearch = new JMenu("Recherche");
 		this.add(menuSearch);
+		subSearchRechercher = new JMenuItem("Rechercher une fiche entreprise");
+		menuSearch.add(subSearchRechercher);
+		subSearchDeleteRecherche = new JMenuItem("Supprimer une recherche");
+		menuSearch.add(subSearchDeleteRecherche);
+
+		
 
 		// BOOKMARK
 		menuBookmark = new JMenu("Favoris");
 		this.add(menuBookmark);
+		subBookMarkRead = new JMenuItem("Mes Favoris");
+		menuBookmark.add(subBookMarkRead);
 
 		// MESSAGING
 		menuMessaging = new JMenu("Messagerie");
-		subMessageDisplay = new JMenuItem("Affichage");
+		subMessageDisplay = new JMenuItem("Gerer les Messages");
 		menuMessaging.add(subMessageDisplay);
+		subMessageDisplay.setMnemonic(KeyEvent.VK_M);
+		subMessageDisplay.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.CTRL_MASK));
 		this.add(menuMessaging);
 
 		// HELP
 		menuHelp = new JMenu("Aide");
 		this.add(menuHelp);
+	
 
 		// Sub menu for Help
 		subHelpDoc = new JMenuItem("Documentation");
@@ -105,52 +131,70 @@ public class Menu extends JMenuBar {
 
 		//LISTENER
 		MainMenuListener listener = new MainMenuListener(this);
-		menuHome.addMenuListener(listener);
-		menuProfile.addMenuListener(listener);
+		subProfileCRUD.addActionListener(listener);
+		subProfileSR.addActionListener(listener);
+
 		subMessageDisplay.addActionListener(listener);
+
 		subCompanyCreate.addActionListener(listener);
-
 		subCompanyUpdateDelete.addActionListener(listener);
+		
+		subSearchRechercher.addActionListener(listener);
+		subSearchDeleteRecherche.addActionListener(listener);
 		menuBookmark.addActionListener(listener);
+		subBookMarkRead.addActionListener(listener);
 
-
-	}
-
-	
-	/**
-	 * @return the menuHome
-	 */
-	public JMenu getMenuHome() {
-		return menuHome;
 	}
 
 	/**
-	 * @return the menuProfile
+	 * @return the subProfileCRUD
 	 */
-	public JMenuItem getMenuProfile() {
-		return menuProfile;
+	public JMenuItem getSubProfileCRUD() {
+		return subProfileCRUD;
 	}
 	
+	/**
+	 * @return the subProfileSR
+	 */
+	public JMenuItem getSubProfileSR() {
+		return subProfileSR;
+	}
+
 	/**
 	 * @return the subCompanyCreate
 	 */
 	public JMenuItem getSubCompanyCreate() {
 		return subCompanyCreate;
 	}
-	
+
 	public JMenuItem getSubCompanyUpdateDelete(){
 		return subCompanyUpdateDelete;
 	}
+	
+	/**
+	 * @return the subSearchRechercher
+	 */
+	public JMenuItem getSubSearchRechercher() {
+		return subSearchRechercher;
+	}
+	
+	/**
+	 * @return the subSearchDeleteRecherche
+	 */
+	public JMenuItem getSubSearchDeleteRecherche() {
+		return subSearchDeleteRecherche;
+	}
 
 	/**
-	 * @return the menuBookmark
+	 * @return the subBookMarkRead
 	 */
-	public JMenu getMenuBookmark() {
-		return menuBookmark;
+	public JMenuItem getSubBookMarkRead() {
+		return subBookMarkRead;
 	}
+
 
 	public JMenuItem getSubMessageDisplay() {
 		return subMessageDisplay;
 	}
 
-	}
+}

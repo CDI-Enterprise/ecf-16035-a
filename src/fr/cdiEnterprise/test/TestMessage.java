@@ -3,11 +3,13 @@ package fr.cdiEnterprise.test;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-
-
-import fr.cdiEnterprise.control.MpClient;
 import fr.cdiEnterprise.dao.Server;
 import fr.cdiEnterprise.model.Item;
+import fr.cdiEnterprise.service.Items;
+import fr.cdiEnterprise.util.MpClient;
+
+
+
 
 
 
@@ -39,7 +41,7 @@ public class TestMessage {
 		Server newServer = new Server();
 		ArrayList<String> clients = new ArrayList<String>();
 		
-		//TODO Poster message vers un utilisateur.
+		//TODO (Nicolas) Poster message vers un utilisateur.
 		
 		// Création de nouveaux messages et sauvegarde dans.
 		// creation des clients utilisateurs
@@ -59,30 +61,30 @@ public class TestMessage {
 		
 		//Poster message 
 		// note : avant d'envoyer un message veririfer si le destinataire est existe.
-		// TODO envoyer message derreur.
-		System.out.println("envoie d'emails");
+		// TODO (Nicolas) envoyer message derreur.
+		//System.out.println("envoie d'emails");
 		
 		
 		if(isPresent("anais", clients)) {
 			nicolas.newEmail("nicolas", "anais", "test1", "message body from anais.");
 		}else {
-			System.out.println("user does not exist  anais");
+			//System.out.println("user does not exist  anais");
 		}
 		
 		if(isPresent("claire", clients)) {
 			nicolas.newEmail("nicolas", "claire", "test1", "message body from claire.");
 		}else {
-			System.out.println("user does not exist: claire");
+			//System.out.println("user does not exist: claire");
 		}
 		if(isPresent("ismael", clients)) {
 			nicolas.newEmail("nicolas", "ismael", "test1", "message body from ismael.");
 		}else {
-			System.out.println("user does not exist: anais");
+			//System.out.println("user does not exist: anais");
 		}
 		if(isPresent("olivier", clients)) {
 			nicolas.newEmail("nicolas", "olivier", "test1", "message body from nicolas.");	
 		}else {
-			System.out.println("user does not exist: olivier");
+			//System.out.println("user does not exist: olivier");
 		}
 		
 		// clqire consulte ses messages et les affichent.
@@ -93,7 +95,7 @@ public class TestMessage {
 		if(isPresent("bernard", clients)) {
 			nicolas.newEmail("nicolas", "bernard", "test", "message body from niocolas.");	
 		} else {
-			System.out.println("there is no user bernard");
+			//System.out.println("there is no user bernard");
 		}
 		
 		
@@ -103,27 +105,27 @@ public class TestMessage {
 		
 		
 		
-		System.out.println("\n**** Nicolas create an email and put it on its draft folder ****\n");
+		//System.out.println("\n**** Nicolas create an email and put it on its draft folder ****\n");
 		
 		if(isPresent("olivier", clients)) {
 			if(nicolas.draft("nicolas", "olivier", "test1", "message body for olivier.")) 
 			{
-				System.out.println("Message saved as a draft ");
+				//System.out.println("Message saved as a draft ");
 				
 			}
 			// affiche les message du brouillon
 			nicolas.getMessages(true);
 			nicolas.display(true);
 			
-			ArrayList<Item>  nickitms = nicolas.getMessages(true);
-			System.out.println("size of draft is : " + nickitms.size());
-			//System.out.println(nickitms.toString());
+			Items  nickitms = nicolas.getMessages(true);
+			//System.out.println("size of draft is : " + nickitms.size());
+			////System.out.println(nickitms.toString());
 			//simule la selection du message dans une liste et renvoie de l'identifiant de l'email selectionné
 			//exemple ici 5.
 			
 			
 			Item myItm = getMessage("nicolas", "5", nickitms);
-			System.out.println("checking draft message " +myItm.toString());
+			//System.out.println("checking draft message " +myItm.toString());
 			
 			
 			
@@ -131,62 +133,53 @@ public class TestMessage {
 			
 			// edition du message brouillon dans la boite de nicolas
 			
-			System.out.println("\n**** edition du message brouillon ****\n");
+			//System.out.println("\n**** edition du message brouillon ****\n");
 			
 			// on pop le message delah boite draft, et ensuite on l"edite.
 			// le message sera remis.
 			
-			nicolas.editDraft(nicolas.popMessage("5", true),  "olivier", "test[edited]", "Ce message a ete modifier...");
-			ArrayList<Item> items =  nicolas.getMessages( true);
-			//System.out.println("size of draft is "+ items.size());
-			for(int i = 0; i <items.size(); i++ ) {
-				System.out.println("---"+items.get(i).getSender());
-				if(items.get(i).getSender().equals("nicolas")) {
-					identity = items.get(i).getId();
-					//System.out.println("identity is "+identity);
-				}
-			}
+		
 			
 			// now we get the message from the draft queue and send it to the final receipient
 			
-			System.out.println("\n**** sending drafted message to the final user ****\n");
+			//System.out.println("\n**** sending drafted message to the final user ****\n");
 			
 			Item draftMessage = nicolas.popMessage(identity, true);
-			//System.out.println("get message from draft queue..." + draftMessage.getBody());
+			////System.out.println("get message from draft queue..." + draftMessage.getBody());
 			nicolas.sendEmail(draftMessage, true);
 			
-			//System.out.println("Sending message...");
+			////System.out.println("Sending message...");
 			
 			
 		}
 		// checking olivier's Mailbox
 		
-		System.out.println("\n**** checking olivier Mailbox ****\n");
+		//System.out.println("\n**** checking olivier Mailbox ****\n");
 		
 		ArrayList<Item> olivierItems = olivier.getMessages(false);
-		System.out.println(olivierItems.size());
+		//System.out.println(olivierItems.size());
 		olivier.display(false);
 		
 		
 		try {
 			Thread.sleep(1500);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			// TODO (Nicolas) Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		System.out.println("\n**** olivier reply to nicolas ****\n");
+		//System.out.println("\n**** olivier reply to nicolas ****\n");
 		
 		// reply email to nicolas
 		Item oneItem = olivierItems.get(0);
 		oneItem.setObject("test[reply]");
 		oneItem.setBody("Message reçu...\n\n" + oneItem.getBody());
-		System.out.println("Reply to that email " + oneItem.toString());
+		//System.out.println("Reply to that email " + oneItem.toString());
 		if(olivier.sendEmail(oneItem, false)) {
-			System.out.println("email sent out...");
+			//System.out.println("email sent out...");
 		}
 		
-		System.out.println("\n**** checking nicolas's Mailbox ****\n");
+		//System.out.println("\n**** checking nicolas's Mailbox ****\n");
 		
 		nicolas.getMessages(false);
 		nicolas.display(false);
@@ -207,7 +200,7 @@ public class TestMessage {
 	private static Item getMessage(String usr,String id , ArrayList<Item> allItems) {
 		
 		for(int i = 0; i <allItems.size(); i++ ) {
-			if(allItems.get(i).getId().equals(id)) {
+			if(allItems.get(i).getId() == 0) {
 				return allItems.get(i);
 				
 			}

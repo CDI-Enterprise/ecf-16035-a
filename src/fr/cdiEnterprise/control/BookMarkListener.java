@@ -6,10 +6,13 @@ package fr.cdiEnterprise.control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import fr.cdiEnterprise.view.BookMarkPanel;
-import fr.cdiEnterprise.view.CompanyCreationPanel;
-import fr.cdiEnterprise.view.CompanyFrameAllCompanies;
+
+import fr.cdiEnterprise.view.company.CompanyCreationPanel;
+import fr.cdiEnterprise.view.company.CompanyDeletUpdatPanel;
+
 //import fr.cdiEnterprise.model.Contact;
 import fr.cdiEnterprise.model.Favorite;
 //import fr.cdiEnterprise.model.NoteCompany;
@@ -63,7 +66,7 @@ public class BookMarkListener implements ActionListener
 			if (e.getSource() == mark.getBtnSearchBookMark()) btnSearch_click(mark);
 			if (e.getSource() == mark.getBtnGoCompanySheet()) btnGoCompany_click(mark);
 		}
-		else if (panFavorites instanceof fr.cdiEnterprise.view.CompanyCreationPanel)	//if cmbBookMarkValidate clicked
+		else if (panFavorites instanceof fr.cdiEnterprise.view.company.CompanyCreationPanel)	//if cmbBookMarkValidate clicked
 		{
 			CompanyCreationPanel mark2 = (CompanyCreationPanel) panFavorites;
 			if (e.getSource() == mark2.getBtnFavoris()) btnValidate_click(mark2);		
@@ -85,11 +88,9 @@ public class BookMarkListener implements ActionListener
 	 */
 	private void btnSee_click(BookMarkPanel mark) 
 	{
-		
-		
+
 		//TODO SEE
-		
-		
+
 		//Favorites favorites = see.lstFavorite();
 		//BookMarkPanel viewSee = new BookMarkPanel();
 		//		viewSee.setvi
@@ -172,12 +173,19 @@ public class BookMarkListener implements ActionListener
 	 */
 	private void btnGoCompany_click(BookMarkPanel mark) 
 	{
-		CompanyFrameAllCompanies goToCompany = new CompanyFrameAllCompanies();
-		goToCompany.setVisible(true);
-		//this.dispose();
+		CompanyDeletUpdatPanel goToCompany;
+		try 
+		{
+			goToCompany = new CompanyDeletUpdatPanel();
+			goToCompany.setVisible(true);
+			//this.dispose();
+			
+		} 
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// TODO listener sql request go to sheet company selected
-
 	}
-
 
 }

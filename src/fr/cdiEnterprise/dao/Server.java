@@ -6,11 +6,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import java.util.Set;
 
 import fr.cdiEnterprise.model.Item;
+import fr.cdiEnterprise.service.Items;
 
 /**
  * This is the class server, which is actually a message container. message are
@@ -23,12 +24,13 @@ import fr.cdiEnterprise.model.Item;
  */
 public  class Server {
 
-	static HashMap<String, ArrayList<Item>> items = new HashMap<String, ArrayList<Item>>();
-	static HashMap<String, ArrayList<Item>> itemsDraft = new HashMap<String, ArrayList<Item>>();
+	 
+	static HashMap<String, Items> items      = new HashMap<String, Items>();
+	static HashMap<String, Items> itemsDraft = new HashMap<String, Items>();
 
 	public Server() {
-		items = new HashMap<String, ArrayList<Item>>();
- 		itemsDraft = new HashMap<String, ArrayList<Item>>();
+		items = new HashMap<String, Items>();
+ 		itemsDraft = new HashMap<String, Items>();
          
 	}
 
@@ -38,13 +40,15 @@ public  class Server {
 	 * @return boolean which tell if the message has been properly delivered.
 	 */
 	public static boolean post(Item item) {
-
-		ArrayList<Item> mess = new ArrayList<Item>();
+		
+		Items mess = getAllItems(item.getReceiver(),false);
+		System.out.println("Nombre de message deja present :" + mess.size());
 
 		if (item != null) {
 
 			mess.add(item);
 			items.put(item.getReceiver(), mess);
+			System.out.println("Message posted in "+ item.getReceiver() + "address " + item);
 			return true;
 
 		}
@@ -60,11 +64,14 @@ public  class Server {
 	 */
 	public static boolean postDraft(Item item) {
 
-		ArrayList<Item> mess = new ArrayList<Item>();
+		
+		Items mess = getAllItems(item.getReceiver(),true);
+		System.out.println("Nombre de message deja present :" + mess.size());
+		//ArrayList<Item> mess = new ArrayList<Item>();
 
 		if (item != null) {
 			mess.add(item);
-			System.out.println(item.getSender());
+			//System.out.println(item.getSender());
 			itemsDraft.put(item.getSender(), mess);
 			return true;
 		}
@@ -80,9 +87,9 @@ public  class Server {
 	 * @param draft will tell if the message to look for is a draft or a message
 	 * @return an Arraylist of message.
 	 */
-	public static ArrayList<Item> getAllItems(String rcv, boolean draft) {
+	public static Items getAllItems(String rcv, boolean draft) {
 
-		ArrayList<Item> allMyItems = new ArrayList<Item>();
+		Items allMyItems = new Items();
 		
 		if(draft) {
 			Set<String> fromDraft = itemsDraft.keySet();
@@ -107,6 +114,7 @@ public  class Server {
 				}
 			}
 		} else {
+				System.out.println("itzem from server" +allMyItems.size());
 				Set<String> fromSet = items.keySet();
 				Iterator<String> fromSetIterator = fromSet.iterator();
 				while (fromSetIterator.hasNext()) {
@@ -141,36 +149,36 @@ public  class Server {
 	 * @param draft tell if the message to be removed is draft.
 	 * @return a boolean telling that the message has been removed from the list.
 	 */
-	public static boolean removeMessage(String usr, String identifier, boolean draft) {
-		boolean removed = false;
-
-			if(draft) {
-				ArrayList<Item> allUsrItems = itemsDraft.get(usr);
-				for(int i = 0; i < allUsrItems.size();i++) {
-				Item current = null;
-				if(allUsrItems.get(i).getId().equals(identifier)) {
-					
-					allUsrItems.remove(i);
-					return removed;
-
-				}
-				}
-			}else {
-				ArrayList<Item> allUsrItems = items.get(usr);
-				for(int i = 0; i < allUsrItems.size();i++) {
-				Item current = null;
-				if(allUsrItems.get(i).getId().equals(identifier)) {
-					
-					allUsrItems.remove(i);
-					return removed;
-
-				}
-				}
-			}
-		
-		return removed;
-		
-	}
+//	public static boolean removeMessage(String usr, String identifier, boolean draft) {
+//		boolean removed = false;
+//
+//			if(draft) {
+//				ArrayList<Item> allUsrItems = itemsDraft.get(usr);
+//				for(int i = 0; i < allUsrItems.size();i++) {
+//				Item current = null;
+//				if(allUsrItems.get(i).getId().equals(identifier)) {
+//					
+//					allUsrItems.remove(i);
+//					return removed;
+//
+//				}
+//				}
+//			}else {
+//				ArrayList<Item> allUsrItems = items.get(usr);
+//				for(int i = 0; i < allUsrItems.size();i++) {
+//				Item current = null;
+//				if(allUsrItems.get(i).getId().equals(identifier)) {
+//					
+//					allUsrItems.remove(i);
+//					return removed;
+//
+//				}
+//				}
+//			}
+//		
+//		return removed;
+//		
+//	}
 	
 	
 	
@@ -193,7 +201,7 @@ public  class Server {
 			if(draft) {
 				ArrayList<Item> allUsrItems = itemsDraft.get(usr);
 				for(int i = 0; i < allUsrItems.size();i++) {
-				if(allUsrItems.get(i).getId().equals(identifier)) {
+				if(allUsrItems.get(i).getId()==0) {
 					current = allUsrItems.get(i);
 					allUsrItems.remove(i);
 					return current;
@@ -203,7 +211,7 @@ public  class Server {
 			}else {
 				ArrayList<Item> allUsrItems = items.get(usr);
 				for(int i = 0; i < allUsrItems.size();i++) {
-				if(allUsrItems.get(i).getId().equals(identifier)) {
+				if(allUsrItems.get(i).getId()==0) {
 					current = allUsrItems.get(i);
 					allUsrItems.remove(i);
 					return current;

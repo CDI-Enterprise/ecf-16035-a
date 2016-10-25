@@ -4,6 +4,7 @@
 package fr.cdiEnterprise.model;
 
 /**
+
  *This class describe different parameters in a bookmark's user.
  * 
  *14 oct. 2016
@@ -110,8 +111,6 @@ public class Favorite
 	/**
 	 * Getters
 	 */
-
-
 
 	/**
 	 * @return the idEnterprise

@@ -4,6 +4,13 @@ import java.util.ArrayList;
 
 import fr.cdiEnterprise.model.Company;
 
+/*
+ * ArrayList of companies
+ * 
+ * @author: Anaïs
+ * @version: 24/10/2016
+ */
+
 public class Companies extends ArrayList<Company> {
 
 	private static final long serialVersionUID = 1L;

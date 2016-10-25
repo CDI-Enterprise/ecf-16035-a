@@ -27,6 +27,7 @@ import fr.cdiEnterprise.model.FavoriteModelTable;
 //import fr.cdiEnterprise.dao.Datas;
 //import fr.cdiEnterprise.model.Company;
 //import fr.cdiEnterprise.model.Favorite;
+
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -44,6 +45,7 @@ public class BookMarkPanel extends JPanel
 	 */
 
 	private static final long serialVersionUID = 1L;
+
 
 	//Panel
 	private JPanel contentBookMarkPan;				//Main panel
@@ -233,5 +235,4 @@ public class BookMarkPanel extends JPanel
 	public JButton getBtnGoCompanySheet() {
 		return btnGoCompanySheet;
 	}
-
 }
