@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -21,8 +22,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
 import fr.cdiEnterprise.control.PanelUserCRUDListener;
-import fr.cdiEnterprise.dao.OldDatas;
+import fr.cdiEnterprise.dao.UserDAO;
 import fr.cdiEnterprise.model.User;
+import fr.cdiEnterprise.service.Users;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -42,11 +44,11 @@ public class PanelUserCRUD extends JPanel {
 	//TODO (Claire) fake companies list in database!
 	String [] company = {"Aucune", "9e compagnie", "Cie", "Comme Pagny", "Autre..."};
 
-//	private JPanel panEast;
+	// Attributes for DB access
+	private Users users;
 
-	// NORTH
+	// NORTH - panel and label
 	private JPanel panNorth;
-	//Labels
 	private JLabel lblFieldInfo;
 
 	// WEST
@@ -59,7 +61,7 @@ public class PanelUserCRUD extends JPanel {
 	private JLabel lblAlias;
 	private JLabel lblInfoAlias;
 	private JLabel lblMail;
-//	private JLabel lblInfoMail;
+	//	private JLabel lblInfoMail;
 	private JLabel lblAfpa;
 	private JLabel lblTrainer;
 	// Others components
@@ -106,15 +108,20 @@ public class PanelUserCRUD extends JPanel {
 	// Others components
 	private JTextField txtWebsite;
 	private JTextField txtLinkedIn;
-	
+
 	// CENTER
 	private JPanel panCenter;
-	// JList
-	private JPanel panLstUsers;
-	private DefaultListModel<User> mdlLstUsers;
-	private JList<User> lstUsers;
-	private JScrollPane panScrollLstUsers;
-	
+	// JList with OldDatas
+	//	private JPanel panLstUsers;
+	//	private DefaultListModel<User> lstMdlUsers;
+	//	private JList<User> lstUsers;
+	//	private JScrollPane panScrollLstUsers;
+	// TEST JLIST DB
+	private JPanel panLstUsersDB;
+	private DefaultListModel<User> lstMdlUsersDB;
+	private JList<User> lstUsersDB;
+	private JScrollPane panScrollLstUsersDB;
+
 	// SOUTH
 	private JPanel panSouth;
 	// JButton
@@ -123,15 +130,24 @@ public class PanelUserCRUD extends JPanel {
 	private JButton cmdUpdate;
 	private JButton cmdDelete;
 
+	// LISTENER
+	PanelUserCRUDListener listener;
+
 	// ArrayList of components
 	ArrayList<JTextField> allJTextFields;
 	
-	public PanelUserCRUD() {
+	
+	/**
+	 * Constructor for PanelUserCRUD.
+	 * 
+	 * @throws SQLException
+	 */
+	public PanelUserCRUD() throws SQLException {
 
 		// Main layout for user CRUD panel
 		this.setLayout(new BorderLayout(10, 20));
 
-		
+
 		// NORTH - main information on compulsory fields
 		panNorth = new JPanel();
 		panNorth.setLayout(new FlowLayout());
@@ -145,7 +161,7 @@ public class PanelUserCRUD extends JPanel {
 		panNorth.add(lblFieldInfo);
 		panNorth.setBorder(BorderFactory.createLineBorder(Color.RED));
 
-		
+
 		// WEST - For create / update with four horizontal parts
 		panWest = new JPanel();
 		panWest.setLayout(new MigLayout());
@@ -170,7 +186,7 @@ public class PanelUserCRUD extends JPanel {
 		statusGrp.add(optTrainee);
 		statusGrp.add(optFormerTrainee);
 		statusGrp.add(optTrainer);
-		
+
 		panRegister.add(optTrainee, "split 3");
 		panRegister.add(optFormerTrainee);
 		panRegister.add(optTrainer, "wrap");
@@ -189,9 +205,9 @@ public class PanelUserCRUD extends JPanel {
 		panRegister.add(lblMail);
 		txtMail = new JTextField(20);
 		panRegister.add(txtMail, "wrap");
-//		lblInfoMail = new JLabel("<html><font color = #808080 >Ne sera pas rendu public</font></html>");
-//		lblInfoMail.setFont(new Font(getName(), Font.ITALIC, 13));
-//		registerPan.add(lblInfoMail, "wrap, cell 1 4 1 1");
+		//		lblInfoMail = new JLabel("<html><font color = #808080 >Ne sera pas rendu public</font></html>");
+		//		lblInfoMail.setFont(new Font(getName(), Font.ITALIC, 13));
+		//		registerPan.add(lblInfoMail, "wrap, cell 1 4 1 1");
 
 		// Name of AFPA where the user did his training
 		lblAfpa = new JLabel("AFPA* : ");
@@ -323,35 +339,36 @@ public class PanelUserCRUD extends JPanel {
 		txtLinkedIn = new JTextField(20);
 		panOptional.add(txtLinkedIn, "wrap");
 
-		
+
 		// CENTER - for list of users
 		panCenter = new JPanel();
 		panCenter.setLayout(new MigLayout());
 		panCenter.setBorder(new EmptyBorder(0, 0, 0, 5));
-		
 		this.add(panCenter, BorderLayout.CENTER);
+
+		// TEST JList
+		panLstUsersDB = new JPanel();
+		panLstUsersDB.setLayout(new MigLayout());
+		panLstUsersDB.setBorder(BorderFactory.createTitledBorder("TEST DB - Liste des utilisateurs"));
+		panCenter.add(panLstUsersDB);
+
+		lstMdlUsersDB = new DefaultListModel<User>();
+		lstUsersDB = new JList<User>(lstMdlUsersDB);
+		lstUsersDB.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		panLstUsers = new JPanel();
-		panLstUsers.setLayout(new MigLayout());
-		panLstUsers.setBorder(BorderFactory.createTitledBorder("Liste des utilisateurs"));
-		panCenter.add(panLstUsers);
-		
-		mdlLstUsers = new DefaultListModel<User>();
-		lstUsers = new JList<User>(mdlLstUsers);
-		lstUsers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		if(OldDatas.getUsersList() != null) {
-			for (User user : OldDatas.getUsersList()) {
+		users = UserDAO.getUsersList();
+		System.out.println(users);
+		if(users != null) {
+			for (User user : users) {
 				if(user != null) {
-					mdlLstUsers.addElement(user);
+					lstMdlUsersDB.addElement(user);
 				}
 			}
 		}
+		panScrollLstUsersDB = new JScrollPane(lstUsersDB);
+		panLstUsersDB.add(panScrollLstUsersDB);
 
-		panScrollLstUsers = new JScrollPane(lstUsers);
-		panLstUsers.add(panScrollLstUsers);
-		
-		
+
 		// SOUTH - Footer for JButton
 		panSouth = new JPanel();
 		panSouth.setLayout(new FlowLayout());
@@ -364,23 +381,37 @@ public class PanelUserCRUD extends JPanel {
 		panSouth.add(cmdUpdate);
 		cmdDelete = new JButton("Supprimer");
 		panSouth.add(cmdDelete);
-		
+
 		// ArrayList of components
 		allJTextFields = new ArrayList<JTextField>();
 		allJTextFields.add(txtAlias);
 		allJTextFields.add(txtMail);
 		allJTextFields.add(txtAfpa);
 		allJTextFields.add(txtTrainer);
-		
+
 		// LISTENERS
-		PanelUserCRUDListener listener = new PanelUserCRUDListener(this);
+		listener = new PanelUserCRUDListener(this);
 		cmdCancel.addActionListener(listener);
 		cmdCreate.addActionListener(listener);
 		cmdUpdate.addActionListener(listener);
 		cmdDelete.addActionListener(listener);
 		
-		lstUsers.addMouseListener(listener);
+		lstUsersDB.addMouseListener(listener);
+	}
 
+
+	/**
+	 * This method remove all elements from the DefaultListModel and add the new one from parameters.
+	 * 
+	 * @author Claire
+	 * @param users
+	 * @version 24-10-2016
+	 */
+	public void refresh(Users users) {	
+		lstMdlUsersDB.removeAllElements();
+		for (User user : users) {
+			lstMdlUsersDB.addElement(user);
+		}	
 	}
 
 	/**
@@ -431,7 +462,7 @@ public class PanelUserCRUD extends JPanel {
 	public void setOptTrainer(JRadioButton optTrainer) {
 		this.optTrainer = optTrainer;
 	}
-	
+
 	/**
 	 * @return the lblAlias
 	 */
@@ -445,7 +476,7 @@ public class PanelUserCRUD extends JPanel {
 	public void setLblAlias(JLabel lblAlias) {
 		this.lblAlias = lblAlias;
 	}
-	
+
 	/**
 	 * @return the txtAlias
 	 */
@@ -475,24 +506,17 @@ public class PanelUserCRUD extends JPanel {
 	}
 
 	/**
-	 * @return the mdlListUsers
+	 * @return getLstUsers
 	 */
-	public DefaultListModel<User> getMdlListUsers() {
-		return mdlLstUsers;
+	public JList<User> getLstUsersDB() {
+		return lstUsersDB;
 	}
 
 	/**
-	 * @return the allJTextFields
+	 * @return getLstMdlUsers
 	 */
-	public ArrayList<JTextField> getAllJTextFields() {
-		return allJTextFields;
-	}
-
-	/**
-	 * @return the lstUsers
-	 */
-	public JList<User> getLstUsers() {
-		return lstUsers;
+	public DefaultListModel<User> getLstMdlUsersDB() {
+		return lstMdlUsersDB;
 	}
 
 	/**
@@ -521,6 +545,13 @@ public class PanelUserCRUD extends JPanel {
 	 */
 	public JButton getCmdDelete() {
 		return cmdDelete;
+	}
+
+	/**
+	 * @return the allJTextFields
+	 */
+	public ArrayList<JTextField> getAllJTextFields() {
+		return allJTextFields;
 	}
 
 }
