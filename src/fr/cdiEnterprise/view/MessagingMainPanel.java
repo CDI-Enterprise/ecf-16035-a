@@ -150,7 +150,7 @@ public class MessagingMainPanel extends JPanel {
 		
 		btnNew 		= new JButton("Nouveau");
 		btnDraft 	= new JButton("Brouillon");
-		btnDisplay 	= new JButton("Refersh");
+		btnDisplay 	= new JButton("Refresh");
 		btnSch		= new JButton("Recherche");
 		
 		txtSch		= new JTextField();

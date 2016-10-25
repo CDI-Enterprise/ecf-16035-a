@@ -73,11 +73,11 @@ public class OldDatas {
 		}
 
 
-		//BookMark
-		for(int i =0; i< Favorite.FAVORITES.length;i++)
-		{
-			favoritesList.add(new Favorite(Favorite.FAVORITES[i]));
-		}
+//		//BookMark
+//		for(int i =0; i< Favorite.FAVORITES.length;i++)
+//		{
+//			favoritesList.add(new Favorite(Favorite.FAVORITES[i]));
+//		}
 		//Companies database
 		//		companiesList.add(new Company("AFPA", "53 Boulevard Laveran", "13000","MARSEILLE", 
 		//						new Department(Department.DEPARTMENTS[13]),new Region(Region.REGIONS[11]),

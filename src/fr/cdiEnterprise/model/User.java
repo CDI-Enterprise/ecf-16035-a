@@ -5,15 +5,20 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+import fr.cdiEnterprise.control.exceptions.ZeroLenghtStringException;
+
 /**
  * Abstract base class for all User creation: Trainee, FormerTrainee, Trainer.
+ * 
  * @author Claire
  * @version 13-10-2016
+ * 
  */
 
-public class User {
+public abstract class User {
 
 	//Auto-generated
+	// TODO (Claire) get last biggest id in DB to set totalId
 	private static int totalId = 0;							// Auto-generated total user's number since the beginning
 	private int id;											// Id number for user
 	private String inscriptionDate;							// Date of registration for user
@@ -33,6 +38,7 @@ public class User {
 	 * @param password
 	 * @param status
 	 * @param afpa
+	 * @throws ZeroLenghtStringException 
 	 */
 	public User(String status, String alias, String email, String afpa) {
 		setId();
@@ -87,6 +93,7 @@ public class User {
 
 	/**
 	 * Generates a date and time from the "Europe/Paris" zone when a User is created.
+	 * 
 	 * @author Claire
 	 * @return inscriptionDate
 	 * @since 16-10-2016
@@ -95,8 +102,8 @@ public class User {
 		
 		DateTimeFormatter formatter;
 		ZonedDateTime zdt;
-		
-		formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+		// TODO (Claire) format time = format time in DB
+		formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		zdt = Instant.now().atZone(ZoneId.of("Europe/Paris"));
 		this.inscriptionDate = zdt.format(formatter);
 		
@@ -123,11 +130,17 @@ public class User {
 		return alias;
 	}
 
+	// TODO (Claire) throws exception up?
 	/**
 	 * @param alias the alias to set
 	 */
-	public void setAlias(String alias) {
-		this.alias = alias;
+	public void setAlias(String alias) /* throws ZeroLenghtStringException */ {
+//		if (alias.length() == 0) {
+//			throw new ZeroLenghtStringException("Vous devez remplir les champs obligatoires.");
+//		}
+//		else {
+			this.alias = alias;
+//		}
 	}
 
 	/**

@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import fr.cdiEnterprise.control.MessageListener;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.service.Items;
 
@@ -274,6 +275,11 @@ public class messageDao {
 	// }
 	
 	
+	/**
+	 * Cette methode vq faire une recherche par mot sur le sujet du message, il retournera une liste dItems si necessaire.
+	 * @param word est le mot a trouver dans le sujet d'un message
+	 * @return une liste de message dont le sujet correspond au critere de recherche.
+	 */
 	public static Items searchMessage(String word) {
 		
 		Connection connection = null;
@@ -281,12 +287,8 @@ public class messageDao {
 		ResultSet resultSet = null;
 
 		Items items = new Items();
-		
-		
-		
-
 		try {
-		
+	
 			connection = DBConnection.getConnect();
 			statement = connection.createStatement();
 			
@@ -298,8 +300,8 @@ public class messageDao {
 			String date = null;
 			int draftMess = 0;
 
-			String query =  String.format("SELECT  %s, %s  , %s ,%s , %s ,%s, %s FROM %s WHERE UPPER (SUBJECT) LIKE '%%%s%%'",
-					IDENTITY, SENDER, RECEIVER, SUBJECT, MESSBODY, TIMESTAMP, DRAFT, TABLE_NAME, word);
+			String query =  String.format("SELECT  %s, %s  , %s ,%s , %s ,%s, %s FROM %s WHERE RECEIVER = '%s' AND DRAFT = '%s' AND UPPER (SUBJECT) LIKE UPPER('%%%s%%')",
+					IDENTITY, SENDER, RECEIVER, SUBJECT, MESSBODY, TIMESTAMP, DRAFT, TABLE_NAME,MessageListener.alias, "0" ,word);
 			System.out.println(query);
 			resultSet = statement.executeQuery(query);
 			connection.commit();
