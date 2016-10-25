@@ -141,9 +141,6 @@ public class BookMarkPanel extends JPanel
 		contentBookMarkPan.add(listCompanyResultPan, BorderLayout.CENTER);
 
 		//Load list's table
-
-//		private JTable bookMarkResult;					//Company's information
-//		private DefaultTableModel tabFieldInfo;	
 		
 		bookMarkResult = new JTable();
 		tabFieldInfo = (DefaultTableModel) bookMarkResult.getModel();
@@ -151,8 +148,6 @@ public class BookMarkPanel extends JPanel
 		bookMarkResult.setPreferredScrollableViewportSize(new Dimension(460,200));
 		favoriteScrollTable =new JScrollPane(bookMarkResult);
 		listCompanyResultPan.add(favoriteScrollTable, "cell 2 1,grow");
-		//listCompanyResultPan.add(bookMarkResult, "cell 2 1,grow");
-
 
 		btnGoCompanySheet = new JButton("Fiche complete de l'entreprise");
 		listCompanyResultPan.add(btnGoCompanySheet, "cell 2 2");
