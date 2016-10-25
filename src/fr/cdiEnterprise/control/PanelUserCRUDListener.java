@@ -7,13 +7,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import fr.cdiEnterprise.dao.OldDatas;
+import fr.cdiEnterprise.control.exceptions.ZeroLenghtStringException;
+import fr.cdiEnterprise.dao.UserDAO;
 import fr.cdiEnterprise.model.FormerTrainee;
 import fr.cdiEnterprise.model.Trainee;
 import fr.cdiEnterprise.model.Trainer;
@@ -21,167 +25,185 @@ import fr.cdiEnterprise.model.User;
 import fr.cdiEnterprise.view.profile.PanelUserCRUD;
 
 /**
- * Listeners for users CRUD
- * @version 16-10-2016
- * @author Claire
+ * Listener test for users CRUD with DB.
  *
+ * @author Claire
+ * @version 24-10-2016
  */
 public class PanelUserCRUDListener implements ActionListener, MouseListener {
 
 	// Given attribute
-	private PanelUserCRUD panelUser;
+	private PanelUserCRUD panel;
+
+	// Attributes for DB access
+	//	private UserDAO userDAO;
+
+	// Frame for error message
+	private JFrame popUpFrame;
 
 	// Attributes do define the selected status
-	ButtonGroup jrButtonGrp;
-	JRadioButton jrButtonSelected;	
+	private ButtonGroup jrButtonGrp;
+	private JRadioButton jrButtonSelected;	
 
 	// Attributes to handle selection
 	private User selectedUser;
+	//	private integer indexUser;
 	private Trainee selectedTrainee;
 	private FormerTrainee selectedFormerTrainee;
-//	private Trainer selectedTrainer;
-	private int indexUser;
+	private Trainer selectedTrainer;
 
 	// Attributes to create-update a user
 	private User user;
-
+	private int id;
+	//	private String inscriptionDate;
 	private String status;
 	private String alias;
 	private String email;
 	private String afpa;
-//	private String trainer;
-	
+
 	// Attributes to reset component
 	ArrayList<JTextField> allJTextFields;
 
 	/**
-	 * Constructs a listener taking a panel for attribute
+	 * @throws SQLException 
+	 * 
 	 */
-	public PanelUserCRUDListener(PanelUserCRUD panelUser) {
-
-		this.panelUser = panelUser;
-
+	public PanelUserCRUDListener(PanelUserCRUD panel) throws SQLException {
+		this.panel = panel;
 	}
 
-	// ACTION LISTENER
+	// ACTION
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent ae) {
 
-		// Calls the status selection method
-		jrButtonGrp = panelUser.getStatusGrp();
+		// TODO (Claire) create a new class DTO instead of calling DAO
+
+		// Calls the status selection method TODO (Claire) control method JRadioButton
+		jrButtonGrp = panel.getStatusGrp();
 		jrButtonSelected = MethodsForListeners.getSelectedJRadioButton(jrButtonGrp);
-		status = jrButtonSelected.getText();		
+		status = jrButtonSelected.getText();
 
-		// Register informations TODO (Claire) loop method?
-		alias = panelUser.getTxtAlias().getText();
-		email = panelUser.getTxtMail().getText();
-		afpa = panelUser.getTxtAfpa().getText();
-//		trainer = panelUser.getTxtTrainer().getText();
+		// TODO (Claire) control method JTextField
+		alias = panel.getTxtAlias().getText();
+		email = panel.getTxtMail().getText();
+		afpa = panel.getTxtAfpa().getText();
 
-		// Clears all fields
-		if (e.getSource() == panelUser.getCmdCancel()) {
-
+		// CMD CANCEL
+		if (ae.getSource() == panel.getCmdCancel()) {
 			// Clears User JList
-			panelUser.getLstUsers().setSelectedIndices(new int[] {});
+			panel.getLstUsersDB().setSelectedIndices(new int[] {});
 
 			// Clears and re-enables status JRadioButton
 			jrButtonGrp.clearSelection();
-			panelUser.getOptTrainee().setEnabled(true);
-			panelUser.getOptFormerTrainee().setEnabled(true);
-			panelUser.getOptTrainer().setEnabled(true);
-			
+			panel.getOptTrainee().setEnabled(true);
+			panel.getOptFormerTrainee().setEnabled(true);
+			panel.getOptTrainer().setEnabled(true);
+
 			// Calls the method which clears and enables all JTextField 
-			allJTextFields = panelUser.getAllJTextFields();
+			allJTextFields = panel.getAllJTextFields();
 			MethodsForListeners.resetJTextField(allJTextFields);
 		}
 
-		// User creation
-		if (e.getSource() == panelUser.getCmdCreate()) {
+		// CMD CREATE
+		if (ae.getSource() == panel.getCmdCreate()) {
+			try {
+				// Depending on status, instantiates a Trainee or FormerTrainee or Trainer with User reference
+				switch (status) {
+				case "Stagiaire" :
+					user = new Trainee(status, controlAttribute(alias), email, afpa);
+					System.out.println(user); // Test code
+					break;
 
-//			try {
-//				
-//			}
-//			catch () {
-//				System.out.println("Vous devez remplir les champs obligatoires.");
-//			}
-			
-			// TODO (Claire) try catch if no status
-			// Depending on status, instantiates a Trainee or FormerTrainee or Trainer with User reference
-			switch (status) {
-			case "Stagiaire" :  
-				user = new Trainee(status, alias, email, afpa);
-				System.out.println(user); // Test code
-				System.out.println(OldDatas.getUsersList()); // Test code
-				break;
+				case "Ancien" :
+					user = new FormerTrainee(status, controlAttribute(alias), email, afpa);
+					System.out.println(user); // Test code
+					break;
 
-			case "Ancien" :
-				user = new FormerTrainee(status, alias, email, afpa);
-				System.out.println(user); // Test code
-				System.out.println(OldDatas.getUsersList()); // Test code
-				break;
+				case "Formateur" :
+					user = new Trainer(status, controlAttribute(alias), email, afpa);
+					System.out.println(user); // Test code
+					break;
 
-			case "Formateur" :
-				user = new Trainer(status, alias, email, afpa);
-				System.out.println(user); // Test code
-				System.out.println(OldDatas.getUsersList()); // Test code
-				break;
+				default:
+					System.out.println("Aucun statut sélectionné.");
+					break;
+				}
 
-			default:
-				System.out.println("Aucun statut sélectionné.");
-				break;
+				// Asks UserDAO to insert a new user in DB
+				try {
+					String creationDone = UserDAO.createUser(user); // With String for test code
+					panel.refresh(UserDAO.getUsersList());
+					System.out.println(creationDone); // Test code
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 
+			} catch (ZeroLenghtStringException zlse) {
+				System.out.println(zlse.getMessage());
+				JOptionPane.showMessageDialog(popUpFrame, "Vous devez remplir les champs obligatoires.");
 			}
 
-			OldDatas.getUsersList().add(user);
-			panelUser.getMdlListUsers().addElement(user);
-			System.out.println(OldDatas.getUsersList()); // Test code
+		}
+
+
+		// CMD UPDATE
+		if (ae.getSource() == panel.getCmdUpdate()) {
+
+			// Get the editable fields
+			status = jrButtonSelected.getText();
+			alias = panel.getTxtAlias().getText();
+			email = panel.getTxtMail().getText();
+
+			selectedUser.setStatus(status);
+			selectedUser.setAlias(alias);
+			selectedUser.setEmail(email);		
+
+			// Asks UserDAO to update a user in DB
+			try {
+				String updateDone = UserDAO.updateUser(selectedUser); // With String for test code
+				panel.refresh(UserDAO.getUsersList());
+				System.out.println(updateDone); // Test code
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
 		}
 
-		// User modification
-		if (e.getSource() == panelUser.getCmdUpdate()) {
+		// CMD DELETE
+		if (ae.getSource() == panel.getCmdDelete()) {
 
-			selectedUser.setEmail(email);
-			selectedUser.setAfpa(afpa);
-			// Re-affects new informations to the selected User
-			panelUser.getMdlListUsers().set(indexUser, selectedUser);
-			
-			// TODO (Claire) change of status and class for Trainee to FormerTrainee
-			
-			System.out.println(OldDatas.getUsersList()); // Test code
+			id = selectedUser.getId();
 
+			// Asks UserDAO to delete a user in DB
+			try {
+				String deleteDone = UserDAO.deleteUser(id); // With String for test code
+				panel.refresh(UserDAO.getUsersList());
+				System.out.println(deleteDone); // Test code
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-
-		// User removal
-		if (e.getSource() == panelUser.getCmdDelete()) {
-
-			OldDatas.getUsersList().remove(selectedUser);
-			panelUser.getMdlListUsers().remove(indexUser);
-			System.out.println(OldDatas.getUsersList()); // Test code
-
-		}
-
 	}
 
-	// MOUSE LISTENER
+	// MOUSE
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mouseClicked(MouseEvent me) {
 
-		if (e.getSource() == panelUser.getLstUsers()) {
-
+		if (me.getSource() == panel.getLstUsersDB()) {
+			
 			// Gets the selected User and its index in the model list
-			selectedUser = (User) panelUser.getLstUsers().getSelectedValue();
-			indexUser = panelUser.getLstUsers().getSelectedIndex();
+			selectedUser = (User) panel.getLstUsersDB().getSelectedValue();
+			//			indexUser = panel.getLstUsersDB().getSelectedIndex();
+			System.out.println(selectedUser); // Test code
 
 			// Displays informations of the selected User
-			panelUser.getTxtAlias().setText(selectedUser.getAlias());
-			panelUser.getTxtMail().setText(selectedUser.getEmail());
-			panelUser.getTxtAfpa().setText(selectedUser.getAfpa());
+			panel.getTxtAlias().setText(selectedUser.getAlias());
+			panel.getTxtMail().setText(selectedUser.getEmail());
+			panel.getTxtAfpa().setText(selectedUser.getAfpa());
 
 			// These fields can't be changed by the User
-			panelUser.getTxtAlias().setEnabled(false);
-			panelUser.getTxtAfpa().setEnabled(false);
-			panelUser.getTxtTrainer().setEnabled(false);
+			panel.getTxtAlias().setEnabled(false);
+			panel.getTxtAfpa().setEnabled(false);
 
 			// Depending on status, displays related informations of the selected User
 			switch (selectedUser.getStatus()) {
@@ -189,44 +211,37 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 				// Casts User to Trainee
 				selectedTrainee = (Trainee) selectedUser;
 				// Status
-				panelUser.getOptTrainee().setSelected(true);
-				panelUser.getOptTrainee().setEnabled(true);
-				panelUser.getOptFormerTrainee().setEnabled(true);
-				panelUser.getOptTrainer().setEnabled(false);
-				// Trainer
-				panelUser.getTxtTrainer().setText(selectedTrainee.getTrainer());
+				panel.getOptTrainee().setSelected(true);
+				panel.getOptTrainee().setEnabled(true);
+				panel.getOptFormerTrainee().setEnabled(true);
+				panel.getOptTrainer().setEnabled(false);
 				break;
 
 			case "Ancien" :
 				// Casts User to FormerTrainee
 				selectedFormerTrainee = (FormerTrainee) selectedUser;
 				// Status
-				panelUser.getOptFormerTrainee().setSelected(true);
-				panelUser.getOptTrainee().setEnabled(false);
-				panelUser.getOptFormerTrainee().setEnabled(false);
-				panelUser.getOptTrainer().setEnabled(false);
-				// Trainer
-				panelUser.getTxtTrainer().setText(selectedFormerTrainee.getTrainer());
+				panel.getOptFormerTrainee().setSelected(true);
+				panel.getOptTrainee().setEnabled(false);
+				panel.getOptFormerTrainee().setEnabled(false);
+				panel.getOptTrainer().setEnabled(false);
 				break;
 
 			case "Formateur" :
 				// Casts User to Trainer
-//				selectedTrainer = (Trainer) selectedUser;
+				selectedTrainer = (Trainer) selectedUser;
 				// Status
-				panelUser.getOptTrainer().setSelected(true);
-				panelUser.getOptTrainee().setEnabled(false);
-				panelUser.getOptFormerTrainee().setEnabled(false);
-				panelUser.getOptTrainer().setEnabled(false);
+				panel.getOptTrainer().setSelected(true);
+				panel.getOptTrainee().setEnabled(false);
+				panel.getOptFormerTrainee().setEnabled(false);
+				panel.getOptTrainer().setEnabled(false);
 				// A trainer can change his place of work
-				panelUser.getTxtAfpa().setEnabled(true);
-				// Clears fields not related to the Trainer status
-				panelUser.getTxtTrainer().setText("");
+				panel.getTxtAfpa().setEnabled(true);
 				break;
 
 			default:
 				System.out.println("Aucun statut sélectionné.");
 				break;
-
 			}
 
 		}
@@ -234,23 +249,53 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
+	public void mouseEntered(MouseEvent me) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent me) {
 
 	}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
+	public void mousePressed(MouseEvent me) {
 
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
+	public void mouseReleased(MouseEvent arg0) {
 
 	}
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
+	//	/**
+	//	 * Check if alias is not a string with zero character.
+	//	 * 
+	//	 * @author Claire
+	//	 * @return alias
+	//	 * @throws ZeroLenghtStringException
+	//	 * @version 23-10-2016
+	//	 */
+	//	private String getAlias() throws ZeroLenghtStringException {
+	//		
+	//		alias = panel.getTxtAlias().getText();
+	//		System.out.println("Alias : " + alias + " " + alias.length());
+	//		
+	//		if (alias.length() == 0) {
+	//			throw new ZeroLenghtStringException("Champ vide.");
+	//		}
+	//		else {
+	//			return alias;
+	//		}
+	//	}
 
+	private String controlAttribute(String attribute) throws ZeroLenghtStringException {
+
+		if (attribute.length() == 0) {
+			throw new ZeroLenghtStringException("Vous devez remplir les champs obligatoires.");
+		}
+		else {
+			return attribute;
+		}
 	}
 
 }
