@@ -298,7 +298,7 @@ public class messageDao {
 			String date = null;
 			int draftMess = 0;
 
-			String query =  String.format("SELECT  %s, %s  , %s ,%s , %s ,%s, %s FROM %s WHERE SUBJECT LIKE '%%%s%%'",
+			String query =  String.format("SELECT  %s, %s  , %s ,%s , %s ,%s, %s FROM %s WHERE UPPER (SUBJECT) LIKE '%%%s%%'",
 					IDENTITY, SENDER, RECEIVER, SUBJECT, MESSBODY, TIMESTAMP, DRAFT, TABLE_NAME, word);
 			System.out.println(query);
 			resultSet = statement.executeQuery(query);
