@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
@@ -26,6 +27,7 @@ import fr.cdiEnterprise.control.PanelSRCompaniesListeners;
 import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Language;
+import net.miginfocom.swing.MigLayout;
 
 public class CompaniesSRPanel extends JPanel {
 
@@ -38,15 +40,18 @@ public class CompaniesSRPanel extends JPanel {
 	private JPanel panSouth;
 	private JPanel panCenter;
 	private JPanel panWest;
+	private JPanel panSearch;
+	private JPanel panRead;
 	private Border border;
 	private JRadioButton optAffiche;
 	private JRadioButton optRecherche;
 	private ButtonGroup readGrp; 
+	private JLabel lblTitle;
 	private JLabel lblSearchByName;
 	private JTextField txtSearchByName;
 	private DefaultListModel<Company> dlmCompanies; 
 	private JList <Company> lstCompanies;
-	private JScrollPane companies;
+	private JScrollPane allCompanies;
 	private JButton btnValider;
 	private JButton btnCancel;
 	private PanelSRCompaniesListeners clic;
@@ -69,7 +74,19 @@ public class CompaniesSRPanel extends JPanel {
 		panneau.add(panWest,BorderLayout.WEST);
 		panneau.add(panCenter, BorderLayout.CENTER);
 		panneau.add(panSouth, BorderLayout.SOUTH);
-	
+		
+		panNorth.setLayout(new FlowLayout());
+		lblTitle = new JLabel("Recherche fiches entreprise");
+		lblTitle.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		
+		panCenter.setLayout(new MigLayout());
+		
+		panSearch = new JPanel();
+		panSearch.setLayout(new MigLayout());
+		
+		panRead = new JPanel();
+		panRead.setLayout(new MigLayout());
+		
 		optAffiche = new JRadioButton("Afficher toutes les fiches entreprises");
 		optRecherche = new JRadioButton("Rechercher par critères (uniquement par nom)");
 		readGrp = new ButtonGroup();
@@ -82,21 +99,24 @@ public class CompaniesSRPanel extends JPanel {
 		txtSearchByName.setColumns(30);
 		
 		dlmCompanies = new DefaultListModel<Company>();
-		lstCompanies = new JList<Company>(CompanyCreationPanel.dlmCompanies);
+		lstCompanies = new JList<Company>(dlmCompanies);
 		lstCompanies.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		companies = new JScrollPane(lstCompanies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+		allCompanies = new JScrollPane(lstCompanies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		companies.setPreferredSize(new Dimension(800, 800));
+		allCompanies.setPreferredSize(new Dimension(800, 400));
 		
 		btnValider = new JButton("Valider");
 		btnCancel = new JButton("Annuler");
 		
-	
-		panCenter.add(optAffiche);
-		panCenter.add(optRecherche);
-		panCenter.add(lblSearchByName);
-		panCenter.add(txtSearchByName);
-		panCenter.add(companies);
+		
+		panNorth.add(lblTitle);
+		panCenter.add(panSearch, "wrap");
+		panSearch.add(optAffiche, "wrap");
+		panSearch.add(optRecherche, "wrap");
+		panSearch.add(lblSearchByName);
+		panSearch.add(txtSearchByName, "wrap");
+		panCenter.add(panRead);
+		panRead.add(allCompanies);
 		panSouth.add(btnValider);
 		panSouth.add(btnCancel);
 	
@@ -240,13 +260,13 @@ public class CompaniesSRPanel extends JPanel {
 
 
 	public JScrollPane getCompanies() {
-		return companies;
+		return allCompanies;
 	}
 
 
 
 	public void setCompanies(JScrollPane companies) {
-		this.companies = companies;
+		this.allCompanies = companies;
 	}
 
 

@@ -450,9 +450,12 @@ public class DataBaseCompany {
 			String postalcode = rs.getString("companyCodepostal");
 			String city = rs.getString("companyCity");
 			String departmentN = rs.getString("departmentName");
+			String regionN = rs.getString("regionName");
+
 
 			Department department = DataBaseCompany.getDepartmentId(departmentN);
-
+//			Region region = DataBaseCompany.getRegionId(regionN);
+			
 			companies.add(new Company(companyId,companyName, companyAdress, postalcode, city, department));
 
 		}
@@ -469,7 +472,7 @@ public class DataBaseCompany {
 	 * @param company
 	 * @throws SQLException
 	 */
-	public static void insertCompanyData(Company company) throws SQLException {
+	public static void insertCompanyData(Company company, Contact contact) throws SQLException {
 
 		Connection connexion = null;
 		Statement stmt = null;
@@ -478,10 +481,14 @@ public class DataBaseCompany {
 		String reqSqlb;
 		String reqSqlc;
 		String reqSqld;
+		String reqSqle;
+		String reqSqlf;
 		int rsa;
 		int rsb;
 		int rsc;
 		int rsd;
+		int rse;
+		int rsf;
 		
 		connexion = DBConnection.getConnect();
 		stmt = connexion.createStatement();
@@ -514,12 +521,28 @@ public class DataBaseCompany {
 		insertCompanyLanguage.setInt(1, company.getCompanyId());
 		insertCompanyLanguage.setInt(2, company.getLanguage().getId());
 
+		reqSqle = "insert into contact values (?,?,?,?)";
+		PreparedStatement insertContact = connexion.prepareStatement(reqSqle);
+		insertContact.setInt(1, contact.getIdContact());
+		insertContact.setString(2, contact.getName());
+		insertContact.setString(3, contact.getPhoneNumber());
+		insertContact.setString(4, contact.getEmail());
+		
+		reqSqlf="insert into companyContact values (?,?)";
+		PreparedStatement insertCompanyContact = connexion.prepareStatement(reqSqlf);
+		insertCompanyContact.setInt(1, company.getCompanyId());
+		insertCompanyContact.setInt(2, contact.getIdContact());
+				
 		rsa = insertCompany.executeUpdate();
 		rsb = insertCompanyRegion.executeUpdate();
 		rsc = insertCompanyDepartment.executeUpdate();
 		rsd = insertCompanyLanguage.executeUpdate();
-
-		System.out.println("rsa" + rsa + "rsb" + rsb + "rsc" + rsc + "rsd" + rsd);
+		rse = insertContact.executeUpdate();
+		rsf = insertContact.executeUpdate();
+		
+		stmt.close();
+		
+		System.out.println("rsa" + rsa + "rsb" + rsb + "rsc" + rsc + "rsd" + rsd + "rse"+ rse + "rsf" + rsf);
 		
 		connexion.commit();
 		stmt.close();
@@ -610,37 +633,52 @@ public class DataBaseCompany {
 		stmt.close();
 	}
 
-	/**
-	 * Méthode qui permet de créer un nouveau contact dans la base de données
-	 * 
-	 * @author Anaïs
-	 * @version 25/10/2016
-	 * @param contact
-	 * @throws SQLException
-	 */
-	public static void insertContact(Contact contact) throws SQLException {
-		Connection connexion = null;
+
+	public static Company getCompaniesId(String companyNameSel) throws SQLException {
+		Company company = null;
 		Statement stmt = null;
-		int res;
-		String table = "contactComp";
-		int idContact = getIdMax(table);
+		Connection connexion = null;
+		String reqSql = null;
+		ResultSet rs;
 
 		connexion = DBConnection.getConnect();
 		stmt = connexion.createStatement();
 
-		PreparedStatement insertContact = connexion.prepareStatement("insert into contactComp values (?,?,?,?)");
+		reqSql = "select company.companyId, companyName,companyAdress, companyCODEPOSTAL, companyCity, "
+				+ "companySize , companySector , companyProjects , companyWeb, departmentname, regionName, languagename "
+				+ "from company, languages, departments, regions, companydepartment, companyregion, companylanguage "
+				+ "where companyName = ?"
+				+ "and company.companyId = companyregion.companyId "
+				+ "and company.companyId = companydepartment.companyId "
+				+ "and company.companyId = companyLanguage.companyId "
+				+ "and departments.departmentNumber = companydepartment.departmentNumber "
+				+ "and regions.regionId = companyregion.regionId "
+				+ "and languages.languageId = companylanguage.LANGUAGEID";
+		
+		PreparedStatement getCompaniesId = connexion.prepareStatement(reqSql);
+		// System.out.println(reqSql);
+		getCompaniesId.setString(1, companyNameSel);
 
-		insertContact.setInt(1, idContact);
-		insertContact.setString(2, contact.getName());
-		insertContact.setString(3, contact.getPhoneNumber());
-		insertContact.setString(4, contact.getEmail());
+		rs = getCompaniesId.executeQuery();
+		// System.out.println("modifier");
+		while (rs.next()) {
+			int companyId = rs.getInt("companyId");
+			String companyName = rs.getString("companyName");
+			String companyAdress = rs.getString("companyAdress");
+			String postalcode = rs.getString("companyCodepostal");
+			String city = rs.getString("companyCity");
+			String departmentN = rs.getString("departmentName");
+			String regionN =rs.getString("regionName");
 
-		res = insertContact.executeUpdate();
-		System.out.println(res);
+			Department department = DataBaseCompany.getDepartmentId(departmentN);
 
+			company = new Company(companyId,companyName, companyAdress, postalcode, city, department);
+		}
 		stmt.close();
-	}
 
+		return company;
+		}
+	
 	/**
 	 * Méthode permettant de fournir l'id max d'une table de la base de données
 	 * fournie en paramètre
