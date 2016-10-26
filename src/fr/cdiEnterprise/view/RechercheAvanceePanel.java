@@ -16,9 +16,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import fr.cdiEnterprise.control.PanelRechercheAvanceeListener;
-import fr.cdiEnterprise.model.ModelTable;
 import net.miginfocom.swing.MigLayout;
+import fr.cdiEnterprise.control.PanelRechercheAvanceeListener;
+import fr.cdiEnterprise.model.ModelSearch;;
 
 /**
  * 
@@ -46,11 +46,13 @@ public class RechercheAvanceePanel extends JPanel{
 		private JLabel lblRegion;
 		private JLabel lblError;
 		private JLabel lblResult;
+		private JLabel lblSearchName;
 		private JTextField txtRaisonSocial;
 		private JTextField txtDomaine;
 		private JTextField txtVille;
 		private JTextField txtRegion;
 		private JTextField txtResult;
+		private JTextField txtSearchName;
 		private JButton btnRechercher;
 		private JButton btnEffacer;
 		private JButton btnSave;
@@ -60,6 +62,7 @@ public class RechercheAvanceePanel extends JPanel{
 		private JCheckBox chkDomaine;
 		private JCheckBox chkVille;
 		private JCheckBox chkRegion;
+		private ModelSearch modelTable;
 		private DefaultTableModel model;
 		private PanelRechercheAvanceeListener listened;
 
@@ -80,9 +83,9 @@ public class RechercheAvanceePanel extends JPanel{
 			chkRegion.setSelected(false);
 		}
 		// methode de chargement de la liste des entreprises
-		void load(){
-			model.setRowCount(0);
-		}
+//		void load(){
+//			model.setRowCount(0);
+//		}
 
 		//Execution du constructeur
 		private void initCompnent(){
@@ -100,11 +103,13 @@ public class RechercheAvanceePanel extends JPanel{
 			lblRegion = new JLabel("Region :");
 			lblError = new JLabel("");
 			lblResult = new JLabel("Nombre de fiches trouvees :");
+			lblSearchName = new JLabel("Donnez un nom à votre recherche avant de la sauvgrader");
 			txtRaisonSocial = new JTextField(20);
 			txtDomaine = new JTextField(20);
 			txtVille = new JTextField(20);
 			txtRegion = new JTextField(20);
 			txtResult = new JTextField(5);
+			txtSearchName = new JTextField(20);
 			btnRechercher = new JButton("Rechercher");
 			btnEffacer = new JButton("Effacer");
 			btnSave = new JButton("Save");
@@ -116,7 +121,7 @@ public class RechercheAvanceePanel extends JPanel{
 			chkRegion = new JCheckBox();
 			
 
-			model = (DefaultTableModel) tableResultats.getModel();
+			//model = (DefaultTableModel) tableResultats.getModel();
 
 			this.setBorder(new LineBorder(Color.BLUE));
 			this.setLayout(new BorderLayout(5, 5));
@@ -125,31 +130,15 @@ public class RechercheAvanceePanel extends JPanel{
 			this.add(panelNorth, BorderLayout.NORTH);
 			panelNorth.setLayout(new BorderLayout());
 		
-			// DEBUT TABLEAU (fonctionne)
-//			Object[][] data={
-//					{"Johnathan", "Sykes", Color.red, true, Sport.TENNIS},
-//					{"Nicolas", "Van de Kampf", Color.black, true, Sport.FOOTBALL},
-//					{"Damien", "Cuthbert", Color.cyan, true, Sport.RIEN},
-//					{"Corinne", "Valance", Color.blue, false, Sport.NATATION},
-//					{"Emilie", "Schrödinger", Color.magenta, false, Sport.FOOTBALL},
-//					{"Delphine", "Duke", Color.yellow, false, Sport.TENNIS},
-//					{"Eric", "Trump", Color.pink, true, Sport.FOOTBALL},
-//			};
-	//
-//			String [] entetes={ "ID", "Raison Sociale", "Domaine", "Ville", "Region"};
-	//
-//			tableResultats= new JTable(data, entetes);
-//			panelNorth.add(tableResultats.getTableHeader(),BorderLayout.NORTH);
-//			panelNorth.add(tableResultats, BorderLayout.CENTER);
-			// FIN TABLEAU (fonctionne)
 
-			tableResultats=new JTable(new ModelTable());
+			modelTable = new ModelSearch();
+			
+			tableResultats=new JTable(modelTable);
 			tableResultats.setPreferredScrollableViewportSize(new Dimension(780, 250));
 			scrollTable=new JScrollPane(tableResultats);
 			panelNorth.add(scrollTable);
 			
 			// ajout du panneau Sud
-
 			this.add(panelSouth,BorderLayout.SOUTH);
 			panelSouth.setBorder(new LineBorder(Color.BLUE));
 			panelSouth.setLayout(new FlowLayout());
@@ -159,8 +148,6 @@ public class RechercheAvanceePanel extends JPanel{
 
 			
 			
-			// ajout de l'ecouteur
-
 
 			//ajout panneau West
 			panelWest.setBorder(new TitledBorder(null, "Critère de recherches", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
@@ -191,6 +178,9 @@ public class RechercheAvanceePanel extends JPanel{
 			panelCenter.add(btnEffacer, "cell 0 1");
 			panelCenter.add(lblResult, "cell 1 0");
 			panelCenter.add(txtResult,"cell 2 0");
+			panelCenter.add(lblSearchName, "cell 0 2");
+			panelCenter.add(txtSearchName, "cell 0 3" );
+			
 			
 			// Liason des composants au listener.
 			listened = new PanelRechercheAvanceeListener(this);
@@ -382,6 +372,20 @@ public class RechercheAvanceePanel extends JPanel{
 		public DefaultTableModel getModel() {
 			return model;
 		}
+		/**
+		 * @return the modelTable
+		 */
+		public ModelSearch getModelTable() {
+			return modelTable;
+		}
+
+		/**
+		 * @param modelTable the modelTable to set
+		 */
+		public void setModelTable(ModelSearch modelTable) {
+			this.modelTable = modelTable;
+		}
+
 		/**
 		 * @return the listened
 		 */

@@ -31,6 +31,7 @@ import fr.cdiEnterprise.exceptions.CustomMessagingException;
 import fr.cdiEnterprise.model.Item;
 
 import fr.cdiEnterprise.service.Items;
+import fr.cdiEnterprise.service.SpecialTableItemModel;
 import fr.cdiEnterprise.util.ReadProperties;
 import net.miginfocom.swing.MigLayout;
 

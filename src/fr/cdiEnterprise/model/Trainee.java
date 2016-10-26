@@ -1,7 +1,5 @@
 package fr.cdiEnterprise.model;
 
-import fr.cdiEnterprise.control.exceptions.ZeroLenghtStringException;
-
 /**
  * Class for Trainee creation.
  * 

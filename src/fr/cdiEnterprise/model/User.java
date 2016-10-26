@@ -5,8 +5,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-import fr.cdiEnterprise.control.exceptions.ZeroLenghtStringException;
-
 /**
  * Abstract base class for all User creation: Trainee, FormerTrainee, Trainer.
  * 
