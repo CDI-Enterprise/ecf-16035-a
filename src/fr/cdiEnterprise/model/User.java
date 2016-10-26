@@ -30,13 +30,13 @@ public abstract class User {
 
 	
 	/**
-	 * Constructs a user with compulsory first log-in informations
+	 * Constructs a user with compulsory first log-in informations.
+	 * 
 	 * @param email
 	 * @param alias
 	 * @param password
 	 * @param status
 	 * @param afpa
-	 * @throws ZeroLenghtStringException 
 	 */
 	public User(String status, String alias, String email, String afpa) {
 		setId();
@@ -175,5 +175,4 @@ public abstract class User {
 	public static int getTotalId() {
 		return totalId;
 	}
-
 }
