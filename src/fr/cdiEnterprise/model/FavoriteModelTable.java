@@ -30,14 +30,11 @@ public class FavoriteModelTable  extends AbstractTableModel
 
 
 	public FavoriteModelTable() 
-
 	{
 		super();
 		datas = new Object[][]
 				{
-
 			// TODO Auto-generated constructor stub
-
 				};
 	}
 
