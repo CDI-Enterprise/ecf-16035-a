@@ -119,7 +119,7 @@ public class Menu extends JMenuBar {
 		menuHelp.add(subHelpDoc);
 		subHelpShortcut = new JMenuItem("Raccourcis clavier");
 		menuHelp.add(subHelpShortcut);
-		subHelpUpdate = new JMenuItem("Vérifier les mises à  jours");
+		subHelpUpdate = new JMenuItem("Vérifier les mises à  jour");
 		menuHelp.add(subHelpUpdate);
 		subHelpAbout = new JMenuItem("A propos");
 		menuHelp.add(subHelpAbout);
