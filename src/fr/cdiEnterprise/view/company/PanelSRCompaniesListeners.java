@@ -37,7 +37,7 @@ import fr.cdiEnterprise.model.Language;
 import fr.cdiEnterprise.model.Region;
 import net.miginfocom.swing.MigLayout;
 
-public class CompanyCreationPanel extends JPanel {
+public class PanelSRCompaniesListeners extends JPanel {
 
 	/**
 	 * Panel for company's creation
@@ -113,7 +113,7 @@ public class CompanyCreationPanel extends JPanel {
 
 	private Component BookMarkPanel;
 	
-	public CompanyCreationPanel() throws SQLException {
+	public PanelSRCompaniesListeners() throws SQLException {
 		
 		panneau = this;
 		panneau.setLayout(new BorderLayout(5,5));
@@ -675,7 +675,7 @@ public class CompanyCreationPanel extends JPanel {
 	 * @return the dlmCompanies
 	 */
 	public static DefaultListModel<Company> getDlmCompanies() {
-		return CompanyCreationPanel.dlmCompanies;
+		return PanelSRCompaniesListeners.dlmCompanies;
 	}
 
 	public ButtonGroup getSizeGrp() {

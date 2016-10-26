@@ -220,7 +220,7 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		txtContactMail.setEditable(false);
 		
 		dlmCompanies = new DefaultListModel<Company>();
-		lstCompanies = new JList<Company>(CompanyCreationPanel.dlmCompanies);
+		lstCompanies = new JList<Company>(PanelSRCompaniesListeners.dlmCompanies);
 		for(Company company: OldDatas.getCompaniesList()){
 		//for (Company company: DataBaseCompany.getCompaniesData()){
 			dlmCompanies.addElement(company);
