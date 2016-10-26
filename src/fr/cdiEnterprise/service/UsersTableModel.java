@@ -15,7 +15,6 @@ import fr.cdiEnterprise.model.User;
  * 
  * @author Claire
  * @version 23-10-2016
- *
  */
 public class UsersTableModel extends AbstractTableModel {
 
@@ -39,7 +38,7 @@ public class UsersTableModel extends AbstractTableModel {
 		super();
 		columnName = new String[] {"ID", "Statut", "Nom d'utilisateur", "Date d'inscription", "AFPA"};
 		
-		users = UserDAO.getUsersList();	
+		users = UserDAO.getUsersList();
 	}
 
 	public UsersTableModel(Users users) {
