@@ -41,10 +41,10 @@ public class MpClientV2 {
 	private static int ID_NUMBER = CONST_ZERO;
 	  
 
-	//private Server messageDao;
+	
 	private String box;
 	private Items myMessages;
-	//private Items myDraft;
+	
 	
 	/**
 	 * Ce constructeur vq d('abord charger tous les messages contenu dans la base pour l'utilisateur donné en parametre.
@@ -244,10 +244,8 @@ public class MpClientV2 {
 	 */
 	public void removeMessage(int identifier, boolean draft) throws SQLException  {
 		
-		if(messageDao.removeMessage(this.box, identifier, draft)) {
-			// TODO (nicolas) return a boolean later.
-			//System.out.println("Message has been removed...");
-		}
+		messageDao.removeMessage(this.box, identifier, draft);
+			
 	}
 	
 	public Items searchMessage(String input) {
