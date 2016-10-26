@@ -6,10 +6,10 @@ package fr.cdiEnterprise.util;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import fr.cdiEnterprise.dao.UserDAO;
 import fr.cdiEnterprise.exceptions.AlreadyUsedException;
 import fr.cdiEnterprise.exceptions.LessTwentyCharStringException;
 import fr.cdiEnterprise.exceptions.ZeroLengthStringException;
-import fr.cdiEnterprise.dao.UserDAO;
 
 /**
  * Methods for input control.
@@ -58,6 +58,15 @@ public class StringControl {
 		return throwException;
 	}
 
+	/**
+	 * This method checks if an alias already exists in the table USER_CDI.
+	 * 
+	 * @param attribute
+	 * @return throwException
+	 * @throws AlreadyUsedException
+	 * @throws SQLException
+	 * @version 25-10-2016
+	 */
 	public static boolean isAlreadyUsed(String attribute) throws AlreadyUsedException, SQLException {
 		
 		ArrayList<String> aliasList;

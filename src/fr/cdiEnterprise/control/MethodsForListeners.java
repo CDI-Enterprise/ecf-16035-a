@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import fr.cdiEnterprise.dao.DataBaseCompany;
 import fr.cdiEnterprise.exceptions.CompanyCreationException;
 import fr.cdiEnterprise.model.Company;
-import fr.cdiEnterprise.view.company.PanelSRCompaniesListeners;
+import fr.cdiEnterprise.view.company.CompanyCreationPanel;
 
 /**
  * Methods for the control package
@@ -90,15 +90,15 @@ public class MethodsForListeners {
 		if (fieldLength != 0) {
 			fieldReturn = field;
 		} else {
-			throw new CompanyCreationException();
+			throw new CompanyCreationException("Veuillez remplir les champs obligatoires");
 		}
 		return fieldReturn;
 	}
 
 	public static void refreshListCompanies() throws SQLException{
-		PanelSRCompaniesListeners.getDlmCompanies().clear();
+		CompanyCreationPanel.getDlmCompanies().clear();
 		for(Company company : DataBaseCompany.getCompaniesData()){
-			PanelSRCompaniesListeners.getDlmCompanies().addElement(company);
+			CompanyCreationPanel.getDlmCompanies().addElement(company);
 		}
 	}
 }

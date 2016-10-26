@@ -6,7 +6,6 @@ package fr.cdiEnterprise.model;
  * @author Claire
  * @see fr.cdiEnterprise.model.User
  * @version 13-10-2016 
- * 
  */
 
 public class Trainee extends User {
@@ -28,12 +27,12 @@ public class Trainee extends User {
 
 	
 	/**
-	 * Constructs a user with compulsory first log-in informations
+	 * Constructs a user with compulsory first log-in informations, except trainer. Test.
+	 * 
 	 * @param status 
 	 * @param alias 
 	 * @param email 
 	 * @param afpa
-	 * @throws ZeroLenghtStringException 
 	 */
 	public Trainee(String status, String alias, String email, String afpa) {
 		super(status, alias, email, afpa);
@@ -182,5 +181,4 @@ public class Trainee extends User {
 	public void setLinkedIn(String linkedIn) {
 		this.linkedIn = linkedIn;
 	}
-	
 }

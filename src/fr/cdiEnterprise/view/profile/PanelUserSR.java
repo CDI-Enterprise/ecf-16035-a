@@ -25,7 +25,6 @@ import net.miginfocom.swing.MigLayout;
  * 
  * @author Claire
  * @version 23-10-2016
- * 
  */
 public class PanelUserSR extends JPanel {
 
@@ -55,6 +54,7 @@ public class PanelUserSR extends JPanel {
 
 	/**
 	 * Constructs a panel which display a list of Users.
+	 * 
 	 * @throws SQLException 
 	 */
 	public PanelUserSR() throws SQLException {

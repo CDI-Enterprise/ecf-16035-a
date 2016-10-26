@@ -13,5 +13,8 @@ public class CompanyCreationException extends NullPointerException {
 	public CompanyCreationException() {
 	}
 
+	public CompanyCreationException(String message){
+		super(message);
+	}
 
 	}

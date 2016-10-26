@@ -2,15 +2,19 @@ package fr.cdiEnterprise.view.company;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+//import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.MouseListener;
+import java.awt.Font;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+//import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -21,36 +25,44 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
-
-import fr.cdiEnterprise.control.PanelDeletUpdatCompListeners;
-import fr.cdiEnterprise.control.PanelSRCompaniesListeners;
+import fr.cdiEnterprise.control.PanelCreateComListener;
+//import fr.cdiEnterprise.control.BookMarkListener;
 import fr.cdiEnterprise.dao.DataBaseCompany;
-import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Department;
 import fr.cdiEnterprise.model.Language;
 import fr.cdiEnterprise.model.Region;
 import net.miginfocom.swing.MigLayout;
 
-
-
-public class CompanyDeletUpdatPanel extends JPanel {
+public class CompanyCreationPanel extends JPanel {
 
 	/**
+	 * Panel for company's creation
+	 * @author Anaïs
+	 * @version 16-10-2016
 	 * 
 	 */
+
 	private static final long serialVersionUID = 1L;
 
+	
 	private Container panneau;
-	private JPanel panNorth;
-	private JPanel panSouth;
-	private JPanel panCenter;
-	private JPanel panWest;
-	private JLabel lblTitle;
-	private JPanel panCompany;
-	private JPanel panContact;
+	//Border
 	private Border border;
-
+	
+	//Panel North 
+	private JPanel panNorth;
+	
+	
+	//Panel west
+	private JPanel panWest;
+	//Panel contact of company
+	private JPanel panContact;
+	private JPanel panCompany;
+	
+	private JPanel panCenter;
+	private JPanel panSouth;
+	private JLabel lblTitle;
 	private JLabel lblCompanyName;
 	private JTextField txtCompanyName;
 	private JLabel lblCompanyAdress;
@@ -61,61 +73,69 @@ public class CompanyDeletUpdatPanel extends JPanel {
 	private JTextField txtPostalCode;
 	private JLabel lblCompanyDepartment;
 	private JComboBox<String> cboCompanyDepartment;
-	private JLabel lblSelcDepartment;
 	private JLabel lblCompanyRegion;
 	private JComboBox<String> cboCompanyRegion;
-	private JLabel lblSelcRegion;
 	private JLabel lblSize;
 	private JRadioButton optMicroEnt;
 	private JRadioButton optPME;
 	private JRadioButton optETI;
 	private JRadioButton optGrdEnt;
+	private ButtonGroup sizeGrp;
 	private JLabel lblSector;
 	private JTextField txtSector;
-	private JLabel lblLanguages;
+	private JLabel txtLanguages;
 	private DefaultListModel<Language> dlmLanguages;
 	private JList<Language> lstLanguages;
 	private JScrollPane languages;
-	private JLabel lblSelcLanguages;
+	private JTextField txtNewLanguage;
+	private JButton btnLanguageCreate;
 	private JLabel lblWebSite;
 	private JTextField txtWebSite;
 	private JLabel lblProjets;
 	private JTextArea txtProjets;
+	private JLabel lblFieldInfo;
 	private JLabel lblContactName;
 	private JTextField txtContactName;
 	private JLabel lblContactPhone;
 	private JTextField txtContactPhone;
 	private JLabel lblContactMail;
 	private JTextField txtContactMail;
-	private DefaultListModel<Company> dlmCompanies; 
-	private JList <Company> lstCompanies;
-	private JScrollPane companies;
-	private JButton btnDelete;
-	private JButton btnUpdate;
+	private JButton btnCreate;
 	private JButton btnCancel;
-	private PanelDeletUpdatCompListeners clic;
+	private JButton btnFavoris;
+	private PanelCreateComListener clic;
+	protected static DefaultListModel<Company> dlmCompanies;
+//	private JList<Company> lstCompanies;
+	private ArrayList<JTextField> allJTextFields;
+
+//	private Component BookMarkPanel;
 	
-	public CompanyDeletUpdatPanel() throws SQLException {
+	public CompanyCreationPanel() throws SQLException {
+		
 		panneau = this;
 		panneau.setLayout(new BorderLayout(5,5));
 		
-		border = BorderFactory.createLineBorder(Color.GRAY);
 		
+		border = BorderFactory.createLineBorder(Color.GRAY);
 		panNorth = new JPanel();
 		panWest = new JPanel();
 		panCenter = new JPanel();
 		panSouth = new JPanel();
-
+		
 		panneau.add(panNorth, BorderLayout.NORTH);
 		panneau.add(panWest,BorderLayout.WEST);
 		panneau.add(panCenter, BorderLayout.CENTER);
 		panneau.add(panSouth, BorderLayout.SOUTH);
-	
+		
+		 
 		/* Header */
 		panNorth.setLayout(new FlowLayout());
-		lblTitle = new JLabel("Modification / Suppression d'une fiche entreprise");
+		lblTitle = new JLabel("Création d'une fiche entreprise");
 		lblTitle.setAlignmentX(JPanel.CENTER_ALIGNMENT);
 		lblTitle.setVisible(true);
+		lblFieldInfo = new JLabel("Les champs marqués d'étoiles sont obligatoires");
+		lblFieldInfo.setFont(new Font(getName(), Font.BOLD, 14));
+
 		panNorth.setBorder(BorderFactory.createLineBorder(Color.GRAY));	
 		panNorth.add(lblTitle);
 		
@@ -128,69 +148,78 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		panContact = new JPanel();	
 		panContact.setLayout(new MigLayout());
 		panContact.setBorder(BorderFactory.createTitledBorder("CONTACT ENTREPRISE"));
-	
+		
+		/*Company Name*/
 		lblCompanyName = new JLabel("Nom de l'entreprise *");
 		txtCompanyName = new JTextField();
 		txtCompanyName.setColumns(30);
 		txtCompanyName.setBorder(border);
-		txtCompanyName.setEditable(false);
 
+		/*Company Adress*/
 		lblCompanyAdress = new JLabel("Adresse (rue et numéro)");
 		txtCompanyAdress = new JTextField();
 		txtCompanyAdress.setColumns(30);
 
+		/*Company City*/
 		lblCompanyCity = new JLabel("Ville *");
 		txtCompanyCity = new JTextField();
 		txtCompanyCity.setColumns(30);
 		txtCompanyCity.setBorder(border);
-		txtCompanyCity.setEditable(false);
 
 		lblPostalCode = new JLabel("Code postal *");
 		txtPostalCode = new JTextField();
 		txtPostalCode.setColumns(5);
-		txtPostalCode.setEditable(false);
 		
 		lblCompanyDepartment = new JLabel("Departement *");
 		cboCompanyDepartment = new JComboBox<String>();
-		
+		//for (Department department : OldDatas.getDepartmentsList()) {
 		for (Department department : DataBaseCompany.getDepartmentListData()){	
-			cboCompanyDepartment.addItem(department.getDepartmentName());
-				}
+		cboCompanyDepartment.addItem(department.getDepartmentName());
+			}
 		cboCompanyDepartment.setEditable(false);
 		cboCompanyDepartment.setMaximumRowCount(5);
-		
-		lblSelcDepartment = new JLabel();
 
 		lblCompanyRegion = new JLabel("Région *");
 		cboCompanyRegion = new JComboBox<String>();
-		for (Region region : DataBaseCompany.getRegionsListData()) {
+		//for (Region region : OldDatas.getRegionsList()) 
+		for (Region region: DataBaseCompany.getRegionsListData()){
 			cboCompanyRegion.addItem(region.getRegionName());
 		}
 		cboCompanyRegion.setEditable(false);
 		cboCompanyRegion.setMaximumRowCount(5);
-		
-		lblSelcRegion = new JLabel();
+				
 		lblSize= new JLabel("Taille entreprise");
 		optMicroEnt = new JRadioButton("Microentreprise (<10)");
 		optPME = new JRadioButton("PME (<250)");
 		optETI = new JRadioButton("ETI (>250 et <5000)"); 
 		optGrdEnt= new JRadioButton("Grande Entreprise");
+		// RadioButton group creation
+		sizeGrp = new ButtonGroup();
+		sizeGrp.add(optMicroEnt);
+		sizeGrp.add(optPME);
+		sizeGrp.add(optETI);
+		sizeGrp.add(optGrdEnt);
 		
 		lblSector = new JLabel("Secteur");
 		txtSector = new JTextField();
 		txtSector.setColumns(20);
-		txtSector.setEditable(false);
 		
-		lblLanguages = new JLabel ("Langages principalement utilisés *");	
+		
+		txtLanguages = new JLabel ("Langages principalement utilisés *");	
 		dlmLanguages = new DefaultListModel<Language>();
 		lstLanguages = new JList<Language>(dlmLanguages);
 		for (Language language : DataBaseCompany.getLanguagesListData()) {
 		dlmLanguages.addElement(language);
 		}
+		
+		//Pour la première version de l'application on autorisera qu'une seule sélection sur le choix des languages
+		lstLanguages.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		languages = new JScrollPane(lstLanguages, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		languages.setPreferredSize(new Dimension(150, 60));
-		lblSelcLanguages = new JLabel();
+		txtNewLanguage = new JTextField();
+		txtNewLanguage.setColumns(10);
+		btnLanguageCreate = new JButton("Ajouter un nouveau langage");
 
 		lblProjets = new JLabel("Principaux projets de l'entreprise");
 		txtProjets= new JTextArea();
@@ -198,46 +227,55 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		txtProjets.setColumns(30);
 		txtProjets.setRows(3);
 		txtProjets.setBorder(border);
-		txtProjets.setEditable(false);
 		
 		lblWebSite = new JLabel("Site Web *");
 		txtWebSite = new JTextField();
 		txtWebSite.setColumns(20);
-		txtWebSite.setEditable(false);
 		
 		lblContactName = new JLabel("Nom du contact ");
 		txtContactName = new JTextField();
 		txtContactName.setColumns(20);
-		txtContactName.setEditable(false);
 		
 		lblContactPhone = new JLabel("Téléphone");
 		txtContactPhone = new JTextField();
 		txtContactPhone.setColumns(20);
-		txtContactPhone.setEditable(false);
+		
 		
 		lblContactMail = new JLabel("Adresse mail");
 		txtContactMail = new JTextField();
 		txtContactMail.setColumns(20);
-		txtContactMail.setEditable(false);
+		
 		
 		dlmCompanies = new DefaultListModel<Company>();
-		lstCompanies = new JList<Company>(CompanyCreationPanel.dlmCompanies);
-		for(Company company: OldDatas.getCompaniesList()){
-		//for (Company company: DataBaseCompany.getCompaniesData()){
+		//		lstCompanies = new JList<Company>(dlmCompanies);
+		for (Company company: DataBaseCompany.getCompaniesData()){
 			dlmCompanies.addElement(company);
 		}
-		lstCompanies.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		companies = new JScrollPane(lstCompanies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		companies.setPreferredSize(new Dimension(800, 800));
+		
+//		JScrollPane companies = new JScrollPane(lstCompanies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+//				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+//		companies.setPreferredSize(new Dimension(300, 50));
 		
 		
-		btnDelete = new JButton("Supprimer");
-		btnUpdate = new JButton("Modifier");
+		/*Footer*/
+		btnCreate = new JButton("Enregistrer");
 		btnCancel = new JButton("Annuler");
+		btnFavoris = new JButton("Ajouter aux favoris");
 		
-////		dateEdit = new JDateChooser();
-////
+		/*Arraylist of JtextField to reset*/
+		allJTextFields = new ArrayList<JTextField>();
+		allJTextFields.add(txtCompanyName);
+		allJTextFields.add(txtCompanyAdress);
+		allJTextFields.add(txtPostalCode);
+		allJTextFields.add(txtCompanyCity);
+		allJTextFields.add(txtSector);
+		allJTextFields.add(txtWebSite);
+		allJTextFields.add(txtContactName);
+		allJTextFields.add(txtContactPhone);
+		allJTextFields.add(txtContactMail);
+		
+
+		/*Attach Component to panel*/
 		panWest.add(panCompany, "wrap 20");
 		panCompany.add(lblCompanyName);
 		panCompany.add(txtCompanyName, "wrap 20");
@@ -248,11 +286,9 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		panCompany.add(lblPostalCode);
 		panCompany.add(txtPostalCode, "wrap 20");
 		panCompany.add(lblCompanyDepartment);
-		panCompany.add(cboCompanyDepartment);
-		panCompany.add(lblSelcDepartment, "wrap 20");
+		panCompany.add(cboCompanyDepartment, "wrap 20");
 		panCompany.add(lblCompanyRegion);
-		panCompany.add(cboCompanyRegion);
-		panCompany.add(lblSelcRegion, "wrap 20");
+		panCompany.add(cboCompanyRegion, "wrap 20");
 		panCompany.add(lblSize);
 		panCompany.add(optMicroEnt);
 		panCompany.add(optPME);
@@ -260,9 +296,10 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		panCompany.add(optGrdEnt, "wrap 20");
 		panCompany.add(lblSector);
 		panCompany.add(txtSector, "wrap 20");
-		panCompany.add(lblLanguages);
+		panCompany.add(txtLanguages);
 		panCompany.add(languages);
-		panCompany.add(lblSelcLanguages, "wrap 20");
+		panCompany.add(txtNewLanguage);
+		panCompany.add(btnLanguageCreate, "wrap 20");
 		panCompany.add(lblProjets);
 		panCompany.add(txtProjets, "wrap 20");
 		panCompany.add(lblWebSite);
@@ -274,96 +311,35 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		panContact.add(txtContactPhone, "wrap 20");
 		panContact.add(lblContactMail);
 		panContact.add(txtContactMail, "wrap 20");
-		panCenter.add(companies);
-				
-		panSouth.add(btnUpdate);
-		panSouth.add(btnDelete);
+		panCompany.add(lblFieldInfo);
+	
+//		panCenter.add(companies);
+		
+		panSouth.add(btnCreate);
 		panSouth.add(btnCancel);
-		
-		clic = new PanelDeletUpdatCompListeners(this);
-		
-		MouseListener cliq = (MouseListener) new PanelDeletUpdatCompListeners(this);
-		
-		btnDelete.addActionListener(clic);
+		panSouth.add(btnFavoris);
+
+
+		clic = new PanelCreateComListener(this);
+		btnCreate.addActionListener(clic);
+		cboCompanyDepartment.addActionListener(clic);
 		btnCancel.addActionListener(clic);
-		btnUpdate.addActionListener(clic);
-		
-		lstCompanies.addListSelectionListener(clic);
-		lstCompanies.addMouseListener(cliq);
+		btnLanguageCreate.addActionListener(clic);
+		//listeners
+		//BookMarkListener btnFavoris = new BookMarkListener(null);
+
+		//btnFavoris.addActionListener((ActionListener) this);		
 	}
 
-
+	
 	/**
-	 * @return the serialversionuid
+	 * @return the btnCreate
 	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public JButton getBtnCreate() {
+		return btnCreate;
 	}
 
-
-	/**
-	 * @return the panneau
-	 */
-	public Container getPanneau() {
-		return panneau;
-	}
-
-
-	/**
-	 * @return the panNorth
-	 */
-	public JPanel getPanNorth() {
-		return panNorth;
-	}
-
-
-	/**
-	 * @return the panSouth
-	 */
-	public JPanel getPanSouth() {
-		return panSouth;
-	}
-
-
-	/**
-	 * @return the panCenter
-	 */
-	public JPanel getPanCenter() {
-		return panCenter;
-	}
-
-
-	/**
-	 * @return the panWest
-	 */
-	public JPanel getPanWest() {
-		return panWest;
-	}
-
-
-	/**
-	 * @return the lblTitle
-	 */
-	public JLabel getLblTitle() {
-		return lblTitle;
-	}
-
-
-	/**
-	 * @return the panCompany
-	 */
-	public JPanel getPanCompany() {
-		return panCompany;
-	}
-
-
-	/**
-	 * @return the panContact
-	 */
-	public JPanel getPanContact() {
-		return panContact;
-	}
-
+	
 
 	/**
 	 * @return the border
@@ -372,6 +348,54 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return border;
 	}
 
+	/**
+	 * @return the panNorth
+	 */
+	public JPanel getPanNorth() {
+		return panNorth;
+	}
+
+	/**
+	 * @return the panWest
+	 */
+	public JPanel getPanWest() {
+		return panWest;
+	}
+
+	/**
+	 * @return the panContact
+	 */
+	public JPanel getPanContact() {
+		return panContact;
+	}
+
+	/**
+	 * @return the panCompany
+	 */
+	public JPanel getPanCompany() {
+		return panCompany;
+	}
+
+	/**
+	 * @return the panCenter
+	 */
+	public JPanel getPanCenter() {
+		return panCenter;
+	}
+
+	/**
+	 * @return the panSouth
+	 */
+	public JPanel getPanSouth() {
+		return panSouth;
+	}
+
+	/**
+	 * @return the lblTitle
+	 */
+	public JLabel getLblTitle() {
+		return lblTitle;
+	}
 
 	/**
 	 * @return the lblCompanyName
@@ -380,14 +404,12 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return lblCompanyName;
 	}
 
-
 	/**
 	 * @return the txtCompanyName
 	 */
 	public JTextField getTxtCompanyName() {
 		return txtCompanyName;
 	}
-
 
 	/**
 	 * @return the lblCompanyAdress
@@ -396,14 +418,12 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return lblCompanyAdress;
 	}
 
-
 	/**
 	 * @return the txtCompanyAdress
 	 */
 	public JTextField getTxtCompanyAdress() {
 		return txtCompanyAdress;
 	}
-
 
 	/**
 	 * @return the lblCompanyCity
@@ -412,14 +432,12 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return lblCompanyCity;
 	}
 
-
 	/**
 	 * @return the txtCompanyCity
 	 */
 	public JTextField getTxtCompanyCity() {
 		return txtCompanyCity;
 	}
-
 
 	/**
 	 * @return the lblPostalCode
@@ -428,14 +446,12 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return lblPostalCode;
 	}
 
-
 	/**
 	 * @return the txtPostalCode
 	 */
 	public JTextField getTxtPostalCode() {
 		return txtPostalCode;
 	}
-
 
 	/**
 	 * @return the lblCompanyDepartment
@@ -444,22 +460,12 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return lblCompanyDepartment;
 	}
 
-
 	/**
 	 * @return the cboCompanyDepartment
 	 */
 	public JComboBox<String> getCboCompanyDepartment() {
 		return cboCompanyDepartment;
 	}
-
-
-	/**
-	 * @return the lblSelcDepartment
-	 */
-	public JLabel getLblSelcDepartment() {
-		return lblSelcDepartment;
-	}
-
 
 	/**
 	 * @return the lblCompanyRegion
@@ -468,22 +474,12 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return lblCompanyRegion;
 	}
 
-
 	/**
 	 * @return the cboCompanyRegion
 	 */
 	public JComboBox<String> getCboCompanyRegion() {
 		return cboCompanyRegion;
 	}
-
-
-	/**
-	 * @return the lblSelcRegion
-	 */
-	public JLabel getLblSelcRegion() {
-		return lblSelcRegion;
-	}
-
 
 	/**
 	 * @return the lblSize
@@ -492,14 +488,12 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return lblSize;
 	}
 
-
 	/**
 	 * @return the optMicroEnt
 	 */
 	public JRadioButton getOptMicroEnt() {
 		return optMicroEnt;
 	}
-
 
 	/**
 	 * @return the optPME
@@ -508,14 +502,12 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return optPME;
 	}
 
-
 	/**
 	 * @return the optETI
 	 */
 	public JRadioButton getOptETI() {
 		return optETI;
 	}
-
 
 	/**
 	 * @return the optGrdEnt
@@ -524,14 +516,12 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return optGrdEnt;
 	}
 
-
 	/**
 	 * @return the lblSector
 	 */
 	public JLabel getLblSector() {
 		return lblSector;
 	}
-
 
 	/**
 	 * @return the txtSector
@@ -540,14 +530,12 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return txtSector;
 	}
 
-
 	/**
 	 * @return the lblLanguages
 	 */
 	public JLabel getLblLanguages() {
-		return lblLanguages;
+		return txtLanguages;
 	}
-
 
 	/**
 	 * @return the dlmLanguages
@@ -556,14 +544,12 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return dlmLanguages;
 	}
 
-
 	/**
 	 * @return the lstLanguages
 	 */
 	public JList<Language> getLstLanguages() {
 		return lstLanguages;
 	}
-
 
 	/**
 	 * @return the languages
@@ -572,14 +558,19 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return languages;
 	}
 
-
 	/**
 	 * @return the lblSelcLanguages
 	 */
-	public JLabel getLblSelcLanguages() {
-		return lblSelcLanguages;
+	public JTextField getTxtNewLanguage() {
+		return txtNewLanguage;
 	}
 
+	/**
+	 * @return the btnLanguageCreate
+	 */
+	public JButton getBtnLanguageCreate() {
+		return btnLanguageCreate;
+	}
 
 	/**
 	 * @return the lblWebSite
@@ -588,14 +579,12 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return lblWebSite;
 	}
 
-
 	/**
 	 * @return the txtWebSite
 	 */
 	public JTextField getTxtWebSite() {
 		return txtWebSite;
 	}
-
 
 	/**
 	 * @return the lblProjets
@@ -604,7 +593,6 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return lblProjets;
 	}
 
-
 	/**
 	 * @return the txtProjets
 	 */
@@ -612,6 +600,12 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return txtProjets;
 	}
 
+	/**
+	 * @return the lblFieldInfo
+	 */
+	public JLabel getLblFieldInfo() {
+		return lblFieldInfo;
+	}
 
 	/**
 	 * @return the lblContactName
@@ -620,14 +614,12 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return lblContactName;
 	}
 
-
 	/**
 	 * @return the txtContactName
 	 */
 	public JTextField getTxtContactName() {
 		return txtContactName;
 	}
-
 
 	/**
 	 * @return the lblContactPhone
@@ -636,14 +628,12 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return lblContactPhone;
 	}
 
-
 	/**
 	 * @return the txtContactPhone
 	 */
 	public JTextField getTxtContactPhone() {
 		return txtContactPhone;
 	}
-
 
 	/**
 	 * @return the lblContactMail
@@ -652,7 +642,6 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return lblContactMail;
 	}
 
-
 	/**
 	 * @return the txtContactMail
 	 */
@@ -660,51 +649,51 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		return txtContactMail;
 	}
 
-
-	/**
-	 * @return the dlmCompanies
-	 */
-	public DefaultListModel<Company> getDlmCompanies() {
-		return dlmCompanies;
-	}
-
-
-	/**
-	 * @return the lstCompanies
-	 */
-	public JList<Company> getLstCompanies() {
-		return lstCompanies;
-	}
-
-
-	/**
-	 * @return the companies
-	 */
-	public JScrollPane getCompanies() {
-		return companies;
-	}
-
-
-	/**
-	 * @return the btnDelete
-	 */
-	public JButton getBtnDelete() {
-		return btnDelete;
-	}
-
-
-	/**
-	 * @return the btnUpdate
-	 */
-	public JButton getBtnUpdate() {
-		return btnUpdate;
-	}
-
-
 	/**
 	 * @return the btnCancel
 	 */
 	public JButton getBtnCancel() {
 		return btnCancel;
 	}
-}
+
+	/**
+	 * @return the btnFavoris
+	 */
+	public JButton getBtnFavoris() {
+		return btnFavoris;
+	}
+
+	/**
+	 * @return the clic
+	 */
+	public PanelCreateComListener getClic() {
+		return clic;
+	}
+	
+	/**
+	 * @return the dlmCompanies
+	 */
+	public static DefaultListModel<Company> getDlmCompanies() {
+		return CompanyCreationPanel.dlmCompanies;
+	}
+
+	public ButtonGroup getSizeGrp() {
+			return sizeGrp;
+	}
+
+	/**
+	 * @return the allJTextFields
+	 */
+	public ArrayList<JTextField> getAllJTextFields() {
+		return allJTextFields;
+	}
+
+	/**
+	 * @param allJTextFields the allJTextFields to set
+	 */
+	public void setAllJTextFields(ArrayList<JTextField> allJTextFields) {
+		this.allJTextFields = allJTextFields;
+	}	
+	
+	}
+
