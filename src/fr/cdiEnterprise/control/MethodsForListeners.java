@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import fr.cdiEnterprise.dao.DataBaseCompany;
 import fr.cdiEnterprise.exceptions.CompanyCreationException;
 import fr.cdiEnterprise.model.Company;
-import fr.cdiEnterprise.view.company.CompanyCreationPanel;
+import fr.cdiEnterprise.view.company.PanelSRCompaniesListeners;
 
 /**
  * Methods for the control package
@@ -96,9 +96,9 @@ public class MethodsForListeners {
 	}
 
 	public static void refreshListCompanies() throws SQLException{
-		CompanyCreationPanel.getDlmCompanies().clear();
+		PanelSRCompaniesListeners.getDlmCompanies().clear();
 		for(Company company : DataBaseCompany.getCompaniesData()){
-			CompanyCreationPanel.getDlmCompanies().addElement(company);
+			PanelSRCompaniesListeners.getDlmCompanies().addElement(company);
 		}
 	}
 }

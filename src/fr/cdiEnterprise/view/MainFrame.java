@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import fr.cdiEnterprise.view.company.CompaniesSRPanel;
-import fr.cdiEnterprise.view.company.CompanyCreationPanel;
+import fr.cdiEnterprise.view.company.PanelSRCompaniesListeners;
 import fr.cdiEnterprise.view.company.CompanyDeletUpdatPanel;
 import fr.cdiEnterprise.view.profile.PanelUserCRUD;
 import fr.cdiEnterprise.view.profile.PanelUserSR;
@@ -41,7 +41,7 @@ public class MainFrame extends JFrame {
 	private static JScrollPane scrollPanelUserCRUD;
 	private static JScrollPane scrollPanelUserSR;
 
-	private static CompanyCreationPanel panelCreatCompany;
+	private static PanelSRCompaniesListeners panelCreatCompany;
 	private static JScrollPane scrollCreateCompany;
 	private static JScrollPane scrollUpdateDeleteCompany;
 	private static CompanyDeletUpdatPanel panelUpdateDeleteCompany;
@@ -116,7 +116,7 @@ public class MainFrame extends JFrame {
 		scrollPanelUserSR = new JScrollPane(panelUserSR);
 
 		// Panel Company
-		panelCreatCompany = new CompanyCreationPanel();
+		panelCreatCompany = new PanelSRCompaniesListeners();
 		scrollCreateCompany = new JScrollPane(panelCreatCompany);
 		panelUpdateDeleteCompany = new CompanyDeletUpdatPanel();
 		scrollUpdateDeleteCompany = new JScrollPane(panelUpdateDeleteCompany);
@@ -192,7 +192,7 @@ public class MainFrame extends JFrame {
 		return scrollPanelUserSR;
 	}	
 
-	public static CompanyCreationPanel getPanelCreatCompany() 
+	public static PanelSRCompaniesListeners getPanelCreatCompany() 
 	{
 		return panelCreatCompany;
 	}

@@ -302,6 +302,7 @@ public class CompaniesSRPanel extends JPanel {
 		clic = new PanelSRCompaniesListeners(this);
 		btnValider.addActionListener(clic);
 		btnCancel.addActionListener(clic);
+		btnFavoris.addActionListener(clic);
 		
 		MouseListener cliq = (MouseListener) new PanelSRCompaniesListeners(this);			
 //		lstCompanies.addListSelectionListener(clic);

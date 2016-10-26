@@ -20,7 +20,7 @@ import fr.cdiEnterprise.model.Language;
 import fr.cdiEnterprise.model.Region;
 //import fr.cdiEnterprise.service.Languages;
 import fr.cdiEnterprise.view.MainFrame;
-import fr.cdiEnterprise.view.company.CompanyCreationPanel;
+import fr.cdiEnterprise.view.company.PanelSRCompaniesListeners;
 
 /**
  *Listeners for panel "Company Creation"
@@ -33,7 +33,7 @@ import fr.cdiEnterprise.view.company.CompanyCreationPanel;
 public class PanelCreateComListener implements ActionListener, ListSelectionListener {
 
 	// Given attribute
-	private CompanyCreationPanel panCompCreat;
+	private PanelSRCompaniesListeners panCompCreat;
 
 	// Attributes for creation company
 	private int idCompany;
@@ -68,7 +68,7 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 
 	private JFrame popupError;
 	
-	public PanelCreateComListener(CompanyCreationPanel panCompCreat) {
+	public PanelCreateComListener(PanelSRCompaniesListeners panCompCreat) {
 		this.panCompCreat = panCompCreat;
 	}
 
@@ -131,7 +131,7 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 				//System.out.println(company);
 				
 				DataBaseCompany.insertCompanyData(company, contact);
-				CompanyCreationPanel.getDlmCompanies().addElement(company);
+				PanelSRCompaniesListeners.getDlmCompanies().addElement(company);
 				MethodsForListeners.resetJTextField(panCompCreat.getAllJTextFields());
 				
 			}catch (CompanyCreationException ev){

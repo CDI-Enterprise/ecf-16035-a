@@ -17,26 +17,33 @@ public class Favorite
 {
 	private static int id;
 	private int idEnterprise;
+	private int idFavorite;
 	private String companyName;
-	private NoteCompany noteCompany;
+	private String noteCompany;
 	private String city;
 	private String size;
 	private String sector;
 	private String webSite;
-	private Contact contactMail;
+	private String contactMail;
 
-	//public static final String[] FAVORITES ={"First DAO", "Second JAVA", "Third Windows", "Fourth UML", "Fifth SQL", "Sixth PENCIL", 
-	//		"Seven POWERAMC","Eighth BALSAMIQUE", "Ninth WEB", "Tenth ZERO"};
-
+	
+	/**
+	 * Default constructor
+	 */
+	public Favorite ()
+	{
+	}
+	
 	/**
 	 * Default constructor
 	 * @param noteCompany 
 	 */
 
-	public Favorite(NoteCompany noteCompany) 
+	public Favorite(int idFavorite,String noteCompany) 
 	{
 		id++;
 		this.noteCompany	= noteCompany;
+		this.idFavorite		= idFavorite;
 
 	}
 
@@ -54,32 +61,35 @@ public class Favorite
 	/**
 	 * Constructor with parameters
 	 * 
+	 * @param idFavorite
 	 * @param companyName
 	 * @param city
 	 * @param size
 	 * @param sector
 	 * @param website
 	 * @param contactMail
+	 * @param noteCompany
 	 * 
 	 */
 
-	public Favorite(String companyName, NoteCompany noteCompany,String city, String size, String sector, String webSite, Contact contactMail) 
+	public Favorite( int idFavorite,String companyName, String city, String size, String sector, String webSite, String contactMail, String noteCompany) 
 	{
 		super();
 		id++;
-		this.idEnterprise = id;
+		this.idFavorite 	= id;
 		this.companyName 	= companyName;
-		this.noteCompany	= noteCompany;
 		this.city			= city;
 		this.size			= size;
 		this.sector			= sector;
 		this.webSite		= webSite;
 		this.contactMail	= contactMail;
+		this.noteCompany	= noteCompany;
 	}
 
 	/**
 	 * Constructor with parameters
 	 * 
+	 * @param idFavorite 
 	 * @param city
 	 * @param size
 	 * @param sector
@@ -88,30 +98,53 @@ public class Favorite
 	 * @param note
 	 * 
 	 */
-
-	public Favorite(String city, String size, String sector, String webSite, String contactMail, NoteCompany note) 
+	
+	public Favorite(String city, String size, String sector, String webSite, String contactMail, String note) 
 	{
 		super();
 		id++;
-		this.idEnterprise = id;
+		this.idFavorite 	= id;
 		this.city			= city;
 		this.size			= size;
 		this.sector			= sector;
 		this.webSite		= webSite;
-		//this.contactMail	= contactMail;
+		this.contactMail	= contactMail;
+		this.noteCompany	= note; 
 	}
-
-	/**
-	 * @param noteCompany2
-	 */
-	public Favorite(String noteCompany2) {
-		// TODO Auto-generated constructor stub
-	}
+//
+//	/**
+//	 * @param noteCompany2
+//	 */
+//	public Favorite (int idFavorite, String companyName, String city, String size, String sector, String webSite, String contactMail, String noteCompany) 
+//	{
+//
+//		id++;
+//		this.idFavorite 	= id;
+//		this.city			= city;
+//		this.size			= size;
+//		this.sector			= sector;
+//		this.webSite		= webSite;
+//		this.contactMail	= contactMail;
+//		this.noteCompany	= note; 
+//		// TODO Auto-generated constructor stub
+//	}
 
 	/**
 	 * Getters
 	 */
 
+	public Favorite(String companyName) 
+	{
+		id++;
+		this.companyName = companyName;
+	}
+
+	/**
+	 * @return the idFavorite
+	 */
+	public int getIdFavorite() {
+		return idFavorite;
+	}
 	/**
 	 * @return the idEnterprise
 	 */
@@ -129,7 +162,7 @@ public class Favorite
 	/**
 	 * @return the noteCompany
 	 */
-	public NoteCompany getNoteCompany() {
+	public String getNoteCompany() {
 		return noteCompany;
 	}
 
@@ -164,7 +197,7 @@ public class Favorite
 	/**
 	 * @return the contactMail
 	 */
-	public Contact getContactMail() {
+	public String getContactMail() {
 		return contactMail;
 	}
 
@@ -183,6 +216,14 @@ public class Favorite
 	}
 
 	/**
+	 * @param idFavorite
+	 * the idFavorite to set
+	 */
+	public void setIdFavorite(int idFavorite) {
+		this.idFavorite = idFavorite;
+	}
+	
+	/**
 	 * @param idEnterprise
 	 *            the idEnterprise to set
 	 */
@@ -194,7 +235,7 @@ public class Favorite
 	/**
 	 * @param noteCompany the noteCompany to set
 	 */
-	public void setNoteCompany(NoteCompany noteCompany) {
+	public void setNoteCompany(String noteCompany) {
 		this.noteCompany = noteCompany;
 	}
 
@@ -229,7 +270,7 @@ public class Favorite
 	/**
 	 * @param contactMail the contactMail to set
 	 */
-	public void setContactMail(Contact contactMail) {
+	public void setContactMail(String contactMail) {
 		this.contactMail = contactMail;
 	}
 
