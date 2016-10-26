@@ -172,7 +172,7 @@ public class MpClientV2 {
 				
 
 
-		}
+			}
 			}else {
 				throw new CustomMessagingException("le Destinataire ou le sujet sont vide.");
 

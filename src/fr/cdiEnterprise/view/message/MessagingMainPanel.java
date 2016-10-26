@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.cdiEnterprise.view;
+package fr.cdiEnterprise.view.message;
 
 import java.awt.BorderLayout;
 
