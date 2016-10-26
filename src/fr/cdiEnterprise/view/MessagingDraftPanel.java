@@ -64,7 +64,6 @@ public class MessagingDraftPanel extends JPanel {
 	private DefaultTableModel tableModele;
 	private JScrollPane scrollPane;
 	private JTable table;
-	//private String[][] tableauMsg;
 	private String[][] tableauMsg;
 	private Items copyUserItems;
 	
@@ -105,11 +104,11 @@ public class MessagingDraftPanel extends JPanel {
 
 		
 		
-		JPanel panMess = new JPanel();
-		
+		JPanel panMess 	= new JPanel();
 		JPanel panNorth = new JPanel();
-		JPanel panWest = new JPanel();
-		JPanel panCenter = new JPanel();
+		JPanel panWest 	= new JPanel();
+		JPanel panCenter= new JPanel();
+		
 		panMess.setLayout(new BorderLayout());
 		add(panMess);
 		panMess.add(panNorth,BorderLayout.NORTH);
@@ -117,9 +116,9 @@ public class MessagingDraftPanel extends JPanel {
 		panMess.add(panWest, BorderLayout.WEST);
 		
 
-		JLabel lblMess = new JLabel("Nombre de Brouillon(s) :");
-		JLabel lblNombre = new JLabel(tableModele.getRowCount()+"");
-		JLabel lblTitre = new JLabel("Boite de Brouillon de :"+ MessageListener.alias);
+		JLabel lblMess 		= new JLabel("Nombre de Brouillon(s) :");
+		JLabel lblNombre 	= new JLabel(tableModele.getRowCount()+"");
+		JLabel lblTitre 	= new JLabel("Boite de Brouillon de :"+ MessageListener.alias);
 		
 		String header = String.format(FORMAT_LIST, HEADER_LIST);
 		JLabel headerLabel = new JLabel(header);
@@ -154,7 +153,6 @@ public class MessagingDraftPanel extends JPanel {
 		
 		scrollPane = new JScrollPane();
 		panCenter.setBorder(borderTitle);
-		
 		panCenter.add(scroller, BorderLayout.CENTER);	
 		//panMess.add(scrollPane, BorderLayout.CENTER);
 		
