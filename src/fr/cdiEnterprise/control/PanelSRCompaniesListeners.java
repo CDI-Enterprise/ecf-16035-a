@@ -42,6 +42,10 @@ public class PanelSRCompaniesListeners implements ActionListener, MouseListener 
 			MainFrame.getPanMain().repaint();
 			MainFrame.getPanMain().revalidate();
 		}
+		
+		if (e.getSource() == panCompaniesSR.getBtnFavoris()){
+			
+		}
 
 		if (e.getSource() == panCompaniesSR.getBtnValider()) {
 			try {
