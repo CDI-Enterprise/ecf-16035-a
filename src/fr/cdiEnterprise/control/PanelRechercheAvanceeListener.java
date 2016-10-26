@@ -17,7 +17,8 @@ public class PanelRechercheAvanceeListener implements ActionListener{
 	private String mcDomaine;
 	private String mcVille;
 	private String mcRegion;
-	private RechercheAvanceePanel panelRecherche;
+	private RechercheAvanceePanel panelRecherche; // 26/10/2016 A RECTIFIER
+	//private AdvancedSearchPanel panelRecherche;
 
 	//	private String rqtSqlRecherche;
 
@@ -25,6 +26,15 @@ public class PanelRechercheAvanceeListener implements ActionListener{
 	 * 
 	 * @author  Olivier
 	 */
+//	public PanelRechercheAvanceeListener(RechercheAvanceePanel panelRecherche) {  // 26/10/2016 A RECTIFIER
+//		this.panelRecherche = panelRecherche;
+//		mcRaisonSociale="";
+//		mcDomaine="";
+//		mcVille="";
+//		mcRegion="";
+//		metier = new MetierAdvancedSearch();
+//	}
+	
 	public PanelRechercheAvanceeListener(RechercheAvanceePanel panelRecherche) {
 		this.panelRecherche = panelRecherche;
 		mcRaisonSociale="";
@@ -94,15 +104,15 @@ public class PanelRechercheAvanceeListener implements ActionListener{
 				System.out.println(listCompnies.isEmpty());
 				System.out.println(listCompnies);
 			}
-			if(panelRecherche.getChkRaisonSocial().isSelected() && panelRecherche.getChkDomaine().isSelected()){
-				mcRaisonSociale = panelRecherche.getTxtRaisonSocial().getText();
-				mcDomaine = panelRecherche.getTxtDomaine().getText();
-				List<Company> listCompnies =  metier.getCompagnyByMC(mcRaisonSociale, mcDomaine );
-				panelRecherche.getModelTable().loadDatas(listCompnies);
-				panelRecherche.getTxtResult().setText(panelRecherche.getModelTable().getSize());
-				System.out.println(listCompnies.isEmpty());
-				System.out.println(listCompnies);
-			}
+//			if(panelRecherche.getChkRaisonSocial().isSelected() && panelRecherche.getChkDomaine().isSelected()){
+//				mcRaisonSociale = panelRecherche.getTxtRaisonSocial().getText();
+//				mcDomaine = panelRecherche.getTxtDomaine().getText();
+//				List<Company> listCompnies =  metier.getCompagnyByMC(mcRaisonSociale, mcDomaine );
+//				panelRecherche.getModelTable().loadDatas(listCompnies);
+//				panelRecherche.getTxtResult().setText(panelRecherche.getModelTable().getSize());
+//				System.out.println(listCompnies.isEmpty());
+//				System.out.println(listCompnies);
+//			}
 
 
 			//System.out.println(mcRaisonSociale + "," + mcDomaine + "," + mcVille + "," + mcRegion );

@@ -46,11 +46,13 @@ public class RechercheAvanceePanel extends JPanel{
 		private JLabel lblRegion;
 		private JLabel lblError;
 		private JLabel lblResult;
+		private JLabel lblSearchName;
 		private JTextField txtRaisonSocial;
 		private JTextField txtDomaine;
 		private JTextField txtVille;
 		private JTextField txtRegion;
 		private JTextField txtResult;
+		private JTextField txtSearchName;
 		private JButton btnRechercher;
 		private JButton btnEffacer;
 		private JButton btnSave;
@@ -101,11 +103,13 @@ public class RechercheAvanceePanel extends JPanel{
 			lblRegion = new JLabel("Region :");
 			lblError = new JLabel("");
 			lblResult = new JLabel("Nombre de fiches trouvees :");
+			lblSearchName = new JLabel("Donnez un nom à votre recherche avant de la sauvgrader");
 			txtRaisonSocial = new JTextField(20);
 			txtDomaine = new JTextField(20);
 			txtVille = new JTextField(20);
 			txtRegion = new JTextField(20);
 			txtResult = new JTextField(5);
+			txtSearchName = new JTextField(20);
 			btnRechercher = new JButton("Rechercher");
 			btnEffacer = new JButton("Effacer");
 			btnSave = new JButton("Save");
@@ -135,7 +139,6 @@ public class RechercheAvanceePanel extends JPanel{
 			panelNorth.add(scrollTable);
 			
 			// ajout du panneau Sud
-
 			this.add(panelSouth,BorderLayout.SOUTH);
 			panelSouth.setBorder(new LineBorder(Color.BLUE));
 			panelSouth.setLayout(new FlowLayout());
@@ -145,8 +148,6 @@ public class RechercheAvanceePanel extends JPanel{
 
 			
 			
-			// ajout de l'ecouteur
-
 
 			//ajout panneau West
 			panelWest.setBorder(new TitledBorder(null, "Critère de recherches", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
@@ -177,6 +178,9 @@ public class RechercheAvanceePanel extends JPanel{
 			panelCenter.add(btnEffacer, "cell 0 1");
 			panelCenter.add(lblResult, "cell 1 0");
 			panelCenter.add(txtResult,"cell 2 0");
+			panelCenter.add(lblSearchName, "cell 0 2");
+			panelCenter.add(txtSearchName, "cell 0 3" );
+			
 			
 			// Liason des composants au listener.
 			listened = new PanelRechercheAvanceeListener(this);
