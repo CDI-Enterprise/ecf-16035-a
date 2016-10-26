@@ -13,7 +13,7 @@ import java.sql.Statement;
 import javax.swing.JComboBox;
 
 import fr.cdiEnterprise.model.Favorite;
-import fr.cdiEnterprise.view.company.CompaniesSRPanel;
+//import fr.cdiEnterprise.view.company.CompaniesSRPanel;
 //import fr.cdiEnterprise.view.BookMarkPanel;
 //import fr.cdiEnterprise.model.NoteCompany;
 //import fr.cdiEnterprise.service.Favorites;
@@ -59,12 +59,61 @@ public class FavoriteDao
 	 * @param favorite
 	 * 
 	 */
-	public int addFavorite (CompaniesSRPanel favorite) throws SQLException
+	public int addFavorite (Favorite favorite)
 	{
-		String reqSqlAdd;
-		int rsMark = 0;
-		
-		return rsMark ;	
+		int returnMark = 0;
+		try
+		{
+			//Recover datas 
+			//================
+
+			//TODO note
+
+//			NoteCompany noteUser = favorite.getNoteCompany();
+//
+//			//Seach if noteUser exist
+//			if (noteUser != null)
+//			{
+//				String lblNoteUser	= noteUser.getLblNote();
+//				NoteCompany noteBDD = null;
+//
+//				ResultSet rs = stmt.executeQuery("select idNote from notecompany where lblNote = '" + lblNoteUser + "'");
+//				while (rs.next())
+//				{
+//					int idNote	= rs.getInt(1);
+//					noteBDD		= new NoteCompany(idNote, lblNoteUser);
+//				}
+//				//if don't exist,we create it
+//
+//				if(noteBDD == null)
+//				{
+//					ResultSet rsMax = stmt.executeQuery("select max(idNote) from notecompany");
+//					int idMax = 0;
+//					while (rsMax.next()) idMax = rsMax.getInt(1);
+//
+//					noteBDD = new NoteCompany(idMax + 1, lblNoteUser);
+//
+//					//insert to BDD
+//					stmt.executeUpdate("insert into notecompany (" + noteBDD.getIdNote() + 
+//							",'" + noteBDD.getLblNote() + "')");						
+//				}
+//
+//				//Put the note to favorite for to have a object
+//				favorite.setNoteCompany(noteUser);			
+//			}
+
+			//================
+
+			//Insert favorite
+		stmt.executeUpdate("insert into favorite values (" +  favorite.getIdFavorite() + ",' "+ favorite.getCompanyName() +
+					",'" + favorite.getCity() + ",'" + favorite.getSize() + ",'" + favorite.getSector() + ",'" + favorite.getWebSite() +
+					",'"  + favorite.getContactMail() +  ",'" + favorite.getNoteCompany() + "')");
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return returnMark;	
 	}
 
 	

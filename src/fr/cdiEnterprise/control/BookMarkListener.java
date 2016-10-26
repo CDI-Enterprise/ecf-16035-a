@@ -82,12 +82,12 @@ public class BookMarkListener implements ActionListener
 			if (e.getSource() == mark.getBtnSearchBookMark()) btnSearch_click(mark);
 			if (e.getSource() == mark.getBtnGoCompanySheet()) btnGoCompany_click(mark);
 		}
-		else if (panFavorites instanceof fr.cdiEnterprise.view.company.CompaniesSRPanel)	//if cmbBookMarkValidate clicked
-		{
-			CompaniesSRPanel mark2 = (CompaniesSRPanel) panFavorites;
-			if (e.getSource() == mark2.getBtnFavoris()) btnValidate_click(mark2);		
-
-		}
+//		else if (panFavorites instanceof fr.cdiEnterprise.view.company.CompaniesSRPanel)	//if cmbBookMarkValidate clicked
+//		{
+//			CompaniesSRPanel mark2 = (CompaniesSRPanel) panFavorites;
+//			if (e.getSource() == mark2.getBtnFavoris()) btnValidate_click(mark2);		
+//
+//		}
 		else System.out.println("BookMarkListener - Error IHM");	 					//else message error
 	}
 
@@ -119,29 +119,29 @@ public class BookMarkListener implements ActionListener
 	 * @param mark2
 	 * 
 	 */
-	private void btnValidate_click(CompaniesSRPanel mark2) 						//Recover informations
-	{
-		try
-		{
-		companyName		= mark2.getTxtCompanyCity().getText();
-		companyCity		= mark2.getTxtCompanyCity().getText();
-		companySize		= mark2.getLblSize().getText();	
-		companySector	= mark2.getTxtSector().getText();
-		companyWebSite	= mark2.getTxtWebSite().getText();
-		contactMail		= mark2.getTxtContactMail().getText();
-		idFavorite		= FavoriteDao.getIdMax("favorite") +1;
-
-		//Create a favorite's object
-		Favorite favoriteCompany = new Favorite( idFavorite,companyName, companyCity, companySize, companySector, companyWebSite, contactMail, noteCompany);
-
-		//Send the add
-		//favoriteDao.addFavorite(favoriteCompany);
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-	}
+//	private void btnValidate_click(CompaniesSRPanel mark2) 						//Recover informations
+//	{
+//		try
+//		{
+//		companyName		= mark2.getTxtCompanyCity().getText();
+//		companyCity		= mark2.getTxtCompanyCity().getText();
+//		companySize		= mark2.getLblSize().getText();	
+//		companySector	= mark2.getTxtSector().getText();
+//		companyWebSite	= mark2.getTxtWebSite().getText();
+//		contactMail		= mark2.getTxtContactMail().getText();
+//		idFavorite		= FavoriteDao.getIdMax("favorite") +1;
+//
+//		//Create a favorite's object
+//		Favorite favoriteCompany = new Favorite( idFavorite,companyName, companyCity, companySize, companySector, companyWebSite, contactMail, noteCompany);
+//
+//		//Send the add
+//		favoriteDao.addFavorite(favoriteCompany);
+//		}
+//		catch (SQLException e)
+//		{
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Remove company name to the list
