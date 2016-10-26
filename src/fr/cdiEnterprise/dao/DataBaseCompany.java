@@ -49,6 +49,7 @@ public class DataBaseCompany {
 		insertDepartment.setString(2, department.getDepartmentName());
 
 		res = insertDepartment.executeUpdate();
+		System.out.println(res);
 		connexion.commit();
 		// stmt.close();
 
@@ -336,7 +337,7 @@ public class DataBaseCompany {
 		connexion = DBConnection.getConnect();
 		stmt = connexion.createStatement();
 
-		PreparedStatement insertLanguage = connexion.prepareStatement("insert into languages values (?,?)");
+		PreparedStatement insertLanguage = connexion.prepareStatement("insert into language values (?,?)");
 		insertLanguage.setInt(1, DataBaseCompany.getIdMax("language"));
 		insertLanguage.setString(2, languageName);
 
@@ -365,7 +366,7 @@ public class DataBaseCompany {
 
 		connexion = DBConnection.getConnect();
 		stmt = connexion.createStatement();
-		rs = stmt.executeQuery("select languageName from languages order by languageId");
+		rs = stmt.executeQuery("select languageName from language order by languageId");
 		while (rs.next()) {
 			String languageName = rs.getString("languageName");
 			languages.add(new Language(languageName));
@@ -396,7 +397,7 @@ public class DataBaseCompany {
 		connexion = DBConnection.getConnect();
 		stmt = connexion.createStatement();
 
-		reqSql = "select languageId, languageName from languages where languageName = ?";
+		reqSql = "select languageId, languageName from language where languageName = ?";
 		PreparedStatement getLanguageId = connexion.prepareStatement(reqSql);
 		// System.out.println(reqSql);
 		getLanguageId.setString(1, languageSelect);
@@ -435,13 +436,13 @@ public class DataBaseCompany {
 
 		rs = stmt.executeQuery("select company.companyId, companyName,companyAdress, companyCODEPOSTAL, companyCity, "
 				+ "companySize , companySector , companyProjects , companyWeb, departmentname, regionName, languagename "
-				+ "from company, languages, departments, regions, companydepartment, companyregion, companylanguage "
+				+ "from company, language, departments, regions, companydepartment, companyregion, companylanguage "
 				+ "where company.companyId = companyregion.companyId "
 				+ "and company.companyId = companydepartment.companyId "
 				+ "and company.companyId = companyLanguage.companyId "
 				+ "and departments.departmentNumber = companydepartment.departmentNumber "
 				+ "and regions.regionId = companyregion.regionId "
-				+ "and languages.languageId = companylanguage.LANGUAGEID");
+				+ "and language.languageId = companylanguage.LANGUAGEID");
 		
 		while (rs.next()) {
 			int companyId = rs.getInt("companyId");
@@ -454,7 +455,7 @@ public class DataBaseCompany {
 
 
 			Department department = DataBaseCompany.getDepartmentId(departmentN);
-//			Region region = DataBaseCompany.getRegionId(regionN);
+			Region region = DataBaseCompany.getRegionId(regionN);
 			
 			companies.add(new Company(companyId,companyName, companyAdress, postalcode, city, department));
 
@@ -646,14 +647,14 @@ public class DataBaseCompany {
 
 		reqSql = "select company.companyId, companyName,companyAdress, companyCODEPOSTAL, companyCity, "
 				+ "companySize , companySector , companyProjects , companyWeb, departmentname, regionName, languagename "
-				+ "from company, languages, departments, regions, companydepartment, companyregion, companylanguage "
+				+ "from company, language, departments, regions, companydepartment, companyregion, companylanguage "
 				+ "where companyName = ?"
 				+ "and company.companyId = companyregion.companyId "
 				+ "and company.companyId = companydepartment.companyId "
 				+ "and company.companyId = companyLanguage.companyId "
 				+ "and departments.departmentNumber = companydepartment.departmentNumber "
 				+ "and regions.regionId = companyregion.regionId "
-				+ "and languages.languageId = companylanguage.LANGUAGEID";
+				+ "and language.languageId = companylanguage.LANGUAGEID";
 		
 		PreparedStatement getCompaniesId = connexion.prepareStatement(reqSql);
 		// System.out.println(reqSql);

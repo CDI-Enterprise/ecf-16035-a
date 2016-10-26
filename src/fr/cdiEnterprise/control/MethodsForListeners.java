@@ -7,6 +7,7 @@ import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -90,7 +91,7 @@ public class MethodsForListeners {
 		if (fieldLength != 0) {
 			fieldReturn = field;
 		} else {
-			throw new CompanyCreationException();
+			throw new CompanyCreationException("Veuillez remplir les champs obligatoires");
 		}
 		return fieldReturn;
 	}

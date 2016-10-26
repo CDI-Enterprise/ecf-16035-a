@@ -90,7 +90,7 @@ public class CompaniesSRPanel extends JPanel {
 	private DefaultListModel<Company> dlmCompanies; 
 	private JList <Company> lstCompanies;
 	private JScrollPane allCompanies;
-	private JButton btnValider;
+	private JButton btnValidate;
 	private JButton btnCancel;
 	private JButton btnFavoris;
 	private PanelSRCompaniesListeners clic;
@@ -246,7 +246,7 @@ public class CompaniesSRPanel extends JPanel {
 		txtContactMail.setColumns(20);
 		txtContactMail.setEditable(false);
 		
-		btnValider = new JButton("Valider");
+		btnValidate = new JButton("Valider");
 		btnCancel = new JButton("Annuler");
 		btnFavoris = new JButton("Ajouter aux favoris");
 		
@@ -294,13 +294,13 @@ public class CompaniesSRPanel extends JPanel {
 		panContact.add(txtContactPhone, "wrap 20");
 		panContact.add(lblContactMail);
 		panContact.add(txtContactMail, "wrap 20");
-		panSouth.add(btnValider);
+		panSouth.add(btnValidate);
 		panSouth.add(btnFavoris);
 		panSouth.add(btnCancel);
 		
 	
 		clic = new PanelSRCompaniesListeners(this);
-		btnValider.addActionListener(clic);
+		btnValidate.addActionListener(clic);
 		btnCancel.addActionListener(clic);
 		
 		MouseListener cliq = (MouseListener) new PanelSRCompaniesListeners(this);			
@@ -1808,13 +1808,13 @@ public class CompaniesSRPanel extends JPanel {
 
 
 	public JButton getBtnValider() {
-		return btnValider;
+		return btnValidate;
 	}
 
 
 
 	public void setBtnValider(JButton btnValider) {
-		this.btnValider = btnValider;
+		this.btnValidate = btnValider;
 	}
 
 

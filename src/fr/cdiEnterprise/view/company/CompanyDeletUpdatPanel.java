@@ -274,9 +274,9 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		panContact.add(lblContactMail);
 		panContact.add(txtContactMail, "wrap 20");
 		panCenter.add(companies);
-		
-		panSouth.add(btnDelete);
+				
 		panSouth.add(btnUpdate);
+		panSouth.add(btnDelete);
 		panSouth.add(btnCancel);
 		
 		clic = new PanelDeletUpdatCompListeners(this);
