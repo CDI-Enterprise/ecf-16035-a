@@ -2,13 +2,11 @@ package fr.cdiEnterprise.view.company;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
+//import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -28,9 +26,8 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 import fr.cdiEnterprise.control.PanelCreateComListener;
-import fr.cdiEnterprise.control.BookMarkListener;
+//import fr.cdiEnterprise.control.BookMarkListener;
 import fr.cdiEnterprise.dao.DataBaseCompany;
-import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Department;
 import fr.cdiEnterprise.model.Language;
@@ -86,11 +83,11 @@ public class CompanyCreationPanel extends JPanel {
 	private ButtonGroup sizeGrp;
 	private JLabel lblSector;
 	private JTextField txtSector;
-	private JLabel lblLanguages;
+	private JLabel txtLanguages;
 	private DefaultListModel<Language> dlmLanguages;
 	private JList<Language> lstLanguages;
 	private JScrollPane languages;
-	private JLabel lblSelcLanguages;
+	private JTextField txtNewLanguage;
 	private JButton btnLanguageCreate;
 	private JLabel lblWebSite;
 	private JTextField txtWebSite;
@@ -111,7 +108,7 @@ public class CompanyCreationPanel extends JPanel {
 //	private JList<Company> lstCompanies;
 	private ArrayList<JTextField> allJTextFields;
 
-	private Component BookMarkPanel;
+//	private Component BookMarkPanel;
 	
 	public CompanyCreationPanel() throws SQLException {
 		
@@ -208,7 +205,7 @@ public class CompanyCreationPanel extends JPanel {
 		txtSector.setColumns(20);
 		
 		
-		lblLanguages = new JLabel ("Langages principalement utilisés *");	
+		txtLanguages = new JLabel ("Langages principalement utilisés *");	
 		dlmLanguages = new DefaultListModel<Language>();
 		lstLanguages = new JList<Language>(dlmLanguages);
 		for (Language language : DataBaseCompany.getLanguagesListData()) {
@@ -220,7 +217,8 @@ public class CompanyCreationPanel extends JPanel {
 		languages = new JScrollPane(lstLanguages, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		languages.setPreferredSize(new Dimension(150, 60));
-		lblSelcLanguages = new JLabel();
+		txtNewLanguage = new JTextField();
+		txtNewLanguage.setColumns(10);
 		btnLanguageCreate = new JButton("Ajouter un nouveau langage");
 
 		lblProjets = new JLabel("Principaux projets de l'entreprise");
@@ -298,10 +296,10 @@ public class CompanyCreationPanel extends JPanel {
 		panCompany.add(optGrdEnt, "wrap 20");
 		panCompany.add(lblSector);
 		panCompany.add(txtSector, "wrap 20");
-		panCompany.add(lblLanguages);
+		panCompany.add(txtLanguages);
 		panCompany.add(languages);
-		panCompany.add(btnLanguageCreate);
-		panCompany.add(lblSelcLanguages, "wrap 20");
+		panCompany.add(txtNewLanguage);
+		panCompany.add(btnLanguageCreate, "wrap 20");
 		panCompany.add(lblProjets);
 		panCompany.add(txtProjets, "wrap 20");
 		panCompany.add(lblWebSite);
@@ -326,6 +324,7 @@ public class CompanyCreationPanel extends JPanel {
 		btnCreate.addActionListener(clic);
 		cboCompanyDepartment.addActionListener(clic);
 		btnCancel.addActionListener(clic);
+		btnLanguageCreate.addActionListener(clic);
 		//listeners
 		//BookMarkListener btnFavoris = new BookMarkListener(null);
 
@@ -535,7 +534,7 @@ public class CompanyCreationPanel extends JPanel {
 	 * @return the lblLanguages
 	 */
 	public JLabel getLblLanguages() {
-		return lblLanguages;
+		return txtLanguages;
 	}
 
 	/**
@@ -562,8 +561,8 @@ public class CompanyCreationPanel extends JPanel {
 	/**
 	 * @return the lblSelcLanguages
 	 */
-	public JLabel getLblSelcLanguages() {
-		return lblSelcLanguages;
+	public JTextField getTxtNewLanguage() {
+		return txtNewLanguage;
 	}
 
 	/**

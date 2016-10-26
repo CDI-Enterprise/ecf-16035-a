@@ -32,7 +32,6 @@ import net.miginfocom.swing.MigLayout;
  * 
  * @author Claire
  * @version 16-10-2016
- * 
  */
 public class PanelUserCRUD extends JPanel {
 
@@ -42,7 +41,7 @@ public class PanelUserCRUD extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	//TODO (Claire) fake companies list in database!
-	String [] company = {"Aucune", "9e compagnie", "Cie", "Comme Pagny", "Autre..."};
+	private String [] company = {"Aucune", "9e compagnie", "Cie", "Comme Pagny", "Autre..."};
 
 	// Attributes for DB access
 	private Users users;
@@ -61,7 +60,7 @@ public class PanelUserCRUD extends JPanel {
 	private JLabel lblAlias;
 	private JLabel lblInfoAlias;
 	private JLabel lblMail;
-	//	private JLabel lblInfoMail;
+	private JLabel lblInfoMail;
 	private JLabel lblAfpa;
 	private JLabel lblTrainer;
 	// Others components
@@ -111,12 +110,7 @@ public class PanelUserCRUD extends JPanel {
 
 	// CENTER
 	private JPanel panCenter;
-	// JList with OldDatas
-	//	private JPanel panLstUsers;
-	//	private DefaultListModel<User> lstMdlUsers;
-	//	private JList<User> lstUsers;
-	//	private JScrollPane panScrollLstUsers;
-	// TEST JLIST DB
+	// Attributes for JList of users
 	private JPanel panLstUsersDB;
 	private DefaultListModel<User> lstMdlUsersDB;
 	private JList<User> lstUsersDB;
@@ -131,12 +125,12 @@ public class PanelUserCRUD extends JPanel {
 	private JButton cmdDelete;
 
 	// LISTENER
-	PanelUserCRUDListener listener;
+	private PanelUserCRUDListener listener;
 
 	// ArrayList of components
-	ArrayList<JTextField> allJTextFields;
-	
-	
+	private ArrayList<JTextField> allJTextFields;
+
+
 	/**
 	 * Constructor for PanelUserCRUD.
 	 * 
@@ -192,22 +186,24 @@ public class PanelUserCRUD extends JPanel {
 		panRegister.add(optTrainer, "wrap");
 
 		// User alias
-		lblAlias = new JLabel("Pseudo* : ");
+		lblAlias = new JLabel("Nom d'utilisateur* : ");
 		panRegister.add(lblAlias);
 		txtAlias = new JTextField(20);
 		panRegister.add(txtAlias, "wrap");
-		lblInfoAlias = new JLabel("<html><font color = #808080>Maximum 20 caractères</font></html>");
+		lblInfoAlias = new JLabel("Maximum 20 caractères");
 		lblInfoAlias.setFont(new Font(getName(), Font.ITALIC, 13));
-		panRegister.add(lblInfoAlias, "wrap, cell 1 2 1 1");
+		lblInfoAlias.setForeground(Color.GRAY);
+		panRegister.add(lblInfoAlias, "wrap");
 
 		// User email
 		lblMail = new JLabel("Mail* : ");
 		panRegister.add(lblMail);
 		txtMail = new JTextField(20);
 		panRegister.add(txtMail, "wrap");
-		//		lblInfoMail = new JLabel("<html><font color = #808080 >Ne sera pas rendu public</font></html>");
-		//		lblInfoMail.setFont(new Font(getName(), Font.ITALIC, 13));
-		//		registerPan.add(lblInfoMail, "wrap, cell 1 4 1 1");
+		lblInfoMail = new JLabel("Ne sera pas rendu public");
+		lblInfoMail.setFont(new Font(getName(), Font.ITALIC, 13));
+		lblInfoMail.setForeground(Color.GRAY);
+		panRegister.add(lblInfoMail, "wrap");
 
 		// Name of AFPA where the user did his training
 		lblAfpa = new JLabel("AFPA* : ");
@@ -245,12 +241,12 @@ public class PanelUserCRUD extends JPanel {
 		// TODO (Claire) put arraylist in JList?
 		lblApproachedCie = new JLabel("Entreprise(s) démarchée(s)*** : ");
 		panPublic.add(lblApproachedCie);
-		JComboBox<String> approachedCie = new JComboBox<String> ();
+		JComboBox<String> cboApproachedCie = new JComboBox<String> ();
 		for (int i = 0; i < company.length; i++) {
-			approachedCie.addItem(company[i]);
+			cboApproachedCie.addItem(company[i]);
 		}
-		approachedCie.setMaximumRowCount(5);
-		panPublic.add(approachedCie, "wrap");
+		cboApproachedCie.setMaximumRowCount(5);
+		panPublic.add(cboApproachedCie, "wrap");
 
 		// Current job
 		lblJob = new JLabel("Profession actuelle*** : ");
@@ -262,22 +258,22 @@ public class PanelUserCRUD extends JPanel {
 		// TODO (Claire) cie arraylist
 		lblCurrentCie = new JLabel("Entreprise actuelle*** : ");
 		panPublic.add(lblCurrentCie);
-		JComboBox<String> currentCie = new JComboBox<String> ();
+		JComboBox<String> cboCurrentCie = new JComboBox<String> ();
 		for (int i = 0; i < company.length; i++) {
-			currentCie.addItem(company[i]);
+			cboCurrentCie.addItem(company[i]);
 		}
-		currentCie.setMaximumRowCount(5);
-		panPublic.add(currentCie, "wrap");
+		cboCurrentCie.setMaximumRowCount(5);
+		panPublic.add(cboCurrentCie, "wrap");
 
 		// Former companies
 		lblFormerCie = new JLabel("Ancienne(s) entreprise(s)*** : "); 
 		panPublic.add(lblFormerCie);
-		JComboBox<String> formerCie = new JComboBox<String> ();
+		JComboBox<String> cboFormerCie = new JComboBox<String> ();
 		for (int i = 0; i<company.length; i++) {
-			formerCie.addItem(company[i]);
+			cboFormerCie.addItem(company[i]);
 		}
-		formerCie.setMaximumRowCount(5);
-		panPublic.add(formerCie, "wrap");
+		cboFormerCie.setMaximumRowCount(5);
+		panPublic.add(cboFormerCie, "wrap");
 
 		// THIRD horizontal part: protected profile informations
 		panRestricted = new JPanel();
@@ -355,7 +351,7 @@ public class PanelUserCRUD extends JPanel {
 		lstMdlUsersDB = new DefaultListModel<User>();
 		lstUsersDB = new JList<User>(lstMdlUsersDB);
 		lstUsersDB.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
+
 		users = UserDAO.getUsersList();
 		System.out.println(users);
 		if(users != null) {
@@ -395,7 +391,7 @@ public class PanelUserCRUD extends JPanel {
 		cmdCreate.addActionListener(listener);
 		cmdUpdate.addActionListener(listener);
 		cmdDelete.addActionListener(listener);
-		
+
 		lstUsersDB.addMouseListener(listener);
 	}
 
@@ -553,5 +549,4 @@ public class PanelUserCRUD extends JPanel {
 	public ArrayList<JTextField> getAllJTextFields() {
 		return allJTextFields;
 	}
-
 }

@@ -113,13 +113,12 @@ public class Menu extends JMenuBar {
 		menuHelp = new JMenu("Aide");
 		this.add(menuHelp);
 	
-
 		// Sub menu for Help
 		subHelpDoc = new JMenuItem("Documentation");
 		menuHelp.add(subHelpDoc);
 		subHelpShortcut = new JMenuItem("Raccourcis clavier");
 		menuHelp.add(subHelpShortcut);
-		subHelpUpdate = new JMenuItem("Vérifier les mises à  jours");
+		subHelpUpdate = new JMenuItem("Vérifier les mises à  jour");
 		menuHelp.add(subHelpUpdate);
 		subHelpAbout = new JMenuItem("A propos");
 		menuHelp.add(subHelpAbout);

@@ -73,7 +73,7 @@ public class BookMarkPanel extends JPanel
 	/**
 	 * 
 	 */
-	
+
 	public BookMarkPanel()
 	{
 		//		//Main
@@ -100,7 +100,7 @@ public class BookMarkPanel extends JPanel
 
 		//TODO A remplacer par liste favories
 
-		lstMyFavorites.setModel(new DefaultComboBoxModel<String>(new String[] {"Company First", "Company Second", "Company Third", "Company Fourth", "Company Fifth", "Company Sixth"}));
+		lstMyFavorites.setModel(new DefaultComboBoxModel<String>(new String[] {}));
 
 		//Fin
 
@@ -141,7 +141,7 @@ public class BookMarkPanel extends JPanel
 		contentBookMarkPan.add(listCompanyResultPan, BorderLayout.CENTER);
 
 		//Load list's table
-		
+
 		bookMarkResult = new JTable();
 		tabFieldInfo = (DefaultTableModel) bookMarkResult.getModel();
 		bookMarkResult = new JTable(new FavoriteModelTable());
@@ -151,11 +151,10 @@ public class BookMarkPanel extends JPanel
 
 		btnGoCompanySheet = new JButton("Fiche complete de l'entreprise");
 		listCompanyResultPan.add(btnGoCompanySheet, "cell 2 2");
-		
+
 		btnContactMail = new JButton ("Contacter par mail");
 		btnContactMail.setEnabled(false);
 		listCompanyResultPan.add(btnContactMail, " cell 2 4");
-
 
 		//LISTENER
 
@@ -164,9 +163,7 @@ public class BookMarkPanel extends JPanel
 		btnSaveNote.addActionListener(listener);
 		btnSearchBookMark.addActionListener(listener);
 		btnGoCompanySheet.addActionListener(listener);
-
 	}
-
 
 	//Getters
 

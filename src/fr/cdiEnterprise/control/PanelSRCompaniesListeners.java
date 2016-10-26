@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 import fr.cdiEnterprise.dao.DataBaseCompany;
+import fr.cdiEnterprise.dao.FavoriteDao;
 import fr.cdiEnterprise.model.Company;
+import fr.cdiEnterprise.model.Favorite;
 import fr.cdiEnterprise.view.MainFrame;
 import fr.cdiEnterprise.view.company.CompaniesSRPanel;
 
@@ -27,6 +29,17 @@ public class PanelSRCompaniesListeners implements ActionListener, MouseListener 
 	
 	private Company selecCompany;
 	private static int selecIndSelec;
+	
+	//Attributed to add favorite
+	private int idFavorite;
+	private String companyName;
+	private String companyCity;
+	private String companySize;
+	private String companySector;
+	private String companyWebSite;
+	private String contactMail;	
+	private String noteCompany;
+	private FavoriteDao favoriteDao;
 
 
 	public PanelSRCompaniesListeners(CompaniesSRPanel panCompaniesSR) {
@@ -41,6 +54,33 @@ public class PanelSRCompaniesListeners implements ActionListener, MouseListener 
 			MainFrame.getPanMain().add(MainFrame.getPanHome());
 			MainFrame.getPanMain().repaint();
 			MainFrame.getPanMain().revalidate();
+		}
+		
+		//if cmbBookMarkValidate clicked
+		if (e.getSource() == panCompaniesSR.getBtnFavoris())		//(Ismael)
+		{
+			FavoriteDao favoriteDao = new FavoriteDao();
+			try
+			{
+			companyName		= panCompaniesSR.getTxtCompanyCity().getText();
+			companyCity		= panCompaniesSR.getTxtCompanyCity().getText();
+			companySize		= panCompaniesSR.getLblSize().getText();	
+			companySector	= panCompaniesSR.getTxtSector().getText();
+			companyWebSite	= panCompaniesSR.getTxtWebSite().getText();
+			contactMail		= panCompaniesSR.getTxtContactMail().getText();
+			idFavorite		= FavoriteDao.getIdMax("favorite") +1;
+
+			//Create a favorite's object
+			Favorite favoriteCompany = new Favorite( idFavorite,companyName, companyCity, companySize, companySector, companyWebSite, contactMail, noteCompany);
+
+			//Send the add
+			favoriteDao.addFavorite(favoriteCompany);
+			}
+			catch (SQLException e1)
+			{
+				e1.printStackTrace();
+			}
+			
 		}
 
 		if (e.getSource() == panCompaniesSR.getBtnValider()) {

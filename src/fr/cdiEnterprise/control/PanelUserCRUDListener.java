@@ -16,12 +16,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import fr.cdiEnterprise.control.exceptions.ZeroLenghtStringException;
 import fr.cdiEnterprise.dao.UserDAO;
+import fr.cdiEnterprise.exceptions.AlreadyUsedException;
+import fr.cdiEnterprise.exceptions.LessTwentyCharStringException;
+import fr.cdiEnterprise.exceptions.ZeroLengthStringException;
 import fr.cdiEnterprise.model.FormerTrainee;
 import fr.cdiEnterprise.model.Trainee;
 import fr.cdiEnterprise.model.Trainer;
 import fr.cdiEnterprise.model.User;
+import fr.cdiEnterprise.util.StringControl;
 import fr.cdiEnterprise.view.profile.PanelUserCRUD;
 
 /**
@@ -36,10 +39,14 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 	private PanelUserCRUD panel;
 
 	// Attributes for DB access
-	//	private UserDAO userDAO;
+	// private UserDAO userDAO;
 
 	// Frame for error message
 	private JFrame popUpFrame;
+	private String errorMsg;
+
+	// Attributes for input control
+	private String strLblAlias;
 
 	// Attributes do define the selected status
 	private ButtonGroup jrButtonGrp;
@@ -47,26 +54,27 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 
 	// Attributes to handle selection
 	private User selectedUser;
-	//	private integer indexUser;
-	private Trainee selectedTrainee;
-	private FormerTrainee selectedFormerTrainee;
-	private Trainer selectedTrainer;
+	// private integer indexUser;
+	// private Trainee selectedTrainee;
+	// private FormerTrainee selectedFormerTrainee;
+	// private Trainer selectedTrainer;
 
 	// Attributes to create-update a user
 	private User user;
 	private int id;
-	//	private String inscriptionDate;
+	// private String inscriptionDate;
 	private String status;
 	private String alias;
 	private String email;
 	private String afpa;
 
 	// Attributes to reset component
-	ArrayList<JTextField> allJTextFields;
+	private ArrayList<JTextField> allJTextFields;
 
 	/**
-	 * @throws SQLException 
+	 * Constructs a listener taking a panel for attribute.
 	 * 
+	 * @throws SQLException 
 	 */
 	public PanelUserCRUDListener(PanelUserCRUD panel) throws SQLException {
 		this.panel = panel;
@@ -83,10 +91,13 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 		jrButtonSelected = MethodsForListeners.getSelectedJRadioButton(jrButtonGrp);
 		status = jrButtonSelected.getText();
 
-		// TODO (Claire) control method JTextField
+		// Gets the input data
 		alias = panel.getTxtAlias().getText();
 		email = panel.getTxtMail().getText();
 		afpa = panel.getTxtAfpa().getText();
+
+		// Gets the label if they're needed for the error pop-up frame
+		strLblAlias = panel.getLblAlias().getText();
 
 		// CMD CANCEL
 		if (ae.getSource() == panel.getCmdCancel()) {
@@ -110,17 +121,17 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 				// Depending on status, instantiates a Trainee or FormerTrainee or Trainer with User reference
 				switch (status) {
 				case "Stagiaire" :
-					user = new Trainee(status, controlAttribute(alias), email, afpa);
+					user = new Trainee(status, controlAlias(alias, strLblAlias), email, afpa);
 					System.out.println(user); // Test code
 					break;
 
 				case "Ancien" :
-					user = new FormerTrainee(status, controlAttribute(alias), email, afpa);
+					user = new FormerTrainee(status, controlAlias(alias, strLblAlias), email, afpa);
 					System.out.println(user); // Test code
 					break;
 
 				case "Formateur" :
-					user = new Trainer(status, controlAttribute(alias), email, afpa);
+					user = new Trainer(status, controlAlias(alias, strLblAlias), email, afpa);
 					System.out.println(user); // Test code
 					break;
 
@@ -138,13 +149,11 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 					e.printStackTrace();
 				}
 
-			} catch (ZeroLenghtStringException zlse) {
-				System.out.println(zlse.getMessage());
-				JOptionPane.showMessageDialog(popUpFrame, "Vous devez remplir les champs obligatoires.");
+			} catch (ZeroLengthStringException | LessTwentyCharStringException | AlreadyUsedException | SQLException e) {
+				errorMsg = e.getMessage();
+				JOptionPane.showMessageDialog(popUpFrame, errorMsg);
 			}
-
 		}
-
 
 		// CMD UPDATE
 		if (ae.getSource() == panel.getCmdUpdate()) {
@@ -166,7 +175,6 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-
 		}
 
 		// CMD DELETE
@@ -190,10 +198,10 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 	public void mouseClicked(MouseEvent me) {
 
 		if (me.getSource() == panel.getLstUsersDB()) {
-			
+
 			// Gets the selected User and its index in the model list
 			selectedUser = (User) panel.getLstUsersDB().getSelectedValue();
-			//			indexUser = panel.getLstUsersDB().getSelectedIndex();
+			// indexUser = panel.getLstUsersDB().getSelectedIndex();
 			System.out.println(selectedUser); // Test code
 
 			// Displays informations of the selected User
@@ -209,7 +217,7 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 			switch (selectedUser.getStatus()) {
 			case "Stagiaire" :  
 				// Casts User to Trainee
-				selectedTrainee = (Trainee) selectedUser;
+				// selectedTrainee = (Trainee) selectedUser;
 				// Status
 				panel.getOptTrainee().setSelected(true);
 				panel.getOptTrainee().setEnabled(true);
@@ -219,7 +227,7 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 
 			case "Ancien" :
 				// Casts User to FormerTrainee
-				selectedFormerTrainee = (FormerTrainee) selectedUser;
+				// selectedFormerTrainee = (FormerTrainee) selectedUser;
 				// Status
 				panel.getOptFormerTrainee().setSelected(true);
 				panel.getOptTrainee().setEnabled(false);
@@ -229,7 +237,7 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 
 			case "Formateur" :
 				// Casts User to Trainer
-				selectedTrainer = (Trainer) selectedUser;
+				// selectedTrainer = (Trainer) selectedUser;
 				// Status
 				panel.getOptTrainer().setSelected(true);
 				panel.getOptTrainee().setEnabled(false);
@@ -254,48 +262,35 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent me) {
-
 	}
 
 	@Override
 	public void mousePressed(MouseEvent me) {
-
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-
 	}
 
-	//	/**
-	//	 * Check if alias is not a string with zero character.
-	//	 * 
-	//	 * @author Claire
-	//	 * @return alias
-	//	 * @throws ZeroLenghtStringException
-	//	 * @version 23-10-2016
-	//	 */
-	//	private String getAlias() throws ZeroLenghtStringException {
-	//		
-	//		alias = panel.getTxtAlias().getText();
-	//		System.out.println("Alias : " + alias + " " + alias.length());
-	//		
-	//		if (alias.length() == 0) {
-	//			throw new ZeroLenghtStringException("Champ vide.");
-	//		}
-	//		else {
-	//			return alias;
-	//		}
-	//	}
+	/**
+	 * This method controls the alias field input.
+	 * 
+	 * @author Claire
+	 * @param attribute, label
+	 * @return attribute
+	 * @throws ZeroLengthStringException
+	 * @throws LessTwentyCharStringException 
+	 * @throws SQLException 
+	 * @throws AlreadyUsedException
+	 * @version 25-10-2016
+	 */
+	private String controlAlias(String attribute, String label) throws ZeroLengthStringException, 
+	LessTwentyCharStringException, AlreadyUsedException, SQLException {
 
-	private String controlAttribute(String attribute) throws ZeroLenghtStringException {
+		StringControl.isZeroLength(attribute);
+		StringControl.isLessTwentyChar(attribute, label);
+		StringControl.isAlreadyUsed(attribute);
 
-		if (attribute.length() == 0) {
-			throw new ZeroLenghtStringException("Vous devez remplir les champs obligatoires.");
-		}
-		else {
-			return attribute;
-		}
+		return attribute;
 	}
-
 }

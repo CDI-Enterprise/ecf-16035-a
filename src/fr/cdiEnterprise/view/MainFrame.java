@@ -3,7 +3,6 @@ package fr.cdiEnterprise.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.sql.SQLException;
@@ -16,6 +15,7 @@ import javax.swing.JScrollPane;
 import fr.cdiEnterprise.view.company.CompaniesSRPanel;
 import fr.cdiEnterprise.view.company.CompanyCreationPanel;
 import fr.cdiEnterprise.view.company.CompanyDeletUpdatPanel;
+import fr.cdiEnterprise.view.message.MessagingMainPanel;
 import fr.cdiEnterprise.view.profile.PanelUserCRUD;
 import fr.cdiEnterprise.view.profile.PanelUserSR;
 

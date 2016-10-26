@@ -7,6 +7,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import fr.cdiEnterprise.model.FormerTrainee;
 import fr.cdiEnterprise.model.Trainee;
@@ -23,13 +27,16 @@ import fr.cdiEnterprise.service.Users;
 public class UserDAO {
 
 	private Connection connect;
+	JFrame popUpFrame;
 
-	// Prepared statement for SQL request
+	// Prepared statement for basic SQL request
 	private static PreparedStatement searchUser;
 	private static PreparedStatement createUser;
 	private static PreparedStatement readUsers;
 	private static PreparedStatement updateUser;
 	private static PreparedStatement deleteUser;
+	// Prepared statement for specific SQL request
+	private static PreparedStatement readAlias;
 
 	private static int result;
 	private static ResultSet requestRes;
@@ -43,7 +50,7 @@ public class UserDAO {
 	private static String userMail;
 	private static String userAfpa;
 
-	// TODO class DTO which gonna instantiate a UserDAO object.
+	// TODO (Claire) class DTO which gonna instantiate a UserDAO object.
 
 	/**
 	 * Asks for the connection to DB.
@@ -60,7 +67,6 @@ public class UserDAO {
 	 * @return user
 	 * @throws SQLException
 	 * @version 22-10-2016
-	 * 
 	 */
 	protected User search(int userId) throws SQLException {
 
@@ -82,17 +88,17 @@ public class UserDAO {
 				switch (userStatus) {
 				case "Stagiaire" :
 					user = new Trainee(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
-					System.out.println("Switch : " + user);
+					System.out.println("Switch : " + user); // Test code
 					break;
 
 				case "Ancien" :
 					user = new FormerTrainee(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
-					System.out.println("Switch : " + user);
+					System.out.println("Switch : " + user); // Test code
 					break;
 
 				case "Formateur" :
 					user = new Trainer(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
-					System.out.println("Switch : " + user);
+					System.out.println("Switch : " + user); // Test code
 					break;
 
 				default:
@@ -103,7 +109,7 @@ public class UserDAO {
 			System.out.println("Sortie try : " + user); // Test code
 
 		} catch (SQLException e) {
-			// e.printStackTrace();
+			e.printStackTrace();
 			System.err.println("Requête incorrecte : aucun auteur n'a pu être affiché.");
 		}
 
@@ -121,7 +127,6 @@ public class UserDAO {
 	 * @param userStatus
 	 * @return user
 	 * @version 22-10-2016
-	 * 
 	 */
 	protected Users search(String userStatus) throws SQLException {
 
@@ -167,7 +172,7 @@ public class UserDAO {
 			System.out.println("DAO : " + users); // Test code
 
 		} catch (SQLException e) {
-			// e.printStackTrace();
+			e.printStackTrace();
 			System.err.println("Requête incorrecte : aucun auteur n'a pu être affiché.");
 		}
 
@@ -191,7 +196,6 @@ public class UserDAO {
 	 * @return creationDone (test code)
 	 * @throws SQLException
 	 * @version 22-10-2016
-	 * 
 	 */
 	protected int create(int id, String inscriptionDate,
 			String status, String alias, String mail, String afpa) throws SQLException {
@@ -208,7 +212,7 @@ public class UserDAO {
 			createUser.setString(6, afpa);
 			result = createUser.executeUpdate();
 		} catch (SQLException e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			System.err.println("Requête incorrecte : l'utilisateur n'a pas pu être créé.");
 		}
 
@@ -225,7 +229,6 @@ public class UserDAO {
 	 * @return users
 	 * @throws SQLException
 	 * @version 22-10-2016
-	 * 
 	 */
 	protected Users read() throws SQLException {
 
@@ -281,6 +284,40 @@ public class UserDAO {
 	}
 
 	/**
+	 * Read users' alias from database.
+	 * 
+	 * @author Claire
+	 * @return aliasList
+	 * @throws SQLException
+	 * @version 25-10-2016
+	 */
+	protected ArrayList<String> readAlias() throws SQLException {
+
+		ArrayList<String> aliasList = new ArrayList<String>();
+
+		try {
+			readAlias = connect.prepareStatement("SELECT user_alias FROM cdi_user");
+			requestRes = readAlias.executeQuery();
+
+			while(requestRes.next()){
+				userAlias = requestRes.getString(1);
+				aliasList.add(userAlias);
+			}	
+			System.out.println("DAO : " + aliasList); // Test code
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("Requête incorrecte : la liste des auteurs n'a pu être affichée.");
+		}
+
+		finally {
+			closeRequest(readAlias);
+		}
+
+		return aliasList;
+	}
+
+	/**
 	 * Updates an user in database.
 	 * 
 	 * @author Claire
@@ -293,7 +330,6 @@ public class UserDAO {
 	 * @return updateDone (test code)
 	 * @throws SQLException
 	 * @version 22-10-2016
-	 * 
 	 */
 	protected int update(int id, String status, String mail) throws SQLException {
 
@@ -308,7 +344,7 @@ public class UserDAO {
 			updateUser.setInt(3,id);
 			result = updateUser.executeUpdate();
 		} catch (SQLException e) {
-			// e.printStackTrace();
+			e.printStackTrace();
 			System.err.println("Requête incorrecte : l'utilisateur n'a pas pu être modifié.");
 		}
 
@@ -327,7 +363,6 @@ public class UserDAO {
 	 * @return deleteDone (test code)
 	 * @throws SQLException
 	 * @version 22-10-2016
-	 * 
 	 */
 	protected int delete(int id) throws SQLException {
 
@@ -356,12 +391,16 @@ public class UserDAO {
 	 * @return a string (test code)
 	 * @throws SQLException
 	 * @version 22-10-2016
-	 * 
 	 */
 	private void closeRequest(PreparedStatement prepStatmt) throws SQLException {
+		try {
+			connect.commit();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(popUpFrame, "Oups, l'application ne peut pas se lancer. "
+					+ "Sa base de données est inaccessible.");
+		}
 
-		connect.commit();
-		
 		if (prepStatmt != null) {
 			prepStatmt.close();
 			// Test code
@@ -379,6 +418,7 @@ public class UserDAO {
 	}
 
 
+	
 	// TODO (Claire) In DTO Static or not static, that is the question!
 	/**
 	 * Public method to initiate a SELECT WHERE SQL request, calling the UserDAO.search(String) protected method.
@@ -510,5 +550,15 @@ public class UserDAO {
 
 		return deleteDone;
 		// Fin test code
+	}
+	
+	// More methods
+	public static ArrayList<String> getAliasList() throws SQLException {
+		
+		UserDAO userDAO = new UserDAO();
+		
+		ArrayList<String> aliasList = new ArrayList<String>();
+		aliasList = userDAO.readAlias();
+		return aliasList;
 	}
 }

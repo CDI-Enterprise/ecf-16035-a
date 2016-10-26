@@ -8,16 +8,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 import fr.cdiEnterprise.view.BookMarkPanel;
 
-import fr.cdiEnterprise.view.company.CompanyCreationPanel;
+import fr.cdiEnterprise.view.company.CompaniesSRPanel;
 import fr.cdiEnterprise.view.company.CompanyDeletUpdatPanel;
-
 //import fr.cdiEnterprise.model.Contact;
 import fr.cdiEnterprise.model.Favorite;
 //import fr.cdiEnterprise.model.NoteCompany;
+//import fr.cdiEnterprise.dao.DataBaseCompany;
+//import fr.cdiEnterprise.model.NoteCompany;
 import fr.cdiEnterprise.dao.FavoriteDao;
-import fr.cdiEnterprise.service.Favorites;
+//import fr.cdiEnterprise.service.Favorites;
 
 /**
  *13 oct. 2016
@@ -28,11 +32,23 @@ import fr.cdiEnterprise.service.Favorites;
 
 public class BookMarkListener implements ActionListener
 {
+
+	private String searchNameCompany;
+	//private int idCompany;
+	private int idFavorite;
+	private String companyName;
+	private String companyCity;
+	private String companySize;
+	private String companySector;
+	private String companyWebSite;
+	private String contactMail;	
+	private String noteCompany;
+
 	private BookMarkPanel panFavorite = null;			//Attribute
 	//private Company FavoritesCompany = null;
 	private FavoriteDao favoriteDao;
-	private CompanyCreationPanel panFavorites;
-
+	private CompaniesSRPanel panFavorites;
+	private JDialog Confirmation;
 
 
 	public BookMarkListener(BookMarkPanel FavoriteCompany)
@@ -41,7 +57,7 @@ public class BookMarkListener implements ActionListener
 		favoriteDao = new FavoriteDao();
 	}
 
-	public BookMarkListener(CompanyCreationPanel FavoritesCompany)
+	public BookMarkListener(CompaniesSRPanel FavoritesCompany)
 	{
 		this.panFavorites = FavoritesCompany;
 		favoriteDao = new FavoriteDao();
@@ -66,12 +82,12 @@ public class BookMarkListener implements ActionListener
 			if (e.getSource() == mark.getBtnSearchBookMark()) btnSearch_click(mark);
 			if (e.getSource() == mark.getBtnGoCompanySheet()) btnGoCompany_click(mark);
 		}
-		else if (panFavorites instanceof fr.cdiEnterprise.view.company.CompanyCreationPanel)	//if cmbBookMarkValidate clicked
-		{
-			CompanyCreationPanel mark2 = (CompanyCreationPanel) panFavorites;
-			if (e.getSource() == mark2.getBtnFavoris()) btnValidate_click(mark2);		
-
-		}
+//		else if (panFavorites instanceof fr.cdiEnterprise.view.company.CompaniesSRPanel)	//if cmbBookMarkValidate clicked
+//		{
+//			CompaniesSRPanel mark2 = (CompaniesSRPanel) panFavorites;
+//			if (e.getSource() == mark2.getBtnFavoris()) btnValidate_click(mark2);		
+//
+//		}
 		else System.out.println("BookMarkListener - Error IHM");	 					//else message error
 	}
 
@@ -88,8 +104,9 @@ public class BookMarkListener implements ActionListener
 	 */
 	private void btnSee_click(BookMarkPanel mark) 
 	{
-
 		//TODO SEE
+		
+
 
 		//Favorites favorites = see.lstFavorite();
 		//BookMarkPanel viewSee = new BookMarkPanel();
@@ -102,30 +119,29 @@ public class BookMarkListener implements ActionListener
 	 * @param mark2
 	 * 
 	 */
-	private void btnValidate_click(CompanyCreationPanel mark2) 						//Recover informations
-	{
-
-		// TODO listener sql request Viewing Detail to select Company
-
-
-		//	int idCompany		=Integer.parseInt(mark2.getTxtidCompany().getText());
-		String nameCompany	= mark2.getTxtCompanyCity().getText();
-		String cityCompany	= mark2.getTxtCompanyCity().getText();
-
-		//A revoir pour "catch" taille
-		String sizeCompany	= mark2.getLblSize().getText();	
-		//Fin du a revoir
-		String sectorCompany	= mark2.getTxtSector().getText();
-		String webSiteCompany	= mark2.getTxtWebSite().getText();
-		//Contact contactMailCompany	= mark2.getTxtContactMail().getName();
-
-		//Create a favorite's object
-
-		Favorite favoriteCompany = new Favorite(nameCompany, null, cityCompany, sizeCompany, sectorCompany, webSiteCompany, null);
-
-		//Send the add
-		favoriteDao.addFavorite(favoriteCompany);
-	}
+//	private void btnValidate_click(CompaniesSRPanel mark2) 						//Recover informations
+//	{
+//		try
+//		{
+//		companyName		= mark2.getTxtCompanyCity().getText();
+//		companyCity		= mark2.getTxtCompanyCity().getText();
+//		companySize		= mark2.getLblSize().getText();	
+//		companySector	= mark2.getTxtSector().getText();
+//		companyWebSite	= mark2.getTxtWebSite().getText();
+//		contactMail		= mark2.getTxtContactMail().getText();
+//		idFavorite		= FavoriteDao.getIdMax("favorite") +1;
+//
+//		//Create a favorite's object
+//		Favorite favoriteCompany = new Favorite( idFavorite,companyName, companyCity, companySize, companySector, companyWebSite, contactMail, noteCompany);
+//
+//		//Send the add
+//		favoriteDao.addFavorite(favoriteCompany);
+//		}
+//		catch (SQLException e)
+//		{
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Remove company name to the list
@@ -145,14 +161,13 @@ public class BookMarkListener implements ActionListener
 	 */
 	private void btnSave_click(BookMarkPanel mark) 				
 	{
-		// TODO class  noteSave of company
 		String noteCompany	=	mark.getTxtNoteUser().getText();
 
 		//Create note's object 
-		Favorite companyMark = new Favorite(noteCompany);			
+		Favorite companyMark = new Favorite(idFavorite, noteCompany);			
 
 		//Send the add
-		favoriteDao.addFavorite(companyMark);
+	//	favoriteDao.addFavorite(companyMark);
 	}
 
 
@@ -162,11 +177,12 @@ public class BookMarkListener implements ActionListener
 	 */
 	private void btnSearch_click(BookMarkPanel mark) 		
 	{
-
-		// TODO listener sql request search a company
+		searchNameCompany = mark.getTxtSearchBookMark().getText();
 
 	}
 
+	//lstMyFavorites
+	
 	/**
 	 * To go in Company panel choosen
 	 * @param mark
@@ -176,16 +192,14 @@ public class BookMarkListener implements ActionListener
 		CompanyDeletUpdatPanel goToCompany;
 		try 
 		{
+			JOptionPane.showConfirmDialog(Confirmation, "Vous allez voir la fiche complète, aurevoir");
 			goToCompany = new CompanyDeletUpdatPanel();
 			goToCompany.setVisible(true);
 			//this.dispose();
-			
 		} 
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
+		catch (SQLException e) 
+		{
 			e.printStackTrace();
 		}
-		// TODO listener sql request go to sheet company selected
 	}
-
 }

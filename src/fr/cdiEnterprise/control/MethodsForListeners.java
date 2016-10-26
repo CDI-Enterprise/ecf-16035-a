@@ -90,7 +90,7 @@ public class MethodsForListeners {
 		if (fieldLength != 0) {
 			fieldReturn = field;
 		} else {
-			throw new CompanyCreationException();
+			throw new CompanyCreationException("Veuillez remplir les champs obligatoires");
 		}
 		return fieldReturn;
 	}

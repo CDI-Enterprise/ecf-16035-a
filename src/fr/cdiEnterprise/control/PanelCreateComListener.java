@@ -30,7 +30,8 @@ import fr.cdiEnterprise.view.company.CompanyCreationPanel;
  * 
  *
  */
-public class PanelCreateComListener implements ActionListener, ListSelectionListener {
+
+public class PanelCreateComListener implements ActionListener  {
 
 	// Given attribute
 	private CompanyCreationPanel panCompCreat;
@@ -57,16 +58,22 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 	private String contactMail;
 	
 	// Attributes to give select language
-	String languageSelect;
+	private String languageSelect;
 	
 	// Attributes do define the selected size
-	ButtonGroup btnGrp;
-	JRadioButton btnSelected;	
+	private ButtonGroup btnGrp;
+	private JRadioButton btnSelected;	
 	
 	// Attribute to create a company
-	Company company;
+	private Company company;
 
+	//Attribute to create a new language
+	private String newLanguage;
+	
+	//Atribute for Error
 	private JFrame popupError;
+	private String messError;
+	
 	
 	public PanelCreateComListener(CompanyCreationPanel panCompCreat) {
 		this.panCompCreat = panCompCreat;
@@ -105,16 +112,6 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 					languageSelect = "JAVA";
 				}
 				companyLanguage= DataBaseCompany.getLanguageId(languageSelect);
-
-				//companyLanguages = new Languages();      Pour la première version, seulement une sélection est autorisée
-//				int[] indSel = panCompCreat.getLstLanguages().getSelectedIndices();
-//				try {
-//					for (int i = 0; i < indSel.length; i++) {
-//						companyLanguages.add(panCompCreat.getDlmLanguages().get(indSel[i]));
-//					}
-//				} catch (IndexOutOfBoundsException excep) {
-//					companyLanguages = null;
-//				}
 				
 				companyProjets= panCompCreat.getTxtProjets().getText();
 				companyWebSite = panCompCreat.getTxtWebSite().getText();
@@ -134,12 +131,24 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 				CompanyCreationPanel.getDlmCompanies().addElement(company);
 				MethodsForListeners.resetJTextField(panCompCreat.getAllJTextFields());
 				
-			}catch (CompanyCreationException ev){
-				JOptionPane.showMessageDialog(popupError, "Veuillez renseigner les champs obligatoires");
-			} catch (SQLException e2) {
-				e2.printStackTrace();
+			}catch (CompanyCreationException | SQLException ev){
+				messError = ev.getMessage();
+				JOptionPane.showMessageDialog(popupError, messError);
 			}
 	
+		}
+		
+		if (e.getSource() == panCompCreat.getBtnLanguageCreate()){
+			newLanguage = panCompCreat.getTxtNewLanguage().getText();
+			try {
+				DataBaseCompany.insertLanguageData(newLanguage);
+				panCompCreat.getDlmLanguages().clear();
+				for(Language language : DataBaseCompany.getLanguagesListData()){
+					panCompCreat.getDlmLanguages().addElement(language);
+				}
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 		
 		if (e.getSource() == panCompCreat.getBtnCancel()){
@@ -151,24 +160,6 @@ public class PanelCreateComListener implements ActionListener, ListSelectionList
 		
 	}
 
-	@Override
-	public void valueChanged(ListSelectionEvent ev) {
-
-		if (ev.getSource() == panCompCreat.getLstLanguages()) {
-			System.out.println("Affiche le langage");
-			panCompCreat.getLstLanguages().getSelectedValuesList().toString();
-			System.out.println(panCompCreat.getLstLanguages().getSelectedValuesList());
-			int[] indSel = panCompCreat.getLstLanguages().getSelectedIndices();
-			try {
-				for (int i = 0; i < indSel.length; i++) {
-					System.out.println(indSel[i]);
-					System.out.println(panCompCreat.getDlmLanguages().get(indSel[i]));
-				}
-			} catch (IndexOutOfBoundsException excep) {
-			
-			}
-		}
-	}
 }
 
 

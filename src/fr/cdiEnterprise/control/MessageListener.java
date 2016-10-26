@@ -23,17 +23,16 @@ import fr.cdiEnterprise.exceptions.CustomMessagingException;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.model.User;
 import fr.cdiEnterprise.service.Items;
+import fr.cdiEnterprise.service.SpecialTableItemModel;
 import fr.cdiEnterprise.service.Users;
 import fr.cdiEnterprise.util.MpClientV2;
 import fr.cdiEnterprise.util.ReadProperties;
 import fr.cdiEnterprise.view.MainFrame;
-import fr.cdiEnterprise.view.MessagingDraftPanel;
-import fr.cdiEnterprise.view.MessagingMainPanel;
-import fr.cdiEnterprise.view.MessagingModifPanel;
-import fr.cdiEnterprise.view.MessagingNewPanel;
-
-import fr.cdiEnterprise.view.MessagingReadPanel;
-import fr.cdiEnterprise.view.SpecialTableItemModel;
+import fr.cdiEnterprise.view.message.MessagingDraftPanel;
+import fr.cdiEnterprise.view.message.MessagingMainPanel;
+import fr.cdiEnterprise.view.message.MessagingModifPanel;
+import fr.cdiEnterprise.view.message.MessagingNewPanel;
+import fr.cdiEnterprise.view.message.MessagingReadPanel;
 
 /**
  * Class for the actionListner dedicated to the Messaging part. This class is

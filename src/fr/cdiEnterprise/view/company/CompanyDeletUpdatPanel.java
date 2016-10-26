@@ -23,6 +23,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 
 import fr.cdiEnterprise.control.PanelDeletUpdatCompListeners;
+import fr.cdiEnterprise.control.PanelSRCompaniesListeners;
 import fr.cdiEnterprise.dao.DataBaseCompany;
 import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.Company;
@@ -274,9 +275,9 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		panContact.add(lblContactMail);
 		panContact.add(txtContactMail, "wrap 20");
 		panCenter.add(companies);
-		
-		panSouth.add(btnDelete);
+				
 		panSouth.add(btnUpdate);
+		panSouth.add(btnDelete);
 		panSouth.add(btnCancel);
 		
 		clic = new PanelDeletUpdatCompListeners(this);
