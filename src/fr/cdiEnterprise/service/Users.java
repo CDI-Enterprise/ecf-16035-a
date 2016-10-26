@@ -9,8 +9,9 @@ import fr.cdiEnterprise.model.User;
 
 /**
  * ArrayList's subclass for User.
- * @version 01-10-2016
+ * 
  * @author Claire
+ * @version 01-10-2016
  */
 public class Users extends ArrayList<User> {
 

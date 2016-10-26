@@ -39,12 +39,12 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 	private PanelUserCRUD panel;
 
 	// Attributes for DB access
-	//	private UserDAO userDAO;
+	// private UserDAO userDAO;
 
 	// Frame for error message
 	private JFrame popUpFrame;
 	private String errorMsg;
-	
+
 	// Attributes for input control
 	private String strLblAlias;
 
@@ -54,15 +54,15 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 
 	// Attributes to handle selection
 	private User selectedUser;
-	//	private integer indexUser;
-//	private Trainee selectedTrainee;
-//	private FormerTrainee selectedFormerTrainee;
-//	private Trainer selectedTrainer;
+	// private integer indexUser;
+	// private Trainee selectedTrainee;
+	// private FormerTrainee selectedFormerTrainee;
+	// private Trainer selectedTrainer;
 
 	// Attributes to create-update a user
 	private User user;
 	private int id;
-	//	private String inscriptionDate;
+	// private String inscriptionDate;
 	private String status;
 	private String alias;
 	private String email;
@@ -72,8 +72,9 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 	private ArrayList<JTextField> allJTextFields;
 
 	/**
-	 * @throws SQLException 
+	 * Constructs a listener taking a panel for attribute.
 	 * 
+	 * @throws SQLException 
 	 */
 	public PanelUserCRUDListener(PanelUserCRUD panel) throws SQLException {
 		this.panel = panel;
@@ -94,7 +95,7 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 		alias = panel.getTxtAlias().getText();
 		email = panel.getTxtMail().getText();
 		afpa = panel.getTxtAfpa().getText();
-		
+
 		// Gets the label if they're needed for the error pop-up frame
 		strLblAlias = panel.getLblAlias().getText();
 
@@ -152,9 +153,7 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 				errorMsg = e.getMessage();
 				JOptionPane.showMessageDialog(popUpFrame, errorMsg);
 			}
-
 		}
-
 
 		// CMD UPDATE
 		if (ae.getSource() == panel.getCmdUpdate()) {
@@ -176,7 +175,6 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-
 		}
 
 		// CMD DELETE
@@ -203,7 +201,7 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 
 			// Gets the selected User and its index in the model list
 			selectedUser = (User) panel.getLstUsersDB().getSelectedValue();
-			//			indexUser = panel.getLstUsersDB().getSelectedIndex();
+			// indexUser = panel.getLstUsersDB().getSelectedIndex();
 			System.out.println(selectedUser); // Test code
 
 			// Displays informations of the selected User
@@ -219,7 +217,7 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 			switch (selectedUser.getStatus()) {
 			case "Stagiaire" :  
 				// Casts User to Trainee
-//				selectedTrainee = (Trainee) selectedUser;
+				// selectedTrainee = (Trainee) selectedUser;
 				// Status
 				panel.getOptTrainee().setSelected(true);
 				panel.getOptTrainee().setEnabled(true);
@@ -229,7 +227,7 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 
 			case "Ancien" :
 				// Casts User to FormerTrainee
-//				selectedFormerTrainee = (FormerTrainee) selectedUser;
+				// selectedFormerTrainee = (FormerTrainee) selectedUser;
 				// Status
 				panel.getOptFormerTrainee().setSelected(true);
 				panel.getOptTrainee().setEnabled(false);
@@ -239,7 +237,7 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 
 			case "Formateur" :
 				// Casts User to Trainer
-//				selectedTrainer = (Trainer) selectedUser;
+				// selectedTrainer = (Trainer) selectedUser;
 				// Status
 				panel.getOptTrainer().setSelected(true);
 				panel.getOptTrainee().setEnabled(false);
@@ -264,17 +262,14 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent me) {
-
 	}
 
 	@Override
 	public void mousePressed(MouseEvent me) {
-
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-
 	}
 
 	/**
@@ -290,12 +285,12 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 	 * @version 25-10-2016
 	 */
 	private String controlAlias(String attribute, String label) throws ZeroLengthStringException, 
-		LessTwentyCharStringException, AlreadyUsedException, SQLException {
+	LessTwentyCharStringException, AlreadyUsedException, SQLException {
 
-			StringControl.isZeroLength(attribute);
-			StringControl.isLessTwentyChar(attribute, label);
-			StringControl.isAlreadyUsed(attribute);
+		StringControl.isZeroLength(attribute);
+		StringControl.isLessTwentyChar(attribute, label);
+		StringControl.isAlreadyUsed(attribute);
 
-			return attribute;
+		return attribute;
 	}
 }

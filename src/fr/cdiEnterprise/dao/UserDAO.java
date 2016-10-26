@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import fr.cdiEnterprise.model.FormerTrainee;
 import fr.cdiEnterprise.model.Trainee;
 import fr.cdiEnterprise.model.Trainer;
@@ -24,6 +27,7 @@ import fr.cdiEnterprise.service.Users;
 public class UserDAO {
 
 	private Connection connect;
+	JFrame popUpFrame;
 
 	// Prepared statement for basic SQL request
 	private static PreparedStatement searchUser;
@@ -46,7 +50,7 @@ public class UserDAO {
 	private static String userMail;
 	private static String userAfpa;
 
-	// TODO class DTO which gonna instantiate a UserDAO object.
+	// TODO (Claire) class DTO which gonna instantiate a UserDAO object.
 
 	/**
 	 * Asks for the connection to DB.
@@ -63,7 +67,6 @@ public class UserDAO {
 	 * @return user
 	 * @throws SQLException
 	 * @version 22-10-2016
-	 * 
 	 */
 	protected User search(int userId) throws SQLException {
 
@@ -85,17 +88,17 @@ public class UserDAO {
 				switch (userStatus) {
 				case "Stagiaire" :
 					user = new Trainee(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
-					System.out.println("Switch : " + user);
+					System.out.println("Switch : " + user); // Test code
 					break;
 
 				case "Ancien" :
 					user = new FormerTrainee(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
-					System.out.println("Switch : " + user);
+					System.out.println("Switch : " + user); // Test code
 					break;
 
 				case "Formateur" :
 					user = new Trainer(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
-					System.out.println("Switch : " + user);
+					System.out.println("Switch : " + user); // Test code
 					break;
 
 				default:
@@ -124,7 +127,6 @@ public class UserDAO {
 	 * @param userStatus
 	 * @return user
 	 * @version 22-10-2016
-	 * 
 	 */
 	protected Users search(String userStatus) throws SQLException {
 
@@ -194,7 +196,6 @@ public class UserDAO {
 	 * @return creationDone (test code)
 	 * @throws SQLException
 	 * @version 22-10-2016
-	 * 
 	 */
 	protected int create(int id, String inscriptionDate,
 			String status, String alias, String mail, String afpa) throws SQLException {
@@ -228,7 +229,6 @@ public class UserDAO {
 	 * @return users
 	 * @throws SQLException
 	 * @version 22-10-2016
-	 * 
 	 */
 	protected Users read() throws SQLException {
 
@@ -290,7 +290,6 @@ public class UserDAO {
 	 * @return aliasList
 	 * @throws SQLException
 	 * @version 25-10-2016
-	 * 
 	 */
 	protected ArrayList<String> readAlias() throws SQLException {
 
@@ -331,7 +330,6 @@ public class UserDAO {
 	 * @return updateDone (test code)
 	 * @throws SQLException
 	 * @version 22-10-2016
-	 * 
 	 */
 	protected int update(int id, String status, String mail) throws SQLException {
 
@@ -365,7 +363,6 @@ public class UserDAO {
 	 * @return deleteDone (test code)
 	 * @throws SQLException
 	 * @version 22-10-2016
-	 * 
 	 */
 	protected int delete(int id) throws SQLException {
 
@@ -394,11 +391,15 @@ public class UserDAO {
 	 * @return a string (test code)
 	 * @throws SQLException
 	 * @version 22-10-2016
-	 * 
 	 */
 	private void closeRequest(PreparedStatement prepStatmt) throws SQLException {
-
-		connect.commit();
+		try {
+			connect.commit();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(popUpFrame, "Oups, l'application ne peut pas se lancer. "
+					+ "Sa base de données est inaccessible.");
+		}
 
 		if (prepStatmt != null) {
 			prepStatmt.close();

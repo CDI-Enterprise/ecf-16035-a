@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
 
 import fr.cdiEnterprise.dao.UserDAO;
 import fr.cdiEnterprise.service.Users;
-import fr.cdiEnterprise.service.UsersTableModel;
 import fr.cdiEnterprise.view.profile.PanelUserSR;
 
 /**
@@ -20,22 +19,17 @@ import fr.cdiEnterprise.view.profile.PanelUserSR;
  *
  * @author Claire
  * @version 23-10-2016
- * 
  */
 public class PanelUserSRListener implements ActionListener {
 
 	// Given attribute
 	private PanelUserSR panel;
-
 	// Attributes for DB access
 	private Users users;
-
-	// TEST JTABLE
-	UsersTableModel tblMdlUser;
-
-	// TEST POP_UP
+	// Frame for error message
 	private JFrame popUpFrame;
 
+	
 	/**
 	 * Constructs a listener taking a panel for attribute.
 	 */
@@ -43,7 +37,7 @@ public class PanelUserSRListener implements ActionListener {
 		this.panel = panel;
 	}
 
-	// TODO (Claire) handle SQL exception in catch?
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -109,6 +103,5 @@ public class PanelUserSRListener implements ActionListener {
 				e1.printStackTrace();
 			}
 		}
-
 	}
 }
