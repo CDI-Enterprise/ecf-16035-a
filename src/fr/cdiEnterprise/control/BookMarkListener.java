@@ -135,7 +135,7 @@ public class BookMarkListener implements ActionListener
 		Favorite favoriteCompany = new Favorite( idFavorite,companyName, companyCity, companySize, companySector, companyWebSite, contactMail, noteCompany);
 
 		//Send the add
-		favoriteDao.addFavorite(favoriteCompany);
+		//favoriteDao.addFavorite(favoriteCompany);
 		}
 		catch (SQLException e)
 		{
@@ -167,7 +167,7 @@ public class BookMarkListener implements ActionListener
 		Favorite companyMark = new Favorite(idFavorite, noteCompany);			
 
 		//Send the add
-		favoriteDao.addFavorite(companyMark);
+	//	favoriteDao.addFavorite(companyMark);
 	}
 
 
