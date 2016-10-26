@@ -128,7 +128,7 @@ public class CompaniesSRPanel extends JPanel {
 		panRead = new JPanel();
 		panRead.setLayout(new MigLayout());
 		
-		optAffiche = new JRadioButton("Afficher toutes les fiches entreprises");
+		optAffiche = new JRadioButton("Afficher la liste des fiches entreprises");
 		optRecherche = new JRadioButton("Rechercher par critères (uniquement par nom)");
 		readGrp = new ButtonGroup();
 		readGrp.add(optRecherche);

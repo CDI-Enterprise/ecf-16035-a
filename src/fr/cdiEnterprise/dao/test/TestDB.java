@@ -3,7 +3,7 @@ package fr.cdiEnterprise.dao.test;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
-import fr.cdiEnterprise.dao.Database;
+import fr.cdiEnterprise.dao.DBConnection;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.service.Items;
 import fr.cdiEnterprise.util.MpClientV2;
@@ -18,7 +18,7 @@ public class TestDB {
 
 	public static void main(String[] args)  {
 
-		Database Oracle = new Database();
+		DBConnection.getConnect();
 		Items items = new Items();
 
 		

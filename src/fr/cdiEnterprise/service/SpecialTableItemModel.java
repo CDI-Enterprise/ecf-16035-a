@@ -1,4 +1,4 @@
-package fr.cdiEnterprise.view;
+package fr.cdiEnterprise.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
-
-import fr.cdiEnterprise.service.Items;
 
 public class SpecialTableItemModel<Item> extends AbstractTableModel {
 
