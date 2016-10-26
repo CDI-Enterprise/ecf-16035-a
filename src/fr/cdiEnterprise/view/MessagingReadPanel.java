@@ -4,6 +4,8 @@
 package fr.cdiEnterprise.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
@@ -15,6 +17,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
+import javax.swing.text.AbstractDocument;
 
 import fr.cdiEnterprise.control.MessageListener;
 import fr.cdiEnterprise.dao.OldDatas;
@@ -41,8 +44,10 @@ public class MessagingReadPanel extends JPanel {
 	
 	private Border border;
 	private Border borderMessage;
+	private Border borderCadre;
 	
 	private String from;
+	private JLabel lblInfo;
 	private JLabel receiver;
 	private JLabel object;
 	private JLabel Message;
@@ -62,21 +67,24 @@ public class MessagingReadPanel extends JPanel {
 	
 	private Users usersList;
 	private Item itm;
-
+	
+	private static final String CONSIGNE_ONE 	= "Avant de cliquer sur repondre, vous devez rediger une reponse...";
+	private static int MAX_CHARACTERS 		= 450;
+	private static final String CONSIGNE_TWO 	= "Le texte est limité a 450 caractères.";
 
 	
 	public MessagingReadPanel(Item item) {
 		
 		itm = item;
 		MessageListener listener = new MessageListener((JPanel) this);
-		borderMessage = BorderFactory.createTitledBorder(" Message ");
-		border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+		borderCadre 	= BorderFactory.createLineBorder(Color.RED);
+		borderMessage 	= BorderFactory.createTitledBorder(" Message ");
+		border 			= BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 	
 		
-		receiver = new JLabel(itm.getSender());
-		object = new JLabel(itm.getObject());
+		receiver= new JLabel(itm.getSender());
+		object 	= new JLabel(itm.getObject());
 		Message = new JLabel(itm.getBody());
-		
 		txtMessage = new JTextArea(10, 50);
 		/*if(itm != null) {
 			
@@ -91,16 +99,18 @@ public class MessagingReadPanel extends JPanel {
 		from = MessageListener.alias;
 		
 		
-		JPanel panMess = new JPanel();
-		JPanel panNorth = new JPanel();
-		JPanel panCenter = new JPanel();
+		JPanel panMess 		= new JPanel();
+		JPanel panNorth 	= new JPanel();
+		JPanel panCenter 	= new JPanel();
+		JPanel panSouth 	= new JPanel();
 		panMess.setLayout(new BorderLayout());
 		add(panMess);
 		panMess.add(panNorth,BorderLayout.NORTH);
 		panMess.add(panCenter,BorderLayout.CENTER);
-	
-		Font boldFont = new Font("Arial", Font.PLAIN, 18);
+		panMess.add(panSouth,BorderLayout.SOUTH);	
+		Font boldFont 	= new Font("Arial", Font.PLAIN, 18);
 		JLabel lblTitle = new JLabel(" Votre Message ");
+		JLabel lblInfo  = new JLabel(CONSIGNE_ONE);
 		//lblTitle.setFont(boldFont);
 		
 		btnRep = new JButton("Repondre");
@@ -127,10 +137,18 @@ public class MessagingReadPanel extends JPanel {
 		txtObject = new JTextField(20);
 		txtObject.setText(itm.getObject());
 		txtMessage = new JTextArea(10,50);
+		
+
+		
+		
+		txtMessage.setBorder(border);
 		txtMessage.setText(itm.getBody());
 		txtMessage.setLineWrap(true);
 		txtMessage.setWrapStyleWord(true);
-		
+
+		AbstractDocument doc = (AbstractDocument) txtMessage.getDocument();
+		MAX_CHARACTERS = MAX_CHARACTERS - itm.getBody().length();
+	    doc.setDocumentFilter(new DocumentSizeFilter(MAX_CHARACTERS));
 	
 		
 		/*if(usersList != null) {
@@ -143,9 +161,9 @@ public class MessagingReadPanel extends JPanel {
 		}else {
 			System.out.println("usersList is null ");
 		}*/
-		
-		
-		panNorth.add(lblTitle);
+		panNorth.setLayout(new FlowLayout());
+		panNorth.setBorder(borderCadre);
+		panNorth.add(lblInfo);
 		panCenter.setLayout(new MigLayout());
 		panCenter.setBorder(borderMessage);
 		
@@ -159,7 +177,10 @@ public class MessagingReadPanel extends JPanel {
 		panCenter.add(lblMessage, "w 200!");
 		panCenter.add(txtMessage, "wrap");
 		
-		
+		panSouth.setLayout(new FlowLayout());
+		panSouth.add(btnRep);
+		panSouth.add(btnDel);
+		panSouth.add(btnRet);
 		
 		//panCenter.add(lblMessage, "w 200!");
 		//panCenter.add(txtMessage, "wrap");
@@ -168,9 +189,7 @@ public class MessagingReadPanel extends JPanel {
 		//panCenter.add(lblCounter, "wrap");
 		
 		
-		panCenter.add(btnRep, "w 200!");
-		panCenter.add(btnDel, "w 200!");
-		panCenter.add(btnRet, "w 200!");
+		
 		
 		
 		btnRep.addActionListener(listener);

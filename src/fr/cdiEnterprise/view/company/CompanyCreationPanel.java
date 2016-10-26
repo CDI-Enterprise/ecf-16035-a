@@ -108,7 +108,7 @@ public class CompanyCreationPanel extends JPanel {
 	private JButton btnFavoris;
 	private PanelCreateComListener clic;
 	protected static DefaultListModel<Company> dlmCompanies;
-	private JList<Company> lstCompanies;
+//	private JList<Company> lstCompanies;
 	private ArrayList<JTextField> allJTextFields;
 
 	private Component BookMarkPanel;
@@ -249,15 +249,14 @@ public class CompanyCreationPanel extends JPanel {
 		
 		
 		dlmCompanies = new DefaultListModel<Company>();
-		
-		lstCompanies = new JList<Company>(dlmCompanies);
+		//		lstCompanies = new JList<Company>(dlmCompanies);
 		for (Company company: DataBaseCompany.getCompaniesData()){
 			dlmCompanies.addElement(company);
 		}
 		
-		JScrollPane companies = new JScrollPane(lstCompanies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		companies.setPreferredSize(new Dimension(300, 50));
+//		JScrollPane companies = new JScrollPane(lstCompanies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+//				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+//		companies.setPreferredSize(new Dimension(300, 50));
 		
 		
 		/*Footer*/
@@ -316,7 +315,7 @@ public class CompanyCreationPanel extends JPanel {
 		panContact.add(txtContactMail, "wrap 20");
 		panCompany.add(lblFieldInfo);
 	
-		panCenter.add(companies);
+//		panCenter.add(companies);
 		
 		panSouth.add(btnCreate);
 		panSouth.add(btnCancel);
@@ -330,14 +329,10 @@ public class CompanyCreationPanel extends JPanel {
 		//listeners
 		//BookMarkListener btnFavoris = new BookMarkListener(null);
 
-		//btnFavoris.addActionListener((ActionListener) this);
-//				
-//				
-//				// TODO (Anaïs) Ajout dans favoris 
-
-
+		//btnFavoris.addActionListener((ActionListener) this);		
 	}
 
+	
 	/**
 	 * @return the btnCreate
 	 */

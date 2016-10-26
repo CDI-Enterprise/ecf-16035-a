@@ -285,10 +285,10 @@ public class CompanyDeletUpdatPanel extends JPanel {
 		
 		btnDelete.addActionListener(clic);
 		btnCancel.addActionListener(clic);
+		btnUpdate.addActionListener(clic);
 		
 		lstCompanies.addListSelectionListener(clic);
 		lstCompanies.addMouseListener(cliq);
-		btnUpdate.addActionListener(clic);
 	}
 
 
