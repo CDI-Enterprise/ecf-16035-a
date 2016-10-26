@@ -13,7 +13,7 @@ import java.sql.Statement;
 import javax.swing.JComboBox;
 
 import fr.cdiEnterprise.model.Favorite;
-import fr.cdiEnterprise.view.BookMarkPanel;
+//import fr.cdiEnterprise.view.BookMarkPanel;
 //import fr.cdiEnterprise.model.NoteCompany;
 //import fr.cdiEnterprise.service.Favorites;
 //import fr.cdiEnterprise.view.CompanyCreationPanel;
@@ -115,6 +115,31 @@ public class FavoriteDao
 		return returnMark;	
 	}
 
+	
+	/**
+	 * Exemple update note favorite
+	 * @param nnote reference to Company
+	 * 
+	 */
+
+	public void noteFavorite (String noteCompany) throws SQLException
+	{
+		String reqSql = null;
+		//ResultSet rs= null;
+		int rs;
+
+		reqSql = "UPDATE favorite set noteCompany = ? where favoriteId = ?";
+
+		PreparedStatement updateFavorite = conn.prepareStatement(reqSql);
+		updateFavorite.setString(1, noteCompany);
+		//updateFavorite.
+
+		rs = updateFavorite.executeUpdate();
+		System.out.println(rs);
+	
+		stmt.close();
+	}
+	
 
 	/**
 	 * Exemple delete favorite
