@@ -43,7 +43,7 @@ public class HomePanel extends JPanel {
 		panneau = this;
 		panneau.setLayout(new BorderLayout(5,5));
 		
-		lblImage = new JLabel (new ImageIcon("homeScreen.png"));
+		lblImage = new JLabel (new ImageIcon("homeScreen.jpg"));
 //		panNorth = new JPanel();
 //		panWest = new JPanel();
 //		panCenter = new JPanel();
