@@ -31,6 +31,7 @@ import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.service.Clients;
 import fr.cdiEnterprise.service.Items;
+import fr.cdiEnterprise.service.SpecialTableItemModel;
 import fr.cdiEnterprise.util.MpClient;
 import fr.cdiEnterprise.util.ReadProperties;
 import net.miginfocom.swing.MigLayout;

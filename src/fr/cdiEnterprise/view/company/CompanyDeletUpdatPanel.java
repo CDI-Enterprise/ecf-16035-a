@@ -23,6 +23,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 
 import fr.cdiEnterprise.control.PanelDeletUpdatCompListeners;
+import fr.cdiEnterprise.control.PanelSRCompaniesListeners;
 import fr.cdiEnterprise.dao.DataBaseCompany;
 import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.model.Company;
