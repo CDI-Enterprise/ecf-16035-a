@@ -17,11 +17,11 @@ import fr.cdiEnterprise.view.company.CompaniesSRPanel;
 import fr.cdiEnterprise.view.company.CompanyDeletUpdatPanel;
 //import fr.cdiEnterprise.model.Contact;
 import fr.cdiEnterprise.model.Favorite;
-import fr.cdiEnterprise.model.NoteCompany;
-import fr.cdiEnterprise.dao.DataBaseCompany;
+//import fr.cdiEnterprise.model.NoteCompany;
+//import fr.cdiEnterprise.dao.DataBaseCompany;
 //import fr.cdiEnterprise.model.NoteCompany;
 import fr.cdiEnterprise.dao.FavoriteDao;
-import fr.cdiEnterprise.service.Favorites;
+//import fr.cdiEnterprise.service.Favorites;
 
 /**
  *13 oct. 2016
@@ -34,7 +34,7 @@ public class BookMarkListener implements ActionListener
 {
 
 	private String searchNameCompany;
-	private int idCompany;
+	//private int idCompany;
 	private int idFavorite;
 	private String companyName;
 	private String companyCity;
@@ -121,7 +121,6 @@ public class BookMarkListener implements ActionListener
 	 */
 	private void btnValidate_click(CompaniesSRPanel mark2) 						//Recover informations
 	{
-		// TODO listener sql request Viewing Detail to select Company
 		try
 		{
 		companyName		= mark2.getTxtCompanyCity().getText();
@@ -162,7 +161,6 @@ public class BookMarkListener implements ActionListener
 	 */
 	private void btnSave_click(BookMarkPanel mark) 				
 	{
-		// TODO class  noteSave of company
 		String noteCompany	=	mark.getTxtNoteUser().getText();
 
 		//Create note's object 
@@ -194,13 +192,13 @@ public class BookMarkListener implements ActionListener
 		CompanyDeletUpdatPanel goToCompany;
 		try 
 		{
-			JOptionPane.showConfirmDialog(Confirmation, "Vous allez voir la fiche complète");
+			JOptionPane.showConfirmDialog(Confirmation, "Vous allez voir la fiche complète, aurevoir");
 			goToCompany = new CompanyDeletUpdatPanel();
 			goToCompany.setVisible(true);
 			//this.dispose();
 		} 
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
+		catch (SQLException e) 
+		{
 			e.printStackTrace();
 		}
 	}
