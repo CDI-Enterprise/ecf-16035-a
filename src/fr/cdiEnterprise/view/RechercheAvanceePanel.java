@@ -16,9 +16,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import fr.cdiEnterprise.control.PanelRechercheAvanceeListener;
-import fr.cdiEnterprise.model.ModelTable;
 import net.miginfocom.swing.MigLayout;
+import fr.cdiEnterprise.control.PanelRechercheAvanceeListener;
+import fr.cdiEnterprise.model.ModelSearch;;
 
 /**
  * 
@@ -60,6 +60,7 @@ public class RechercheAvanceePanel extends JPanel{
 		private JCheckBox chkDomaine;
 		private JCheckBox chkVille;
 		private JCheckBox chkRegion;
+		private ModelSearch modelTable;
 		private DefaultTableModel model;
 		private PanelRechercheAvanceeListener listened;
 
@@ -80,9 +81,9 @@ public class RechercheAvanceePanel extends JPanel{
 			chkRegion.setSelected(false);
 		}
 		// methode de chargement de la liste des entreprises
-		void load(){
-			model.setRowCount(0);
-		}
+//		void load(){
+//			model.setRowCount(0);
+//		}
 
 		//Execution du constructeur
 		private void initCompnent(){
@@ -116,7 +117,7 @@ public class RechercheAvanceePanel extends JPanel{
 			chkRegion = new JCheckBox();
 			
 
-			model = (DefaultTableModel) tableResultats.getModel();
+			//model = (DefaultTableModel) tableResultats.getModel();
 
 			this.setBorder(new LineBorder(Color.BLUE));
 			this.setLayout(new BorderLayout(5, 5));
@@ -125,25 +126,10 @@ public class RechercheAvanceePanel extends JPanel{
 			this.add(panelNorth, BorderLayout.NORTH);
 			panelNorth.setLayout(new BorderLayout());
 		
-			// DEBUT TABLEAU (fonctionne)
-//			Object[][] data={
-//					{"Johnathan", "Sykes", Color.red, true, Sport.TENNIS},
-//					{"Nicolas", "Van de Kampf", Color.black, true, Sport.FOOTBALL},
-//					{"Damien", "Cuthbert", Color.cyan, true, Sport.RIEN},
-//					{"Corinne", "Valance", Color.blue, false, Sport.NATATION},
-//					{"Emilie", "Schrödinger", Color.magenta, false, Sport.FOOTBALL},
-//					{"Delphine", "Duke", Color.yellow, false, Sport.TENNIS},
-//					{"Eric", "Trump", Color.pink, true, Sport.FOOTBALL},
-//			};
-	//
-//			String [] entetes={ "ID", "Raison Sociale", "Domaine", "Ville", "Region"};
-	//
-//			tableResultats= new JTable(data, entetes);
-//			panelNorth.add(tableResultats.getTableHeader(),BorderLayout.NORTH);
-//			panelNorth.add(tableResultats, BorderLayout.CENTER);
-			// FIN TABLEAU (fonctionne)
 
-			tableResultats=new JTable(new ModelTable());
+			modelTable = new ModelSearch();
+			
+			tableResultats=new JTable(modelTable);
 			tableResultats.setPreferredScrollableViewportSize(new Dimension(780, 250));
 			scrollTable=new JScrollPane(tableResultats);
 			panelNorth.add(scrollTable);
@@ -382,6 +368,20 @@ public class RechercheAvanceePanel extends JPanel{
 		public DefaultTableModel getModel() {
 			return model;
 		}
+		/**
+		 * @return the modelTable
+		 */
+		public ModelSearch getModelTable() {
+			return modelTable;
+		}
+
+		/**
+		 * @param modelTable the modelTable to set
+		 */
+		public void setModelTable(ModelSearch modelTable) {
+			this.modelTable = modelTable;
+		}
+
 		/**
 		 * @return the listened
 		 */
