@@ -395,12 +395,17 @@ public class messageDao {
 	 * @return the output date in String format.
 	 */
 	public static String localDateToString(LocalDateTime input) {
-
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM uuuu HH:mm:ss");
-		String text = input.format(formatter);
-
-		return text;
-
+		String strDate = null;
+		if(input != null) {
+			strDate  = input.format(formatter);
+			return strDate;
+		}else {
+			System.err.println(" -- parametre non-conforme heure local produite -- ");
+			LocalDateTime dateNow = LocalDateTime.now();
+			strDate  = dateNow.format(formatter);
+			return strDate;
+		}
 	}
 
 	/**
@@ -414,7 +419,6 @@ public class messageDao {
 	public static LocalDateTime StringToLocalDate(String input) {
 		LocalDateTime localTime = null;
 		if (input != null) {
-
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM uuuu HH:mm:ss");
 			localTime = LocalDateTime.parse(input, formatter);
 
