@@ -96,8 +96,13 @@ public class MainMenuListener implements ActionListener {
 		}
 
 		// Display a JOptionPan update
-		
-		
+		if(e.getSource() == menu.getSubHelpUpdate()) {
+
+			String update = "Aucune mise à jour disponible.";
+
+			JOptionPane.showMessageDialog(MainFrame.getPanMain(), update);
+		}
+
 		// Display a JOptionPane about
 		if(e.getSource() == menu.getSubHelpAbout()) {
 
@@ -115,9 +120,6 @@ public class MainMenuListener implements ActionListener {
 					+ newline + "2016 GNU GENERAL PUBLIC LICENSE";
 
 			JOptionPane.showMessageDialog(MainFrame.getPanMain(), about);
-
 		}
-
 	}
-
 }
