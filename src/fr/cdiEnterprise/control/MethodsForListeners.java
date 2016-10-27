@@ -71,7 +71,7 @@ public class MethodsForListeners {
 	}
 
 	/**
-	 * Méthode pour controler la saisie des champs obligatoires
+	 * Méthode pour controler si les champs obligatoires ont bien été renseignés
 	 * 
 	 * @author Anaïs
 	 * @param String
@@ -94,6 +94,12 @@ public class MethodsForListeners {
 		return fieldReturn;
 	}
 
+	/**
+	 * Méthode permettant de rafraichir la liste des fiches entreprises
+	 * @author Anaïs
+	 * 
+	 * @throws SQLException
+	 */
 	public static void refreshListCompanies() throws SQLException{
 		CompanyCreationPanel.getDlmCompanies().clear();
 		for(Company company : DataBaseCompany.getCompaniesData()){
@@ -101,12 +107,12 @@ public class MethodsForListeners {
 		}
 	}
 
-	public static String controlPostalCode(String postalCode){
+	public static void controlPostalCode(String postalCode){
 		int length = postalCode.length();
 		char[] tabChaineCarac = postalCode.toCharArray();
-		String retour;
+//		String retour;
 		if(length == 5){	
-			retour = postalCode;
+//			retour = postalCode;
 			for (char carac : tabChaineCarac){
 				if(Character.isDigit(carac)){	
 				}else{
@@ -117,7 +123,7 @@ public class MethodsForListeners {
 			throw new CompanyCreationException("Code postal non valide, 5 chiffres attendus");
 			}
 		
-		return retour;
+//		return retour;
 	}
 	
 }

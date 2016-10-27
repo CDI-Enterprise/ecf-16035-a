@@ -97,7 +97,7 @@ public class PanelCreateComListener implements ActionListener  {
 				companyAdress = panCompCreat.getTxtCompanyAdress().getText();
 				companyCity = MethodsForListeners.nullField(panCompCreat.getTxtCompanyCity().getText().toUpperCase());
 				companyPostalCode = MethodsForListeners.nullField(panCompCreat.getTxtPostalCode().getText());
-				companyPostalCode= MethodsForListeners.controlPostalCode(companyPostalCode);
+				MethodsForListeners.controlPostalCode(companyPostalCode);
 				nomDepartment = panCompCreat.getCboCompanyDepartment().getSelectedItem().toString();
 				companyDepartment = DataBaseCompany.getDepartmentId(nomDepartment);
 				nomRegion = panCompCreat.getCboCompanyRegion().getSelectedItem().toString();
