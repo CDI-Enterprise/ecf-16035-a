@@ -6,6 +6,7 @@ package fr.cdiEnterprise.control;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import fr.cdiEnterprise.view.AboutFrame;
 import fr.cdiEnterprise.view.MainFrame;
 import fr.cdiEnterprise.view.Menu;
 
@@ -62,7 +63,7 @@ public class MainMenuListener implements ActionListener {
 			MainFrame.getPanMain().repaint();
 			MainFrame.getPanMain().revalidate();
 		}
-		
+
 		if(e.getSource() == menu.getSubCompanyRead()){
 			MainFrame.getPanMain().removeAll();
 			MainFrame.getPanMain().add(MainFrame.getScrollSRCompanies());
@@ -91,6 +92,14 @@ public class MainMenuListener implements ActionListener {
 			MainFrame.getPanMain().add(MainFrame.getPanelRecherche());
 			MainFrame.getPanMain().validate();
 			MainFrame.getPanMain().repaint();
+		}
+
+		// Display the frame about
+		if(e.getSource() == menu.getSubHelpAbout()) {
+
+			AboutFrame aboutFrame = new AboutFrame();
+			aboutFrame.setVisible(true);
+			aboutFrame.pack();
 		}
 
 	}
