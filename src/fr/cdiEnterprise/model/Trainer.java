@@ -1,5 +1,7 @@
 package fr.cdiEnterprise.model;
 
+import java.sql.SQLException;
+
 /**
  * Class for Trainer creation.
  * 
@@ -21,8 +23,9 @@ public class Trainer extends User {
 	 * @param alias
 	 * @param status
 	 * @param afpa
+	 * @throws SQLException 
 	 */
-	public Trainer(String status, String alias, String email, String afpa) {
+	public Trainer(String status, String alias, String email, String afpa) throws SQLException {
 		super(status, alias, email, afpa);
 	}
 

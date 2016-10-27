@@ -88,17 +88,14 @@ public class UserDAO {
 				switch (userStatus) {
 				case "Stagiaire" :
 					user = new Trainee(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
-					System.out.println("Switch : " + user); // Test code
 					break;
 
 				case "Ancien" :
 					user = new FormerTrainee(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
-					System.out.println("Switch : " + user); // Test code
 					break;
 
 				case "Formateur" :
 					user = new Trainer(userId, userInscriptionDate, userStatus, userAlias, userMail, userAfpa);
-					System.out.println("Switch : " + user); // Test code
 					break;
 
 				default:
@@ -106,7 +103,6 @@ public class UserDAO {
 					break;
 				}
 			}
-			System.out.println("Sortie try : " + user); // Test code
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -169,7 +165,6 @@ public class UserDAO {
 					break;
 				}
 			}
-			System.out.println("DAO : " + users); // Test code
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -269,8 +264,7 @@ public class UserDAO {
 					break;
 				}
 			}
-			System.out.println("DAO : " + users); // Test code
-
+	
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println("Requête incorrecte : la liste des auteurs n'a pu être affichée.");
@@ -283,6 +277,28 @@ public class UserDAO {
 		return users;
 	}
 
+	
+	// A TESTER
+	protected ArrayList<Integer> readId() throws SQLException {
+		
+		ArrayList<Integer> idList = new ArrayList<Integer>();
+		Integer userId;
+		
+		try {
+			PreparedStatement readId = connect.prepareStatement("SELECT user_id FROM cdi_user");
+			requestRes = readId.executeQuery();
+			
+			while(requestRes.next()) {
+				userId = requestRes.getInt(1);
+				idList.add(userId);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("Requête incorrecte : la liste d'ID n'a pas pu être affichée.");
+		}
+		return idList;	
+	}
+	
 	/**
 	 * Read users' alias from database.
 	 * 
@@ -303,7 +319,6 @@ public class UserDAO {
 				userAlias = requestRes.getString(1);
 				aliasList.add(userAlias);
 			}	
-			System.out.println("DAO : " + aliasList); // Test code
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -404,7 +419,6 @@ public class UserDAO {
 		if (prepStatmt != null) {
 			prepStatmt.close();
 			// Test code
-			System.out.println("Requête terminée.");
 			boolean request = false;
 			request = prepStatmt.isClosed();
 			System.out.println("Statement is closed: " + request);
@@ -418,7 +432,7 @@ public class UserDAO {
 	}
 
 
-	
+/*--------------------------------------------------------------------------------------------------------------------------*/	
 	// TODO (Claire) In DTO Static or not static, that is the question!
 	/**
 	 * Public method to initiate a SELECT WHERE SQL request, calling the UserDAO.search(String) protected method.
@@ -553,6 +567,31 @@ public class UserDAO {
 	}
 	
 	// More methods
+	// A TESTER
+	public static int getBiggerId() throws SQLException {
+		
+		UserDAO userDAO = new UserDAO();
+		
+		ArrayList<Integer> idList = new ArrayList<Integer>();
+		int id = 0;
+		
+		idList = userDAO.readId();
+		
+		for (int nb : idList) {
+			if (nb > id) {
+				id = nb;
+			}
+		}
+		
+		return id;
+	}
+	
+	/**
+	 * This method calls the protected method readAlias() from UserDAO to initiate a SELECT SQL request.
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
 	public static ArrayList<String> getAliasList() throws SQLException {
 		
 		UserDAO userDAO = new UserDAO();

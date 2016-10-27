@@ -1,9 +1,13 @@
 package fr.cdiEnterprise.model;
 
+import java.sql.SQLException;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+
+import fr.cdiEnterprise.control.exception.EmptyFieldException;
+import fr.cdiEnterprise.dao.UserDAO;
 
 /**
  * Abstract base class for all User creation: Trainee, FormerTrainee, Trainer.
@@ -37,8 +41,9 @@ public abstract class User {
 	 * @param password
 	 * @param status
 	 * @param afpa
+	 * @throws SQLException 
 	 */
-	public User(String status, String alias, String email, String afpa) {
+	public User(String status, String alias, String email, String afpa) throws SQLException {
 		setId();
 		setInscriptionDate();
 		setStatus(status);
@@ -63,8 +68,8 @@ public abstract class User {
 	 */
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", inscriptionDate=" + inscriptionDate + ", status=" + status + ", alias=" + alias
-				+ ", email=" + email + ", afpa=" + afpa + "]";
+		return "Id : " + id + ", inscription : " + inscriptionDate + ", statuts : " + status + ", alias : " + alias
+				+ ", email : " + email + ", afpa : " + afpa;
 	}
 
 	/**
@@ -76,8 +81,10 @@ public abstract class User {
 
 	/**
 	 *Increments totalId of Users and  set the id
+	 * @throws SQLException 
 	 */
-	private void setId() {
+	private void setId() throws SQLException {
+		totalId = UserDAO.getBiggerId();
 		totalId++;
 		this.id = totalId;
 	}
@@ -130,11 +137,15 @@ public abstract class User {
 
 	// TODO (Claire) throws exception up?
 	/**
+	 * This setter checks the integrity of the string Alias before setting it.
+	 * 
 	 * @param alias the alias to set
+	 * @throws EmptyFieldException 
+	 * @version 27-10-2016
 	 */
-	public void setAlias(String alias) /* throws ZeroLenghtStringException */ {
-//		if (alias.length() == 0) {
-//			throw new ZeroLenghtStringException("Vous devez remplir les champs obligatoires.");
+	public void setAlias(String alias) /* throws NoAliasException */  {
+//		if (alias.isEmpty()) {
+//			throw new NoAliasException("");
 //		}
 //		else {
 			this.alias = alias;

@@ -1,5 +1,7 @@
 package fr.cdiEnterprise.model;
 
+import java.sql.SQLException;
+
 /**
  * Class for FormerTrainee creation.
  * 
@@ -28,8 +30,9 @@ public class FormerTrainee extends Trainee {
 	 * @param alias
 	 * @param status
 	 * @param afpa
+	 * @throws SQLException 
 	 */
-	public FormerTrainee(String status, String alias, String email, String afpa) {
+	public FormerTrainee(String status, String alias, String email, String afpa) throws SQLException {
 		super(status, alias, email, afpa);
 	}
 

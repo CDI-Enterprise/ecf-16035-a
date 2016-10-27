@@ -2,6 +2,8 @@
  * 
  */
 package fr.cdiEnterprise.dao;
+import java.sql.SQLException;
+
 //import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Department;
 //import fr.cdiEnterprise.model.Favorite;
@@ -48,14 +50,16 @@ public class OldDatas {
 
 		// User database
 		usersList = new Users();
-		usersList.add(new Trainer("Formateur", "Domi", "domim@afpa.fr", "Saint-Jérôme"));
-		usersList.add(new FormerTrainee("Ancien", "CDI", "cdi@mail.org", "Saint-Jérôme"));
-
-		usersList.add(new Trainee("Stagiaire", "Klaroo", "klaroo@mail.fr", "Saint-Jérôme"));
-		usersList.add(new Trainee("Stagiaire", "Cookie", "cookie@mail.fr", "Saint-Jérôme"));
-		usersList.add(new Trainee("Stagiaire", "Omy", "omy@mail.fr", "Saint-Jérôme"));
-		usersList.add(new Trainee("Stagiaire", "Oracle", "oracle@mail.fr", "Saint-Jérôme"));
-		usersList.add(new Trainee("Stagiaire", "Dark Swan", "darkswan@mail.fr", "Saint-Jérôme"));
+		try {
+			usersList.add(new Trainer("Formateur", "Domi", "domim@afpa.fr", "Saint-Jérôme"));
+			usersList.add(new Trainee("Stagiaire", "Klaroo", "klaroo@mail.fr", "Saint-Jérôme"));
+			usersList.add(new Trainee("Stagiaire", "Cookie", "cookie@mail.fr", "Saint-Jérôme"));
+			usersList.add(new Trainee("Stagiaire", "Omy", "omy@mail.fr", "Saint-Jérôme"));
+			usersList.add(new Trainee("Stagiaire", "Oracle", "oracle@mail.fr", "Saint-Jérôme"));
+			usersList.add(new Trainee("Stagiaire", "Dark Swan", "darkswan@mail.fr", "Saint-Jérôme"));
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
 
 		//Departments allStaticDepartment = new Departments();
 		for(int i = 0; i < Department.DEPARTMENTS.length; i++) {
