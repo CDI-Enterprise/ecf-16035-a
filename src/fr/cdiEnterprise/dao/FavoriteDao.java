@@ -35,9 +35,9 @@ public class FavoriteDao
 	private static Statement stmt;
 	private static PreparedStatement prStmt;
 	private static PreparedStatement createFavorite;
-//	private static PreparedStatement createNote;
+	//	private static PreparedStatement createNote;
 	private JComboBox <String> lstMyFavorites;
-//	private int rsNote;
+	//	private int rsNote;
 	private static int rsFav;
 
 	/**
@@ -69,7 +69,7 @@ public class FavoriteDao
 	public static String addFavorite(Company newFav)
 	{
 		String createFav = null;
-		
+
 		String companyName 	= newFav.getCompanyName();
 		String companyCity 	= newFav.getCity();
 		String companySize 	= newFav.getCity();
@@ -80,7 +80,7 @@ public class FavoriteDao
 		FavoriteDao newFavDAO = new FavoriteDao();
 
 		int resultFav = newFavDAO.createFavorite( companyName, companyCity, companySize, companySector, companyWebSite, companyContactMail);
-		
+
 		//Validité
 		if (resultFav == 0)
 		{
@@ -128,7 +128,7 @@ public class FavoriteDao
 		String reqSql = null;
 		int rs;
 
-		reqSql = "UPDATE favorite set noteCompany = ? where favoriteId = ?";
+		reqSql = "UPDATE favorite set noteUser = ? where favoriteId = ?";
 
 		prStmt = conn.prepareStatement(reqSql);
 		prStmt.setString(1, noteUser);
@@ -271,24 +271,22 @@ public class FavoriteDao
 	}
 
 
-	public void noteFavorite(Favorite markUser) throws SQLException 
+	public void noteFavorite(int selectId, String noteUser) throws SQLException 
 	{
-		String noteUser = null;
 		String reqSql = null;
 		int rs;
 
-		reqSql = "UPDATE favorite set noteCompany = ? where favoriteId = ?";
+		reqSql = "UPDATE favorite set noteUser = ? where favorite_id = ? ";
 
 		prStmt = conn.prepareStatement(reqSql);
-		prStmt.setString(1, noteUser);
+		prStmt.setInt(1, selectId);
+		prStmt.setString(2, noteUser);
 		//updateFavorite.
 
 		rs = prStmt.executeUpdate();
 		System.out.println(rs);
 
 		prStmt.close();
-
-
 	}
 
 
@@ -303,11 +301,11 @@ public class FavoriteDao
 		String companyWebSite = favoriteCompany.getWebSite();
 		String companyContactMail = favoriteCompany.getContactMail();
 		rsFav = 0 ;
-		
+
 		try
 		{
 			createFavorite = conn.prepareStatement("insert into favorite values (?,?,?,?,?,?,?,?)");
-			
+
 			createFavorite.setInt(1,id);
 			createFavorite.setString(2, companyName);
 			createFavorite.setString(3, companyCity);
@@ -323,6 +321,34 @@ public class FavoriteDao
 			e.printStackTrace();
 		}
 		return rsFav;	
+	}
+
+
+	public void noteFavorite(Favorite markUser) 
+	{
+		int selectId = markUser.getIdFavorite();
+		String noteUser = markUser.getNoteUser();
+		String reqSql = null;
+		int rs;
+
+		try
+		{
+			reqSql = "UPDATE favorite set noteUser = ? where favorite_id = ? ";
+
+			prStmt = conn.prepareStatement(reqSql);
+			prStmt.setString(1, noteUser);
+			prStmt.setInt(2, selectId);
+			//updateFavorite.
+
+			rs = prStmt.executeUpdate();
+			System.out.println(rs);
+
+			prStmt.close();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}	
 	}
 
 }
