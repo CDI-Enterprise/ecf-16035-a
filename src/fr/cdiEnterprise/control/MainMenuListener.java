@@ -12,8 +12,6 @@ import javax.swing.JOptionPane;
 
 import fr.cdiEnterprise.view.MainFrame;
 import fr.cdiEnterprise.view.Menu;
-import javafx.scene.image.Image;
-import sun.awt.IconInfo;
 
 /**
  * Listeners for menu of the main frame
@@ -121,11 +119,13 @@ public class MainMenuListener implements ActionListener {
 					+ newline + "d'entreprises."
 					+ newline + newline
 					+ "Cette version est fournie par ACINO Company"
-					+ newline + "2016 GNU GENERAL PUBLIC LICENSE";
+					+ newline + "2016 GNU GENERAL PUBLIC LICENSE"
+					+ newline + newline;
 
 			//JOptionPane.showMessageDialog(MainFrame.getPanMain(), about);
 			Icon icon = new ImageIcon("spock-24.png");
-			JOptionPane.showMessageDialog(MainFrame.getPanMain(), about, "About", JOptionPane.INFORMATION_MESSAGE, icon);
+			JOptionPane.showMessageDialog(MainFrame.getPanMain(), about, "A propos de CDI Enterprise",
+					JOptionPane.INFORMATION_MESSAGE, icon);
 			
 		}
 	}
