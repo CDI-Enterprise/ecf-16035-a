@@ -36,13 +36,15 @@ public class BookMarkListener implements ActionListener
 	private String searchNameCompany;
 	//private int idCompany;
 	private int idFavorite;
-//	private String companyName;
-//	private String companyCity;
-//	private String companySize;
-//	private String companySector;
-//	private String companyWebSite;
-//	private String contactMail;	
-//	private String noteCompany;
+	
+	//Attributed to add favorite
+	private String companyName;
+	private String companyCity;
+	private String companySize;
+	private String companySector;
+	private String companyWebSite;
+	private String companyContactMail;	
+	private String noteUser;
 
 	private BookMarkPanel panFavorite = null;			//Attribute
 	private FavoriteDao favoriteDao;
@@ -55,11 +57,6 @@ public class BookMarkListener implements ActionListener
 		favoriteDao = new FavoriteDao();
 	}
 
-	//	public BookMarkListener(CompaniesSRPanel FavoritesCompany)
-	//	{
-	//		this.panFavorites = FavoritesCompany;
-	//		favoriteDao = new FavoriteDao();
-	//	}
 
 	/* (non-Javadoc)
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
@@ -84,7 +81,13 @@ public class BookMarkListener implements ActionListener
 			{
 				e1.printStackTrace();
 			}
-			if (e.getSource() == mark.getBtnSaveNote()) btnSave_click(mark);
+			if (e.getSource() == mark.getBtnSaveNote())
+				try {
+					btnSave_click(mark);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			if (e.getSource() == mark.getBtnSearchBookMark()) btnSearch_click(mark);
 			if (e.getSource() == mark.getBtnGoCompanySheet()) btnGoCompany_click(mark);
 		}
@@ -137,16 +140,17 @@ public class BookMarkListener implements ActionListener
 	/**
 	 * Save note's user in bdd
 	 * @param mark
+	 * @throws SQLException 
 	 */
-	private void btnSave_click(BookMarkPanel mark) 				
+	private void btnSave_click(BookMarkPanel mark) throws SQLException 				
 	{
-		String noteCompany	=	mark.getTxtNoteUser().getText();
+		String noteUser	=	mark.getTxtNoteUser().getText();
 
 		//Create note's object 
-		Favorite companyMark = new Favorite(idFavorite, noteCompany);			
+		Favorite markUser = new Favorite(idFavorite, noteUser);			
 
 		//Send the add
-		favoriteDao.addFavorite(companyMark);
+		favoriteDao.noteFavorite(markUser);
 	}
 
 

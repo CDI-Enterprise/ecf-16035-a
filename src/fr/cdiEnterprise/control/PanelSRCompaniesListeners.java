@@ -39,6 +39,8 @@ public class PanelSRCompaniesListeners implements ActionListener, MouseListener 
 	private String companyWebSite;
 	private String contactMail;
 	private String noteCompany;
+	private String companyContactMail;	
+	private String noteUser;
 	private FavoriteDao favoriteDao;
 
 	public PanelSRCompaniesListeners(CompaniesSRPanel panCompaniesSR) {
@@ -81,14 +83,26 @@ public class PanelSRCompaniesListeners implements ActionListener, MouseListener 
 				companySector = panCompaniesSR.getTxtSector().getText();
 				companyWebSite = panCompaniesSR.getTxtWebSite().getText();
 				contactMail = panCompaniesSR.getTxtContactMail().getText();
+				companyCity		= panCompaniesSR.getTxtCompanyCity().getText();
+				companySize		= panCompaniesSR.getLblSize().getText();	
+				companySector	= panCompaniesSR.getTxtSector().getText();
+				companyWebSite	= panCompaniesSR.getTxtWebSite().getText();
+				companyContactMail		= panCompaniesSR.getTxtContactMail().getText();
 
 				// Create a favorite's object
 				favoriteCompany = new Favorite(idFavorite, companyName, companyCity, companySize, companySector,
 						companyWebSite, contactMail, noteCompany);
+				//Create a favorite's object
+				favoriteCompany = new Favorite(idFavorite, companyName, companyCity, companySize, companySector, companyWebSite, companyContactMail, noteUser);
 				System.out.println(favoriteCompany);
 
 				// Send the add
 				favoriteDao.addFavorite(favoriteCompany);
+				
+				//Send the add
+				//favoriteDao.addFavorite(favoriteCompany);
+				favoriteDao.addFavorite(idFavorite, companyName, companyCity, companySize, companySector, companyWebSite, companyContactMail, noteUser);
+
 				System.out.println("hey" + favoriteDao);
 			} catch (SQLException e1) {
 				e1.printStackTrace();

@@ -33,8 +33,11 @@ public class FavoriteDao
 	private static Connection conn = DBConnection.getConnect();
 	private static Statement stmt;
 	private static PreparedStatement prStmt;
-//	private static PreparedStatement createFavorite;
+	private static PreparedStatement createFavorite;
+	private static PreparedStatement createNote;
 	private JComboBox <String> lstMyFavorites;
+	private int rsNote;
+	private int rsFav;
 
 	/**
 	 * Create idMax for BDD
@@ -61,62 +64,39 @@ public class FavoriteDao
 	 * @param favorite
 	 * 
 	 */
-	public int addFavorite (Favorite favorite)
+	public void addFavorite (int id, String companyName, String companyCity, String companySize, String companySector, String companyWebSite,String companyContactMail, String noteUser)
 	{
-		int returnMark = 0;
+		rsNote =0; 
+		rsFav = 0 ; 
 		try
 		{
-			//Recover datas 
-			//================
-
-			//TODO note
-
-			//			NoteCompany noteUser = favorite.getNoteCompany();
-			//
-			//			//Seach if noteUser exist
-			//			if (noteUser != null)
-			//			{
-			//				String lblNoteUser	= noteUser.getLblNote();
-			//				NoteCompany noteBDD = null;
-			//
-			//				ResultSet rs = stmt.executeQuery("select idNote from notecompany where lblNote = '" + lblNoteUser + "'");
-			//				while (rs.next())
-			//				{
-			//					int idNote	= rs.getInt(1);
-			//					noteBDD		= new NoteCompany(idNote, lblNoteUser);
-			//				}
-			//				//if don't exist,we create it
-			//
-			//				if(noteBDD == null)
-			//				{
-			//					ResultSet rsMax = stmt.executeQuery("select max(idNote) from notecompany");
-			//					int idMax = 0;
-			//					while (rsMax.next()) idMax = rsMax.getInt(1);
-			//
-			//					noteBDD = new NoteCompany(idMax + 1, lblNoteUser);
-			//
-			//					//insert to BDD
-			//					stmt.executeUpdate("insert into notecompany (" + noteBDD.getIdNote() + 
-			//							",'" + noteBDD.getLblNote() + "')");						
-			//				}
-			//
-			//				//Put the note to favorite for to have a object
-			//				favorite.setNoteCompany(noteUser);			
-			//			}
-
-			//================
+			createNote = conn.prepareStatement("insert into favorite values (?,?)");
+			createNote.setInt(1, id);
+			createNote.setString(8, noteUser);
+			createFavorite = conn.prepareStatement("insert into favorite (?,?,?,?,?,?) select companyName, city, size, sector, webSite, contactMAil from company");
+			createFavorite.setString(2, companyName);
+			createFavorite.setString(3, companyCity);
+			createFavorite.setString(4, companySize);
+			createFavorite.setString(5, companySector);
+			createFavorite.setString(6, companyWebSite);
+			createFavorite.setString(7, companyContactMail);
+			rsNote = createNote.executeUpdate();
+			rsFav  = createFavorite.executeUpdate();
+			//stmt.executeUpdate("insert into favorite value(" + Favorite.getNoteCompany());
+			
+			//Recover data
 
 			//Insert favorite
-
-			stmt.executeUpdate("insert into favorite values (" +  favorite.getIdFavorite() + ",' "+ favorite.getCompanyName() +
-					",'" + favorite.getCity() + ",'" + favorite.getSize() + ",'" + favorite.getSector() + ",'" + favorite.getWebSite() +
-					",'"  + favorite.getContactMail() +  ",'" + favorite.getNoteCompany() + "')");
+//
+//			stmt.executeUpdate("insert into favorite values (" +  favorite.getIdFavorite() + ",' "+ favorite.getCompanyName() +
+//					",'" + favorite.getCity() + ",'" + favorite.getSize() + ",'" + favorite.getSector() + ",'" + favorite.getWebSite() +
+//					",'"  + favorite.getContactMail() +  ",'" + favorite.getNoteCompany() + "')");
 		}
 		catch (SQLException e)
 		{
 			e.printStackTrace();
 		}
-		return returnMark;	
+//		return returnMark;	
 	}
 
 
@@ -126,7 +106,7 @@ public class FavoriteDao
 	 * 
 	 */
 
-	public void noteFavorite (String noteCompany) throws SQLException
+	public void noteFavorite (String noteUser) throws SQLException
 	{
 		String reqSql = null;
 		int rs;
@@ -134,7 +114,7 @@ public class FavoriteDao
 		reqSql = "UPDATE favorite set noteCompany = ? where favoriteId = ?";
 
 		prStmt = conn.prepareStatement(reqSql);
-		prStmt.setString(1, noteCompany);
+		prStmt.setString(1, noteUser);
 		//updateFavorite.
 
 		rs = prStmt.executeUpdate();
@@ -307,6 +287,27 @@ public class FavoriteDao
 	 */
 	public JComboBox<String> getLstMyFavorites() {
 		return lstMyFavorites;
+	}
+
+
+	public void noteFavorite(Favorite markUser) throws SQLException 
+	{
+		String noteUser = null;
+		String reqSql = null;
+		int rs;
+
+		reqSql = "UPDATE favorite set noteCompany = ? where favoriteId = ?";
+
+		prStmt = conn.prepareStatement(reqSql);
+		prStmt.setString(1, noteUser);
+		//updateFavorite.
+
+		rs = prStmt.executeUpdate();
+		System.out.println(rs);
+
+		prStmt.close();
+		
+		
 	}
 
 }
