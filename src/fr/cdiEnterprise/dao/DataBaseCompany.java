@@ -694,13 +694,12 @@ public class DataBaseCompany {
 	public static int getIdMax(String table) throws SQLException {
 		Connection connexion;
 		Statement stmt;
-
+		int idMax = 0;
 		connexion = DBConnection.getConnect();
 		stmt = connexion.createStatement();
 
 		ResultSet rsMax = stmt.executeQuery("select max (" + table + "id) from " + table);
-		int idMax = 0;
-
+		
 		while (rsMax.next())
 			idMax = rsMax.getInt(1);
 
