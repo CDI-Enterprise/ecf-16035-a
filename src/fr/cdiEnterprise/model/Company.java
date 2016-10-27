@@ -3,7 +3,7 @@ package fr.cdiEnterprise.model;
 import fr.cdiEnterprise.service.Languages;
 
 /**
- * Class for company creation 
+ * Class for company creation
  * 
  * @author Anaïs
  * @version 23-10-2016
@@ -11,7 +11,7 @@ import fr.cdiEnterprise.service.Languages;
  */
 public class Company {
 
-//	private static int id;
+	// private static int id;
 	private int companyId;
 	private String companyName;
 	private String adress;
@@ -21,7 +21,7 @@ public class Company {
 	private Region region;
 	private String sector;
 	private String size;
-	private Languages languages;
+	// private Languages languages;
 	private Language language;
 	private String projets;
 	private String webSite;
@@ -33,54 +33,58 @@ public class Company {
 	public Company() {
 	}
 
-	public Company(int idCompany, String companyName, String adress, String postalCode, String city, Department department, Region region) {
-	
-		this.companyName = companyName;
-		this.adress = adress;
-		this.postalCode = postalCode;
-		this.city = city;
-		this.department = department;
-		this.region=region;
-		this.companyId = idCompany;
-	}
+	public Company(int idCompany, String companyName, String adress, String postalCode, String city,
+			Department department, Region region) {
 
-	/**
-	 * Constructeur avec attributs
-	 * 
-	 * @param companyId
-	 * @param companyName
-	 * @param adress
-	 * @param postalCode
-	 * @param city
-	 * @param department
-	 * @param region
-	 * @param sector
-	 * @param languages
-	 * @param webSite
-	 * @param contact
-	 */
-	public Company(int companyId, String companyName, String adress, String postalCode, String city, Department department, Region region, String size,
-			String sector,  Languages languages,String projets, String webSite, Contact contact) {
-		
 		this.companyName = companyName;
 		this.adress = adress;
 		this.postalCode = postalCode;
 		this.city = city;
 		this.department = department;
 		this.region = region;
-		this.sector = sector;
-		this.size = size;
-		this.languages = languages;
-		this.projets=projets;
-		this.webSite = webSite;
-		this.contact = contact;
-		this.companyId = companyId;
+		this.companyId = idCompany;
 	}
 
-	
-	public Company(int companyId,String companyName, String adress, String postalCode, String city, Department department, Region region, String size,
-			String sector,  Language language,String projets, String webSite, Contact contact) {
-		
+	// /**
+	// * Constructeur avec attributs disponible dans la prochaine version
+	// *
+	// * @param companyId
+	// * @param companyName
+	// * @param adress
+	// * @param postalCode
+	// * @param city
+	// * @param department
+	// * @param region
+	// * @param sector
+	// * @param languages
+	// * @param webSite
+	// * @param contact
+	// */
+	// public Company(int companyId, String companyName, String adress, String
+	// postalCode, String city,
+	// Department department, Region region, String size, String sector,
+	// Languages languages, String projets,
+	// String webSite, Contact contact) {
+	//
+	// this.companyName = companyName;
+	// this.adress = adress;
+	// this.postalCode = postalCode;
+	// this.city = city;
+	// this.department = department;
+	// this.region = region;
+	// this.sector = sector;
+	// this.size = size;
+	// this.languages = languages;
+	// this.projets = projets;
+	// this.webSite = webSite;
+	// this.contact = contact;
+	// this.companyId = companyId;
+	// }
+
+	public Company(int companyId, String companyName, String adress, String postalCode, String city,
+			Department department, Region region, String size, String sector, Language language, String projets,
+			String webSite, Contact contact) {
+
 		this.companyName = companyName;
 		this.adress = adress;
 		this.postalCode = postalCode;
@@ -90,33 +94,35 @@ public class Company {
 		this.sector = sector;
 		this.size = size;
 		this.setLanguage(language);
-		this.projets=projets;
+		this.projets = projets;
 		this.webSite = webSite;
 		this.contact = contact;
 		this.companyId = companyId;
 	}
-	
-//	public Company(int idEntreprise,String companyName, String adress, String postalCode, String city, Department department, Region region, String size,
-//			String sector,  Language language,String projets, String webSite, Contact contact) {
-//		
-//		this.companyName = companyName;
-//		this.adress = adress;
-//		this.postalCode = postalCode;
-//		this.city = city;
-//		this.department = department;
-//		this.region = region;
-//		this.sector = sector;
-//		this.size = size;
-//		this.setLanguage(language);
-//		this.projets=projets;
-//		this.webSite = webSite;
-//		this.contact = contact;
-//		this.idEnterprise = idEntreprise;
-//	}
+
+	// public Company(int idEntreprise,String companyName, String adress, String
+	// postalCode, String city, Department department, Region region, String
+	// size,
+	// String sector, Language language,String projets, String webSite, Contact
+	// contact) {
+	//
+	// this.companyName = companyName;
+	// this.adress = adress;
+	// this.postalCode = postalCode;
+	// this.city = city;
+	// this.department = department;
+	// this.region = region;
+	// this.sector = sector;
+	// this.size = size;
+	// this.setLanguage(language);
+	// this.projets=projets;
+	// this.webSite = webSite;
+	// this.contact = contact;
+	// this.idEnterprise = idEntreprise;
+	// }
 	/**
 	 * Ensemble des getters de la clase Company
 	 */
-
 
 	/**
 	 * @return the companyName
@@ -166,7 +172,7 @@ public class Company {
 	public String getSector() {
 		return sector;
 	}
-	
+
 	public String getSize() {
 		return size;
 	}
@@ -178,9 +184,10 @@ public class Company {
 		return getLanguages();
 	}
 
-	public String getProjets(){
+	public String getProjets() {
 		return projets;
 	}
+
 	/**
 	 * @return the webSite
 	 */
@@ -207,7 +214,8 @@ public class Company {
 	 */
 
 	/**
-	 * @param size the size to set
+	 * @param size
+	 *            the size to set
 	 */
 	public void setSize(String size) {
 		this.size = size;
@@ -273,9 +281,9 @@ public class Company {
 	 * @param languages
 	 *            the languages to set
 	 */
-	public void setLanguages(Languages languages) {
-		this.languages = languages;
-	}
+	// public void setLanguages(Languages languages) {
+	// this.languages = languages;
+	// }
 
 	/**
 	 * @param projets
@@ -284,8 +292,7 @@ public class Company {
 	public void setProjets(String projets) {
 		this.projets = projets;
 	}
-	
-	
+
 	/**
 	 * @param webSite
 	 *            the webSite to set
@@ -326,8 +333,8 @@ public class Company {
 	@Override
 	public String toString() {
 		return "Entreprise [companyName=" + companyName + ", adress=" + adress + ", postalCode=" + postalCode
-				+ ", city=" + city + ", department=" + department + ", region=" + region +", langage=" + language + ", size=" + size + ", sector= " + sector 
-				+ ", webSite=" + webSite + ", contact=" + contact + "]";
+				+ ", city=" + city + ", department=" + department + ", region=" + region + ", langage=" + language
+				+ ", size=" + size + ", sector= " + sector + ", webSite=" + webSite + ", contact=" + contact + "]";
 	}
 
 	@Override

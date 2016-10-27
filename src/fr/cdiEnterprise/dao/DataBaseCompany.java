@@ -208,7 +208,7 @@ public class DataBaseCompany {
 		reqSql = "insert into regions values('" + region.getRegionName() + "'," + region.getCodeRegion() + ")";
 		System.out.println(reqSql);
 		stmt.executeUpdate(reqSql);
-		
+
 		connexion.commit();
 		stmt.close();
 
@@ -443,7 +443,7 @@ public class DataBaseCompany {
 				+ "and departments.departmentNumber = companydepartment.departmentNumber "
 				+ "and regions.regionId = companyregion.regionId "
 				+ "and language.languageId = companylanguage.LANGUAGEID");
-		
+
 		while (rs.next()) {
 			int companyId = rs.getInt("companyId");
 			String companyName = rs.getString("companyName");
@@ -453,11 +453,10 @@ public class DataBaseCompany {
 			String departmentN = rs.getString("departmentName");
 			String regionN = rs.getString("regionName");
 
-
 			Department department = DataBaseCompany.getDepartmentId(departmentN);
 			Region region = DataBaseCompany.getRegionId(regionN);
-			
-			companies.add(new Company(companyId,companyName, companyAdress, postalcode, city, department, region));
+
+			companies.add(new Company(companyId, companyName, companyAdress, postalcode, city, department, region));
 
 		}
 		stmt.close();
@@ -477,7 +476,7 @@ public class DataBaseCompany {
 
 		Connection connexion = null;
 		Statement stmt = null;
-//		int companyId = DataBaseCompany.getIdMax("company");
+		// int companyId = DataBaseCompany.getIdMax("company");
 		String reqSqla;
 		String reqSqlb;
 		String reqSqlc;
@@ -490,7 +489,7 @@ public class DataBaseCompany {
 		int rsd;
 		int rse;
 		int rsf;
-		
+
 		connexion = DBConnection.getConnect();
 		stmt = connexion.createStatement();
 
@@ -528,23 +527,23 @@ public class DataBaseCompany {
 		insertContact.setString(2, contact.getName());
 		insertContact.setString(3, contact.getPhoneNumber());
 		insertContact.setString(4, contact.getEmail());
-		
-		reqSqlf="insert into companyContact values (?,?)";
+
+		reqSqlf = "insert into companyContact values (?,?)";
 		PreparedStatement insertCompanyContact = connexion.prepareStatement(reqSqlf);
 		insertCompanyContact.setInt(1, company.getCompanyId());
 		insertCompanyContact.setInt(2, contact.getIdContact());
-				
+
 		rsa = insertCompany.executeUpdate();
 		rsb = insertCompanyRegion.executeUpdate();
 		rsc = insertCompanyDepartment.executeUpdate();
 		rsd = insertCompanyLanguage.executeUpdate();
 		rse = insertContact.executeUpdate();
 		rsf = insertContact.executeUpdate();
-		
+
 		stmt.close();
-		
-		System.out.println("rsa" + rsa + "rsb" + rsb + "rsc" + rsc + "rsd" + rsd + "rse"+ rse + "rsf" + rsf);
-		
+
+		System.out.println("rsa" + rsa + "rsb" + rsb + "rsc" + rsc + "rsd" + rsd + "rse" + rse + "rsf" + rsf);
+
 		connexion.commit();
 		stmt.close();
 
@@ -570,10 +569,10 @@ public class DataBaseCompany {
 		int rsb;
 		int rsc;
 		int rsd;
-		
+
 		connexion = DBConnection.getConnect();
 		stmt = connexion.createStatement();
-				
+
 		reqSqla = "delete from company where companyId = ?";
 		PreparedStatement deleteCompany = connexion.prepareStatement(reqSqla);
 		deleteCompany.setInt(1, selecId);
@@ -594,12 +593,12 @@ public class DataBaseCompany {
 		rsb = deleteCompanyRegion.executeUpdate();
 		rsc = deleteCompanyDepartment.executeUpdate();
 		rsd = deleteCompanyLanguage.executeUpdate();
-		
+
 		System.out.println("rsa" + rsa + "rsb" + rsb + "rsc" + rsc + "rsd" + rsd);
-		
+
 		connexion.commit();
 		stmt.close();
-		
+
 	}
 
 	/**
@@ -617,7 +616,7 @@ public class DataBaseCompany {
 		Statement stmt = null;
 		String reqSql = null;
 		int rs;
-		
+
 		connexion = DBConnection.getConnect();
 		stmt = connexion.createStatement();
 
@@ -630,10 +629,9 @@ public class DataBaseCompany {
 
 		rs = updateCompany.executeUpdate();
 		System.out.println(rs);
-	
+
 		stmt.close();
 	}
-
 
 	public static Company getCompaniesId(String companyNameSel) throws SQLException {
 		Company company = null;
@@ -648,14 +646,13 @@ public class DataBaseCompany {
 		reqSql = "select company.companyId, companyName,companyAdress, companyCODEPOSTAL, companyCity, "
 				+ "companySize , companySector , companyProjects , companyWeb, departmentname, regionName, languagename "
 				+ "from company, language, departments, regions, companydepartment, companyregion, companylanguage "
-				+ "where companyName = ?"
-				+ "and company.companyId = companyregion.companyId "
+				+ "where companyName = ?" + "and company.companyId = companyregion.companyId "
 				+ "and company.companyId = companydepartment.companyId "
 				+ "and company.companyId = companyLanguage.companyId "
 				+ "and departments.departmentNumber = companydepartment.departmentNumber "
 				+ "and regions.regionId = companyregion.regionId "
 				+ "and language.languageId = companylanguage.LANGUAGEID";
-		
+
 		PreparedStatement getCompaniesId = connexion.prepareStatement(reqSql);
 		// System.out.println(reqSql);
 		getCompaniesId.setString(1, companyNameSel);
@@ -669,18 +666,18 @@ public class DataBaseCompany {
 			String postalcode = rs.getString("companyCodepostal");
 			String city = rs.getString("companyCity");
 			String departmentN = rs.getString("departmentName");
-			String regionN =rs.getString("regionName");
+			String regionN = rs.getString("regionName");
 
 			Department department = DataBaseCompany.getDepartmentId(departmentN);
 			Region region = DataBaseCompany.getRegionId(regionN);
 
-			company = new Company(companyId,companyName, companyAdress, postalcode, city, department, region);
+			company = new Company(companyId, companyName, companyAdress, postalcode, city, department, region);
 		}
 		stmt.close();
 
 		return company;
-		}
-	
+	}
+
 	/**
 	 * Méthode permettant de fournir l'id max d'une table de la base de données
 	 * fournie en paramètre
@@ -699,7 +696,7 @@ public class DataBaseCompany {
 		stmt = connexion.createStatement();
 
 		ResultSet rsMax = stmt.executeQuery("select max (" + table + "id) from " + table);
-		
+
 		while (rsMax.next())
 			idMax = rsMax.getInt(1);
 

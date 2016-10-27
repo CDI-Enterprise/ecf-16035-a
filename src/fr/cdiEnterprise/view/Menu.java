@@ -144,6 +144,7 @@ public class Menu extends JMenuBar {
 		menuBookmark.addActionListener(listener);
 		subBookMarkRead.addActionListener(listener);
 		
+		subHelpUpdate.addActionListener(listener);
 		subHelpAbout.addActionListener(listener);
 
 	}
@@ -214,10 +215,16 @@ public class Menu extends JMenuBar {
 	}
 	
 	/**
+	 * @return the subHelpUpdate
+	 */
+	public JMenuItem getSubHelpUpdate() {
+		return subHelpUpdate;
+	}
+
+	/**
 	 * @return the subHelpAbout
 	 */
 	public JMenuItem getSubHelpAbout() {
 		return subHelpAbout;
 	}
-
 }
