@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import fr.cdiEnterprise.view.company.CompaniesSRPanel;
 import fr.cdiEnterprise.view.company.CompanyCreationPanel;
 import fr.cdiEnterprise.view.company.CompanyDeletUpdatPanel;
+import fr.cdiEnterprise.view.message.MessagingMainPanel;
 import fr.cdiEnterprise.view.profile.PanelUserCRUD;
 import fr.cdiEnterprise.view.profile.PanelUserSR;
 

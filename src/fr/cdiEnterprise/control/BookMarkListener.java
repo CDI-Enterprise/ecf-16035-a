@@ -17,11 +17,11 @@ import fr.cdiEnterprise.view.company.CompaniesSRPanel;
 import fr.cdiEnterprise.view.company.CompanyDeletUpdatPanel;
 //import fr.cdiEnterprise.model.Contact;
 import fr.cdiEnterprise.model.Favorite;
-import fr.cdiEnterprise.model.NoteCompany;
-import fr.cdiEnterprise.dao.DataBaseCompany;
+//import fr.cdiEnterprise.model.NoteCompany;
+//import fr.cdiEnterprise.dao.DataBaseCompany;
 //import fr.cdiEnterprise.model.NoteCompany;
 import fr.cdiEnterprise.dao.FavoriteDao;
-import fr.cdiEnterprise.service.Favorites;
+//import fr.cdiEnterprise.service.Favorites;
 
 /**
  *13 oct. 2016
@@ -34,7 +34,7 @@ public class BookMarkListener implements ActionListener
 {
 
 	private String searchNameCompany;
-	private int idCompany;
+	//private int idCompany;
 	private int idFavorite;
 	private String companyName;
 	private String companyCity;
@@ -45,9 +45,7 @@ public class BookMarkListener implements ActionListener
 	private String noteCompany;
 
 	private BookMarkPanel panFavorite = null;			//Attribute
-	//private Company FavoritesCompany = null;
 	private FavoriteDao favoriteDao;
-	private CompaniesSRPanel panFavorites;
 	private JDialog Confirmation;
 
 
@@ -57,11 +55,11 @@ public class BookMarkListener implements ActionListener
 		favoriteDao = new FavoriteDao();
 	}
 
-	public BookMarkListener(CompaniesSRPanel FavoritesCompany)
-	{
-		this.panFavorites = FavoritesCompany;
-		favoriteDao = new FavoriteDao();
-	}
+	//	public BookMarkListener(CompaniesSRPanel FavoritesCompany)
+	//	{
+	//		this.panFavorites = FavoritesCompany;
+	//		favoriteDao = new FavoriteDao();
+	//	}
 
 	/* (non-Javadoc)
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
@@ -77,17 +75,25 @@ public class BookMarkListener implements ActionListener
 			BookMarkPanel mark = (BookMarkPanel) panFavorite;								//Instance mark whatever click button
 
 			if (e.getSource() == mark.getBtnBookMarkSee())  btnSee_click(mark);
-			if (e.getSource() == mark.getBtnBookMarkDelete()) btnDelete_click(mark);
+			if (e.getSource() == mark.getBtnBookMarkDelete())
+				try 
+			{
+					btnDelete_click(mark);
+			} 
+			catch (SQLException e1) 
+			{
+				e1.printStackTrace();
+			}
 			if (e.getSource() == mark.getBtnSaveNote()) btnSave_click(mark);
 			if (e.getSource() == mark.getBtnSearchBookMark()) btnSearch_click(mark);
 			if (e.getSource() == mark.getBtnGoCompanySheet()) btnGoCompany_click(mark);
 		}
-		else if (panFavorites instanceof fr.cdiEnterprise.view.company.CompaniesSRPanel)	//if cmbBookMarkValidate clicked
-		{
-			CompaniesSRPanel mark2 = (CompaniesSRPanel) panFavorites;
-			if (e.getSource() == mark2.getBtnFavoris()) btnValidate_click(mark2);		
-
-		}
+		//		else if (panFavorites instanceof fr.cdiEnterprise.view.company.CompaniesSRPanel)	//if cmbBookMarkValidate clicked
+		//		{
+		//			CompaniesSRPanel mark2 = (CompaniesSRPanel) panFavorites;
+		//			if (e.getSource() == mark2.getBtnFavoris()) btnValidate_click(mark2);		
+		//
+		//		}
 		else System.out.println("BookMarkListener - Error IHM");	 					//else message error
 	}
 
@@ -105,7 +111,7 @@ public class BookMarkListener implements ActionListener
 	private void btnSee_click(BookMarkPanel mark) 
 	{
 		//TODO SEE
-		
+
 
 
 		//Favorites favorites = see.lstFavorite();
@@ -114,45 +120,17 @@ public class BookMarkListener implements ActionListener
 	}
 
 
-	/**
-	 * Validate company name to view in text area
-	 * @param mark2
-	 * 
-	 */
-	private void btnValidate_click(CompaniesSRPanel mark2) 						//Recover informations
-	{
-		// TODO listener sql request Viewing Detail to select Company
-		try
-		{
-		companyName		= mark2.getTxtCompanyCity().getText();
-		companyCity		= mark2.getTxtCompanyCity().getText();
-		companySize		= mark2.getLblSize().getText();	
-		companySector	= mark2.getTxtSector().getText();
-		companyWebSite	= mark2.getTxtWebSite().getText();
-		contactMail		= mark2.getTxtContactMail().getText();
-		idFavorite		= FavoriteDao.getIdMax("favorite") +1;
-
-		//Create a favorite's object
-		Favorite favoriteCompany = new Favorite( idFavorite,companyName, companyCity, companySize, companySector, companyWebSite, contactMail, noteCompany);
-
-		//Send the add
-		favoriteDao.addFavorite(favoriteCompany);
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Remove company name to the list
 	 * @param mark
 	 * @param CompanyName
 	 */
-	private void btnDelete_click(BookMarkPanel mark) 
+	private void btnDelete_click(BookMarkPanel mark) throws SQLException 
 	{
+		JOptionPane.showConfirmDialog(Confirmation, "Vous allez supprimer un favori");
 		String companyName = mark.getLstMyFavorites().getSelectedItem().toString();
-		favoriteDao.deleteFavorite(companyName);	
+		favoriteDao.deleteFavorite(companyName);
 	}
 
 
@@ -162,7 +140,6 @@ public class BookMarkListener implements ActionListener
 	 */
 	private void btnSave_click(BookMarkPanel mark) 				
 	{
-		// TODO class  noteSave of company
 		String noteCompany	=	mark.getTxtNoteUser().getText();
 
 		//Create note's object 
@@ -184,7 +161,7 @@ public class BookMarkListener implements ActionListener
 	}
 
 	//lstMyFavorites
-	
+
 	/**
 	 * To go in Company panel choosen
 	 * @param mark
@@ -194,13 +171,13 @@ public class BookMarkListener implements ActionListener
 		CompanyDeletUpdatPanel goToCompany;
 		try 
 		{
-			JOptionPane.showConfirmDialog(Confirmation, "Vous allez voir la fiche complète");
+			JOptionPane.showConfirmDialog(Confirmation, "Vous allez voir la fiche complète, aurevoir");
 			goToCompany = new CompanyDeletUpdatPanel();
 			goToCompany.setVisible(true);
 			//this.dispose();
 		} 
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
+		catch (SQLException e) 
+		{
 			e.printStackTrace();
 		}
 	}

@@ -41,16 +41,16 @@ public class MpClientV2 {
 	private static int ID_NUMBER = CONST_ZERO;
 	  
 
-	//private Server messageDao;
+	
 	private String box;
 	private Items myMessages;
-	//private Items myDraft;
+	
 	
 	/**
 	 * Ce constructeur vq d('abord charger tous les messages contenu dans la base pour l'utilisateur donné en parametre.
 	 * par la suite il va charger seuelement les messages dans son attribu d'items.
 	 * @param usr represente la Boite de messagerie de l'utilsateur, aillant ouvert l'application.
-	 * @throws SQLException 
+	 *  @throws SQLException exception venant de la class DAO
 	 */
 	public MpClientV2(String usr) throws SQLException   {
 		box = usr;
@@ -65,7 +65,7 @@ public class MpClientV2 {
 
 	/**
 	 * Cette method est utilise pour determiner le numeros de message ID Max provenant de la base de donnee.
-	 * @throws SQLException 
+	 * @throws SQLException exception venant de la class DAO
 	 */
 	private Items getMaxItems(boolean all) throws SQLException   {
 		Items items = null;
@@ -90,6 +90,8 @@ public class MpClientV2 {
 	//	System.out.println("l'email le plus rescent est numero "+ ID_NUMBER);
 		return items;
 	}
+	
+	
 	
 	private Items getAllMessages() throws SQLException   {
 		return messageDao.getAllItems(this.box);
@@ -133,10 +135,13 @@ public class MpClientV2 {
 	
 	/**
 	 * This method will be used to reply to an email , draft have to be false, or send a draft email and draft have to be true.
-	 * @param item
-	 * @param draft
-	 * @return
-	 * @throws CustomMessagingException 
+	 * 
+	 * @param from the from String
+	 * @param to the receiver in String 
+	 * @param body in String
+	 * @param draft a boolean at True for Draft
+	 * @throws CustomMessagingException this is going to use the custom class exception in case the datas received are incorrect
+	 * oject or to.
 	 */
 	public void sendEmail(String from, String to, String object, String body, boolean draft) throws CustomMessagingException {
 
@@ -172,7 +177,7 @@ public class MpClientV2 {
 				
 
 
-		}
+			}
 			}else {
 				throw new CustomMessagingException("le Destinataire ou le sujet sont vide.");
 
@@ -185,7 +190,7 @@ public class MpClientV2 {
 	
 	/**
 	 * This method is going to put the edited draft email back to the draft folder
-	 * @param item
+	 * @param item is the updated message to be inserted.
 	 * @return return true if properly drafted.
 	 * @throws SQLException 
 	 */
@@ -203,8 +208,8 @@ public class MpClientV2 {
 	
 //	/**
 //	 * This method is going to put the new created  email into the draft folder
-//	 * @param item
-//	 * @return return true if properly drafted.
+//	 * @param the new created item to be identified as draft.
+//	 * 
 //	 */
 	public void draft(String from, String to, String obj, String bdy, boolean draft) {
 //		
@@ -224,7 +229,7 @@ public class MpClientV2 {
 	 * will depends on the boolean status
 	 * @param draft true will indicate to return the draft email
 	 * @return an arrayList of items
-	 * @throws SQLException 
+	 * 
 	 */
 	public Items getMessages(boolean draft)  {
 
@@ -240,14 +245,12 @@ public class MpClientV2 {
 	 * this is going to remove a message or a draft message, and with a particular id.
 	 * @param identifier to get the requested email removed
 	 * @param draft will indicate if this is a draft email
-	 * @throws SQLException 
+	 * @throws SQLException reçu de la class DAO et a transmettre a l'apellant.
 	 */
 	public void removeMessage(int identifier, boolean draft) throws SQLException  {
 		
-		if(messageDao.removeMessage(this.box, identifier, draft)) {
-			// TODO (nicolas) return a boolean later.
-			//System.out.println("Message has been removed...");
-		}
+		messageDao.removeMessage(this.box, identifier, draft);
+			
 	}
 	
 	public Items searchMessage(String input) {

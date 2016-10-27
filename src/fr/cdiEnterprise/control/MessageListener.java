@@ -6,18 +6,13 @@ package fr.cdiEnterprise.control;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
-
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 
-import fr.cdiEnterprise.dao.OldDatas;
 import fr.cdiEnterprise.dao.UserDAO;
 import fr.cdiEnterprise.exceptions.CustomMessagingException;
 import fr.cdiEnterprise.model.Item;
@@ -28,12 +23,11 @@ import fr.cdiEnterprise.service.Users;
 import fr.cdiEnterprise.util.MpClientV2;
 import fr.cdiEnterprise.util.ReadProperties;
 import fr.cdiEnterprise.view.MainFrame;
-import fr.cdiEnterprise.view.MessagingDraftPanel;
-import fr.cdiEnterprise.view.MessagingMainPanel;
-import fr.cdiEnterprise.view.MessagingModifPanel;
-import fr.cdiEnterprise.view.MessagingNewPanel;
-
-import fr.cdiEnterprise.view.MessagingReadPanel;
+import fr.cdiEnterprise.view.message.MessagingDraftPanel;
+import fr.cdiEnterprise.view.message.MessagingMainPanel;
+import fr.cdiEnterprise.view.message.MessagingModifPanel;
+import fr.cdiEnterprise.view.message.MessagingNewPanel;
+import fr.cdiEnterprise.view.message.MessagingReadPanel;
 
 /**
  * Class for the actionListner dedicated to the Messaging part. This class is
@@ -56,21 +50,16 @@ public class MessageListener implements ActionListener, MouseListener {
 	private JPanel panelUser;
 
 	private static final int MESSAGE_MAX_SIZE = 440;
-
 	public static String alias;
-	
-	private int nbCaracters;
 	private static Item currentItem;
-	
-	
-	
 	private static MpClientV2 client;
 	
 	
 	/**
 	 * Constructs a listener taking a panel for attribute
-	 * @throws SQLException 
+	 * 
 	 */
+	@SuppressWarnings("static-access")
 	public MessageListener(JPanel panelUser)  {
 		
 		
@@ -89,13 +78,8 @@ public class MessageListener implements ActionListener, MouseListener {
 			customDialog("sortie du programme");
 			System.exit(-1);
 			
-			// TODO (nicolas) garder le stackTrace ou pas ? e.printStackTrace();
 		}
 		this.panelUser 	= panelUser;
-		
-//		this.alias 		= ReadProperties.getMyAlias();
-//		this.client 	= new MpClientV2(alias);
-//		this.panelUser 	= panelUser;
 
 		
 
@@ -144,14 +128,10 @@ public class MessageListener implements ActionListener, MouseListener {
 
 		}
 		else if  (e.getSource() == panelMain.getBtnDraft()) {
-			
-			// TODO (nicolas) implementer la consultations des messages brouillon
-			// nouveau panel.
+
 			panelDraft = new MessagingDraftPanel();
 			MessageListener.panelDraft.setCopyUserItems(client.getMessages(true));
-			//Previous implementation MessageListener.panelDraft.setCopyUserItems(cli.getMessages(true));
-			panelDraft.refresh();
-			
+			panelDraft.refresh();	
 			MainFrame.SwithPanel(panelDraft);
 			
 		}
@@ -201,8 +181,6 @@ public class MessageListener implements ActionListener, MouseListener {
 					}
 				
 					MessageListener.panelMain.setCopyUserItems(client.getMessages(false));	
-
-					// MessageListener.panelMain.setCopyUserItems(cli.getMessages(false)); // old implementation.
 					panelMain.refresh();
 					
 					MainFrame.SwithPanel(panelMain);
@@ -236,9 +214,7 @@ public class MessageListener implements ActionListener, MouseListener {
 					panelDraft.refresh();
 					MainFrame.SwithPanel(panelDraft);
 			}
-			// TODO (nicolas) implementer l'envoie du message vers le repertoire brouillon
-			// et revenir vers les messages brouillons
-			
+
 		}
 
 		//RETURN FROM THE NEW MESSAGE PANEL
@@ -253,7 +229,6 @@ public class MessageListener implements ActionListener, MouseListener {
 		// PANEL LECTURE D'UN MESSAGE - CAS POSSIBLES DE LA Fenetre de lecture.
 		}else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnRep())) {
 		
-			//cli.display(false);
 			currentItem = panelRead.getItm();
 			currentItem.setObject(panelRead.getTxtObject().getText());
 			currentItem.setBody(panelRead.getTxtMessage().getText());
@@ -264,13 +239,9 @@ public class MessageListener implements ActionListener, MouseListener {
 				customDialog(e1.getMessage());
 				e1.printStackTrace();
 			}
-			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
-			//client.display(false);
-		
-			
-			
+			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));			
 			panelMain.refresh();
-			//cli.display(false);
+
 			MainFrame.SwithPanel(panelMain);
 		}else if ((panelRead	 != null ) && (e.getSource() == panelRead.getBtnRet())) {
 			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
@@ -281,20 +252,13 @@ public class MessageListener implements ActionListener, MouseListener {
 			try {
 				client.removeMessage(currentItem.getId(), false);
 			} catch (SQLException e1) {
-				System.out.println(e1.getMessage());
-				customDialog(e1.getMessage());
-				
-				// TODO (nicolas) need to be here ?e1.printStackTrace();
+				customDialog(e1.getMessage());			
 			}
 			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
 			panelMain.refresh();
 			MainFrame.SwithPanel(panelMain);
-//			client.removeMessage(currentItem.getId(), false);
-//
-//			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
-//			panelMain.refresh();
-//			MainFrame.SwithPanel(panelMain);
-//		
+
+
 		// LISTE DES BROUILLONS
 		} else if ((panelDraft != null) && (e.getSource() == panelDraft.getBtnDisplay())) {
 			
@@ -306,8 +270,6 @@ public class MessageListener implements ActionListener, MouseListener {
 		
 		else if ((panelDraft != null) && ( e.getSource() == panelDraft.getBtnMess())) {
 
-			// panelNew = new MessagingNewPanel();
-			//MessageListener.panelMain.setCopyUserItems(cli.getMessages(false)); // Previous imlplementatioons
 			MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
 			MainFrame.SwithPanel(panelMain);
 		
@@ -327,14 +289,12 @@ public class MessageListener implements ActionListener, MouseListener {
 
 						//Item draftToSend = new Item(alias,receiver, panelMod.getTxtObject().getText(),
 								//panelMod.getTxtMessage().getText(), null);
-						// TODO (Nicolas) : need to handle well this exception, maybe in the class client ?
-
+					
 							try {
 								client.sendEmail(alias, receiver, panelMod.getTxtObject().getText(),
 										panelMod.getTxtMessage().getText(), true);
 							} catch (CustomMessagingException e1) {
 								customDialog(e1.getMessage());
-								e1.printStackTrace();
 							}
 
 							MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
@@ -395,10 +355,7 @@ public class MessageListener implements ActionListener, MouseListener {
 					panelDraft.setCopyUserItems(client.getMessages(true));
 					panelDraft.refresh();
 					MainFrame.SwithPanel(panelDraft);
-					
-					
-					
-					// TODO (nicolas) implementer sauvegarde du brouillon.		
+			
 					
 				}
 				
@@ -408,12 +365,14 @@ public class MessageListener implements ActionListener, MouseListener {
 
 	}
 
-	/**
-	 * @return
-	 * @throws SQLException 
+	/*
+	 *Method to get all the user present in the system from the User table 
+	 * not to be used externally.
+	 * @return the list of the user in the system.
+	 * @throws SQLException in case of SAL error return custom message.
 	 */
 	private Users aliasInLower()  {
-		//Users usr = OldDatas.getUsersList();
+		
 		Users usr = null;
 		try {
 			usr = UserDAO.getUsersList();
@@ -534,10 +493,6 @@ public class MessageListener implements ActionListener, MouseListener {
 							currentItem = spemodDraft.getUserAt(row);
 							if(currentItem != null) {
 								Item itmCopy = new Item(currentItem);
-								
-								
-								
-								
 								// TODO (nicolas) devrait venir de la classe en static ?
 								panelMod = new MessagingModifPanel(itmCopy, aliasInLower());
 								
@@ -583,6 +538,10 @@ public class MessageListener implements ActionListener, MouseListener {
 
 	}
 
+	/**
+	 * Pop UP s'ouvrant pour donner des indications.
+	 * @param message d'avertissement.
+	 */
 	public void customDialog(String message) {
 		JOptionPane.showMessageDialog(panelNew, message, "Nouveau message", JOptionPane.WARNING_MESSAGE);
 	}

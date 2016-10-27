@@ -39,12 +39,15 @@ public class messageDao {
 	private static final String TIMESTAMP  = "TIMESTAMP";
 	private static final String DRAFT  = "DRAFT";
 	
-	
+	/**
+	 * This class is going toinsert new message in the table.
+	 * @param item represent the item to insert.
+	 */
 	public static void insertItem(Item item) {
 
 		Connection connection = null;
 		PreparedStatement statement = null;
-		ResultSet resultSet = null;
+	
 		try {
 			connection = DBConnection.getConnect();
 					
@@ -83,15 +86,7 @@ public class messageDao {
 			statement.executeUpdate();
 			
 			
-//			String createStatement = String.format(
-//					"insert into %s (%s  , %s ,%s , %s ,%s, %s , %s ) values ( " + "'" + ident + "' , '" + sender
-//							+ "' , '" + receiver + "',  '" + object + "', '" + body + "', '" + date + "',  '" + draft
-//							+ "' )",
-//					TABLE_NAME, //
-//					"identity", "sender", "receiver", "subject", "messBody", "timeStamp", "draft");
-//			System.out.println(createStatement);
-//			
-//			statement.executeUpdate(createStatement);
+
 
 			connection.commit();
 
@@ -103,33 +98,17 @@ public class messageDao {
 		}
 
 	}
-	// if (item != null) {
-	//
-	// mess.add(item);
-	// items.put(item.getReceiver(), mess);
-	// System.out.println("Message posted in "+ item.getReceiver() + "address "
-	// + item);
-	// return true;
-	//
-	// }
-	//
-	// return false;
 
-	// TODO (nicolas ) insertDraft - public static void postDraft(Item item) {
-
-	public static void postDraft(Item item) {
-
-	}
 
 	/**
 	 * This method is going to return the email for a particular user mailbox or
 	 * a draft Mailbox. box will indicate the mailbox whether draft is false ,
 	 * or draft message if that is true
 	 * 
-	 * @param rcv
-	 * @param draft
-	 * @return
-	 * @throws SQLException
+	 * @param box indicate the user messagebox.
+	 * @param draft indicate if it is a draft email (true) 
+	 * @return list of items found for this user.
+	 * @throws SQLException to specify the type of issue
 	 */
 	public static Items getAllItems(String box, boolean draft){
 
@@ -167,9 +146,7 @@ public class messageDao {
 					"RECEIVER", box, "DRAFT", 0);
 		}
 
-		// select identity, sender, receiver, subject, messBody, timeStamp,
-		// draft from mailbox
-		// WHERE sender = 'claire';
+
 
 
 			resultSet = statement.executeQuery(createStatement);
@@ -177,11 +154,11 @@ public class messageDao {
 
 			while (resultSet.next()) {
 
-				ident = resultSet.getInt("identity");
-				sender = resultSet.getString("sender");
-				receiver = resultSet.getString("receiver");
-				object = resultSet.getString("subject");
-				body = resultSet.getString("messBody");
+				ident 	= resultSet.getInt("identity");
+				sender 	= resultSet.getString("sender");
+				receiver= resultSet.getString("receiver");
+				object 	= resultSet.getString("subject");
+				body 	= resultSet.getString("messBody");
 
 				draftMess = resultSet.getInt("draft");
 				if (draftMess == 0) {
@@ -193,22 +170,22 @@ public class messageDao {
 				items.add(item);
 			}
 		} catch (SQLException e1) {
-			System.out.println(" an issue happen with the SQL to getAll items");
+			System.out.println("[GET] an issue happen with the SQL to getAll items");
 			e1.printStackTrace();
 		}
 		return items;
 
 	}
 
+	//TODO (nicolas) a revoir
 	/**
 	 * This method is going to return the email for a particular user mailbox or
 	 * a draft Mailbox. box will indicate the mailbox whether draft is false ,
 	 * or draft message if that is true
 	 * 
-	 * @param rcv
-	 * @param draft
-	 * @return
-	 * @throws SQLException
+	 * @box indicqte the user messagebox.
+	 * @return a list of all the message for the user.
+	 * @throws SQLException throw if SAL issue.
 	 */
 
 	// TODO (nicolas) methode a revoir
@@ -276,7 +253,7 @@ public class messageDao {
 	
 	
 	/**
-	 * Cette methode vq faire une recherche par mot sur le sujet du message, il retournera une liste dItems si necessaire.
+	 * Cette methode effectue une recherche par mot sur le sujet du message, il retournera une liste dItems si necessaire.
 	 * @param word est le mot a trouver dans le sujet d'un message
 	 * @return une liste de message dont le sujet correspond au critere de recherche.
 	 */
@@ -336,18 +313,18 @@ public class messageDao {
 
 
 	/**
-	 * 
-	 * @param usr
-	 * @param identifier
-	 * @param draft
-	 * @return
-	 * @throws SQLException 
+	 * This method is going to delete a message with a particular Identifier, receipient user, and a message type(draft) 
+	 * @param receipient represent the user logged on the system
+	 * @param identifier an integer for identify unique message	 
+	 * @param draft indicate if it is a draft email (true)
+ 
+	 * @throws SQLException a SQL exception error.
 	 */
-	public static boolean removeMessage(String usr, int identifier, boolean draft) throws SQLException {
+	public static void removeMessage(String receipient, int identifier, boolean draft) throws SQLException {
 
 		Connection connection = null;
 		Statement statement = null;
-		ResultSet resultSet = null;
+		
 
 		connection = DBConnection.getConnect();
 		try {
@@ -361,20 +338,23 @@ public class messageDao {
 			
 		}
 
-		return true;
+
 
 	}
 
-	// TODO (Nicolas) popMessage - public static Item popMessage(String usr,
-	// String identifier, boolean draft) {
 
 
 
+	/**
+	 * This method is going to modifie a draft message for the sender's user.
+	 * @param updatedItem is the new item thqt need to be inserted
+	 * @throws SQLException in case of SQL error
+	 */
 	public static void updateMessage(Item updatedItem) throws SQLException {
 
 		Connection connection = null;
 		Statement statement = null;
-		ResultSet resultSet = null;
+		
 
 		connection = DBConnection.getConnect();
 		try {
@@ -384,8 +364,7 @@ public class messageDao {
 			String receiver = null;
 			String object = null;
 			String body = null;
-			String date = null;
-			int draft = 0; // 0 for draft
+
 
 			ident = updatedItem.getId();
 			sender = updatedItem.getSender();
@@ -416,12 +395,17 @@ public class messageDao {
 	 * @return the output date in String format.
 	 */
 	public static String localDateToString(LocalDateTime input) {
-
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM uuuu HH:mm:ss");
-		String text = input.format(formatter);
-
-		return text;
-
+		String strDate = null;
+		if(input != null) {
+			strDate  = input.format(formatter);
+			return strDate;
+		}else {
+			System.err.println(" -- parametre non-conforme heure local produite -- ");
+			LocalDateTime dateNow = LocalDateTime.now();
+			strDate  = dateNow.format(formatter);
+			return strDate;
+		}
 	}
 
 	/**
@@ -435,7 +419,6 @@ public class messageDao {
 	public static LocalDateTime StringToLocalDate(String input) {
 		LocalDateTime localTime = null;
 		if (input != null) {
-
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM uuuu HH:mm:ss");
 			localTime = LocalDateTime.parse(input, formatter);
 
