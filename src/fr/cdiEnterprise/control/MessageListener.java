@@ -178,7 +178,7 @@ public class MessageListener implements ActionListener, MouseListener {
 					try {
 						client.newEmail(alias,receiver, panelNew.getTxtObject().getText(),
 								panelNew.getTxtMessage().getText());
-					} catch (CustomMessagingException e1) {
+					} catch (CustomMessagingException | SQLException e1) {
 						customDialog(e1.getMessage());
 						//e1.printStackTrace();
 					}
@@ -206,8 +206,13 @@ public class MessageListener implements ActionListener, MouseListener {
 				
 				
 				
-				client.draft(alias,receiver, panelNew.getTxtObject().getText(),
-						panelNew.getTxtMessage().getText(), DraftMessage);
+				try {
+					client.draft(alias,receiver, panelNew.getTxtObject().getText(),
+							panelNew.getTxtMessage().getText(), DraftMessage);
+				} catch (SQLException e1) {
+					
+					e1.printStackTrace();
+				}
 
 
 				
@@ -238,7 +243,7 @@ public class MessageListener implements ActionListener, MouseListener {
 			
 			try {
 				client.sendEmail(panelRead.getItm().getSender(), panelRead.getItm().getReceiver(),panelRead.getTxtObject().getText(), panelRead.getTxtMessage().getText() , false);
-			} catch (CustomMessagingException e1) {
+			} catch (CustomMessagingException | SQLException e1) {
 				customDialog(e1.getMessage());
 				e1.printStackTrace();
 			}
@@ -296,10 +301,9 @@ public class MessageListener implements ActionListener, MouseListener {
 							try {
 								client.sendEmail(alias, receiver, panelMod.getTxtObject().getText(),
 										panelMod.getTxtMessage().getText(), true);
-							} catch (CustomMessagingException e1) {
+							} catch (CustomMessagingException | SQLException e1) {
 								customDialog(e1.getMessage());
 							}
-
 							MessageListener.panelMain.setCopyUserItems(client.getMessages(false));
 
 

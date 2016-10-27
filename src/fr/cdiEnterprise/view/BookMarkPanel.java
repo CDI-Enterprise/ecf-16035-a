@@ -131,6 +131,7 @@ public class BookMarkPanel extends JPanel
 		txtNoteUser = new JTextArea();
 		txtNoteUser.setFont(new Font("Arial", Font.PLAIN, 16));
 		txtNoteUser.setRows(10);
+		txtNoteUser.setTabSize(160);
 		txtNoteUser.setColumns(20);
 		txtNoteUser.setLineWrap(true);
 		txtNoteUser.setWrapStyleWord(false);
