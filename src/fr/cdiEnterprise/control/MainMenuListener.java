@@ -6,10 +6,14 @@ package fr.cdiEnterprise.control;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import fr.cdiEnterprise.view.MainFrame;
 import fr.cdiEnterprise.view.Menu;
+import javafx.scene.image.Image;
+import sun.awt.IconInfo;
 
 /**
  * Listeners for menu of the main frame
@@ -119,7 +123,10 @@ public class MainMenuListener implements ActionListener {
 					+ "Cette version est fournie par ACINO Company"
 					+ newline + "2016 GNU GENERAL PUBLIC LICENSE";
 
-			JOptionPane.showMessageDialog(MainFrame.getPanMain(), about);
+			//JOptionPane.showMessageDialog(MainFrame.getPanMain(), about);
+			Icon icon = new ImageIcon("spock-24.png");
+			JOptionPane.showMessageDialog(MainFrame.getPanMain(), about, "About", JOptionPane.INFORMATION_MESSAGE, icon);
+			
 		}
 	}
 }

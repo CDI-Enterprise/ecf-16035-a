@@ -50,6 +50,9 @@ public class MessageListener implements ActionListener, MouseListener {
 	private JPanel panelUser;
 
 	private static final int MESSAGE_MAX_SIZE = 440;
+	private static final String TITRE_FENETRE = "Nouveau message";
+	private static final String ALERT_OBJECT = "le champ Sujet doit etre remplie.";
+	private static final String ALERT_RECHERCHE = "veillez donner un mot plus long pour la recherche.";
 	public static String alias;
 	private static Item currentItem;
 	private static MpClientV2 client;
@@ -145,7 +148,7 @@ public class MessageListener implements ActionListener, MouseListener {
 			String recherche = new String();
 			recherche = panelMain.getTxtSch().getText();
 			if(recherche.isEmpty() || recherche.length() < 4) {
-				customDialog("veillez donner un mot plus long pour la recherche");
+				customDialog(ALERT_RECHERCHE);
 			}else {
 				System.out.println("le mot a chercher est "+recherche);
 				Items itemsMatch = client.searchMessage(recherche);
@@ -165,7 +168,7 @@ public class MessageListener implements ActionListener, MouseListener {
 					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
 
 			if (panelNew.getTxtObject().getText().isEmpty()) {
-				customDialog("le champ Objet doit etre remplie.");
+				customDialog("le champ Sujet doit etre remplie.");
 			} else {
 				if(panelNew.getTxtMessage().getText().length() > MESSAGE_MAX_SIZE) {
 					customDialog("Your message is too long : "+ panelNew.getTxtMessage().getText().length() +"  max is " +MESSAGE_MAX_SIZE);
@@ -197,7 +200,7 @@ public class MessageListener implements ActionListener, MouseListener {
 					.getItemAt(panelNew.getCboReceiver().getSelectedIndex());
 
 			if (panelNew.getTxtObject().getText().isEmpty()) {
-				customDialog("le champ Objet doit etre remplie.");
+				customDialog(ALERT_OBJECT);
 			} else {
 
 				
@@ -542,8 +545,8 @@ public class MessageListener implements ActionListener, MouseListener {
 	 * Pop UP s'ouvrant pour donner des indications.
 	 * @param message d'avertissement.
 	 */
-	public void customDialog(String message) {
-		JOptionPane.showMessageDialog(panelNew, message, "Nouveau message", JOptionPane.WARNING_MESSAGE);
+	private void customDialog(String message) {
+		JOptionPane.showMessageDialog(panelNew, message, TITRE_FENETRE, JOptionPane.WARNING_MESSAGE);
 	}
 
 	public Item getItem() {
