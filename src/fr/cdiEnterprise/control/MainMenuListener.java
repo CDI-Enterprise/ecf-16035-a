@@ -6,6 +6,8 @@ package fr.cdiEnterprise.control;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import fr.cdiEnterprise.view.MainFrame;
@@ -117,9 +119,14 @@ public class MainMenuListener implements ActionListener {
 					+ newline + "d'entreprises."
 					+ newline + newline
 					+ "Cette version est fournie par ACINO Company"
-					+ newline + "2016 GNU GENERAL PUBLIC LICENSE";
+					+ newline + "2016 GNU GENERAL PUBLIC LICENSE"
+					+ newline + newline;
 
-			JOptionPane.showMessageDialog(MainFrame.getPanMain(), about);
+			//JOptionPane.showMessageDialog(MainFrame.getPanMain(), about);
+			Icon icon = new ImageIcon("spock-24.png");
+			JOptionPane.showMessageDialog(MainFrame.getPanMain(), about, "A propos de CDI Enterprise",
+					JOptionPane.INFORMATION_MESSAGE, icon);
+			
 		}
 	}
 }
