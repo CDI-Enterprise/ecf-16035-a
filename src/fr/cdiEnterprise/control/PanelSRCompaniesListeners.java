@@ -14,7 +14,6 @@ import fr.cdiEnterprise.model.Favorite;
 import fr.cdiEnterprise.view.MainFrame;
 import fr.cdiEnterprise.view.company.CompaniesSRPanel;
 
-
 public class PanelSRCompaniesListeners implements ActionListener, MouseListener {
 
 	/* Given attributes */
@@ -31,18 +30,16 @@ public class PanelSRCompaniesListeners implements ActionListener, MouseListener 
 	private Company selecCompany;
 	private static int selecIndSelec;
 
-
-	//Attributed to add favorite
+	// Attributed to add favorite
 	private int idFavorite;
 	private String companyName;
 	private String companyCity;
 	private String companySize;
 	private String companySector;
 	private String companyWebSite;
-	private String contactMail;	
+	private String contactMail;
 	private String noteCompany;
 	private FavoriteDao favoriteDao;
-
 
 	public PanelSRCompaniesListeners(CompaniesSRPanel panCompaniesSR) {
 		this.panCompaniesSR = panCompaniesSR;
@@ -72,33 +69,30 @@ public class PanelSRCompaniesListeners implements ActionListener, MouseListener 
 		 * @version 24-10-2016
 		 */
 
-		if (e.getSource() == panCompaniesSR.getBtnFavoris())	
-		{
+		if (e.getSource() == panCompaniesSR.getBtnFavoris()) {
 			FavoriteDao favoriteDao = new FavoriteDao();
-			try
-			{
+			try {
 
-				idFavorite		= FavoriteDao.getIdMax("favorite") +1;
-				companyName		= panCompaniesSR.getTxtCompanyCity().getText();
+				idFavorite = FavoriteDao.getIdMax("favorite") + 1;
+				companyName = panCompaniesSR.getTxtCompanyCity().getText();
 				System.out.println("test 0" + companyName);
-				companyCity		= panCompaniesSR.getTxtCompanyCity().getText();
-				companySize		= panCompaniesSR.getLblSize().getText();	
-				companySector	= panCompaniesSR.getTxtSector().getText();
-				companyWebSite	= panCompaniesSR.getTxtWebSite().getText();
-				contactMail		= panCompaniesSR.getTxtContactMail().getText();
+				companyCity = panCompaniesSR.getTxtCompanyCity().getText();
+				companySize = panCompaniesSR.getLblSize().getText();
+				companySector = panCompaniesSR.getTxtSector().getText();
+				companyWebSite = panCompaniesSR.getTxtWebSite().getText();
+				contactMail = panCompaniesSR.getTxtContactMail().getText();
 
-				//Create a favorite's object
-				favoriteCompany = new Favorite(idFavorite, companyName, companyCity, companySize, companySector, companyWebSite, contactMail, noteCompany);
+				// Create a favorite's object
+				favoriteCompany = new Favorite(idFavorite, companyName, companyCity, companySize, companySector,
+						companyWebSite, contactMail, noteCompany);
 				System.out.println(favoriteCompany);
 
-				//Send the add
+				// Send the add
 				favoriteDao.addFavorite(favoriteCompany);
 				System.out.println("hey" + favoriteDao);
-			}
-			catch (SQLException e1)
-			{
+			} catch (SQLException e1) {
 				e1.printStackTrace();
-			}		
+			}
 		}
 
 		if (e.getSource() == panCompaniesSR.getBtnValider()) {
@@ -154,7 +148,6 @@ public class PanelSRCompaniesListeners implements ActionListener, MouseListener 
 			}
 		}
 	}
-
 
 	@Override
 	public void mousePressed(MouseEvent e) {

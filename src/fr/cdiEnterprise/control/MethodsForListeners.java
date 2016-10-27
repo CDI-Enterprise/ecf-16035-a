@@ -96,34 +96,39 @@ public class MethodsForListeners {
 
 	/**
 	 * Méthode permettant de rafraichir la liste des fiches entreprises
+	 * 
 	 * @author Anaïs
 	 * 
 	 * @throws SQLException
 	 */
-	public static void refreshListCompanies() throws SQLException{
+	public static void refreshListCompanies() throws SQLException {
 		CompanyCreationPanel.getDlmCompanies().clear();
-		for(Company company : DataBaseCompany.getCompaniesData()){
+		for (Company company : DataBaseCompany.getCompaniesData()) {
 			CompanyCreationPanel.getDlmCompanies().addElement(company);
 		}
 	}
 
-	public static void controlPostalCode(String postalCode){
+	/**
+	 * Méthode permettant de controler la saisie du code postal
+	 * 
+	 * @author Anaïs
+	 * @param postalCode
+	 * @version 27/10/2016
+	 * 
+	 */
+	public static void controlPostalCode(String postalCode) {
 		int length = postalCode.length();
 		char[] tabChaineCarac = postalCode.toCharArray();
-//		String retour;
-		if(length == 5){	
-//			retour = postalCode;
-			for (char carac : tabChaineCarac){
-				if(Character.isDigit(carac)){	
-				}else{
+		if (length == 5) {
+			for (char carac : tabChaineCarac) {
+				if (Character.isDigit(carac)) {
+				} else {
 					throw new CompanyCreationException("Le code postal doit être uniquement composé de chiffres");
 				}
 			}
-		}else{
+		} else {
 			throw new CompanyCreationException("Code postal non valide, 5 chiffres attendus");
-			}
-		
-//		return retour;
+		}
 	}
-	
+
 }

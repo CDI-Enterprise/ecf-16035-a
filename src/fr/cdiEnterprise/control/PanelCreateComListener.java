@@ -20,7 +20,7 @@ import fr.cdiEnterprise.view.MainFrame;
 import fr.cdiEnterprise.view.company.CompanyCreationPanel;
 
 /**
- *Listeners for panel "Company Creation"
+ * Listeners for panel "Company Creation"
  *
  * @version 21-10-2016
  * @author Anaïs
@@ -28,7 +28,7 @@ import fr.cdiEnterprise.view.company.CompanyCreationPanel;
  *
  */
 
-public class PanelCreateComListener implements ActionListener  {
+public class PanelCreateComListener implements ActionListener {
 
 	// Given attribute
 	private CompanyCreationPanel panCompCreat;
@@ -45,7 +45,8 @@ public class PanelCreateComListener implements ActionListener  {
 	private String nomRegion;
 	private String companySize;
 	private String companySector;
-//	private Languages companyLanguages;					Sera utilisé dans la deuxième version => sélection multiple de langages informatiques
+	// private Languages companyLanguages; Sera utilisé dans la deuxième version
+	// => sélection multiple de langages informatiques
 	private Language companyLanguage;
 	private String companyProjets;
 	private String companyWebSite;
@@ -53,46 +54,43 @@ public class PanelCreateComListener implements ActionListener  {
 	private String contactName;
 	private String contactPhone;
 	private String contactMail;
-	
+
 	// Attributes to give select language
 	private String languageSelect;
-	
+
 	// Attributes do define the selected size
 	private ButtonGroup btnGrp;
-	private JRadioButton btnSelected;	
-	
+	private JRadioButton btnSelected;
+
 	// Attribute to create a company
 	private Company company;
 
-	//Attribute to create a new language
+	// Attribute to create a new language
 	private String newLanguage;
-	
-	//Atribute for Error
+
+	// Atribute for Error
 	private JFrame popupError;
 	private String messError;
-	
-	
+
 	public PanelCreateComListener(CompanyCreationPanel panCompCreat) {
 		this.panCompCreat = panCompCreat;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		
-		
+
 		if (e.getSource() == panCompCreat.getBtnCreate()) {
 			try {
 				btnGrp = panCompCreat.getSizeGrp();
 				btnSelected = MethodsForListeners.getSelectedJRadioButton(btnGrp);
-				companySize = btnSelected.getText();	
-			}catch(NullPointerException excep){
+				companySize = btnSelected.getText();
+			} catch (NullPointerException excep) {
 				companySize = null;
 			}
-			
-			try{
-				System.out.println("Création d'une nouvelle entreprise");	
-	
+
+			try {
+				System.out.println("Création d'une nouvelle entreprise");
+
 				companyName = MethodsForListeners.nullField(panCompCreat.getTxtCompanyName().getText());
 				companyAdress = panCompCreat.getTxtCompanyAdress().getText();
 				companyCity = MethodsForListeners.nullField(panCompCreat.getTxtCompanyCity().getText().toUpperCase());
@@ -101,63 +99,62 @@ public class PanelCreateComListener implements ActionListener  {
 				nomDepartment = panCompCreat.getCboCompanyDepartment().getSelectedItem().toString();
 				companyDepartment = DataBaseCompany.getDepartmentId(nomDepartment);
 				nomRegion = panCompCreat.getCboCompanyRegion().getSelectedItem().toString();
-				companyRegion = DataBaseCompany.getRegionId(nomRegion);				
+				companyRegion = DataBaseCompany.getRegionId(nomRegion);
 				companySector = panCompCreat.getTxtSector().getText();
-				
-				try{
-				languageSelect = panCompCreat.getLstLanguages().getSelectedValue().toString();
-				}catch(NullPointerException except){
+
+				try {
+					languageSelect = panCompCreat.getLstLanguages().getSelectedValue().toString();
+				} catch (NullPointerException except) {
 					languageSelect = "JAVA";
 				}
-				companyLanguage= DataBaseCompany.getLanguageId(languageSelect);
-				
-				companyProjets= panCompCreat.getTxtProjets().getText();
+				companyLanguage = DataBaseCompany.getLanguageId(languageSelect);
+
+				companyProjets = panCompCreat.getTxtProjets().getText();
 				companyWebSite = panCompCreat.getTxtWebSite().getText();
 				contactName = panCompCreat.getTxtContactName().getText();
 				contactPhone = panCompCreat.getTxtContactPhone().getText();
-				contactMail = panCompCreat.getTxtContactMail().getText();		
+				contactMail = panCompCreat.getTxtContactMail().getText();
 
-				contact = new Contact (contactName, contactPhone, contactMail);
-				
+				contact = new Contact(contactName, contactPhone, contactMail);
+
 				idCompany = DataBaseCompany.getIdMax("company") + 1;
-	//			System.out.println(idCompany);
-				company = new Company(idCompany, companyName, companyAdress, companyPostalCode, companyCity, companyDepartment, companyRegion,  
-						companySize,companySector, companyLanguage, companyProjets, companyWebSite, contact);
-				//System.out.println(company);
-				
+				// System.out.println(idCompany);
+				company = new Company(idCompany, companyName, companyAdress, companyPostalCode, companyCity,
+						companyDepartment, companyRegion, companySize, companySector, companyLanguage, companyProjets,
+						companyWebSite, contact);
+				// System.out.println(company);
+
 				DataBaseCompany.insertCompanyData(company, contact);
 				CompanyCreationPanel.getDlmCompanies().addElement(company);
 				MethodsForListeners.resetJTextField(panCompCreat.getAllJTextFields());
-				
-			}catch (CompanyCreationException | SQLException ev){
+
+			} catch (CompanyCreationException | SQLException ev) {
 				messError = ev.getMessage();
 				JOptionPane.showMessageDialog(popupError, messError);
 			}
-	
+
 		}
-		
-		if (e.getSource() == panCompCreat.getBtnLanguageCreate()){
+
+		if (e.getSource() == panCompCreat.getBtnLanguageCreate()) {
 			newLanguage = panCompCreat.getTxtNewLanguage().getText();
 			try {
 				DataBaseCompany.insertLanguageData(newLanguage);
 				panCompCreat.getDlmLanguages().clear();
-				for(Language language : DataBaseCompany.getLanguagesListData()){
+				for (Language language : DataBaseCompany.getLanguagesListData()) {
 					panCompCreat.getDlmLanguages().addElement(language);
 				}
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
 		}
-		
-		if (e.getSource() == panCompCreat.getBtnCancel()){
+
+		if (e.getSource() == panCompCreat.getBtnCancel()) {
 			MainFrame.getPanMain().removeAll();
 			MainFrame.getPanMain().add(MainFrame.getPanHome());
 			MainFrame.getPanMain().repaint();
 			MainFrame.getPanMain().revalidate();
 		}
-		
+
 	}
 
 }
-
-
