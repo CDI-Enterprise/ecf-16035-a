@@ -4,7 +4,7 @@
 package fr.cdiEnterprise.dao;
 //import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Department;
-import fr.cdiEnterprise.model.Favorite;
+//import fr.cdiEnterprise.model.Favorite;
 import fr.cdiEnterprise.model.FormerTrainee;
 import fr.cdiEnterprise.model.Language;
 import fr.cdiEnterprise.model.Region;
