@@ -71,7 +71,7 @@ public class MethodsForListeners {
 	}
 
 	/**
-	 * Méthode pour controler la saisie des champs obligatoires
+	 * Méthode pour controler si les champs obligatoires ont bien été renseignés
 	 * 
 	 * @author Anaïs
 	 * @param String
