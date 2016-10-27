@@ -4,11 +4,11 @@ package fr.cdiEnterprise.dao.test;
 import java.sql.SQLException;
 
 import fr.cdiEnterprise.dao.DataBaseCompany;
-import fr.cdiEnterprise.dao.OldDatas;
-import fr.cdiEnterprise.model.Department;
-import fr.cdiEnterprise.service.Departments;
-import fr.cdiEnterprise.service.Languages;
-import fr.cdiEnterprise.service.Regions;
+//import fr.cdiEnterprise.dao.OldDatas;
+//import fr.cdiEnterprise.model.Department;
+//import fr.cdiEnterprise.service.Departments;
+//import fr.cdiEnterprise.service.Languages;
+//import fr.cdiEnterprise.service.Regions;
 
 
 
