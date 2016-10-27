@@ -18,7 +18,7 @@ import fr.cdiEnterprise.util.ReadProperties;
  */
 public class TestDB {
 
-	public static void main(String[] args)  {
+	public static void main(String[] args) throws SQLException  {
 
 		// commande a utiliser pour effacer toutes les lignes de la table
 		// dans SQL developer.

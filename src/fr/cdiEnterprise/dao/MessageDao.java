@@ -42,8 +42,9 @@ public class MessageDao {
 	/**
 	 * This class is going to insert new message in the table.
 	 * @param item represent the item to insert.
+	 * @throws SQLException 
 	 */
-	public static void insertItem(Item item) {
+	public static void insertItem(Item item) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -87,8 +88,9 @@ public class MessageDao {
 			connection.commit();
 
 		} catch (SQLException e) {
-			System.out.println("SQL Error In the insertMessage...");
-			e.printStackTrace();
+			throw new SQLException("[Write] Erreur SQL suivante : " + e.getMessage());
+			
+			//e.printStackTrace();
 		
 
 		}

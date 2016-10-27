@@ -112,7 +112,7 @@ public class MpClientV2 {
 	 * @throws CustomMessagingException cette exception  est executé si le destinataire ou le sujet sont manquant.
 	 * @throws SQLException 
 	 */
-	public void newEmail(String from, String to, String object, String body ) throws CustomMessagingException   {
+	public void newEmail(String from, String to, String object, String body ) throws CustomMessagingException, SQLException   {
 		// TODO (nicolas) Penser a modifier la signature pour ne prendre que un objet Item
 		
 		int idNumber = CONST_ZERO;
@@ -146,8 +146,9 @@ public class MpClientV2 {
 	 * @param draft a boolean at True for Draft
 	 * @throws CustomMessagingException this is going to use the custom class exception in case the datas received are incorrect
 	 * oject or to.
+	 * @throws SQLException 
 	 */
-	public void sendEmail(String from, String to, String object, String body, boolean draft) throws CustomMessagingException {
+	public void sendEmail(String from, String to, String object, String body, boolean draft) throws CustomMessagingException, SQLException {
 
 		LocalDateTime timeStamp = LocalDateTime.now();
 		ID_NUMBER = ID_NUMBER + CONST_ONE;
@@ -215,7 +216,7 @@ public class MpClientV2 {
 //	 * @param the new created item to be identified as draft.
 //	 * 
 //	 */
-	public void draft(String from, String to, String obj, String bdy, boolean draft) {
+	public void draft(String from, String to, String obj, String bdy, boolean draft) throws SQLException {
 //		
 		int idNumber = CONST_ZERO;
 		ID_NUMBER = ID_NUMBER + CONST_ONE;		
