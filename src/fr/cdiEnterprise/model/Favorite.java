@@ -47,16 +47,6 @@ public class Favorite
 
 	}
 
-	//	public Favorite(String companyName, String city, String size, String sector, String webSite, Contact contactMail)
-	//	{
-	//		id++;
-	//		this.idEnterprise	= id;
-	//		this.companyName 	= companyName;
-	//		this.city 			= city;
-	//		this.size			= size;
-	//		this.sector			= sector;
-	//		this.webSite		= webSite;
-	//	}
 
 	/**
 	 * Constructor with parameters
@@ -111,23 +101,6 @@ public class Favorite
 		this.contactMail	= contactMail;
 		this.noteCompany	= note; 
 	}
-//
-//	/**
-//	 * @param noteCompany2
-//	 */
-//	public Favorite (int idFavorite, String companyName, String city, String size, String sector, String webSite, String contactMail, String noteCompany) 
-//	{
-//
-//		id++;
-//		this.idFavorite 	= id;
-//		this.city			= city;
-//		this.size			= size;
-//		this.sector			= sector;
-//		this.webSite		= webSite;
-//		this.contactMail	= contactMail;
-//		this.noteCompany	= note; 
-//		// TODO Auto-generated constructor stub
-//	}
 
 	/**
 	 * Getters

@@ -80,6 +80,7 @@ public class PanelSRCompaniesListeners implements ActionListener, MouseListener 
 
 				idFavorite		= FavoriteDao.getIdMax("favorite") +1;
 				companyName		= panCompaniesSR.getTxtCompanyCity().getText();
+				System.out.println("test 0" + companyName);
 				companyCity		= panCompaniesSR.getTxtCompanyCity().getText();
 				companySize		= panCompaniesSR.getLblSize().getText();	
 				companySector	= panCompaniesSR.getTxtSector().getText();
@@ -92,6 +93,7 @@ public class PanelSRCompaniesListeners implements ActionListener, MouseListener 
 
 				//Send the add
 				favoriteDao.addFavorite(favoriteCompany);
+				System.out.println("hey" + favoriteDao);
 			}
 			catch (SQLException e1)
 			{

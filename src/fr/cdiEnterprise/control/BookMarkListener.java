@@ -32,17 +32,17 @@ import fr.cdiEnterprise.dao.FavoriteDao;
 
 public class BookMarkListener implements ActionListener
 {
-
+//
 	private String searchNameCompany;
 	//private int idCompany;
 	private int idFavorite;
-	private String companyName;
-	private String companyCity;
-	private String companySize;
-	private String companySector;
-	private String companyWebSite;
-	private String contactMail;	
-	private String noteCompany;
+//	private String companyName;
+//	private String companyCity;
+//	private String companySize;
+//	private String companySector;
+//	private String companyWebSite;
+//	private String contactMail;	
+//	private String noteCompany;
 
 	private BookMarkPanel panFavorite = null;			//Attribute
 	private FavoriteDao favoriteDao;

@@ -34,10 +34,8 @@ public class FavoriteModelTable  extends AbstractTableModel
 		super();
 		datas = new Object[][]
 				{
-			// TODO Auto-generated constructor stub
 				};
 	}
-
 	/* (non-Javadoc)
 	 * @see javax.swing.table.TableModel#getRowCount()
 	 */

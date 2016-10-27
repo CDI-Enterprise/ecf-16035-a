@@ -13,6 +13,7 @@ import java.sql.Statement;
 import javax.swing.JComboBox;
 
 import fr.cdiEnterprise.model.Favorite;
+import fr.cdiEnterprise.service.Favorites;
 //import fr.cdiEnterprise.view.company.CompaniesSRPanel;
 //import fr.cdiEnterprise.view.BookMarkPanel;
 //import fr.cdiEnterprise.model.NoteCompany;
@@ -31,7 +32,8 @@ public class FavoriteDao
 {
 	private static Connection conn = DBConnection.getConnect();
 	private static Statement stmt;
-	private static PreparedStatement createFavorite;
+	private static PreparedStatement prStmt;
+//	private static PreparedStatement createFavorite;
 	private JComboBox <String> lstMyFavorites;
 
 	/**
@@ -45,7 +47,7 @@ public class FavoriteDao
 	{
 		Statement stmt = conn.createStatement();
 
-		ResultSet rsMax = stmt.executeQuery("select max (" + table + "id) from " + table);
+		ResultSet rsMax = stmt.executeQuery("select max (" + table + "_id) from " + table);
 		int idMax = 0;
 
 		while (rsMax.next())
@@ -127,19 +129,19 @@ public class FavoriteDao
 	public void noteFavorite (String noteCompany) throws SQLException
 	{
 		String reqSql = null;
-		//ResultSet rs= null;
 		int rs;
 
 		reqSql = "UPDATE favorite set noteCompany = ? where favoriteId = ?";
 
-		PreparedStatement updateFavorite = conn.prepareStatement(reqSql);
-		updateFavorite.setString(1, noteCompany);
+		prStmt = conn.prepareStatement(reqSql);
+		prStmt.setString(1, noteCompany);
 		//updateFavorite.
 
-		rs = updateFavorite.executeUpdate();
+		rs = prStmt.executeUpdate();
 		System.out.println(rs);
 
-		stmt.close();
+		prStmt.close();
+		
 	}
 
 
@@ -165,36 +167,45 @@ public class FavoriteDao
 	/**
 	 * Exemple load jcomboxfavorite to lstfavorite
 	 * @param companyName reference to Company
+	 * @throws SQLException 
 	 * 
 	 */
 
-	public static Favorite getMyFavorite ()				//load the companyName
+	public static Favorites getMyFavorite () throws SQLException				//load the companyName
 	{
-		Favorite favCompany 	= new Favorite();
+		Favorite favCompany;
+		Favorites favList		= new Favorites();
+		String companyName;
 		String reqSql			= null;
 		ResultSet rsMyFavorite	= null;
 		reqSql					= "select companyName from favorite order by companyName";
-
+		
 		try
 		{
-			PreparedStatement myFavorite = conn.prepareStatement(reqSql);    
-			rsMyFavorite = myFavorite.executeQuery(reqSql)	;
+			prStmt = conn.prepareStatement(reqSql);    
+			rsMyFavorite = prStmt.executeQuery()	;
 			while (rsMyFavorite.next())
 			{
-				String companyName = rsMyFavorite.getString("companyName");
+				companyName = rsMyFavorite.getString(1);
+				//System.out.println("cn" + companyName);
+				favCompany = new Favorite();
 				favCompany.setCompanyName(companyName);
+				System.out.println("fc" + favCompany);
+				favList.add(favCompany);
 				//.add("companyName");
-				System.out.println("CompanyName selcet : " + companyName);
+				System.out.println("CompanyName select : " + favList);
 			}
-			stmt.close();
-			rsMyFavorite.close();
+		//	prStmt.close();
+			//rsMyFavorite.close();
+			System.out.println("f2" + favList);
 		}
 		catch (SQLException e)
 		{
 			System.out.println("Favorite : erreur myFavorite()");
 			e.printStackTrace();
 		}
-		return favCompany;	
+		prStmt.close();
+		return favList;	
 	}
 
 	//		Favorite cboCompanyName = new Favorite();
@@ -240,7 +251,7 @@ public class FavoriteDao
 		Favorite favorite = new Favorite();
 
 		String reqSql	= null;
-		reqSql			= "select companycity , companysize, companysector, companywebSite, companyMail, noteuser from favorite";
+		reqSql			= "select companycity , companysize, companysector, companywebSite, noteuser from favorite where = ?";
 		ResultSet rs	= null;
 
 		try

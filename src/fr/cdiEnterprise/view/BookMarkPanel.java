@@ -8,9 +8,10 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
+//import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -24,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 import fr.cdiEnterprise.control.BookMarkListener;
 import fr.cdiEnterprise.dao.FavoriteDao;
 import fr.cdiEnterprise.model.FavoriteModelTable;
+import fr.cdiEnterprise.service.Favorites;
 import fr.cdiEnterprise.model.Favorite;
 
 import net.miginfocom.swing.MigLayout;
@@ -52,6 +54,7 @@ public class BookMarkPanel extends JPanel
 	//Label
 	private JLabel lblMyNote;						//Title of txtNoteUser part
 
+	private Favorites favorites;
 	private JComboBox <String> lstMyFavorites;		//List of enterprises recorded
 
 	private JTextArea txtNoteUser ;					//User's mark
@@ -99,10 +102,19 @@ public class BookMarkPanel extends JPanel
 		contentBookMarkPan.add(panelMarkLeft, BorderLayout.WEST);
 
 		lstMyFavorites = new JComboBox<String>();
-		for (Favorite favorite : FavoriteDao.getMyFavorite())
+		try {
+			favorites = FavoriteDao.getMyFavorite();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("coucou" + favorites);
+		for (Favorite favorite : favorites)
 		{
 			lstMyFavorites.addItem(favorite.getCompanyName());
+			System.out.println(favorite);
 		}
+		
 		lstMyFavorites.setEditable(false);
 		lstMyFavorites.setMaximumRowCount(3);
 		panelMarkLeft.add(lstMyFavorites, "cell 0 1 2 1,growx");
