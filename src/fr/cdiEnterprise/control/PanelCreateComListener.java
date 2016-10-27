@@ -77,7 +77,7 @@ public class PanelCreateComListener implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) throws CompanyCreationException {
 
 		if (e.getSource() == panCompCreat.getBtnCreate()) {
 			try {
@@ -85,7 +85,7 @@ public class PanelCreateComListener implements ActionListener {
 				btnSelected = MethodsForListeners.getSelectedJRadioButton(btnGrp);
 				companySize = btnSelected.getText();
 			} catch (NullPointerException excep) {
-				companySize = null;
+				JOptionPane.showMessageDialog(popupError, "La taille de l'entreprise ne sera pas renseignée");
 			}
 
 			try {
@@ -128,7 +128,7 @@ public class PanelCreateComListener implements ActionListener {
 				CompanyCreationPanel.getDlmCompanies().addElement(company);
 				MethodsForListeners.resetJTextField(panCompCreat.getAllJTextFields());
 
-			} catch (CompanyCreationException | SQLException ev) {
+			} catch (NullPointerException | SQLException ev) {
 				messError = ev.getMessage();
 				JOptionPane.showMessageDialog(popupError, messError);
 			}
