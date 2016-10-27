@@ -17,6 +17,10 @@ public class LessTwentyCharStringException extends Exception {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public LessTwentyCharStringException() {
+		super();
+	}
+	
 	public LessTwentyCharStringException(String message) {
 		super(message);
 	}
