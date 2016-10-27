@@ -19,7 +19,6 @@ import javax.swing.JTextField;
 import fr.cdiEnterprise.control.exception.AlreadyUsedException;
 import fr.cdiEnterprise.control.exception.LengthStringException;
 import fr.cdiEnterprise.control.exception.NoButtonException;
-import fr.cdiEnterprise.control.util.MethodsForListeners;
 import fr.cdiEnterprise.control.util.PanelUserCRUDControl;
 import fr.cdiEnterprise.control.exception.EmptyFieldException;
 import fr.cdiEnterprise.dao.UserDAO;
