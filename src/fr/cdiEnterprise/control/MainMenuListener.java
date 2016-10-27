@@ -6,6 +6,8 @@ package fr.cdiEnterprise.control;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 import fr.cdiEnterprise.view.MainFrame;
 import fr.cdiEnterprise.view.Menu;
 
@@ -62,7 +64,7 @@ public class MainMenuListener implements ActionListener {
 			MainFrame.getPanMain().repaint();
 			MainFrame.getPanMain().revalidate();
 		}
-		
+
 		if(e.getSource() == menu.getSubCompanyRead()){
 			MainFrame.getPanMain().removeAll();
 			MainFrame.getPanMain().add(MainFrame.getScrollSRCompanies());
@@ -91,6 +93,29 @@ public class MainMenuListener implements ActionListener {
 			MainFrame.getPanMain().add(MainFrame.getPanelRecherche());
 			MainFrame.getPanMain().validate();
 			MainFrame.getPanMain().repaint();
+		}
+
+		// Display a JOptionPan update
+		
+		
+		// Display a JOptionPane about
+		if(e.getSource() == menu.getSubHelpAbout()) {
+
+			String newline = System.getProperty("line.separator");
+
+			String about = "CDI Enterprise for Desktop"
+					+ newline + newline
+					+ "Version Alpha"
+					+ newline + newline
+					+ "CDI Enterprise est une application de gestion"
+					+ newline + "pour une base de données de fiches informatives"
+					+ newline + "d'entreprises."
+					+ newline + newline
+					+ "Cette version est fournie par ACINO Company"
+					+ newline + "2016 GNU GENERAL PUBLIC LICENSE";
+
+			JOptionPane.showMessageDialog(MainFrame.getPanMain(), about);
+
 		}
 
 	}

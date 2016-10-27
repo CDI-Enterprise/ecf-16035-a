@@ -143,6 +143,8 @@ public class Menu extends JMenuBar {
 		subSearchDeleteRecherche.addActionListener(listener);
 		menuBookmark.addActionListener(listener);
 		subBookMarkRead.addActionListener(listener);
+		
+		subHelpAbout.addActionListener(listener);
 
 	}
 
@@ -209,6 +211,13 @@ public class Menu extends JMenuBar {
 	 */
 	public void setSubCompanyRead(JMenuItem subCompanyRead) {
 		this.subCompanyRead = subCompanyRead;
+	}
+	
+	/**
+	 * @return the subHelpAbout
+	 */
+	public JMenuItem getSubHelpAbout() {
+		return subHelpAbout;
 	}
 
 }
