@@ -127,7 +127,7 @@ public class TestDB {
 			e.printStackTrace();
 		}
 		
-		client2.getMessages(draft)
+		Items itms2 = client2.getMessages(false);
 		
 		
 		
