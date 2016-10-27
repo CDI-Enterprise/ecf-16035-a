@@ -82,7 +82,6 @@ public class MethodsForListeners {
 	 */
 
 	public static String nullField(String txtField) {
-
 		String field = txtField;
 		int fieldLength = field.length();
 		String fieldReturn;
@@ -101,4 +100,24 @@ public class MethodsForListeners {
 			CompanyCreationPanel.getDlmCompanies().addElement(company);
 		}
 	}
+
+	public static String controlPostalCode(String postalCode){
+		int length = postalCode.length();
+		char[] tabChaineCarac = postalCode.toCharArray();
+		String retour;
+		if(length == 5){	
+			retour = postalCode;
+			for (char carac : tabChaineCarac){
+				if(Character.isDigit(carac)){	
+				}else{
+					throw new CompanyCreationException("Le code postal doit être uniquement composé de chiffres");
+				}
+			}
+		}else{
+			throw new CompanyCreationException("Code postal non valide, 5 chiffres attendus");
+			}
+		
+		return retour;
+	}
+	
 }
