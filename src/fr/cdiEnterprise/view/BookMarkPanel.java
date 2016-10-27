@@ -22,7 +22,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import fr.cdiEnterprise.control.BookMarkListener;
+import fr.cdiEnterprise.dao.FavoriteDao;
 import fr.cdiEnterprise.model.FavoriteModelTable;
+import fr.cdiEnterprise.model.Favorite;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -97,13 +99,12 @@ public class BookMarkPanel extends JPanel
 		contentBookMarkPan.add(panelMarkLeft, BorderLayout.WEST);
 
 		lstMyFavorites = new JComboBox<String>();
-
-		//TODO A remplacer par liste favories
-
-		lstMyFavorites.setModel(new DefaultComboBoxModel<String>(new String[] {}));
-
-		//Fin
-
+		for (Favorite favorite : FavoriteDao.getMyFavorite())
+		{
+			lstMyFavorites.addItem(favorite.getCompanyName());
+		}
+		lstMyFavorites.setEditable(false);
+		lstMyFavorites.setMaximumRowCount(3);
 		panelMarkLeft.add(lstMyFavorites, "cell 0 1 2 1,growx");
 
 		btnBookMarkSee = new JButton("Voir");
