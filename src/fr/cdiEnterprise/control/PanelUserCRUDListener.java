@@ -16,16 +16,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import fr.cdiEnterprise.control.exception.AlreadyUsedException;
+import fr.cdiEnterprise.control.exception.LengthStringException;
+import fr.cdiEnterprise.control.exception.NoButtonException;
+import fr.cdiEnterprise.control.util.MethodsForListeners;
+import fr.cdiEnterprise.control.util.PanelUserCRUDControl;
+import fr.cdiEnterprise.control.exception.EmptyFieldException;
 import fr.cdiEnterprise.dao.UserDAO;
-import fr.cdiEnterprise.exceptions.AlreadyUsedException;
-import fr.cdiEnterprise.exceptions.LessTwentyCharStringException;
-import fr.cdiEnterprise.exceptions.NoButtonException;
-import fr.cdiEnterprise.exceptions.ZeroLengthStringException;
 import fr.cdiEnterprise.model.FormerTrainee;
 import fr.cdiEnterprise.model.Trainee;
 import fr.cdiEnterprise.model.Trainer;
 import fr.cdiEnterprise.model.User;
-import fr.cdiEnterprise.util.StringControl;
 import fr.cdiEnterprise.view.profile.PanelUserCRUD;
 
 /**
@@ -144,7 +145,7 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 					e.printStackTrace();
 				}
 
-			} catch (NoButtonException | ZeroLengthStringException | LessTwentyCharStringException | AlreadyUsedException | SQLException e) {
+			} catch (NoButtonException | EmptyFieldException | LengthStringException | AlreadyUsedException | SQLException e) {
 				errorMsg = e.getMessage();
 				JOptionPane.showMessageDialog(popUpFrame, errorMsg);
 			}
@@ -311,18 +312,18 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 	 * @author Claire
 	 * @param attribute, label
 	 * @return attribute
-	 * @throws ZeroLengthStringException
-	 * @throws LessTwentyCharStringException 
+	 * @throws EmptyFieldException
+	 * @throws LengthStringException 
 	 * @throws SQLException 
 	 * @throws AlreadyUsedException
 	 * @version 25-10-2016
 	 */
-	private String controlAlias(String attribute, String label) throws ZeroLengthStringException, 
-	LessTwentyCharStringException, AlreadyUsedException, SQLException {
+	private String controlAlias(String attribute, String label) throws EmptyFieldException, 
+	LengthStringException, AlreadyUsedException, SQLException {
 
-		StringControl.isZeroLength(attribute);
-		StringControl.isLessTwentyChar(attribute, label);
-		StringControl.isAlreadyUsed(attribute);
+		PanelUserCRUDControl.isEmpty(attribute);
+		PanelUserCRUDControl.isLessTwentyChar(attribute, label);
+		PanelUserCRUDControl.isAliasAlreadyUsed(attribute);
 
 		return attribute;
 	}
