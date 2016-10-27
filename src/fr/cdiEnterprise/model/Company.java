@@ -33,13 +33,14 @@ public class Company {
 	public Company() {
 	}
 
-	public Company(int idCompany, String companyName, String adress, String postalCode, String city, Department department) {
+	public Company(int idCompany, String companyName, String adress, String postalCode, String city, Department department, Region region) {
 	
 		this.companyName = companyName;
 		this.adress = adress;
 		this.postalCode = postalCode;
 		this.city = city;
 		this.department = department;
+		this.region=region;
 		this.companyId = idCompany;
 	}
 
