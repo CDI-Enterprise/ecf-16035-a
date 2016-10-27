@@ -19,7 +19,7 @@ public class Favorite
 	private int idEnterprise;
 	private int idFavorite;
 	private String companyName;
-	private String noteCompany;
+	private String noteUser;
 	private String city;
 	private String size;
 	private String sector;
@@ -36,13 +36,13 @@ public class Favorite
 	
 	/**
 	 * Default constructor
-	 * @param noteCompany 
+	 * @param noteUser
 	 */
 
-	public Favorite(int idFavorite,String noteCompany) 
+	public Favorite(int idFavorite,String noteUser) 
 	{
 		id++;
-		this.noteCompany	= noteCompany;
+		this.noteUser	= noteUser;
 		this.idFavorite		= idFavorite;
 
 	}
@@ -62,7 +62,7 @@ public class Favorite
 	 * 
 	 */
 
-	public Favorite( int idFavorite,String companyName, String city, String size, String sector, String webSite, String contactMail, String noteCompany) 
+	public Favorite( int idFavorite,String companyName, String city, String size, String sector, String webSite, String contactMail, String noteUser) 
 	{
 		super();
 		id++;
@@ -73,7 +73,7 @@ public class Favorite
 		this.sector			= sector;
 		this.webSite		= webSite;
 		this.contactMail	= contactMail;
-		this.noteCompany	= noteCompany;
+		this.noteUser		= noteUser;
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class Favorite
 	 * 
 	 */
 	
-	public Favorite(String city, String size, String sector, String webSite, String contactMail, String note) 
+	public Favorite(String city, String size, String sector, String webSite, String contactMail, String noteUser) 
 	{
 		super();
 		id++;
@@ -99,7 +99,7 @@ public class Favorite
 		this.sector			= sector;
 		this.webSite		= webSite;
 		this.contactMail	= contactMail;
-		this.noteCompany	= note; 
+		this.noteUser		= noteUser; 
 	}
 
 	/**
@@ -135,8 +135,8 @@ public class Favorite
 	/**
 	 * @return the noteCompany
 	 */
-	public String getNoteCompany() {
-		return noteCompany;
+	public String getNoteUser() {
+		return noteUser;
 	}
 
 	/**
@@ -206,10 +206,10 @@ public class Favorite
 	}
 
 	/**
-	 * @param noteCompany the noteCompany to set
+	 * @param noteUser the noteCompany to set
 	 */
-	public void setNoteCompany(String noteCompany) {
-		this.noteCompany = noteCompany;
+	public void setNoteCompany(String noteUser) {
+		this.noteUser = noteUser;
 	}
 
 	/**
