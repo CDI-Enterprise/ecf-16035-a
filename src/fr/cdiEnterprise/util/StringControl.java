@@ -19,8 +19,8 @@ import fr.cdiEnterprise.exceptions.ZeroLengthStringException;
  */
 public class StringControl {
 
-	static boolean throwException;
-	
+	static boolean doThrowException;
+
 	/**
 	 * This method checks if the length of the String in parameter is equal to 0.
 	 * 
@@ -31,14 +31,24 @@ public class StringControl {
 	 * @version 23-10-2016
 	 */
 	public static boolean isZeroLength(String attribute) throws ZeroLengthStringException {
-		
-		if (attribute.length() == 0) {
-			throwException = true;
-			throw new ZeroLengthStringException("Vous devez remplir les champs obligatoires.");
+
+		if (attribute.isEmpty()) {
+			doThrowException = true;
+			throw new ZeroLengthStringException("Merci de remplir les champs obligatoires.");
 		}
-		return throwException;
+		return doThrowException;
 	}
-	
+
+	// A TESTER
+	public static boolean isLessTwentyChar(String attribute) throws LessTwentyCharStringException {
+
+		if (attribute.length() > 20) {
+			doThrowException = true;
+			throw new LessTwentyCharStringException();
+		}
+		return doThrowException;
+	}
+
 	/**
 	 * This method checks if the length of the String in parameter is bigger than 20.
 	 * 
@@ -50,12 +60,12 @@ public class StringControl {
 	 * @version 25-10-2016
 	 */
 	public static boolean isLessTwentyChar(String attribute, String label) throws LessTwentyCharStringException {
-		
+
 		if (attribute.length() > 20) {
-			throwException = true;
+			doThrowException = true;
 			throw new LessTwentyCharStringException(label + " doit faire moins de vingt caractères.");
 		}
-		return throwException;
+		return doThrowException;
 	}
 
 	/**
@@ -68,17 +78,16 @@ public class StringControl {
 	 * @version 25-10-2016
 	 */
 	public static boolean isAlreadyUsed(String attribute) throws AlreadyUsedException, SQLException {
-		
+
 		ArrayList<String> aliasList;
 		aliasList = UserDAO.getAliasList();
-		
+
 		for (String str : aliasList) {
 			if (attribute.equals(str)) {
-				throwException = true;
+				doThrowException = true;
 				throw new AlreadyUsedException("Désolé, le pseudo " + attribute + " est déjà utilisé.");
 			}
 		}
-		return throwException;
+		return doThrowException;
 	}
-
 }
