@@ -93,8 +93,9 @@ public class PanelSRCompaniesListeners implements ActionListener, MouseListener 
 
 				//Send the add
 				//favoriteDao.addFavorite(favoriteCompany);
-				favoriteDao.addFavorite(idFavorite, companyName, companyCity, companySize, companySector, companyWebSite, companyContactMail, noteUser);
-				System.out.println("hey" + favoriteDao);
+				FavoriteDao.createFavorite(favoriteCompany);
+				//addFavorite(idFavorite, companyName, companyCity, companySize, companySector, companyWebSite, companyContactMail, noteUser);
+				System.out.println("hey" + favoriteCompany);
 			}
 			catch (SQLException e1)
 			{

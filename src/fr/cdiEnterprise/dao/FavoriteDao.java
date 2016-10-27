@@ -12,6 +12,7 @@ import java.sql.Statement;
 
 import javax.swing.JComboBox;
 
+import fr.cdiEnterprise.model.Company;
 import fr.cdiEnterprise.model.Favorite;
 import fr.cdiEnterprise.service.Favorites;
 //import fr.cdiEnterprise.view.company.CompaniesSRPanel;
@@ -34,10 +35,10 @@ public class FavoriteDao
 	private static Statement stmt;
 	private static PreparedStatement prStmt;
 	private static PreparedStatement createFavorite;
-	private static PreparedStatement createNote;
+//	private static PreparedStatement createNote;
 	private JComboBox <String> lstMyFavorites;
-	private int rsNote;
-	private int rsFav;
+//	private int rsNote;
+	private static int rsFav;
 
 	/**
 	 * Create idMax for BDD
@@ -64,15 +65,41 @@ public class FavoriteDao
 	 * @param favorite
 	 * 
 	 */
-	public void addFavorite (int id, String companyName, String companyCity, String companySize, String companySector, String companyWebSite,String companyContactMail, String noteUser)
+	//public static String addFavorite (int id, String companyName, String companyCity, String companySize, String companySector, String companyWebSite,String companyContactMail, String noteUser)
+	public static String addFavorite(Company newFav)
 	{
-		rsNote =0; 
-		rsFav = 0 ; 
+		String createFav = null;
+		
+		String companyName 	= newFav.getCompanyName();
+		String companyCity 	= newFav.getCity();
+		String companySize 	= newFav.getCity();
+		String companySector = newFav.getSector();
+		String companyWebSite = newFav.getWebSite();
+		String companyContactMail = newFav.getContact().getEmail();
+
+		FavoriteDao newFavDAO = new FavoriteDao();
+
+		int resultFav = newFavDAO.createFavorite( companyName, companyCity, companySize, companySector, companyWebSite, companyContactMail);
+		
+		//Validité
+		if (resultFav == 0)
+		{
+			createFav = "Echec de création";
+		}
+		else 
+		{
+			createFav = resultFav + "favoris créer";	
+		}
+		return createFav;
+	}
+
+
+	protected int createFavorite(String companyName ,String companyCity, String companySize, String companySector,
+			String companyWebSite, String companyContactMail) 
+	{
+		rsFav = 0 ;
 		try
 		{
-			createNote = conn.prepareStatement("insert into favorite values (?,?)");
-			createNote.setInt(1, id);
-			createNote.setString(8, noteUser);
 			createFavorite = conn.prepareStatement("insert into favorite (?,?,?,?,?,?) select companyName, city, size, sector, webSite, contactMAil from company");
 			createFavorite.setString(2, companyName);
 			createFavorite.setString(3, companyCity);
@@ -80,23 +107,13 @@ public class FavoriteDao
 			createFavorite.setString(5, companySector);
 			createFavorite.setString(6, companyWebSite);
 			createFavorite.setString(7, companyContactMail);
-			rsNote = createNote.executeUpdate();
 			rsFav  = createFavorite.executeUpdate();
-			//stmt.executeUpdate("insert into favorite value(" + Favorite.getNoteCompany());
-			
-			//Recover data
-
-			//Insert favorite
-//
-//			stmt.executeUpdate("insert into favorite values (" +  favorite.getIdFavorite() + ",' "+ favorite.getCompanyName() +
-//					",'" + favorite.getCity() + ",'" + favorite.getSize() + ",'" + favorite.getSector() + ",'" + favorite.getWebSite() +
-//					",'"  + favorite.getContactMail() +  ",'" + favorite.getNoteCompany() + "')");
 		}
 		catch (SQLException e)
 		{
 			e.printStackTrace();
 		}
-//		return returnMark;	
+		return rsFav;
 	}
 
 
@@ -121,7 +138,7 @@ public class FavoriteDao
 		System.out.println(rs);
 
 		prStmt.close();
-		
+
 	}
 
 
@@ -159,7 +176,7 @@ public class FavoriteDao
 		String reqSql			= null;
 		ResultSet rsMyFavorite	= null;
 		reqSql					= "select companyName from favorite order by companyName";
-		
+
 		try
 		{
 			prStmt = conn.prepareStatement(reqSql);    
@@ -175,7 +192,7 @@ public class FavoriteDao
 				//.add("companyName");
 				System.out.println("CompanyName select : " + favList);
 			}
-		//	prStmt.close();
+			//	prStmt.close();
 			//rsMyFavorite.close();
 			System.out.println("f2" + favList);
 		}
@@ -187,42 +204,6 @@ public class FavoriteDao
 		prStmt.close();
 		return favList;	
 	}
-
-	//		Favorite cboCompanyName = new Favorite();
-	//
-	//		String companyName 	= null;
-	//		String reqSql		= null;
-	//		reqSql				= "select companyName from favorite order by companyName";
-	//		ResultSet rsMyFavorite	= null;
-	//		try
-	//		{
-	//			PreparedStatement myFavorite = conn.prepareStatement(reqSql);    
-	//			rsMyFavorite = myFavorite.executeQuery(reqSql)	;
-	//		}
-	//		catch (SQLException e)
-	//		{
-	//			System.out.println("Favorite : erreur myFavorite()");
-	//			e.printStackTrace();
-	//	
-	//		}
-	//		try{
-	//			while (rsMyFavorite.next()) 
-	//				{
-	//				lstMyFavorites.addItem(rsMyFavorite.getString("companyName"));
-	//				
-	//				//Create object
-	//				cboCompanyName = new Favorite(companyName);
-	//				stmt.close();
-	//				System.out.println(cboCompanyName);
-	//				}
-	//		}
-	//		catch (SQLException e)
-	//		{
-	//			System.out.println("Favorite : erreur myFavorite()");
-	//			e.printStackTrace();
-	//		}
-	//		return cboCompanyName;
-	//}
 
 	//To  display the result
 
@@ -306,8 +287,42 @@ public class FavoriteDao
 		System.out.println(rs);
 
 		prStmt.close();
+
+
+	}
+
+
+	public static int createFavorite(Favorite favoriteCompany) 
+	{
+		int id = favoriteCompany.getIdFavorite();
+		String noteUser = favoriteCompany.getNoteUser();
+		String companyName = favoriteCompany.getCompanyName();
+		String companyCity = favoriteCompany.getCity();
+		String companySize = favoriteCompany.getSize();
+		String companySector = favoriteCompany.getSector();
+		String companyWebSite = favoriteCompany.getWebSite();
+		String companyContactMail = favoriteCompany.getContactMail();
+		rsFav = 0 ;
 		
-		
+		try
+		{
+			createFavorite = conn.prepareStatement("insert into favorite values (?,?,?,?,?,?,?,?)");
+			
+			createFavorite.setInt(1,id);
+			createFavorite.setString(2, companyName);
+			createFavorite.setString(3, companyCity);
+			createFavorite.setString(4, companySize);
+			createFavorite.setString(5, companySector);
+			createFavorite.setString(6, companyWebSite);
+			createFavorite.setString(7, companyContactMail);
+			createFavorite.setString(8, noteUser);
+			rsFav  = createFavorite.executeUpdate();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return rsFav;	
 	}
 
 }

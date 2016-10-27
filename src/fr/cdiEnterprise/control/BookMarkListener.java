@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 import fr.cdiEnterprise.view.BookMarkPanel;
 
-import fr.cdiEnterprise.view.company.CompaniesSRPanel;
+//import fr.cdiEnterprise.view.company.CompaniesSRPanel;
 import fr.cdiEnterprise.view.company.CompanyDeletUpdatPanel;
 //import fr.cdiEnterprise.model.Contact;
 import fr.cdiEnterprise.model.Favorite;
@@ -34,17 +34,17 @@ public class BookMarkListener implements ActionListener
 {
 //
 	private String searchNameCompany;
-	//private int idCompany;
+	//private String;
 	private int idFavorite;
 	
 	//Attributed to add favorite
-	private String companyName;
-	private String companyCity;
-	private String companySize;
-	private String companySector;
-	private String companyWebSite;
-	private String companyContactMail;	
-	private String noteUser;
+//	private String companyName;
+//	private String companyCity;
+//	private String companySize;
+//	private String companySector;
+//	private String companyWebSite;
+//	private String companyContactMail;	
+//	private String noteUser;
 
 	private BookMarkPanel panFavorite = null;			//Attribute
 	private FavoriteDao favoriteDao;
@@ -91,12 +91,6 @@ public class BookMarkListener implements ActionListener
 			if (e.getSource() == mark.getBtnSearchBookMark()) btnSearch_click(mark);
 			if (e.getSource() == mark.getBtnGoCompanySheet()) btnGoCompany_click(mark);
 		}
-		//		else if (panFavorites instanceof fr.cdiEnterprise.view.company.CompaniesSRPanel)	//if cmbBookMarkValidate clicked
-		//		{
-		//			CompaniesSRPanel mark2 = (CompaniesSRPanel) panFavorites;
-		//			if (e.getSource() == mark2.getBtnFavoris()) btnValidate_click(mark2);		
-		//
-		//		}
 		else System.out.println("BookMarkListener - Error IHM");	 					//else message error
 	}
 
@@ -113,17 +107,12 @@ public class BookMarkListener implements ActionListener
 	 */
 	private void btnSee_click(BookMarkPanel mark) 
 	{
-		//TODO SEE
+	
+		//mark.gett
 
 
 
-		//Favorites favorites = see.lstFavorite();
-		//BookMarkPanel viewSee = new BookMarkPanel();
-		//		viewSee.setvi
 	}
-
-
-
 	/**
 	 * Remove company name to the list
 	 * @param mark
@@ -161,10 +150,11 @@ public class BookMarkListener implements ActionListener
 	private void btnSearch_click(BookMarkPanel mark) 		
 	{
 		searchNameCompany = mark.getTxtSearchBookMark().getText();
-
+	
+			
 	}
 
-	//lstMyFavorites
+
 
 	/**
 	 * To go in Company panel choosen
