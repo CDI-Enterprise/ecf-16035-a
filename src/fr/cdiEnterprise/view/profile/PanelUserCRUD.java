@@ -410,13 +410,22 @@ public class PanelUserCRUD extends JPanel {
 		}	
 	}
 
+	
+	
+	/**
+	 * @return the lblStatus
+	 */
+	public JLabel getLblStatus() {
+		return lblStatus;
+	}
+
 	/**
 	 * @return the statusGrp
 	 */
 	public ButtonGroup getStatusGrp() {
 		return statusGrp;
 	}
-
+	
 	/**
 	 * @return the optTrainee
 	 */

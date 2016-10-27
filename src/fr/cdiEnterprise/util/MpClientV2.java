@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 
 
-import fr.cdiEnterprise.dao.messageDao;
+import fr.cdiEnterprise.dao.MessageDao;
 import fr.cdiEnterprise.exceptions.CustomMessagingException;
 import fr.cdiEnterprise.model.Item;
 import fr.cdiEnterprise.service.Items;
@@ -94,7 +94,7 @@ public class MpClientV2 {
 	
 	
 	private Items getAllMessages() throws SQLException   {
-		return messageDao.getAllItems(this.box);
+		return MessageDao.getAllItems(this.box);
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class MpClientV2 {
 				idNumber = ID_NUMBER;
 				Item itm = new Item(from, to, object, body, timeStamp);
 				itm.setId(idNumber);
-				messageDao.insertItem(itm);
+				MessageDao.insertItem(itm);
 			} else {
 				throw new CustomMessagingException("le Destinataire ou le sujet sont vide.");
 			}
@@ -160,7 +160,7 @@ public class MpClientV2 {
 
 			repliedItem.setDraftEmail(false);
 			System.out.println("message envoye a la base");
-			messageDao.insertItem(repliedItem);
+			MessageDao.insertItem(repliedItem);
 
 		}else {
 			System.out.println("message envoye a la base");
@@ -173,7 +173,7 @@ public class MpClientV2 {
 				repliedItem.setSender(rcv);
 				
 				
-				messageDao.insertItem(repliedItem);
+				MessageDao.insertItem(repliedItem);
 				
 
 
@@ -197,7 +197,7 @@ public class MpClientV2 {
 	public void editDraft(Item toEdit) throws SQLException  {	
 		
 		if(toEdit !=null) {
-			messageDao.updateMessage(toEdit);
+			MessageDao.updateMessage(toEdit);
 		}
 		
 
@@ -219,7 +219,7 @@ public class MpClientV2 {
 		Item itm = new Item(idNumber, from, to, obj, bdy, null, draft);
 	
 
-		messageDao.insertItem(itm);
+		MessageDao.insertItem(itm);
 	
 	}
 
@@ -234,7 +234,7 @@ public class MpClientV2 {
 	public Items getMessages(boolean draft)  {
 
 		
-		myMessages = messageDao.getAllItems(this.box, draft);
+		myMessages = MessageDao.getAllItems(this.box, draft);
 		//System.out.println("numbers of email : " +myMessages.size());
 		
 		
@@ -249,14 +249,14 @@ public class MpClientV2 {
 	 */
 	public void removeMessage(int identifier, boolean draft) throws SQLException  {
 		
-		messageDao.removeMessage(this.box, identifier, draft);
+		MessageDao.removeMessage(this.box, identifier, draft);
 			
 	}
 	
 	public Items searchMessage(String input) {
 		Items items = new Items();
 		if(input != null) {
-			items = messageDao.searchMessage(input);
+			items = MessageDao.searchMessage(input);
 		}
 		
 		return items;

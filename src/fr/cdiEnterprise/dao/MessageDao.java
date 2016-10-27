@@ -28,7 +28,7 @@ import fr.cdiEnterprise.service.Items;
  * @version 19-10-2016
  *
  */
-public class messageDao {
+public class MessageDao {
 
 	private static String TABLE_NAME = "mailbox";
 	private static final String IDENTITY = "IDENTITY";

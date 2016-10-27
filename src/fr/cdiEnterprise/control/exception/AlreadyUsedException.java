@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.cdiEnterprise.exceptions;
+package fr.cdiEnterprise.control.exception;
 
 /**
  * This exception can be instantiate when the method isAlreadyUsed() is used.

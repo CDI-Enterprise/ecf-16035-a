@@ -16,15 +16,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import fr.cdiEnterprise.control.exception.AlreadyUsedException;
+import fr.cdiEnterprise.control.exception.LengthStringException;
+import fr.cdiEnterprise.control.exception.NoButtonException;
+import fr.cdiEnterprise.control.util.PanelUserCRUDControl;
+import fr.cdiEnterprise.control.exception.EmptyFieldException;
 import fr.cdiEnterprise.dao.UserDAO;
-import fr.cdiEnterprise.exceptions.AlreadyUsedException;
-import fr.cdiEnterprise.exceptions.LessTwentyCharStringException;
-import fr.cdiEnterprise.exceptions.ZeroLengthStringException;
 import fr.cdiEnterprise.model.FormerTrainee;
 import fr.cdiEnterprise.model.Trainee;
 import fr.cdiEnterprise.model.Trainer;
 import fr.cdiEnterprise.model.User;
-import fr.cdiEnterprise.util.StringControl;
 import fr.cdiEnterprise.view.profile.PanelUserCRUD;
 
 /**
@@ -47,6 +48,7 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 
 	// Attributes for input control
 	private String strLblAlias;
+	private String strLblStatus;
 
 	// Attributes do define the selected status
 	private ButtonGroup jrButtonGrp;
@@ -86,53 +88,45 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 
 		// TODO (Claire) create a new class DTO instead of calling DAO
 
-		// Calls the status selection method TODO (Claire) control method JRadioButton
+		// Gets the label if they're needed for the error pop-up frame
+		strLblAlias = panel.getLblAlias().getText();
+		strLblStatus = panel.getLblStatus().getText();
+
+		// Calls the status selection method
 		jrButtonGrp = panel.getStatusGrp();
 		jrButtonSelected = MethodsForListeners.getSelectedJRadioButton(jrButtonGrp);
-		status = jrButtonSelected.getText();
 
 		// Gets the input data
 		alias = panel.getTxtAlias().getText();
 		email = panel.getTxtMail().getText();
 		afpa = panel.getTxtAfpa().getText();
 
-		// Gets the label if they're needed for the error pop-up frame
-		strLblAlias = panel.getLblAlias().getText();
 
 		// CMD CANCEL
 		if (ae.getSource() == panel.getCmdCancel()) {
 			// Clears User JList
 			panel.getLstUsersDB().setSelectedIndices(new int[] {});
 
-			// Clears and re-enables status JRadioButton
-			jrButtonGrp.clearSelection();
-			panel.getOptTrainee().setEnabled(true);
-			panel.getOptFormerTrainee().setEnabled(true);
-			panel.getOptTrainer().setEnabled(true);
-
-			// Calls the method which clears and enables all JTextField 
-			allJTextFields = panel.getAllJTextFields();
-			MethodsForListeners.resetJTextField(allJTextFields);
+			clearInputPanel();
 		}
 
 		// CMD CREATE
 		if (ae.getSource() == panel.getCmdCreate()) {
 			try {
+				controlButton(jrButtonSelected, strLblStatus);
+				status = jrButtonSelected.getText();
 				// Depending on status, instantiates a Trainee or FormerTrainee or Trainer with User reference
 				switch (status) {
 				case "Stagiaire" :
 					user = new Trainee(status, controlAlias(alias, strLblAlias), email, afpa);
-					System.out.println(user); // Test code
 					break;
 
 				case "Ancien" :
 					user = new FormerTrainee(status, controlAlias(alias, strLblAlias), email, afpa);
-					System.out.println(user); // Test code
 					break;
 
 				case "Formateur" :
 					user = new Trainer(status, controlAlias(alias, strLblAlias), email, afpa);
-					System.out.println(user); // Test code
 					break;
 
 				default:
@@ -145,14 +139,16 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 					String creationDone = UserDAO.createUser(user); // With String for test code
 					panel.refresh(UserDAO.getUsersList());
 					System.out.println(creationDone); // Test code
+					clearInputPanel();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 
-			} catch (ZeroLengthStringException | LessTwentyCharStringException | AlreadyUsedException | SQLException e) {
+			} catch (NoButtonException | EmptyFieldException | LengthStringException | AlreadyUsedException | SQLException e) {
 				errorMsg = e.getMessage();
 				JOptionPane.showMessageDialog(popUpFrame, errorMsg);
 			}
+			
 		}
 
 		// CMD UPDATE
@@ -175,6 +171,8 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			
+			clearInputPanel();
 		}
 
 		// CMD DELETE
@@ -190,6 +188,8 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			
+			clearInputPanel();
 		}
 	}
 
@@ -202,8 +202,7 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 			// Gets the selected User and its index in the model list
 			selectedUser = (User) panel.getLstUsersDB().getSelectedValue();
 			// indexUser = panel.getLstUsersDB().getSelectedIndex();
-			System.out.println(selectedUser); // Test code
-
+		
 			// Displays informations of the selected User
 			panel.getTxtAlias().setText(selectedUser.getAlias());
 			panel.getTxtMail().setText(selectedUser.getEmail());
@@ -272,24 +271,58 @@ public class PanelUserCRUDListener implements ActionListener, MouseListener {
 	public void mouseReleased(MouseEvent arg0) {
 	}
 
+
+	/**
+	 * This method clears all the panWest: input field, button.
+	 * 
+	 * @author Claire
+	 * @version 26-10-2016 
+	 */
+	private void clearInputPanel() {
+		// Clears and re-enables status JRadioButton
+		jrButtonGrp.clearSelection();
+		panel.getOptTrainee().setEnabled(true);
+		panel.getOptFormerTrainee().setEnabled(true);
+		panel.getOptTrainer().setEnabled(true);
+
+		// Calls the method which clears and enables all JTextField 
+		allJTextFields = panel.getAllJTextFields();
+		MethodsForListeners.resetJTextField(allJTextFields);
+	}
+
+	/**
+	 * This method controls if a JRadioButton is null.
+	 * 
+	 * @param jrButtonSelected
+	 * @param label
+	 * @throws NoButtonException
+	 * @version 26-10-2016
+	 */
+	private void controlButton(JRadioButton jrButtonSelected, String label) throws NoButtonException {
+
+		if (jrButtonSelected == null) {
+			throw new NoButtonException("Merci de faire un choix pour " + label);
+		}
+	}
+
 	/**
 	 * This method controls the alias field input.
 	 * 
 	 * @author Claire
 	 * @param attribute, label
 	 * @return attribute
-	 * @throws ZeroLengthStringException
-	 * @throws LessTwentyCharStringException 
+	 * @throws EmptyFieldException
+	 * @throws LengthStringException 
 	 * @throws SQLException 
 	 * @throws AlreadyUsedException
 	 * @version 25-10-2016
 	 */
-	private String controlAlias(String attribute, String label) throws ZeroLengthStringException, 
-	LessTwentyCharStringException, AlreadyUsedException, SQLException {
+	private String controlAlias(String attribute, String label) throws EmptyFieldException, 
+	LengthStringException, AlreadyUsedException, SQLException {
 
-		StringControl.isZeroLength(attribute);
-		StringControl.isLessTwentyChar(attribute, label);
-		StringControl.isAlreadyUsed(attribute);
+		PanelUserCRUDControl.isEmpty(attribute);
+		PanelUserCRUDControl.isLessTwentyChar(attribute, label);
+		PanelUserCRUDControl.isAliasAlreadyUsed(attribute);
 
 		return attribute;
 	}

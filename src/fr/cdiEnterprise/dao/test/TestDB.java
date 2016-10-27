@@ -22,10 +22,12 @@ public class TestDB {
 		Items items = new Items();
 
 		
+		// TEST D'ENVOI DE MESSAGE
 		
-		// used to be tested with messageDAO  Item message2 = new Item("omy", "oracle", "test2", "This is a test.", LocalDateTime.now());
-		//message2.setDraftEmail(false);
-		//messageDao.insertItem(message2);
+		//used to be tested with messageDAO  
+		Item message2 = new Item("omy", "oracle", "test2", "This is a test.", LocalDateTime.now());
+		message2.setDraftEmail(false);
+		MessageDao.insertItem(message2);
 		
 		
 
