@@ -40,7 +40,7 @@ public class MessageDao {
 	private static final String DRAFT  = "DRAFT";
 	
 	/**
-	 * This class is going toinsert new message in the table.
+	 * This class is going to insert new message in the table.
 	 * @param item represent the item to insert.
 	 */
 	public static void insertItem(Item item) {
@@ -67,6 +67,7 @@ public class MessageDao {
 			object = item.getObject();
 			body = item.getBody();
 			draft = booleanToInt(item.isDraftEmail());
+			//System.out.println(item.isDraftEmail()+ " "+ draft);
 			if (draft == 0) {
 				date = localDateToString(item.getTimeStamp());
 			}
@@ -82,12 +83,7 @@ public class MessageDao {
 			statement.setString(5, body);
 			statement.setString(6, date);
 			statement.setInt(7, draft);
-			System.out.println(statement.toString());
 			statement.executeUpdate();
-			
-			
-
-
 			connection.commit();
 
 		} catch (SQLException e) {
@@ -385,6 +381,8 @@ public class MessageDao {
 		} 
 
 	}
+	
+
 
 	/**
 	 * This static method is going to be used to convert LocalDateTime in a

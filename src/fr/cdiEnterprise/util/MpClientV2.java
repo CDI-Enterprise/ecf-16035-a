@@ -43,11 +43,13 @@ public class MpClientV2 {
 
 	
 	private String box;
+
+
 	private Items myMessages;
 	
 	
 	/**
-	 * Ce constructeur vq d('abord charger tous les messages contenu dans la base pour l'utilisateur donné en parametre.
+	 * Ce constructeur va d'abord charger tous les messages contenu dans la base pour l'utilisateur donné en parametre.
 	 * par la suite il va charger seuelement les messages dans son attribu d'items.
 	 * @param usr represente la Boite de messagerie de l'utilsateur, aillant ouvert l'application.
 	 *  @throws SQLException exception venant de la class DAO
@@ -75,9 +77,11 @@ public class MpClientV2 {
 			if(all) {
 				items = getAllMessages();
 				for(Item current : items){
+					System.out.println(current.getId());
 					if(current.getId() > max) {
 						max = current.getId();
 						ID_NUMBER = max;
+						System.out.println("max " +ID_NUMBER);
 					}
 				}
 			
@@ -158,12 +162,12 @@ public class MpClientV2 {
 				repliedItem.setId(ID_NUMBER);
 		if(draft) {
 
-			repliedItem.setDraftEmail(false);
-			System.out.println("message envoye a la base");
+			repliedItem.setDraftEmail(true);
+			//System.out.println("message envoye a la base");
 			MessageDao.insertItem(repliedItem);
 
 		}else {
-			System.out.println("message envoye a la base");
+			//System.out.println("message envoye a la base");
 			
 				repliedItem.setObject("re: "+ object);
 				repliedItem.setTimeStamp(timeStamp);
@@ -263,6 +267,9 @@ public class MpClientV2 {
 		
 	}
 	
+
+	
+	
 //	/**
 //	 * going to pop one message with particular Id, and draft or not
 //	 * @param identifier 
@@ -321,6 +328,9 @@ public class MpClientV2 {
 		return myMessages;
 	}
 
+	public static int getID_NUMBER() {
+		return ID_NUMBER;
+	}
 //	
 //	
 }
