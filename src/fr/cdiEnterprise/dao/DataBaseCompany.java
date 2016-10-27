@@ -457,7 +457,7 @@ public class DataBaseCompany {
 			Department department = DataBaseCompany.getDepartmentId(departmentN);
 			Region region = DataBaseCompany.getRegionId(regionN);
 			
-			companies.add(new Company(companyId,companyName, companyAdress, postalcode, city, department));
+			companies.add(new Company(companyId,companyName, companyAdress, postalcode, city, department, region));
 
 		}
 		stmt.close();
@@ -672,8 +672,9 @@ public class DataBaseCompany {
 			String regionN =rs.getString("regionName");
 
 			Department department = DataBaseCompany.getDepartmentId(departmentN);
+			Region region = DataBaseCompany.getRegionId(regionN);
 
-			company = new Company(companyId,companyName, companyAdress, postalcode, city, department);
+			company = new Company(companyId,companyName, companyAdress, postalcode, city, department, region);
 		}
 		stmt.close();
 
