@@ -1,0 +1,15 @@
+fr.cdiEnterprise.application
+fr.cdiEnterprise.control
+fr.cdiEnterprise.control.exception
+fr.cdiEnterprise.control.util
+fr.cdiEnterprise.dao
+fr.cdiEnterprise.dao.test
+fr.cdiEnterprise.exceptions
+fr.cdiEnterprise.model
+fr.cdiEnterprise.service
+fr.cdiEnterprise.test
+fr.cdiEnterprise.util
+fr.cdiEnterprise.view
+fr.cdiEnterprise.view.company
+fr.cdiEnterprise.view.message
+fr.cdiEnterprise.view.profile
