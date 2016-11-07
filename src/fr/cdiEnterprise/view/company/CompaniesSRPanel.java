@@ -93,6 +93,7 @@ public class CompaniesSRPanel extends JPanel {
 	private JButton btnValidate;
 	private JButton btnCancel;
 	private JButton btnFavoris;
+	private JButton btnCacher;
 	private PanelSRCompaniesListeners clic;
 	private Border border;
 	
